@@ -9,15 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   Design tokens - brand colours sampled from the official MOIC logo
-   (indigo navy #2A327C, flag red #E21C2C, globe green #21A456)
+   Design tokens - brand colours sampled from the new MOIC logo
+   (navy gear #283579, green ribbon #137A41, gold rice #E6B92C)
+   Red stays a status colour only (overdue / errors), not a brand colour.
    ============================================================ */
 :root{
-  --m-dark:#1B2160; --m:#2A327C; --m-600:#3A45A0; --m-light:#7C86D1; --m-lite:#EEF0FA; --m-line:#D5D9F0;
-  --accent:#E21C2C;
+  --m-dark:#1B245C; --m:#283579; --m-600:#3A48A0; --m-light:#8590D3; --m-lite:#EEF0FA; --m-line:#D5D9F0;
+  --accent:#E6B92C; --accent-ink:#5C4300; --accent-lite:#FCF4DC;
   --ink:#141A33; --ink2:#3B4260; --muted:#6B7290;
   --line:#E4E6EF; --soft:#F4F5FA; --paper:#EFF1F6; --white:#fff;
-  --ok:#16834A; --okbg:#E5F4EC; --warn:#B4610A; --warnbg:#FDF0DE;
+  --ok:#137A41; --okbg:#E4F2EA; --warn:#B4610A; --warnbg:#FDF0DE;
   --bad:#C8202E; --badbg:#FDE9EA; --idle:#5F6782; --idlebg:#EEF0F5;
   --sh-sm:0 1px 2px rgba(20,26,51,.06);
   --sh-md:0 1px 2px rgba(20,26,51,.05),0 8px 24px rgba(20,26,51,.07);
@@ -37,7 +38,7 @@ button{font-family:inherit}
 
 /* ---------- app shell ---------- */
 .app{display:flex;height:100vh;overflow:hidden}
-.side{width:236px;flex:0 0 236px;background:linear-gradient(180deg,#1B2160 0%,#222A6E 60%,#262F78 100%);color:#C3C8EA;
+.side{width:236px;flex:0 0 236px;background:linear-gradient(180deg,#1B245C 0%,#222D6C 60%,#283579 100%);color:#C3C8EA;
   padding:16px 12px;overflow-y:auto;transition:width .18s,flex-basis .18s;display:flex;flex-direction:column}
 .side::-webkit-scrollbar{width:5px}
 .side::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:3px}
@@ -57,7 +58,7 @@ button{font-family:inherit}
 .mi.on{background:rgba(255,255,255,.13);color:#fff;font-weight:600;box-shadow:inset 3px 0 0 var(--accent)}
 .mi .ic{width:18px;flex:0 0 18px;display:inline-flex;align-items:center;justify-content:center}
 .mi .ic svg{width:17px;height:17px}
-.mi .cnt{margin-left:auto;background:var(--accent);color:#fff;border-radius:9px;padding:0 7px;font-size:10.5px;font-weight:600}
+.mi .cnt{margin-left:auto;background:var(--bad);color:#fff;border-radius:9px;padding:0 7px;font-size:10.5px;font-weight:600}
 .mi.soon{opacity:.48}
 .mi.sub{padding-left:40px;font-size:12px;color:#A4ABDB}
 .mi.sub.on{background:rgba(255,255,255,.08);color:#fff;font-weight:600;box-shadow:none}
@@ -83,7 +84,7 @@ button{font-family:inherit}
 .bell svg{width:18px;height:18px}
 .bell:hover{background:var(--m-lite);color:var(--m)}
 .bell.open{background:var(--m-lite);border-color:var(--m-line);color:var(--m)}
-.bell b{position:absolute;top:2px;right:2px;background:var(--accent);color:#fff;font-size:9px;
+.bell b{position:absolute;top:2px;right:2px;background:var(--bad);color:#fff;font-size:9px;
   border-radius:8px;padding:0 4px;font-weight:700;line-height:1.55;border:2px solid #fff}
 .panel{position:absolute;right:0;top:44px;width:352px;background:var(--white);border:1px solid var(--line);
   border-radius:12px;box-shadow:var(--sh-lg);z-index:60;overflow:hidden}
@@ -122,7 +123,7 @@ button{font-family:inherit}
   font-size:12.5px;color:var(--ink2);font-family:inherit;min-width:0}
 select.sel{cursor:pointer;height:38px;flex:0 1 190px}
 .inp{flex:0 1 320px}
-.sel:focus,.inp:focus{outline:none;border-color:var(--m-600);box-shadow:0 0 0 3px rgba(58,69,160,.15)}
+.sel:focus,.inp:focus{outline:none;border-color:var(--m-600);box-shadow:0 0 0 3px rgba(58,72,160,.15)}
 
 /* ---------- KPI tiles ---------- */
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
@@ -166,7 +167,7 @@ select.sel{cursor:pointer;height:38px;flex:0 1 190px}
 /* dashboard top row: next-task hero + supporting KPIs */
 .dashtop{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:14px;margin-bottom:18px}
 .nexttask{border-radius:var(--r);padding:20px 22px;color:#fff;position:relative;overflow:hidden;
-  background:linear-gradient(120deg,#1B2160 0%,#2A327C 55%,#3A45A0 100%);box-shadow:var(--sh-md);
+  background:linear-gradient(120deg,#1B245C 0%,#283579 55%,#3A48A0 100%);box-shadow:var(--sh-md);
   display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .nexttask:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;
   background:radial-gradient(circle,rgba(255,255,255,.12),rgba(255,255,255,0) 70%);pointer-events:none}
@@ -178,9 +179,9 @@ select.sel{cursor:pointer;height:38px;flex:0 1 190px}
 .nexttask .btn{background:#fff;color:var(--m);font-weight:600;position:relative;z-index:1}
 .nexttask .btn:hover{background:var(--m-lite)}
 .nexttask .live{width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block;margin-right:7px;
-  box-shadow:0 0 0 0 rgba(226,28,44,.6);animation:pulse 1.8s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(226,28,44,.55)}70%{box-shadow:0 0 0 8px rgba(226,28,44,0)}100%{box-shadow:0 0 0 0 rgba(226,28,44,0)}}
-.nexttask.calm{background:linear-gradient(120deg,#0F5F37 0%,#16834A 60%,#21A456 100%)}
+  box-shadow:0 0 0 0 rgba(230,185,44,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(230,185,44,.55)}70%{box-shadow:0 0 0 8px rgba(230,185,44,0)}100%{box-shadow:0 0 0 0 rgba(230,185,44,0)}}
+.nexttask.calm{background:linear-gradient(120deg,#0C5A2F 0%,#137A41 60%,#1E9455 100%)}
 
 /* portfolio strip (maker) */
 .pstrip{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);
@@ -190,7 +191,7 @@ select.sel{cursor:pointer;height:38px;flex:0 1 190px}
 .pstrip .k{font-size:11.5px;color:var(--muted)}
 .pstrip .v{font-size:20px;font-weight:700;font-family:'IBM Plex Mono',monospace;letter-spacing:-.02em}
 .pstrip .bar{height:8px;border-radius:5px;background:var(--soft);overflow:hidden;margin-top:6px}
-.pstrip .bar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--m),#21A456)}
+.pstrip .bar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--m),var(--ok))}
 
 .dlegend{display:flex;flex-direction:column;gap:2px;flex:1;min-width:200px}
 .dlegend .row{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;font-size:12.5px;transition:.15s}
@@ -226,7 +227,7 @@ select.sel{cursor:pointer;height:38px;flex:0 1 190px}
 .card .c{padding:14px 18px 18px;overflow-x:auto}
 .card.hot{border-color:var(--m-line);box-shadow:0 0 0 1px var(--m-line),var(--sh-md)}
 .card.hot:before{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--m),var(--accent))}
-.card.hot .h .cnt{background:var(--accent);color:#fff}
+.card.hot .h .cnt{background:var(--m);color:#fff}
 .sech{display:flex;align-items:baseline;gap:10px;margin:28px 0 12px}
 .sech:first-child{margin-top:0}
 .sech h2{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
@@ -275,7 +276,8 @@ tbody tr:hover td{background:#F6F7FD}
 td.num{white-space:nowrap}
 .empty{padding:40px 24px;text-align:center;color:var(--muted);font-size:12.5px;display:flex;flex-direction:column;align-items:center;gap:4px}
 .empty:before{content:"";width:40px;height:40px;border-radius:50%;margin-bottom:8px;
-  background:var(--soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3A9C2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/18px no-repeat}
+  background:var(--soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3A9C2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 12h-6l-2 3h-4l-2-3H2'/%3E%3Cpath d='M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z'/%3E%3C/svg%3E") center/18px no-repeat}
+.empty.doc:before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3A9C2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z'/%3E%3Cpath d='M14 2v4a2 2 0 0 0 2 2h4'/%3E%3C/svg%3E")}
 .empty b{display:block;color:var(--ink2);font-size:13px;font-weight:600}
 
 .capcard{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin-bottom:12px}
@@ -298,29 +300,65 @@ td.num{white-space:nowrap}
 .lnk{color:var(--m);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
 .lnk:hover{text-decoration:underline}
 .kv{font-size:12.5px}
-.kv>div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--soft)}
+.kv>div{display:grid;grid-template-columns:minmax(100px,170px) minmax(0,1fr);gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--soft)}
 .kv>div:last-child{border:0}
-.kv .k{color:var(--muted);flex-shrink:0} .kv .v{font-weight:500;text-align:right}
-.reglist{border:1px solid var(--line);border-radius:10px;overflow:hidden;flex:1.3;min-width:280px}
-.regrow{display:flex;justify-content:space-between;gap:14px;padding:9px 14px;font-size:12px}
-.regrow:nth-child(even){background:var(--soft)}
-.regrow .k{color:var(--muted)} .regrow .v{font-weight:600;color:var(--ink);text-align:right}
-.regmap{flex:1;min-width:240px;display:flex;flex-direction:column;gap:6px}
-.regmap .cap{font-size:11px;color:var(--muted);text-align:center}
+.kv .k{color:var(--muted)} .kv .v{font-weight:500;color:var(--ink);text-align:left;overflow-wrap:anywhere}
+.regmap{display:flex;flex-direction:column;gap:6px;margin-top:14px;flex:1}
+.regmap #regmap{width:100%;flex:1;min-height:240px;border-radius:10px;border:1px solid var(--line)}
+.regmap .cap{font-size:11px;color:var(--muted)}
 .leaflet-container{z-index:0;background:var(--soft)}
 
-/* action bar on top of detail pages */
-.actbar{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);
-  padding:14px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:16px}
-.actbar .ab-st{display:flex;flex-direction:column;gap:6px}
-.actbar .ab-meta{display:flex;gap:26px;flex-wrap:wrap;flex:1}
-.actbar .ab-meta .k{font-size:11px;color:var(--muted)}
-.actbar .ab-meta .v{font-size:15px;font-weight:700;font-family:'IBM Plex Mono',monospace;letter-spacing:-.02em;margin-top:1px}
-.actbar .ab-meta .v small{font-family:'IBM Plex Sans','Noto Sans Lao',sans-serif;font-size:11px;font-weight:500;color:var(--muted);margin-left:4px}
-.actbar .acts{margin-left:auto;align-items:center}
-.actbar .ab-why{flex-basis:100%;display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:-4px}
-.actbar .why{font-size:12px;color:var(--bad);background:var(--badbg);padding:6px 12px;border-radius:7px;line-height:1.5}
-.actbar .why.info{color:var(--m);background:var(--m-lite)}
+/* capital summary card (detail / owner / valuation job) */
+.sumcard{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);margin-bottom:16px;overflow:hidden}
+.sc-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 20px 0}
+.sc-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0}
+.sc-h h3{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.sc-top>.acts{margin-left:auto}
+.sc-prog{padding:16px 20px 4px}
+.sc-pl{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px;font-size:12.5px;color:var(--muted)}
+.sc-pl>b{font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-.03em;line-height:1}
+.sc-pl b{color:var(--ink)}
+.sc-prog .bar{height:10px;border-radius:6px;background:var(--soft);overflow:hidden}
+.sc-prog .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--m),var(--ok))}
+.sc-prog .bar.over i{background:linear-gradient(90deg,#E07A4A,var(--bad))}
+.sc-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:14px 0 0;border-top:1px solid var(--line)}
+.sc-metrics .sm{padding:14px 20px;border-left:1px solid var(--line);min-width:0}
+.sc-metrics .sm:first-child{border-left:0}
+.sc-metrics .k{font-size:11.5px;color:var(--muted);margin-bottom:4px}
+.sc-metrics .v{font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.02em;overflow-wrap:anywhere}
+.sc-metrics .v small{font-size:11px;font-weight:500;color:var(--muted)}
+.sc-metrics .s{font-size:11px;color:var(--muted);margin-top:2px}
+.sc-metrics .sm.ok .v{color:var(--ok)} .sc-metrics .sm.warn .v{color:var(--warn)} .sc-metrics .sm.bad .v,.sc-metrics .sm.bad .s{color:var(--bad)}
+.sc-note{display:flex;align-items:center;gap:12px;padding:11px 20px;border-top:1px solid var(--line);font-size:12.5px;flex-wrap:wrap}
+.sc-note .ni{width:28px;height:28px;flex:0 0 28px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.sc-note .ni svg{width:16px;height:16px}
+.sc-note .nt{flex:1;min-width:200px;line-height:1.55}
+.sc-note.bad{background:#FFF6F6;color:#8A1F28}
+.sc-note.bad .ni{background:var(--badbg);color:var(--bad)}
+.sc-note.info{background:var(--m-lite);color:var(--m-dark)}
+.sc-note.info .ni{background:#fff;color:var(--m)}
+
+/* registration details: grouped summary lists */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px 36px}
+.rcol{min-width:0;display:flex;flex-direction:column}
+.c>.rsec:first-child{margin-top:0}
+.rsec{margin-top:18px}
+.rcol>.rsec:first-child{margin-top:0}
+.rsec h4{font-size:11px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;
+  display:flex;align-items:center;gap:8px}
+.rsec h4:after{content:"";flex:1;height:1px;background:var(--line)}
+.sl>div{display:grid;grid-template-columns:minmax(110px,180px) minmax(0,1fr);gap:14px;padding:8px 0;border-bottom:1px dashed var(--line);align-items:baseline}
+.sl>div:last-child{border-bottom:0}
+.sl dt{font-size:12px;color:var(--muted)}
+.sl dd{font-size:13px;color:var(--ink);font-weight:500;overflow-wrap:anywhere}
+
+/* work pages: content on the left, the decision / form column on the right */
+.worksplit{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(320px,1fr);gap:16px;align-items:start}
+.sticky{position:sticky;top:0}
+.stack{display:flex;flex-direction:column;gap:14px}
+.card.decide{border-color:var(--m-line);box-shadow:0 0 0 1px var(--m-line),var(--sh-md)}
+.card.decide:before{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--m),var(--accent))}
+.filerow .fic{font-size:12px}
 
 /* filter bar + toolbar */
 .fbar{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);padding:14px 18px;margin-bottom:16px}
@@ -365,7 +403,7 @@ td.num{white-space:nowrap}
 .radio{display:flex;gap:10px;margin-bottom:15px}
 .opt{flex:1;border:1px solid var(--line);border-radius:10px;padding:14px 15px;cursor:pointer;background:var(--white);transition:.12s}
 .opt:hover{border-color:var(--m-light)}
-.opt.on{border-color:var(--m);background:var(--m-lite);box-shadow:0 0 0 2px rgba(42,50,124,.14)}
+.opt.on{border-color:var(--m);background:var(--m-lite);box-shadow:0 0 0 2px rgba(40,53,121,.14)}
 .opt .t{font-size:13px;font-weight:600;margin-bottom:4px}
 .opt .s{font-size:11.5px;color:var(--muted);line-height:1.6}
 .field{margin-bottom:14px;min-width:0}
@@ -374,7 +412,7 @@ td.num{white-space:nowrap}
   border-radius:8px;padding:10px 12px;font-size:13px;font-family:inherit;color:var(--ink);transition:border-color .12s,box-shadow .12s}
 .field select{height:40px;padding-top:0;padding-bottom:0}
 .field input:hover,.field select:hover,.field textarea:hover{border-color:#C6CADB}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--m-600);box-shadow:0 0 0 3px rgba(58,69,160,.15)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--m-600);box-shadow:0 0 0 3px rgba(58,72,160,.15)}
 .field input.big{font-size:18px;font-weight:600;font-family:'IBM Plex Mono',monospace}
 .hint{font-size:11px;color:var(--muted);margin-top:5px}
 .hint.err{color:var(--bad)}
@@ -385,7 +423,7 @@ td.num{white-space:nowrap}
 .fseg{display:inline-flex;background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px;flex-wrap:wrap}
 .fseg button{border:0;background:transparent;font-family:inherit;font-size:12px;color:var(--ink2);padding:7px 14px;border-radius:7px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .fseg button:hover{color:var(--ink)}
-.fseg button.on{background:var(--m);color:#fff;font-weight:600;box-shadow:0 1px 3px rgba(42,50,124,.3)}
+.fseg button.on{background:var(--m);color:#fff;font-weight:600;box-shadow:0 1px 3px rgba(40,53,121,.3)}
 .roinfo{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:10px 13px}
 .roinfo .k{font-size:11px;color:var(--muted);margin-bottom:4px}
 .roinfo .v{font-size:14px;font-weight:600;color:var(--ink)}
@@ -427,7 +465,7 @@ td.num{white-space:nowrap}
 .otp{display:flex;gap:8px;margin-bottom:8px}
 .otp input{flex:1 1 0;min-width:0;width:100%;height:50px;padding:0;border:1px solid #DADDE8;border-radius:9px;
   text-align:center;font-size:20px;font-weight:600;font-family:'IBM Plex Mono',monospace;color:var(--ink)}
-.otp input:focus{outline:none;border-color:var(--m-600);box-shadow:0 0 0 3px rgba(58,69,160,.15)}
+.otp input:focus{outline:none;border-color:var(--m-600);box-shadow:0 0 0 3px rgba(58,72,160,.15)}
 .sig{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--soft);margin-bottom:16px}
 .sig .nm{font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--ink);letter-spacing:.04em}
 .sig .mt{font-size:10.5px;color:var(--muted);margin-top:5px;line-height:1.6}
@@ -455,13 +493,14 @@ td.num{white-space:nowrap}
 
 /* ---------- login ---------- */
 .login{display:grid;grid-template-columns:1.15fr 1fr;height:100vh;overflow:hidden}
-.login .lf{background:linear-gradient(160deg,rgba(27,33,96,.86) 0%,rgba(27,33,96,.94) 60%,rgba(20,24,72,.97) 100%),url('MOIC01.webp') center/cover no-repeat,var(--m-dark);
+.login .lf{background:linear-gradient(160deg,rgba(27,36,92,.86) 0%,rgba(27,36,92,.94) 60%,rgba(20,27,70,.97) 100%),url('MOIC01.webp') center/cover no-repeat,var(--m-dark);
   color:#fff;padding:52px 56px;display:flex;flex-direction:column;overflow-y:auto;position:relative}
-.login .lf:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--accent) 0 33%,#2A327C 33% 66%,#21A456 66%)}
+.login .lf:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--accent) 0 33%,#3A48A0 33% 66%,var(--ok) 66%)}
 .sealrow{display:flex;align-items:center;gap:13px;margin-bottom:28px}
 .moic-logo{width:44px;height:44px;object-fit:contain;border-radius:8px;background:#fff;padding:3px}
 .brand .moic-logo{width:34px;height:34px;padding:3px;border-radius:50%;flex:0 0 34px}
-.moic-logo-login{width:150px;height:150px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(255,255,255,.55))}
+.moic-logo-login{width:132px;height:132px;object-fit:contain;background:#fff;border-radius:50%;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.25),0 0 0 6px rgba(255,255,255,.12)}
+.mlogo{display:none;width:72px;height:72px;object-fit:contain;margin:0 auto 18px}
 .login h1{font-size:30px;font-weight:700;line-height:1.35;letter-spacing:-.02em;margin-bottom:14px;max-width:560px}
 .login h1 span{color:#fff;display:inline-block;margin-top:6px;padding:2px 12px;border-radius:8px;background:rgba(255,255,255,.12);
   border:1px solid rgba(255,255,255,.2);font-size:22px;letter-spacing:.06em}
@@ -482,7 +521,7 @@ td.num{white-space:nowrap}
 .acct{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:7px;cursor:pointer;
   display:flex;align-items:center;gap:11px;transition:.14s;background:var(--white)}
 .acct:hover{border-color:var(--m-light);background:var(--m-lite)}
-.acct.on{border-color:var(--m);background:var(--m-lite);box-shadow:0 0 0 2px rgba(42,50,124,.13)}
+.acct.on{border-color:var(--m);background:var(--m-lite);box-shadow:0 0 0 2px rgba(40,53,121,.13)}
 .acct .av{width:34px;height:34px;flex:0 0 34px;border-radius:50%;background:var(--m);color:#fff;font-size:12px;
   font-weight:600;display:flex;align-items:center;justify-content:center}
 .acct .nm{font-size:13px;font-weight:600}
@@ -511,14 +550,90 @@ td.num{white-space:nowrap}
 .plabel{text-align:center;font-size:11.5px;color:var(--muted);margin-top:11px}
 
 .split70{display:grid;grid-template-columns:7fr 3fr;gap:14px;margin-bottom:16px;align-items:stretch}
-@media(max-width:1180px){.dashtop{grid-template-columns:1fr 1fr}.dashtop .nexttask{grid-column:1/-1}
+/* mobile nav pieces (hidden on desktop) */
+.mburger{display:none;width:36px;height:36px;flex:0 0 36px;border:1px solid var(--line);border-radius:9px;background:var(--white);
+  color:var(--ink2);font-size:16px;cursor:pointer;align-items:center;justify-content:center}
+.navveil{display:none}
+.ttl{min-width:0}
+.ttl .title,.ttl .tsub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+@media(max-width:1180px){
+  .dashtop{grid-template-columns:1fr 1fr}.dashtop .nexttask{grid-column:1/-1}
   .pstrip{grid-template-columns:repeat(2,minmax(0,1fr))}.pstrip>div:first-child{grid-column:1/-1;border-bottom:1px solid var(--line)}
   .pstrip>div:nth-child(4){border-left:0}
-  .fbar .frow.main{grid-template-columns:1fr 1fr}}
-@media(max-width:1100px){.split{grid-template-columns:1fr}.declrow{grid-template-columns:1fr}.split70{grid-template-columns:1fr!important}}
+  .fbar .frow.main{grid-template-columns:1fr 1fr}
+  .worksplit{grid-template-columns:minmax(0,1fr) minmax(300px,.9fr)}
+}
+@media(max-width:1100px){
+  .split{grid-template-columns:1fr}.declrow{grid-template-columns:1fr}.split70{grid-template-columns:1fr!important}
+}
+@media(max-width:980px){
+  .worksplit{grid-template-columns:1fr}.sticky{position:static}
+  .worksplit>.stack{order:-1} /* review pages: the case and the decision before the reference data */
+}
+/* tablet / phone: sidebar becomes an off-canvas drawer */
 @media(max-width:900px){
-  .kpis{grid-template-columns:repeat(2,1fr)!important} .grid3,.login,.split70{grid-template-columns:1fr!important}
-  .steps{flex-direction:column} .login .lf{display:none} .uinfo{display:none} .body{padding:18px 16px 32px} .top{padding:10px 16px}
+  .side{position:fixed;left:0;top:0;bottom:0;z-index:250;width:264px!important;flex-basis:auto!important;
+    transform:translateX(-100%);transition:transform .2s ease;box-shadow:var(--sh-lg)}
+  .app.mini .side .lbl,.app.mini .side .sect,.app.mini .side .brand,.app.mini .side .sfoot{display:revert}
+  .app.mini .side .brand{display:flex}
+  .app.navopen .side{transform:none}
+  .app.navopen .navveil{display:block;position:fixed;inset:0;background:rgba(14,18,48,.45);z-index:240}
+  .mburger{display:inline-flex}
+  .top{padding:10px 16px;gap:10px;min-height:58px}
+  .title{font-size:16px}
+  .uinfo,.ubtn .car{display:none}
+  .ubtn{padding:3px;border-radius:50%}
+  .body{padding:16px 16px 32px}
+  .kpis{grid-template-columns:repeat(2,1fr)!important}
+  .grid3,.login,.split70{grid-template-columns:1fr!important}
+  .steps{flex-direction:column}
+  .login .lf{display:none}
+  .login .rt2{padding:28px 20px}
+  .mlogo{display:block}
+  .toolbar .sp{display:none}
+  .stepc .scwrap{width:auto;flex:1}
+  .stepc .scline{margin:16px -10px 0}
+  .stepc .scl{font-size:10.5px}
+}
+@media(max-width:640px){
+  .top .lang{display:none}
+  .dashtop{grid-template-columns:1fr}
+  .nexttask{padding:16px}
+  .nexttask .nn{font-size:34px}
+  .nexttask .btn{width:100%}
+  .pstrip{grid-template-columns:1fr 1fr}
+  .fbar .frow.main,.fbar .frow{grid-template-columns:1fr}
+  .fbar .fx{justify-content:space-between;height:auto}
+  /* phone reading order: status, numbers, notices, then the actions */
+  .sumcard{display:flex;flex-direction:column}
+  .sc-top{display:contents}
+  .sc-h{padding:14px 16px 0;order:0}
+  .sc-prog{order:1} .sc-metrics{order:2} .sc-note{order:3}
+  .sc-top>.acts{order:4;margin:0;padding:12px 16px 16px;border-top:1px solid var(--line);flex-direction:column}
+  .sc-top>.acts .btn{width:100%}
+  .sc-prog{padding:14px 16px 4px}
+  .sc-metrics{grid-template-columns:1fr 1fr}
+  .sc-metrics .sm{padding:12px 16px;border-left:0;border-top:1px solid var(--line)}
+  .sc-metrics .sm:nth-child(even){border-left:1px solid var(--line)}
+  .sc-metrics .sm:nth-child(-n+2){border-top:0}
+  .sc-note{padding:11px 16px}
+  .sl>div{grid-template-columns:1fr;gap:2px}
+  .kv>div{grid-template-columns:1fr;gap:2px}
+  .rgrid{grid-template-columns:1fr}
+  .card .h{padding:14px 16px 0}
+  .card .c{padding:12px 16px 16px}
+  .panel{position:fixed;left:12px;right:12px;top:62px;width:auto}
+  .upanel{position:fixed;left:12px;right:12px;top:62px;width:auto}
+  .modal{padding:22px 18px}
+  .toasts{left:12px;right:12px;transform:none;bottom:16px}
+  .toast{max-width:none;width:100%}
+}
+@media(max-width:360px){
+  .kpis{grid-template-columns:1fr!important}
+  .sc-metrics{grid-template-columns:1fr}
+  .sc-metrics .sm{border-left:0!important;border-top:1px solid var(--line)!important}
+  .sc-metrics .sm:first-child{border-top:0!important}
 }
 </style>
 </head>
@@ -543,7 +658,7 @@ lo:{
  coop:'ໂມດູນການປະກອບທຶນຈົດທະບຽນ (Phase 1) - ຮ່ວມມືລະຫວ່າງ MOIC ແລະ ທະນາຄານສົ່ງເສີມກະສິກຳ (APB)',
  s1:'ວິສາຫະກິດຂຶ້ນທະບຽນ',s2:'ລ້ານລ້ານກີບ ທຶນຈົດທະບຽນ',s3:'ຂະບວນການທຸລະກຳ',
  pickAcct:'ເຂົ້າສູ່ລະບົບ',loginHint:'ພິມຊື່ຜູ້ໃຊ້ (ມີລາຍຊື່ demo ໃຫ້ autocomplete) ແລ້ວໃສ່ລະຫັດຜ່ານໃດກໍ່ໄດ້',
- nxCk:'ລາຍການລໍໃຫ້ທ່ານກວດສອບ',nxAp:'ລາຍການລໍໃຫ້ທ່ານອະນຸມັດ ແລະ E-Sign',nxNext:'ລາຍການຕໍ່ໄປ',nxStartCk:'ເລີ່ມກວດສອບ',nxStartAp:'ເປີດເພື່ອລົງນາມ',nxClear:'ບໍ່ມີວຽກຄ້າງ',nxClearS:'ບໍ່ມີລາຍການລໍຖ້າທ່ານໃນຕອນນີ້',nxValue:'ມູນຄ່າລວມ',pfTitle:'ພາບລວມພອດ',pfPaidCap:'ທຶນທີ່ຊຳລະແລ້ວ',advFilters:'ຕົວກອງເພີ່ມເຕີມ',kwPh:'ຄົ້ນຫາດ້ວຍຊື່ ຫຼື ເລກທະບຽນ',kwLbl:'ຄົ້ນຫາ',entList:'ລາຍຊື່ວິສາຫະກິດ',demoAccts:'ບັນຊີເດໂມ',unpaidInv:'ໃບແຈ້ງໜີ້ຄ້າງຊຳລະ',
+ nxCk:'ລາຍການລໍໃຫ້ທ່ານກວດສອບ',nxAp:'ລາຍການລໍໃຫ້ທ່ານອະນຸມັດ ແລະ E-Sign',nxNext:'ລາຍການຕໍ່ໄປ',nxStartCk:'ເລີ່ມກວດສອບ',nxStartAp:'ເປີດເພື່ອລົງນາມ',nxClear:'ບໍ່ມີວຽກຄ້າງ',nxClearS:'ບໍ່ມີລາຍການລໍຖ້າທ່ານໃນຕອນນີ້',nxValue:'ມູນຄ່າລວມ',pfTitle:'ພາບລວມພອດ',pfPaidCap:'ທຶນທີ່ຊຳລະແລ້ວ',advFilters:'ຕົວກອງເພີ່ມເຕີມ',kwPh:'ຄົ້ນຫາດ້ວຍຊື່ ຫຼື ເລກທະບຽນ',kwLbl:'ຄົ້ນຫາ',entList:'ລາຍຊື່ວິສາຫະກິດ',demoAccts:'ບັນຊີເດໂມ',unpaidInv:'ໃບແຈ້ງໜີ້ຄ້າງຊຳລະ',secIdentity:'ຂໍ້ມູນວິສາຫະກິດ',secRegistration:'ການຈົດທະບຽນ',secLocation:'ທີ່ຕັ້ງ',secTaxFin:'ອາກອນ ແລະ ການເງິນ',valAssetCard:'ຊັບສິນທີ່ປະເມີນ',menuLbl:'ເມນູ',
  loginUser:'ຊື່ຜູ້ໃຊ້',loginPass:'ລະຫັດຜ່ານ',loginNext:'ຖັດໄປ',loginBack:'← ກັບຄືນ',
  otpTitle:'ຢືນຢັນຕົວຕົນ (MFA)',login:'ເຂົ້າສູ່ລະບົບ',
  forgotPw:'ລືມລະຫັດຜ່ານ?',forgotTitle:'ກູ້ຄືນລະຫັດຜ່ານ',forgotIdLbl:'ອີເມວ ຫຼື ເບີໂທລະສັບ',
@@ -707,7 +822,7 @@ en:{
  coop:'Capital Contribution Module (Phase 1) - a joint effort of MOIC and the Agricultural Promotion Bank (APB)',
  s1:'Registered enterprises',s2:'Trillion LAK registered capital',s3:'Business processes',
  pickAcct:'Sign in',loginHint:'Type a username (demo accounts autocomplete) and any password',
- nxCk:'items waiting for your verification',nxAp:'items waiting for your approval and E-Sign',nxNext:'Next up',nxStartCk:'Start review',nxStartAp:'Open to sign',nxClear:'All caught up',nxClearS:'Nothing is waiting on you right now',nxValue:'Total value',pfTitle:'Portfolio',pfPaidCap:'Capital paid up',advFilters:'More filters',kwPh:'Search by name or registration no.',kwLbl:'Search',entList:'Enterprises',demoAccts:'Demo accounts',unpaidInv:'unpaid invoice(s)',
+ nxCk:'items waiting for your verification',nxAp:'items waiting for your approval and E-Sign',nxNext:'Next up',nxStartCk:'Start review',nxStartAp:'Open to sign',nxClear:'All caught up',nxClearS:'Nothing is waiting on you right now',nxValue:'Total value',pfTitle:'Portfolio',pfPaidCap:'Capital paid up',advFilters:'More filters',kwPh:'Search by name or registration no.',kwLbl:'Search',entList:'Enterprises',demoAccts:'Demo accounts',unpaidInv:'unpaid invoice(s)',secIdentity:'Identity',secRegistration:'Registration',secLocation:'Location',secTaxFin:'Tax & finance',valAssetCard:'Asset under valuation',menuLbl:'Menu',
  loginUser:'Username',loginPass:'Password',loginNext:'Next',loginBack:'← Back',
  otpTitle:'Verify identity (MFA)',login:'Sign in',
  forgotPw:'Forgot password?',forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
@@ -889,16 +1004,7 @@ function toast(a,b,ok){
   setTimeout(function(){d.style.transition='.3s';d.style.opacity='0';setTimeout(function(){d.remove()},320)},4300);
 }
 
-/* ---------- donut charts (replaces all progress-bar style visuals) ---------- */
-function donutPct(pct,color,size){
-  var R=42,C=2*Math.PI*R,len=pct/100*C,sz=size||118;
-  return '<svg viewBox="0 0 100 100" style="width:'+sz+'px;height:'+sz+'px;flex:0 0 '+sz+'px">'+
-   '<circle cx="50" cy="50" r="'+R+'" fill="none" stroke="var(--soft)" stroke-width="13"/>'+
-   '<circle cx="50" cy="50" r="'+R+'" fill="none" stroke="'+(color||'#16834A')+'" stroke-width="13" stroke-linecap="round" '+
-   'stroke-dasharray="'+len.toFixed(1)+' '+(C-len).toFixed(1)+'" transform="rotate(-90 50 50)"/>'+
-   '<text x="50" y="47" text-anchor="middle" font-size="19" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono,monospace">'+pct+'%</text>'+
-   '<text x="50" y="62" text-anchor="middle" font-size="8.5" fill="var(--muted)">'+t('cPaid')+'</text></svg>';
-}
+/* ---------- donut charts ---------- */
 function donutSegs(segs,centerLabel){
   var live=segs.filter(function(s){return s[0]>0});
   var tot=segs.reduce(function(a,s){return a+s[0]},0)||1,R=44,W=22,C=2*Math.PI*R,off=0;
@@ -1314,11 +1420,11 @@ function shell(title,crumb,inner,right,sub){
     }
     return row}).join('');
   var w=who();
-  return '<div class="app'+(S.mini?' mini':'')+'">'+
+  return '<div class="app'+(S.mini?' mini':'')+(S.navOpen?' navopen':'')+'">'+'<div class="navveil" data-navclose></div>'+
    '<div class="side"><div class="sh"><button class="burger" data-burger aria-label="Menu">☰</button>'+
    '<div class="brand"><img class="moic-logo" src="'+LOGO+'" alt="MOIC"><span><b>RCMS</b><small>MOIC · APB</small></span></div></div>'+m+
    '<div class="sfoot">'+t('sysName')+'</div></div>'+
-   '<div class="main"><div class="top"><div style="min-width:0">'+
+   '<div class="main"><div class="top"><button class="mburger" data-navopen aria-label="'+t('menuLbl')+'">☰</button><div class="ttl">'+
    (crumb?'<div class="crumb" data-nav="'+crumb[1]+'">← '+crumb[0]+'</div>':'')+
    '<div class="title">'+title+'</div>'+(sub?'<div class="tsub">'+sub+'</div>':'')+'</div><div class="rt">'+(right||'')+
    '<div class="lang"><span'+(lang==='lo'?' class="on"':'')+' data-lang="lo">ລາວ</span>'+
@@ -1365,7 +1471,7 @@ function vLogin(){
   var demo='<div class="demoacc"><div class="dk">'+t('demoAccts')+'</div><div class="chips">'+
    ACCTS.map(function(a){return '<span class="chipf'+(S.loginUser===a.user?' on':'')+'" data-demouser="'+a.user+'" title="'+esc(a.nm)+'">'+
     (a.rl.en.split(' · ').pop())+'</span>'}).join('')+'</div></div>';
-  return '<div class="login"><div class="lf"><div class="sealrow"><img id="loginLogo" class="moic-logo-login" src="https://www.moic.gov.la/moic-logo.png" alt="MOIC"></div>'+
+  return '<div class="login"><div class="lf"><div class="sealrow"><img id="loginLogo" class="moic-logo-login" src="'+LOGO+'" alt="MOIC"></div>'+
   '<h1>'+t('sysName')+'<br><span>RCMS</span></h1>'+
   '<div class="sub">'+t('sysSub')+' - '+t('coop')+'</div>'+
   '<div><span class="vlink" data-verify="1">◎ '+t('qrVerify')+'</span></div>'+
@@ -1375,7 +1481,7 @@ function vLogin(){
   '<div class="rt2"><div class="lbox"><div class="lang" style="width:max-content;margin:0 0 28px auto">'+
   '<span'+(lang==='lo'?' class="on"':'')+' data-lang="lo">ລາວ</span>'+
   '<span'+(lang==='en'?' class="on"':'')+' data-lang="en">EN</span></div>'+
-  (step==='otp'?otpBody:credBody+demo)+
+  '<img class="mlogo" src="'+LOGO+'" alt="MOIC">'+(step==='otp'?otpBody:credBody+demo)+
   '<div class="note">'+t('secNote')+'<br><br><kbd>Alt</kbd> + <kbd>/</kbd> - '+t('kbTitle')+'</div></div></div></div>';
 }
 
@@ -1559,7 +1665,7 @@ function vApproverDash(){
      ?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cEnt')+'</th><th>'+t('cMode')+'</th><th class="r">'+t('cAmt')+'</th><th></th><th></th></tr></thead><tbody>'+qRows+'</tbody></table>'
      :'<div class="empty" style="padding:30px"><b>'+t('apNoQueue')+'</b></div>')+'</div></div>';
 
-  var stages=[[atChk,'#B4610A',t('apStgCheck')],[myQ.length,'#3A45A0',t('apStgApprove')],[completed,'#16834A',t('apStgDone')]];
+  var stages=[[atChk,'#B4610A',t('apStgCheck')],[myQ.length,'#3A48A0',t('apStgApprove')],[completed,'#137A41',t('apStgDone')]];
   var maxS=Math.max(atChk,myQ.length,completed,1);
   var pipeRows=stages.map(function(s){var w=s[0]/maxS*100;
     return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:11px">'+
@@ -1598,7 +1704,7 @@ function vApproverDash(){
 
 function vStaffDash(){
   var c=counts();
-  var segs=[[c.COMPLETED,'#16834A',stName('COMPLETED')],[c.PARTIAL,'#B4610A',stName('PARTIAL')],
+  var segs=[[c.COMPLETED,'#137A41',stName('COMPLETED')],[c.PARTIAL,'#B4610A',stName('PARTIAL')],
     [c.PENDING,'#8E9CB0',stName('PENDING')],[c.OVERDUE,'#C8202E',stName('OVERDUE')]];
   var dueSoon=S.ents.filter(function(e){return e.status!=='COMPLETED'}).slice(0,5);
   var rows=dueSoon.map(function(e){
@@ -1623,7 +1729,7 @@ function vStaffDash(){
 
 function sechead(txt){return '<div class="sech"><h2>'+txt+'</h2></div>'}
 function vAdminDash(){
-  var PAL=['#2A327C','#5B8DEF','#21A456','#F2A93B','#E21C2C','#8B6FD6'];
+  var PAL=['#283579','#5B8DEF','#137A41','#E6B92C','#C8202E','#8B6FD6'];
   var online=S.users.filter(function(u){return u.online}).length;
   var lockedN=S.users.filter(function(u){return !u.active}).length;
   var byOrg={};S.users.forEach(function(u){byOrg[u.org]=(byOrg[u.org]||0)+1});
@@ -1716,24 +1822,14 @@ function vOwnerDash(){
   var days=daysLeft(e.due);
   var payBtn=(remain>0)?(pend?'<button class="btn ghost" disabled>'+t('waitingOn')+' '+(pend.stage==='checker'?t('stageChecker'):t('stageApprover'))+'…</button>'
     :'<button class="btn" data-selfpay="1">'+t('selfDeclare')+'</button>'):'';
-  var capStatusCard='<div class="card" style="display:flex;flex-direction:column;height:100%">'+
-   '<div class="h"><h3>'+t('capDetails')+'</h3></div>'+
-   '<div class="c" style="flex:1;display:flex;flex-direction:column;gap:14px">'+
-   '<div style="display:flex;justify-content:center;padding:6px 0 4px">'+donutPct(pct,'#16834A',160)+'</div>'+
-   '<div class="dstat" style="grid-template-columns:1fr 1fr;flex:1;align-content:start">'+
-   '<div class="cell"><div class="k">'+t('cCap')+'</div><div class="v">'+fmt(e.cap)+'</div></div>'+
-   '<div class="cell"><div class="k">'+t('capPaidUp')+'</div><div class="v" style="color:var(--ok)">'+fmt(e.paid)+'</div></div>'+
-   '<div class="cell"><div class="k">'+(remain>0?t('capUnpaid'):t('bizDone'))+'</div><div class="v" style="color:'+(remain>0?'var(--warn)':'var(--ok)')+'">'+fmt(remain)+'</div></div>'+
-   '<div class="cell"><div class="k">'+t('capCallDue')+'</div><div class="v" style="color:'+(days<0?'var(--bad)':'var(--ink)')+';font-size:13px">'+e.due+'</div>'+
-   '<div style="font-size:9.5px;color:var(--muted);margin-top:2px">'+(lang==='lo'?days+' ວັນ':days+' days')+'</div></div>'+
-   '</div>'+
-   '</div></div>';
-  var regCard=regDetailCard(e).replace('<div class="card" style="margin-bottom:14px">','<div class="card" style="height:100%">');
   var unpaid=myInv.filter(function(iv){return iv.status==='UNPAID'});
   var unpaidAmt=unpaid.reduce(function(a,iv){return a+iv.amt},0);
-  var why=unpaid.length?'<span class="why">'+unpaid.length+' '+t('unpaidInv')+' · <b class="num">'+fmt(unpaidAmt)+' LAK</b></span>'+
-    '<button class="btn ghost" data-payinv="'+unpaid[0].id+'">'+t('bizPayQR')+'</button>':'';
-  var inner=actBar(e,payBtn,why)+'<div class="split" style="margin-bottom:16px;align-items:stretch">'+regCard+capStatusCard+'</div>'+
+  var notes=[
+    pend?{tone:'info',text:'<b>'+t('hasPending')+'</b> - <span class="num">'+pend.ref+'</span> · '+t('waitingOn')+' '+(pend.stage==='checker'?t('stageChecker'):t('stageApprover'))}:null,
+    unpaid.length?{tone:'bad',text:unpaid.length+' '+t('unpaidInv')+' · <b class="num">'+fmt(unpaidAmt)+' LAK</b>',
+      act:'<button class="btn sm" data-payinv="'+unpaid[0].id+'">'+t('bizPayQR')+'</button>'}:null];
+  var inner=capSummary(e,pend?'':payBtn,notes)+
+   regDetailCard(e).replace('<div class="card" style="margin-bottom:14px">','<div class="card" style="margin-bottom:16px">')+
    historySection(e)+
    '<div class="card" style="margin:16px 0"><div class="h"><h3>'+t('myInvoices')+'</h3></div><div class="c" style="padding:12px 0 0">'+
    (invRows?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cItem')+'</th>'+
@@ -1799,15 +1895,30 @@ function vList(){
   return shell(t('ent'),'',inner);
 }
 
-// Action bar for an enterprise: status + the three numbers people act on + the primary action, above the fold.
-function actBar(e,actsHtml,why){
-  var remain=e.cap-e.paid,pct=Math.round(e.paid/e.cap*100),days=daysLeft(e.due);
-  var m=function(k,v,c,sm){return '<div><div class="k">'+k+'</div><div class="v"'+(c?' style="color:'+c+'"':'')+'>'+v+(sm?'<small>'+sm+'</small>':'')+'</div></div>'};
-  return '<div class="actbar"><div class="ab-st">'+pill(e.status)+'</div>'+
-   '<div class="ab-meta">'+m(t('cPaid'),pct+'%','var(--ok)')+
-   m(remain>0?t('capUnpaid'):t('bizDone'),fmt(remain),remain>0?'var(--warn)':'var(--ok)','LAK')+
-   m(t('capCallDue'),e.due,days<0?'var(--bad)':'',(lang==='lo'?days+' ວັນ':days+' days'))+'</div>'+
-   '<div class="acts">'+actsHtml+'</div>'+(why?'<div class="ab-why">'+why+'</div>':'')+'</div>';
+// Capital summary for one enterprise: status, progress, the five numbers people act on, the
+// primary actions, and any blocking notice with its own fix right next to it.
+// Replaces the old action bar + "Capital Details" donut card, which repeated the same figures.
+function capSummary(e,acts,notes){
+  var remain=e.cap-e.paid,pct=Math.round(e.paid/e.cap*100),days=daysLeft(e.due),over=days<0&&remain>0;
+  var pen=S.invs.filter(function(x){return x.ent===e.id&&x.kind==='penalty'&&x.status==='UNPAID'}).reduce(function(a,x){return a+x.amt},0);
+  var m=function(k,v,cls,sub){return '<div class="sm'+(cls?' '+cls:'')+'"><div class="k">'+k+'</div><div class="v">'+v+'</div>'+(sub?'<div class="s">'+sub+'</div>':'')+'</div>'};
+  var dayTxt=remain>0?(over?(lang==='lo'?'ກາຍກຳນົດ '+Math.abs(days)+' ວັນ':Math.abs(days)+' days overdue'):(lang==='lo'?'ເຫຼືອ '+days+' ວັນ':days+' days left')):'';
+  return '<div class="sumcard">'+
+   '<div class="sc-top"><div class="sc-h"><h3>'+t('capDetails')+'</h3>'+pill(e.status)+'</div>'+
+   (acts?'<div class="acts">'+acts+'</div>':'')+'</div>'+
+   '<div class="sc-prog"><div class="sc-pl"><b class="num">'+pct+'%</b><span>'+t('cPaid')+' <b class="num">'+fmt(e.paid)+'</b> / <span class="num">'+fmt(e.cap)+'</span> LAK</span></div>'+
+   '<div class="bar'+(over?' over':'')+'"><i style="width:'+pct+'%"></i></div></div>'+
+   '<div class="sc-metrics">'+
+    m(t('cCap'),'<span class="num">'+fmt(e.cap)+'</span>','')+
+    m(t('capPaidUp'),'<span class="num">'+fmt(e.paid)+'</span>','ok')+
+    m(remain>0?t('capUnpaid'):t('bizDone'),'<span class="num">'+fmt(remain)+'</span>',remain>0?'warn':'ok')+
+    (pen?m(t('penaltyAmt'),'<span class="num">'+fmt(pen)+'</span>','bad'):'')+
+    m(t('capCallDue'),'<span class="num">'+e.due+'</span>',over?'bad':'',dayTxt)+
+   '</div>'+
+   (notes||[]).filter(Boolean).map(function(n){
+     return '<div class="sc-note '+n.tone+'"><span class="ni">'+luSvg(n.tone==='info'?'hourglass':'triangleAlert')+'</span>'+
+      '<div class="nt">'+n.text+'</div>'+(n.act?'<div class="acts">'+n.act+'</div>':'')+'</div>'}).join('')+
+   '</div>';
 }
 function regDetailCard(e){
   var pm=PROV_META[e.prov.lo]||PROV_META['ນະຄອນຫຼວງວຽງຈັນ'];
@@ -1818,21 +1929,24 @@ function regDetailCard(e){
   var unpaidAmt=unpaidInvs.reduce(function(a,x){return a+x.amt},0);
   var finVal='<span style="color:'+(unpaidInvs.length?'var(--bad)':'var(--ok)')+'">'+
     (unpaidInvs.length?(unpaidInvs.length+' · '+fmt(unpaidAmt)+' LAK'):t('stPaid'))+'</span>';
-  var rows=[
-    [t('regNo'),e.id],[t('nameLoLbl'),e.name],[t('nameEnLbl'),e.nameEn||'-'],[t('repLbl'),e.rep||'-'],
-    [t('cRegD'),e.reg],[t('regStatusLbl'),t('operating')],[t('entType'),L(e.type)],
-    [t('cProv'),L(e.prov)],[t('districtLbl'),district],[t('villageLbl'),village],
-    ['ISIC',e.isic],[t('acctNo'),e.acct],
-    [t('taxrisNo'),e.taxris],[t('taxRegDateLbl'),e.taxRegDate||e.reg],[t('taxStatusLbl'),t('operating')],
-    [t('vatStatusLbl'),t('vatRegistered')],[t('finTitle'),finVal]
-  ];
+  var num=function(v){return '<span class="num">'+v+'</span>'};
+  // Grouped summary lists: label on the left, value right next to it (not pushed to the far edge),
+  // so the eye reads each pair in one pass and can scan a group by its heading.
+  var sec=function(title,rows){return '<section class="rsec"><h4>'+title+'</h4><dl class="sl">'+
+    rows.map(function(r){return '<div><dt>'+r[0]+'</dt><dd>'+r[1]+'</dd></div>'}).join('')+'</dl></section>'};
   return '<div class="card" style="margin-bottom:14px"><div class="h"><h3>'+t('regCardTitle')+'</h3>'+
     '<span style="margin-left:auto;font-size:11px;color:var(--muted)">'+t('mapSyncedAt')+' 09:15</span></div>'+
-    '<div class="c" style="display:flex;gap:16px;flex-wrap:wrap">'+
-    '<div class="reglist">'+rows.map(function(r,i){return '<div class="regrow"><span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span></div>'}).join('')+'</div>'+
-    '<div class="regmap"><div id="regmap" data-lat="'+lat+'" data-lng="'+lng+'" style="width:100%;flex:1;min-height:260px;border-radius:8px;border:1px solid var(--line)"></div>'+
+    '<div class="c"><div class="rgrid"><div class="rcol">'+
+    sec(t('secIdentity'),[[t('regNo'),num(e.id)],[t('nameLoLbl'),e.name],[t('nameEnLbl'),e.nameEn||'-'],[t('repLbl'),e.rep||'-']])+
+    sec(t('secRegistration'),[[t('cRegD'),num(e.reg)],[t('regStatusLbl'),'<span class="pill p-ok">'+t('operating')+'</span>'],[t('entType'),L(e.type)],
+      ['ISIC',num(e.isic)],[t('acctNo'),num(e.acct)]])+
+    sec(t('secTaxFin'),[[t('taxrisNo'),num(e.taxris)],[t('taxRegDateLbl'),num(e.taxRegDate||e.reg)],[t('taxStatusLbl'),t('operating')],
+      [t('vatStatusLbl'),t('vatRegistered')],[t('finTitle'),finVal]])+
+    '</div><div class="rcol">'+
+    sec(t('secLocation'),[[t('cProv'),L(e.prov)],[t('districtLbl'),district],[t('villageLbl'),village]])+
+    '<div class="regmap"><div id="regmap" data-lat="'+lat+'" data-lng="'+lng+'"></div>'+
     '<div class="cap">'+t('mapCaption')+' - '+lat.toFixed(4)+', '+lng.toFixed(4)+'</div></div>'+
-    '</div></div>';
+    '</div></div></div></div>';
 }
 var regMapInst=null;
 function mountRegMap(){
@@ -1932,8 +2046,8 @@ function vTxDetail(){
    '</div></div></div>':'';
   var colCard=cItem?'<div class="card" style="margin-bottom:14px"><div class="h"><h3>'+t('collateral')+'</h3></div><div class="c"><div class="kv">'+
    '<div><span class="k">'+t('cType')+'</span><span class="v">'+t(typeLbl[cItem.type]||'cType')+'</span></div>'+
-   '<div><span class="k">'+t('cItem')+'</span><span class="v" style="text-align:right;max-width:260px">'+L(cItem.label)+'</span></div>'+
-   '<div><span class="k">'+t('colDetail')+'</span><span class="v" style="text-align:right;max-width:260px">'+L(cItem.detail)+'</span></div>'+
+   '<div><span class="k">'+t('cItem')+'</span><span class="v">'+L(cItem.label)+'</span></div>'+
+   '<div><span class="k">'+t('colDetail')+'</span><span class="v">'+L(cItem.detail)+'</span></div>'+
    '<div><span class="k">'+t('colVal')+'</span><span class="v num">'+fmt(cItem.value)+' LAK</span></div></div>'+
    '<div class="acts" style="margin-top:14px"><button class="btn ghost" data-soon="'+t('viewReport')+'">'+t('viewReport')+'</button></div>'+
    '</div></div>':'';
@@ -1944,11 +2058,11 @@ function vTxDetail(){
    mockDocs.map(function(f){return '<div style="display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid var(--line);border-radius:7px;margin-bottom:6px">'+
    '<span style="color:var(--bad)">▤</span><span style="font-size:11.5px;flex:1">'+f+'</span>'+
    '<span style="font-size:10.5px;color:var(--m);cursor:pointer" data-soon="'+t('openDoc')+'">'+t('openDoc')+'</span></div>'}).join('')+'</div></div>':'';
-  var regCard=regDetailCard(e).replace('<div class="card" style="margin-bottom:14px">','<div class="card" style="height:100%">');
+  var regCard=regDetailCard(e).replace('<div class="card" style="margin-bottom:14px">','<div class="card">');
   var txC=txCard.replace('class="card" style="margin-bottom:14px"','class="card" style="flex:1 1 auto"');
   var c3=(payFieldsCard||colCard).replace('class="card" style="margin-bottom:14px"','class="card" style="flex:1 1 auto"');
-  var rightCol='<div style="display:flex;flex-direction:column;gap:14px;height:100%">'+txC+c3+'</div>';
-  var inner=pbar+'<div class="declrow" style="align-items:stretch">'+regCard+rightCol+'</div>'+filesCard;
+  var rightCol='<div class="sticky stack">'+txC+c3+filesCard+'</div>';
+  var inner=pbar+'<div class="worksplit">'+regCard+rightCol+'</div>';
   return shell(t('reqDetail'),[e.name,tx.back||'detail'],inner);
 }
 function vDetail(){
@@ -1967,27 +2081,11 @@ function vDetail(){
     :'';
   var blocked=(e.status!=='COMPLETED'&&S.role==='maker'&&!pend&&unpaidPen.length);
 
-  var banner=pend?'<div class="alert" style="background:var(--m-lite);border-color:var(--m-line);border-left-color:var(--m);margin-bottom:14px">'+
-    '<div><div class="t" style="color:var(--m)">'+t('hasPending')+' - '+pend.ref+' · '+fmt(pend.amt)+' LAK</div>'+
-    '<div class="s" style="color:var(--ink2)">'+t('waitingOn')+' '+(pend.stage==='checker'?t('stageChecker'):t('stageApprover'))+'</div></div></div>':'';
-
-  var capCard='<div class="card" style="display:flex;flex-direction:column;height:100%">'+
-   '<div class="h"><h3>'+t('capDetails')+'</h3></div>'+
-   '<div class="c" style="flex:1;display:flex;flex-direction:column;gap:14px">'+
-   '<div style="display:flex;justify-content:center;padding:6px 0 4px">'+donutPct(pct,e.status==='OVERDUE'?'#C8202E':'#16834A',160)+'</div>'+
-   '<div class="dstat" style="grid-template-columns:1fr 1fr;flex:1;align-content:start">'+
-   '<div class="cell"><div class="k">'+t('cCap')+'</div><div class="v">'+fmt(e.cap)+'</div></div>'+
-   '<div class="cell"><div class="k">'+t('capPaidUp')+'</div><div class="v" style="color:var(--ok)">'+fmt(e.paid)+'</div></div>'+
-   '<div class="cell"><div class="k">'+(remain>0?t('capUnpaid'):t('bizDone'))+'</div><div class="v" style="color:'+(remain>0?'var(--warn)':'var(--ok)')+'">'+fmt(remain)+'</div></div>'+
-   (unpaidPen.length?'<div class="cell"><div class="k">'+t('penaltyAmt')+'</div><div class="v" style="color:var(--bad)">'+fmt(penAmt)+'</div></div>':'')+
-   '<div class="cell"><div class="k">'+t('capCallDue')+'</div><div class="v" style="color:'+(days<0?'var(--bad)':'var(--ink)')+';font-size:13px">'+e.due+'</div>'+
-   '<div style="font-size:9.5px;color:var(--muted);margin-top:2px">'+(lang==='lo'?days+' ວັນ':days+' days')+'</div></div>'+
-   '</div>'+
-   '</div></div>';
-  var regCard=regDetailCard(e).replace('<div class="card" style="margin-bottom:14px">','<div class="card" style="height:100%">');
-  var bar=actBar(e,'<button class="btn ghost" data-soon="'+t('printData')+'">'+luSvg('printer')+t('printData')+'</button>'+payBtn,
-    blocked?'<span class="why">'+t('paymentBlocked')+'</span>':'');
-  var inner=bar+banner+'<div class="split" style="margin-bottom:16px;align-items:stretch">'+regCard+capCard+'</div>'+historySection(e);
+  var notes=[
+    pend?{tone:'info',text:'<b>'+t('hasPending')+'</b> - <span class="num">'+pend.ref+'</span> · <span class="num">'+fmt(pend.amt)+'</span> LAK · '+t('waitingOn')+' '+(pend.stage==='checker'?t('stageChecker'):t('stageApprover'))}:null,
+    blocked?{tone:'bad',text:t('paymentBlocked')+' · <b class="num">'+fmt(penAmt)+' LAK</b>'}:null];
+  var inner=capSummary(e,'<button class="btn ghost" data-soon="'+t('printData')+'">'+luSvg('printer')+t('printData')+'</button>'+payBtn,notes)+
+    regDetailCard(e).replace('<div class="card" style="margin-bottom:14px">','<div class="card" style="margin-bottom:16px">')+historySection(e);
   return shell(e.name,[t('ent'),'ent'],inner,'',e.nameEn?e.nameEn+' · <span class="num">'+e.id+'</span>':'<span class="num">'+e.id+'</span>');
 }
 
@@ -2111,36 +2209,34 @@ function vTask(){
   var e=x.ent,isC=x.stage==='checker';
   var cls=function(n){return isC?(n===1?'done':(n===2?'now':'')):(n<3?'done':'now')};
   var files=x.files.length?x.files.map(function(f){
-    return '<div style="display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid var(--line);'+
-    'border-radius:7px;margin-bottom:6px"><span style="color:var(--bad)">▤</span>'+
-    '<span style="font-size:11.5px;flex:1">'+(f.lbl?f.lbl+': '+f.name:f)+'</span>'+
-    '<span style="font-size:10.5px;color:var(--m);cursor:pointer" data-soon="'+t('openDoc')+'">'+t('openDoc')+'</span></div>'}).join(''):'-';
+    return '<div class="filerow" style="margin-bottom:6px"><span class="fic">▤</span><div class="fmeta"><b>'+(f.lbl||t('evidence'))+'</b><span>'+(f.name||f)+'</span></div>'+
+    '<span class="lnk" data-soon="'+t('openDoc')+'">'+t('openDoc')+'</span></div>'}).join(''):'<div class="empty doc"><b>'+t('noFiles')+'</b></div>';
   var caseCard='<div class="card"><div class="h"><h3>'+t('reqDetail')+'</h3></div>'+
   '<div class="c"><div class="kv">'+
   '<div><span class="k">'+t('cRef')+'</span><span class="v num">'+x.ref+'</span></div>'+
   '<div><span class="k">'+t('cEnt')+'</span><span class="v">'+e.name+'</span></div>'+
   '<div><span class="k">'+t('cCap')+'</span><span class="v num">'+fmt(e.cap)+' LAK</span></div>'+
   '<div><span class="k">'+t('cPaid')+'</span><span class="v num">'+fmt(e.paid)+' ('+Math.round(e.paid/e.cap*100)+'%)</span></div>'+
-  '<div><span class="k">'+t('amtNow')+'</span><span class="v num" style="color:var(--m);font-size:14px">'+fmt(x.amt)+' LAK</span></div>'+
+  '<div><span class="k">'+t('amtNow')+'</span><span class="v num" style="color:var(--m);font-size:15px;font-weight:700">'+fmt(x.amt)+' LAK</span></div>'+
   '<div><span class="k">'+t('cMode')+'</span><span class="v">'+modeLbl(x.mode)+'</span></div>'+
   '</div></div></div>';
   var evidCard='<div class="card"><div class="h"><h3>'+t('evidence')+'</h3></div><div class="c">'+files+
   '<div class="audit">'+t('evidenceN')+'</div></div></div>';
-  var decideCard='<div class="card" style="flex:1 1 auto;display:flex;flex-direction:column;background:#FEF7E0;border-color:#F1E4B0">'+
+  var decideCard='<div class="card decide">'+
   '<div class="h"><h3>'+t('decide')+'</h3></div>'+
-  '<div class="c" style="flex:1;display:flex;flex-direction:column">'+
-  '<div style="font-size:11.5px;color:var(--ink2);line-height:1.7">'+(isC?t('checkerNote'):t('approverNote'))+'</div>'+
-  '<div class="acts" style="margin-top:auto;padding-top:16px">'+
+  '<div class="c">'+
+  '<div style="font-size:12px;color:var(--ink2);line-height:1.7">'+(isC?t('checkerNote'):t('approverNote'))+'</div>'+
+  '<div class="acts" style="padding-top:14px">'+
   '<button class="btn danger" data-openback="1">'+t('sendBack')+'</button>'+
   (isC?'<button class="btn" data-fwd="1">'+t('fwdApprover')+'</button>'
       :'<button class="btn" data-sign="1">'+t('signApprove')+'</button>')+
   '</div></div></div>';
-  var regCard=regDetailCard(e).replace('<div class="card" style="margin-bottom:14px">','<div class="card" style="height:100%">');
+  var regCard=regDetailCard(e).replace('<div class="card" style="margin-bottom:14px">','<div class="card">');
   var inner=
   stepCircles([[cls(1),t('channelOnline').split(' (')[0]],[cls(2),t('stageChecker')],[cls(3),t('stageApprover')]])+
-  '<div class="declrow" style="align-items:stretch;margin-top:14px">'+
+  '<div class="worksplit" style="margin-top:16px">'+
   regCard+
-  '<div style="display:flex;flex-direction:column;gap:14px;height:100%">'+caseCard+evidCard+decideCard+'</div>'+
+  '<div class="sticky stack">'+caseCard+evidCard+decideCard+'</div>'+
   '</div>';
   return shell(x.ref,[isC?t('ckTitle'):t('apTitle'),'dash'],inner);
 }
@@ -2168,30 +2264,28 @@ function vValJobDetail(){
   var lbl=VAL_LBL[j.status],canSubmit=j.status==='doing';
   var typeLbl={land:'landType',building:'buildingType',car:'carType',machine:'machineType'};
   var col=e&&e.collateral?e.collateral.filter(function(c){return L(c.label)===L(j.asset)})[0]:null;
-  var colCard=col?'<div class="card" style="margin-bottom:14px"><div class="h"><h3>'+t('collateral')+'</h3></div><div class="c"><div class="kv">'+
-   '<div><span class="k">'+t('cType')+'</span><span class="v">'+t(typeLbl[col.type]||'cType')+'</span></div>'+
-   '<div><span class="k">'+t('cItem')+'</span><span class="v" style="text-align:right;max-width:280px">'+L(col.label)+'</span></div>'+
-   '<div><span class="k">'+t('colDetail')+'</span><span class="v" style="text-align:right;max-width:280px">'+L(col.detail)+'</span></div>'+
-   '<div><span class="k">'+t('colVal')+'</span><span class="v num">'+fmt(col.value)+' LAK</span></div>'+
-   '</div></div></div>':'';
-  var fieldsCard=(col&&col.fields)?'<div class="card" style="margin-bottom:14px"><div class="h"><h3>'+t('submittedFields')+'</h3></div><div class="c"><div class="kv">'+
-   (ASSET_FIELDS[col.type]||[]).filter(function(af){return col.fields[af[0]]}).map(function(af){
-     return '<div><span class="k">'+L(af[1])+'</span><span class="v num">'+col.fields[af[0]]+'</span></div>'}).join('')+
-   '</div></div></div>':'';
-  var jobCard='<div class="card" style="margin-bottom:14px"><div class="h"><h3>'+t('reqDetail')+'</h3><span style="margin-left:auto"><span class="pill '+lbl[1]+'">'+t(lbl[0])+'</span></span></div><div class="c"><div class="kv">'+
-   '<div><span class="k">'+t('cRef')+'</span><span class="v num">'+j.id+'</span></div>'+
-   '<div><span class="k">'+t('cEnt')+'</span><span class="v">'+(e?e.name:j.ent)+'</span></div>'+
-   '<div><span class="k">'+t('valAsset')+'</span><span class="v">'+L(j.asset)+'</span></div>'+
-   '<div><span class="k">'+t('valFirmType')+'</span><span class="v">'+(j.net==='in'?t('inNet'):t('outNet').split(' (')[0])+'</span></div>'+
-   '<div><span class="k">'+t('valDeclared')+'</span><span class="v num">'+fmt(j.amt)+' LAK</span></div>'+
-   '</div></div></div>';
-  var filesCard='<div class="card" style="margin-bottom:14px"><div class="h"><h3>'+t('evidence')+'</h3></div><div class="c">'+
-   (j.files&&j.files.length?'<div style="max-height:360px;overflow-y:auto;padding-right:2px">'+j.files.map(function(f){
-    return '<div style="display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid var(--line);border-radius:7px;margin-bottom:6px">'+
-    '<span style="color:var(--bad)">▤</span><span style="font-size:11.5px;flex:1">'+(f.lbl?f.lbl+': '+f.name:f)+'</span>'+
-    '<span style="font-size:10.5px;color:var(--m);cursor:pointer" data-soon="'+t('openDoc')+'">'+t('openDoc')+'</span></div>'}).join('')+'</div>'
-    :'<div class="empty">-</div>')+'</div></div>';
-  var formCard=canSubmit?'<div class="card"><div class="h"><h3>'+t('submitJob')+'</h3></div><div class="c">'+
+  var sl=function(rows){return '<dl class="sl">'+rows.map(function(r){return '<div><dt>'+r[0]+'</dt><dd>'+r[1]+'</dd></div>'}).join('')+'</dl>'};
+  var num=function(v){return '<span class="num">'+v+'</span>'};
+  // 1. what job this is - one strip, read first
+  var head='<div class="sumcard"><div class="sc-top"><div class="sc-h"><h3>'+t('reqDetail')+'</h3><span class="pill '+lbl[1]+'">'+t(lbl[0])+'</span></div></div>'+
+   '<div class="sc-metrics">'+
+   '<div class="sm"><div class="k">'+t('cEnt')+'</div><div class="v" style="font-size:14px">'+(e?e.name:j.ent)+'</div><div class="s num">'+j.ent+'</div></div>'+
+   '<div class="sm"><div class="k">'+t('valAsset')+'</div><div class="v" style="font-size:14px">'+L(j.asset)+'</div></div>'+
+   '<div class="sm"><div class="k">'+t('valFirmType')+'</div><div class="v" style="font-size:14px">'+(j.net==='in'?t('inNet'):t('outNet').split(' (')[0])+'</div></div>'+
+   '<div class="sm"><div class="k">'+t('valDeclared')+'</div><div class="v"><span class="num">'+fmt(j.amt)+'</span> <small>LAK</small></div></div>'+
+   '</div></div>';
+  // 2. what is being valued - one card, two titled groups
+  var assetCard='<div class="card"><div class="h"><h3>'+t('valAssetCard')+'</h3></div><div class="c">'+
+   (col?'<section class="rsec"><h4>'+t('collateral')+'</h4>'+sl([[t('cType'),t(typeLbl[col.type]||'cType')],[t('cItem'),L(col.label)],
+     [t('colDetail'),L(col.detail)],[t('colVal'),num(fmt(col.value)+' LAK')]])+'</section>':'')+
+   (col&&col.fields?'<section class="rsec"><h4>'+t('submittedFields')+'</h4>'+sl((ASSET_FIELDS[col.type]||[]).filter(function(af){return col.fields[af[0]]})
+     .map(function(af){return [L(af[1]),num(col.fields[af[0]])]}))+'</section>':'')+
+   (!col?'<div class="empty"><b>-</b></div>':'')+'</div></div>';
+  // 3. act - documents already on file + the submit form, kept together on the right
+  var onFile=j.files&&j.files.length?'<section class="rsec" style="margin-top:0"><h4>'+t('evidence')+'</h4>'+j.files.map(function(f){
+    return '<div class="filerow" style="margin-bottom:6px"><span class="fic">▤</span><div class="fmeta"><b>'+(f.lbl||t('evidence'))+'</b><span>'+(f.name||f)+'</span></div>'+
+    '<span class="lnk" data-soon="'+t('openDoc')+'">'+t('openDoc')+'</span></div>'}).join('')+'</section>':'';
+  var formCard=canSubmit?'<div class="card sticky"><div class="h"><h3>'+t('submitJob')+'</h3></div><div class="c">'+onFile+
    '<div class="field"><label>'+t('valDeclared')+' (LAK)</label>'+
    '<input class="big num" id="fjVal" value="'+(S.valForm.val!=null?S.valForm.val:j.amt)+'"></div>'+
    (S.valForm.err?'<div class="hint err" style="margin-top:-8px;margin-bottom:10px">'+S.valForm.err+'</div>':'')+
@@ -2203,18 +2297,13 @@ function vValJobDetail(){
      return '<div class="filerow"><span class="fic">✓</span>'+
      '<div class="fmeta"><b>'+fl.lbl+'</b><span>'+fl.name+'</span></div>'+
      '<span class="frm" data-rmvalfile="'+fl.k+'" title="'+t('cancel')+'">✕</span></div>'}).join('')
-     :'<div class="empty" style="padding:12px 0;font-size:11px">'+t('noFiles')+'</div>')+'</div>'+
+     :'<div class="hint" style="text-align:center;padding:6px 0">'+t('noFiles')+'</div>')+'</div>'+
    (S.valForm.docErr?'<div class="hint err" style="margin-top:8px">'+S.valForm.docErr+'</div>':'')+'</div>'+
-   '<button class="btn" style="width:100%;margin-top:6px" data-submitjob="'+S.valI+'">'+t('submitJob')+'</button>'+
-   '</div></div>':'';
-  var noM=function(h){return h.replace(' style="margin-bottom:14px"','');};
-  var colWrap='display:flex;flex-direction:column;gap:14px;height:100%';
-  var filesGrow=noM(filesCard).replace('<div class="card"','<div class="card" style="flex:1 1 auto"');
-  var inner='<div class="declrow" style="align-items:stretch">'+
-   '<div style="'+colWrap+'">'+noM(jobCard)+noM(colCard)+noM(fieldsCard)+'</div>'+
-   '<div style="'+colWrap+'">'+filesGrow+formCard+'</div>'+
-   '</div>';
-  return shell(j.id,[t('valPortal'),'valfirm'],inner);
+   '<button class="btn" style="width:100%;margin-top:6px;padding:11px" data-submitjob="'+S.valI+'">'+t('submitJob')+'</button>'+
+   '</div></div>'
+   :'<div class="card sticky"><div class="h"><h3>'+t('evidence')+'</h3></div><div class="c">'+(onFile||'<div class="empty doc"><b>'+t('noFiles')+'</b></div>')+'</div></div>';
+  var inner=head+'<div class="worksplit">'+assetCard+formCard+'</div>';
+  return shell(j.id,[t('valPortal'),'valfirm'],inner,'',(e?e.name:j.ent));
 }
 
 function vValQueue(){
@@ -2513,8 +2602,8 @@ function vCert(){
   '<div><span class="k">ຊຳລະຄົບຖ້ວນ</span><span class="v num">'+fmt(e.paid)+' ກີບ</span></div>'+
   '<div><span class="k">ວັນທີຢັ້ງຢືນ</span><span class="v num">04/08/2026</span></div></div>'+
   '<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:26px">'+
-  '<div style="width:60px;height:60px;background:linear-gradient(45deg,#1B2160 25%,transparent 25%,transparent 75%,#1B2160 75%),'+
-  'linear-gradient(45deg,#1B2160 25%,transparent 25%,transparent 75%,#1B2160 75%);background-size:12px 12px;'+
+  '<div style="width:60px;height:60px;background:linear-gradient(45deg,#1B245C 25%,transparent 25%,transparent 75%,#1B245C 75%),'+
+  'linear-gradient(45deg,#1B245C 25%,transparent 25%,transparent 75%,#1B245C 75%);background-size:12px 12px;'+
   'background-position:0 0,6px 6px;outline:1px solid var(--line)"></div>'+
   '<div style="text-align:center"><div style="font-family:IBM Plex Mono,monospace;font-size:12px;'+
   'border-bottom:1px solid var(--line);padding-bottom:4px;margin-bottom:5px">ຫົວໜ້າພະແນກ</div>'+
@@ -2745,7 +2834,7 @@ function render(){
   }
   render._key=S.view+':'+S.mobile;
 }
-function go(v){S.view=v;S.mobile=false;S.bell=false;S.umenu=false;render()}
+function go(v){S.view=v;S.mobile=false;S.bell=false;S.umenu=false;S.navOpen=false;render()}
 function logout(){S.role=null;S.view='login';S.mobile=false;S.bell=false;S.umenu=false;S.modal=null;
   S.loginStep='cred';S.loginUser='';S.loginPass='';S.loginErr='';render()}
 function roleHome(role){
@@ -2847,7 +2936,10 @@ function bind(){
     ['glFEnt','glFAcct','glFBy','glFFrom','glFTo','glFCh','setFUser','setFOrg','setFRole','setFStatus'].forEach(function(id){var el=$('#'+id);if(el)el.value=''});
     applySetFilter()}});
   document.querySelectorAll('[data-setsearch]').forEach(function(b){b.onclick=function(){applySetFilter()}});
-  document.querySelectorAll('[data-burger]').forEach(function(b){b.onclick=function(){S.mini=!S.mini;render()}});
+  document.querySelectorAll('[data-burger]').forEach(function(b){b.onclick=function(){
+    if(window.matchMedia('(max-width:900px)').matches){S.navOpen=false}else{S.mini=!S.mini}render()}});
+  document.querySelectorAll('[data-navopen]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();S.navOpen=true;render()}});
+  document.querySelectorAll('[data-navclose]').forEach(function(b){b.onclick=function(){S.navOpen=false;render()}});
   document.querySelectorAll('[data-open]').forEach(function(r){r.onclick=function(){S.sel=r.dataset.open;go('detail')}});
   document.querySelectorAll('[data-tab]').forEach(function(b){b.onclick=function(){S.tab=b.dataset.tab;go('ent')}});
   document.querySelectorAll('[data-soon]').forEach(function(b){b.onclick=function(ev){
