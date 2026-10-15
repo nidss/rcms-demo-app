@@ -275,6 +275,24 @@ td.num{white-space:nowrap}
 .sc-note.ok{background:var(--okbg);color:#0D5530}
 .sc-note.ok .ni{background:#fff;color:var(--ok)}
 .sc-metrics .sm.zero .v{color:#A3A9C2}
+/* metric cells that act as a filter */
+.sc-metrics .smb{background:none;border:0;border-left:1px solid var(--line);text-align:left;font:inherit;color:inherit;cursor:pointer;
+  position:relative;transition:background .12s}
+.sc-metrics .smb:first-child{border-left:0}
+.sc-metrics .smb:hover{background:var(--soft)}
+.sc-metrics .smb.sel{background:var(--m-lite)}
+.sc-metrics .smb.sel:after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--m)}
+.sc-metrics .smb.sel .k{color:var(--m);font-weight:600}
+/* language switch for phones (topbar one is hidden there) */
+.mlang{display:none;align-items:center;justify-content:space-between;gap:10px}
+.mlang .ml{font-size:12px}
+.side-lang{margin:0 4px 6px;padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.side-lang .ml{color:#A4ABDB}
+.side-lang .lang{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.side-lang .lang span{color:#C3C8EA}
+.side-lang .lang span.on{background:#fff;color:var(--m)}
+.um-lang{padding:10px 16px;border-bottom:1px solid var(--soft)}
+.um-lang .ml{color:var(--ink2)}
 .sc-metrics .dl{font-size:11px;font-weight:600;padding:1px 8px;border-radius:10px;vertical-align:middle}
 .sc-metrics .dl.down{color:var(--bad);background:var(--badbg)} .sc-metrics .dl.up{color:var(--ok);background:var(--okbg)}
 
@@ -535,7 +553,17 @@ td.num{white-space:nowrap}
   .stepc .scl{font-size:10.5px}
 }
 @media(max-width:640px){
-  .top .lang{display:none}
+  .top .rt>.lang{display:none} /* moved into the drawer and the user menu below */
+  .mlang{display:flex}
+  /* results table becomes one card per row */
+  .rtable thead{display:none}
+  .rtable tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .rtable tbody tr:last-child{border-bottom:0}
+  .rtable td{padding:0!important;border:0;text-align:left!important;min-width:0}
+  .rtable td.rt-name{grid-column:1;grid-row:1}
+  .rtable td.rt-st{grid-column:2;grid-row:1;justify-self:end;align-self:start}
+  .rtable td[data-l]:before{content:attr(data-l);display:block;font-size:11px;color:var(--muted);font-family:'IBM Plex Sans','Noto Sans Lao',sans-serif;letter-spacing:0}
+  .rtable tbody tr:hover td{background:none}
   .fbar .frow.main,.fbar .frow{grid-template-columns:1fr}
   .fbar .fx{justify-content:space-between;height:auto}
   /* phone reading order: status, numbers, notices, then the actions */
@@ -590,7 +618,7 @@ lo:{
  coop:'ໂມດູນການປະກອບທຶນຈົດທະບຽນ (Phase 1) - ຮ່ວມມືລະຫວ່າງ MOIC ແລະ ທະນາຄານສົ່ງເສີມກະສິກຳ (APB)',
  s1:'ວິສາຫະກິດຂຶ້ນທະບຽນ',s2:'ລ້ານລ້ານກີບ ທຶນຈົດທະບຽນ',s3:'ຂະບວນການທຸລະກຳ',
  pickAcct:'ເຂົ້າສູ່ລະບົບ',loginHint:'ພິມຊື່ຜູ້ໃຊ້ (ມີລາຍຊື່ demo ໃຫ້ autocomplete) ແລ້ວໃສ່ລະຫັດຜ່ານໃດກໍ່ໄດ້',
- nxCk:'ລາຍການລໍໃຫ້ທ່ານກວດສອບ',nxAp:'ລາຍການລໍໃຫ້ທ່ານອະນຸມັດ ແລະ E-Sign',nxNext:'ລາຍການຕໍ່ໄປ',nxStartCk:'ເລີ່ມກວດສອບ',nxStartAp:'ເປີດເພື່ອລົງນາມ',nxClear:'ບໍ່ມີວຽກຄ້າງ',nxClearS:'ບໍ່ມີລາຍການລໍຖ້າທ່ານໃນຕອນນີ້',nxValue:'ມູນຄ່າລວມ',pfTitle:'ພາບລວມພອດ',pfPaidCap:'ທຶນທີ່ຊຳລະແລ້ວ',advFilters:'ຕົວກອງເພີ່ມເຕີມ',kwPh:'ຄົ້ນຫາດ້ວຍຊື່ ຫຼື ເລກທະບຽນ',kwLbl:'ຄົ້ນຫາ',entList:'ລາຍຊື່ວິສາຫະກິດ',demoAccts:'ບັນຊີເດໂມ',unpaidInv:'ໃບແຈ້ງໜີ້ຄ້າງຊຳລະ',secIdentity:'ຂໍ້ມູນວິສາຫະກິດ',secRegistration:'ການຈົດທະບຽນ',secLocation:'ທີ່ຕັ້ງ',secTaxFin:'ອາກອນ ແລະ ການເງິນ',valAssetCard:'ຊັບສິນທີ່ປະເມີນ',menuLbl:'ເມນູ',wsOverview:'ພາບລວມ',sysHealth:'ສະຖານະລະບົບ',docsOnFile:'ເອກະສານທີ່ມີແລ້ວ',nxOpenAll:'ເບິ່ງທັງໝົດ',apiDegraded:'ເຊື່ອມຕໍ່ຊ້າ',lockedAcc:'ບັນຊີຖືກລັອກ',fullyPaidOf:'ຊຳລະຄົບ',
+ nxCk:'ລາຍການລໍໃຫ້ທ່ານກວດສອບ',nxAp:'ລາຍການລໍໃຫ້ທ່ານອະນຸມັດ ແລະ E-Sign',nxNext:'ລາຍການຕໍ່ໄປ',nxStartCk:'ເລີ່ມກວດສອບ',nxStartAp:'ເປີດເພື່ອລົງນາມ',nxClear:'ບໍ່ມີວຽກຄ້າງ',nxClearS:'ບໍ່ມີລາຍການລໍຖ້າທ່ານໃນຕອນນີ້',nxValue:'ມູນຄ່າລວມ',pfTitle:'ພາບລວມພອດ',pfPaidCap:'ທຶນທີ່ຊຳລະແລ້ວ',advFilters:'ຕົວກອງເພີ່ມເຕີມ',kwPh:'ຄົ້ນຫາດ້ວຍຊື່ ຫຼື ເລກທະບຽນ',kwLbl:'ຄົ້ນຫາ',entList:'ລາຍຊື່ວິສາຫະກິດ',demoAccts:'ບັນຊີເດໂມ',unpaidInv:'ໃບແຈ້ງໜີ້ຄ້າງຊຳລະ',secIdentity:'ຂໍ້ມູນວິສາຫະກິດ',secRegistration:'ການຈົດທະບຽນ',secLocation:'ທີ່ຕັ້ງ',secTaxFin:'ອາກອນ ແລະ ການເງິນ',valAssetCard:'ຊັບສິນທີ່ປະເມີນ',menuLbl:'ເມນູ',resultsLbl:'ຜົນການຄົ້ນຫາ',langLbl:'ພາສາ',wsOverview:'ພາບລວມ',sysHealth:'ສະຖານະລະບົບ',docsOnFile:'ເອກະສານທີ່ມີແລ້ວ',nxOpenAll:'ເບິ່ງທັງໝົດ',apiDegraded:'ເຊື່ອມຕໍ່ຊ້າ',lockedAcc:'ບັນຊີຖືກລັອກ',fullyPaidOf:'ຊຳລະຄົບ',
  loginUser:'ຊື່ຜູ້ໃຊ້',loginPass:'ລະຫັດຜ່ານ',loginNext:'ຖັດໄປ',loginBack:'← ກັບຄືນ',
  otpTitle:'ຢືນຢັນຕົວຕົນ (MFA)',login:'ເຂົ້າສູ່ລະບົບ',
  forgotPw:'ລືມລະຫັດຜ່ານ?',forgotTitle:'ກູ້ຄືນລະຫັດຜ່ານ',forgotIdLbl:'ອີເມວ ຫຼື ເບີໂທລະສັບ',
@@ -754,7 +782,7 @@ en:{
  coop:'Capital Contribution Module (Phase 1) - a joint effort of MOIC and the Agricultural Promotion Bank (APB)',
  s1:'Registered enterprises',s2:'Trillion LAK registered capital',s3:'Business processes',
  pickAcct:'Sign in',loginHint:'Type a username (demo accounts autocomplete) and any password',
- nxCk:'items waiting for your verification',nxAp:'items waiting for your approval and E-Sign',nxNext:'Next up',nxStartCk:'Start review',nxStartAp:'Open to sign',nxClear:'All caught up',nxClearS:'Nothing is waiting on you right now',nxValue:'Total value',pfTitle:'Portfolio',pfPaidCap:'Capital paid up',advFilters:'More filters',kwPh:'Search by name or registration no.',kwLbl:'Search',entList:'Enterprises',demoAccts:'Demo accounts',unpaidInv:'unpaid invoice(s)',secIdentity:'Identity',secRegistration:'Registration',secLocation:'Location',secTaxFin:'Tax & finance',valAssetCard:'Asset under valuation',menuLbl:'Menu',wsOverview:'Overview',sysHealth:'System health',docsOnFile:'Documents on file',nxOpenAll:'View all',apiDegraded:'degraded',lockedAcc:'locked account(s)',fullyPaidOf:'Fully paid',
+ nxCk:'items waiting for your verification',nxAp:'items waiting for your approval and E-Sign',nxNext:'Next up',nxStartCk:'Start review',nxStartAp:'Open to sign',nxClear:'All caught up',nxClearS:'Nothing is waiting on you right now',nxValue:'Total value',pfTitle:'Portfolio',pfPaidCap:'Capital paid up',advFilters:'More filters',kwPh:'Search by name or registration no.',kwLbl:'Search',entList:'Enterprises',demoAccts:'Demo accounts',unpaidInv:'unpaid invoice(s)',secIdentity:'Identity',secRegistration:'Registration',secLocation:'Location',secTaxFin:'Tax & finance',valAssetCard:'Asset under valuation',menuLbl:'Menu',resultsLbl:'Results',langLbl:'Language',wsOverview:'Overview',sysHealth:'System health',docsOnFile:'Documents on file',nxOpenAll:'View all',apiDegraded:'degraded',lockedAcc:'locked account(s)',fullyPaidOf:'Fully paid',
  loginUser:'Username',loginPass:'Password',loginNext:'Next',loginBack:'← Back',
  otpTitle:'Verify identity (MFA)',login:'Sign in',
  forgotPw:'Forgot password?',forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
@@ -1319,7 +1347,8 @@ function shell(title,crumb,inner,right,sub){
   var w=who();
   return '<div class="app'+(S.mini?' mini':'')+(S.navOpen?' navopen':'')+'">'+'<div class="navveil" data-navclose></div>'+
    '<div class="side"><div class="sh"><button class="burger" data-burger aria-label="Menu">☰</button>'+
-   '<div class="brand"><img class="moic-logo" src="'+LOGO+'" alt="MOIC"><span><b>RCMS</b><small>MOIC · APB</small></span></div></div>'+m+
+   '<div class="brand"><img class="moic-logo" src="'+LOGO+'" alt="MOIC"><span><b>RCMS</b><small>MOIC · APB</small></span></div></div>'+
+   '<div class="mlang side-lang"><span class="ml">'+t('langLbl')+'</span>'+'<div class="lang"><span'+(lang==='lo'?' class="on"':'')+' data-lang="lo">ລາວ</span><span'+(lang==='en'?' class="on"':'')+' data-lang="en">EN</span></div>'+'</div>'+m+
    '<div class="sfoot">'+t('sysName')+'</div></div>'+
    '<div class="main"><div class="top"><button class="mburger" data-navopen aria-label="'+t('menuLbl')+'">☰</button><div class="ttl">'+
    (crumb?'<div class="crumb" data-nav="'+crumb[1]+'">← '+crumb[0]+'</div>':'')+
@@ -1332,6 +1361,7 @@ function shell(title,crumb,inner,right,sub){
    '<span class="uinfo"><b>'+w.n+'</b><span>'+w.r+'</span></span><span class="car">▾</span></div>'+
    (S.umenu?'<div class="upanel"><div class="uh"><div class="t2">'+t('signedAs')+'</div>'+
      '<div class="n2">'+w.n+'</div><div class="r2">'+w.r+'</div></div>'+
+     '<div class="mlang um-lang"><span class="ml">'+t('langLbl')+'</span>'+'<div class="lang"><span'+(lang==='lo'?' class="on"':'')+' data-lang="lo">ລາວ</span><span'+(lang==='en'?' class="on"':'')+' data-lang="en">EN</span></div>'+'</div>'+
      '<div class="usect">'+t('switchRoleLbl')+'</div>'+
      '<div class="uroles">'+ACCTS.map(function(a){var cur=a.id===S.role;
        return '<div class="ui urole'+(cur?' on':'')+'" data-switchrole="'+a.id+'">'+
@@ -1728,10 +1758,10 @@ function vOwnerDash(){
 }
 
 function vList(){
-  var c=counts(),tot=S.ents.length,adv=S.adv;
+  var tot=S.ents.length,adv=S.adv;
   var kw=(adv.kw||'').trim().toLowerCase();
-  var list=S.ents.filter(function(e){
-    if(S.tab!=='ALL'&&e.status!==S.tab)return false;
+  // every filter except status; the status cells then count within this set
+  var base=S.ents.filter(function(e){
     if(kw&&(e.id+' '+e.name+' '+(e.nameEn||'')).toLowerCase().indexOf(kw)<0)return false;
     if(adv.regNo&&e.id.toLowerCase().indexOf(adv.regNo.trim().toLowerCase())<0)return false;
     if(adv.etype&&L(e.type)!==adv.etype)return false;
@@ -1743,17 +1773,25 @@ function vList(){
     if(adv.updFrom&&parseD(upd)<Number(adv.updFrom.replace(/-/g,'')))return false;
     if(adv.updTo&&parseD(upd)>Number(adv.updTo.replace(/-/g,'')))return false;
     return true});
-  // status chips replace the status dropdown: one click, counts always visible
-  var chips='<div class="chips">'+[['ALL',t('allSt'),tot],['PENDING',stName('PENDING'),c.PENDING],['PARTIAL',stName('PARTIAL'),c.PARTIAL],
-    ['COMPLETED',stName('COMPLETED'),c.COMPLETED],['OVERDUE',stName('OVERDUE'),c.OVERDUE]]
-    .map(function(o){return '<span class="chipf'+(S.tab===o[0]?' on':'')+'" data-tab="'+o[0]+'">'+o[1]+' <b>'+fmt(o[2])+'</b></span>'}).join('')+'</div>';
+  var c={PENDING:0,PARTIAL:0,COMPLETED:0,OVERDUE:0};base.forEach(function(e){c[e.status]++});
+  var list=base.filter(function(e){return S.tab==='ALL'||e.status===S.tab});
+  var lCap=0,lPaid=0;list.forEach(function(e){lCap+=e.cap;lPaid+=e.paid});
+  var lPct=lCap?Math.round(lPaid/lCap*100):0;
+  var summary=sumCard({title:t('wsOverview'),
+   prog:{pct:lPct,html:t('cPaid')+' <b class="num">'+fmt(lPaid)+'</b> / <span class="num">'+fmt(lCap)+'</span> LAK · '+list.length+' '+t('items')},
+   metrics:metricBtn('',t('allSt'),fmt(base.length),'data-tab="ALL"',S.tab==='ALL')+
+    metricBtn('',stName('PENDING'),fmt(c.PENDING),'data-tab="PENDING"',S.tab==='PENDING')+
+    metricBtn('warn',stName('PARTIAL'),fmt(c.PARTIAL),'data-tab="PARTIAL"',S.tab==='PARTIAL')+
+    metricBtn('ok',stName('COMPLETED'),fmt(c.COMPLETED),'data-tab="COMPLETED"',S.tab==='COMPLETED')+
+    metricBtn('bad',stName('OVERDUE'),fmt(c.OVERDUE),'data-tab="OVERDUE"',S.tab==='OVERDUE')});
   var rows=list.map(function(e){var lf=e.cap-e.paid;
-    return '<tr data-open="'+e.id+'"><td style="padding-left:18px"><span class="co">'+e.name+'<small>'+e.id+'</small></span></td>'+
-    '<td>'+L(e.type)+'</td><td>'+L(e.prov)+'</td><td class="num">'+e.reg+'</td><td class="num">'+e.due+'</td>'+
-    '<td class="r num">'+fmt(e.cap)+'</td><td class="r num">'+fmt(e.paid)+'</td>'+
-    '<td class="r num"'+(lf?' style="color:var(--'+(e.status==='OVERDUE'?'bad':'warn')+');font-weight:600"':'')+'>'+fmt(lf)+'</td>'+
-    '<td class="r" style="padding-right:18px">'+pill(e.status)+'</td></tr>'}).join('');
-  var body=rows?'<table><thead><tr><th style="padding-left:18px">'+t('cEnt')+'</th><th>'+t('cType')+'</th><th>'+t('cProv')+'</th>'+
+    return '<tr data-open="'+e.id+'"><td class="rt-name" style="padding-left:18px"><span class="co">'+e.name+'<small>'+e.id+'</small></span></td>'+
+    '<td data-l="'+t('cType')+'">'+L(e.type)+'</td><td data-l="'+t('cProv')+'">'+L(e.prov)+'</td>'+
+    '<td class="num" data-l="'+t('cRegD')+'">'+e.reg+'</td><td class="num" data-l="'+t('cDue')+'">'+e.due+'</td>'+
+    '<td class="r num" data-l="'+t('cCap')+'">'+fmt(e.cap)+'</td><td class="r num" data-l="'+t('cPaid')+'">'+fmt(e.paid)+'</td>'+
+    '<td class="r num" data-l="'+t('cLeft')+'"'+(lf?' style="color:var(--'+(e.status==='OVERDUE'?'bad':'warn')+');font-weight:600"':'')+'>'+fmt(lf)+'</td>'+
+    '<td class="r rt-st" style="padding-right:18px">'+pill(e.status)+'</td></tr>'}).join('');
+  var body=rows?'<table class="rtable"><thead><tr><th style="padding-left:18px">'+t('cEnt')+'</th><th>'+t('cType')+'</th><th>'+t('cProv')+'</th>'+
     '<th>'+t('cRegD')+'</th><th>'+t('cDue')+'</th><th class="r">'+t('cCap')+' (LAK)</th><th class="r">'+t('cPaid')+'</th>'+
     '<th class="r">'+t('cLeft')+'</th><th class="r" style="padding-right:18px">'+t('cStatus')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'
     :'<div class="empty"><b>'+t('noMatch')+'</b>'+t('noMatchS')+'</div>';
@@ -1774,12 +1812,11 @@ function vList(){
    '<div class="field"><label>'+t('fltUpdFrom')+'</label><input type="date" id="advUpdFrom" value="'+adv.updFrom+'"></div>'+
    '<div class="field"><label>'+t('fltUpdTo')+'</label><input type="date" id="advUpdTo" value="'+adv.updTo+'"></div>'+
    '</div></div>':'')+'</div>';
-  var inner=panel+
-  '<div class="card"><div class="h" style="padding-bottom:14px"><h3>'+t('entList')+'</h3>'+
+  var inner=summary+panel+
+  '<div class="card"><div class="h" style="padding-bottom:14px"><h3>'+t('resultsLbl')+'</h3>'+
    '<span class="cnt">'+list.length+' / '+fmt(tot)+'</span>'+
    '<span style="margin-left:auto" class="acts"><button class="btn ghost sm" data-soon="'+t('export')+'">'+luSvg('download')+t('export')+'</button>'+
-   '<button class="btn ghost sm" data-soon="'+t('print')+'">'+luSvg('printer')+t('print')+'</button></span>'+
-   '<div style="flex-basis:100%">'+chips+'</div></div>'+
+   '<button class="btn ghost sm" data-soon="'+t('print')+'">'+luSvg('printer')+t('print')+'</button></span></div>'+
   '<div class="c" style="padding:0">'+body+'</div></div>';
   return shell(t('ent'),'',inner);
 }
@@ -1792,6 +1829,11 @@ function metric(tone,label,val,sub,delta){
   return '<div class="sm'+(zero?' zero':(tone?' '+tone:''))+'"><div class="k">'+label+'</div>'+
    '<div class="v"><span class="num">'+val+'</span>'+(delta&&!zero?' <span class="dl '+(delta[1]||'')+'">'+delta[0]+'</span>':'')+'</div>'+
    (sub?'<div class="s">'+sub+'</div>':'')+'</div>';
+}
+function metricBtn(tone,label,val,attr,sel){
+  var zero=Number(String(val).replace(/[^0-9]/g,''))===0;
+  return '<button type="button" class="sm smb'+(sel?' sel':'')+(zero?' zero':(tone?' '+tone:''))+'" '+attr+' aria-pressed="'+(sel?'true':'false')+'">'+
+   '<div class="k">'+label+'</div><div class="v"><span class="num">'+val+'</span></div></button>';
 }
 var NOTE_ICON={info:'hourglass',ok:'circleCheck',warn:'triangleAlert',bad:'triangleAlert'};
 function sumCard(o){
@@ -2827,7 +2869,7 @@ function vMobile(){
 
 function bind(){
   mountRegMap();
-  document.querySelectorAll('[data-lang]').forEach(function(b){b.onclick=function(){lang=b.dataset.lang;render()}});
+  document.querySelectorAll('[data-lang]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();lang=b.dataset.lang;render()}});
   document.querySelectorAll('[data-nav]').forEach(function(el){el.onclick=function(ev){
     ev.stopPropagation();go(el.dataset.nav)}});
   document.querySelectorAll('[data-subtab]').forEach(function(b){b.onclick=function(ev){
