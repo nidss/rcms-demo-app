@@ -208,6 +208,9 @@ tbody tr:hover td{background:#F6F7FD}
 .co{font-weight:600;color:var(--ink)}
 .co small{display:block;color:var(--muted);font-weight:400;font-size:11px;margin-top:1px;white-space:nowrap}
 td.num{white-space:nowrap}
+/* wide tables: headers may wrap and cells sit closer so every column fits on a laptop screen */
+table.tight th{white-space:normal}
+table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .empty{padding:40px 24px;text-align:center;color:var(--muted);font-size:12.5px;display:flex;flex-direction:column;align-items:center;gap:4px}
 .empty:before{content:"";width:40px;height:40px;border-radius:50%;margin-bottom:8px;
   background:var(--soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3A9C2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 12h-6l-2 3h-4l-2-3H2'/%3E%3Cpath d='M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z'/%3E%3C/svg%3E") center/18px no-repeat}
@@ -307,11 +310,9 @@ td.num{white-space:nowrap}
 .fbar .field{margin:0}
 .fbar .fx{display:flex;gap:8px;align-items:center;justify-content:flex-end;height:40px}
 .fbar .fx .btn{height:40px}
-.fbar .adv{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
 .fbar .sbox{position:relative}
 .fbar .sbox svg{position:absolute;left:12px;top:50%;width:16px;height:16px;transform:translateY(-50%);color:var(--muted);pointer-events:none}
 .fbar .sbox input{padding-left:36px!important}
-.fbar .badge{background:var(--m);color:#fff;border-radius:9px;padding:0 6px;font-size:10px;font-weight:700;margin-left:2px}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
 .chipf{border:1px solid var(--line);background:var(--white);border-radius:20px;padding:6px 12px;font-size:12px;color:var(--ink2);
   cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:.12s}
@@ -658,7 +659,7 @@ lo:{
  noMatch:'ບໍ່ພົບລາຍການທີ່ຕົງກັບເງື່ອນໄຂ',noMatchS:'ລອງປ່ຽນເງື່ອນໄຂ ຫຼື ລ້າງຄ່າຄົ້ນຫາ',
  filterTitle:'ຕົວກອງ',clearCriteria:'ລ້າງເງື່ອນໄຂ',fltRegNo:'ເລກທະບຽນ',fltEtype:'ປະເພດວິສາຫະກິດ',
  fltNameLo:'ຊື່ວິສາຫະກິດ (ລາວ)',fltNameEn:'ຊື່ວິສາຫະກິດ (English)',
- fltRegFrom:'ວັນທີ່ຈົດທະບຽນ ຈາກ',fltRegTo:'ວັນທີ່ຈົດທະບຽນ ຫາ',fltUpdFrom:'ວັນທີ່ອັບເດດ ຈາກ',fltUpdTo:'ວັນທີ່ອັບເດດ ຫາ',
+ fltName:'ຊື່ວິສາຫະກິດ',fltRegFrom:'ວັນທີ່ຈົດທະບຽນ ຈາກ',fltRegTo:'ວັນທີ່ຈົດທະບຽນ ຫາ',fltUpdFrom:'ວັນທີ່ອັບເດດ ຈາກ',fltUpdTo:'ວັນທີ່ອັບເດດ ຫາ',
 
  entType:'ປະເພດນິຕິບຸກຄົນ',regNo:'ເລກທະບຽນ',taxrisNo:'ເລກ TaxRis',acctNo:'ບັນຊີຮັບທຶນ',
  regCardTitle:'ລາຍລະອຽດການຈົດທະບຽນວິສາຫະກິດ',nameLoLbl:'ຊື່ວິສາຫະກິດ (ລາວ)',nameEnLbl:'ຊື່ວິສາຫະກິດ (ອັງກິດ)',
@@ -823,7 +824,7 @@ en:{
  noMatch:'No records match these filters',noMatchS:'Try different criteria or clear the search',
  filterTitle:'Filter',clearCriteria:'Clear criteria',fltRegNo:'Registration number',fltEtype:'Enterprise type',
  fltNameLo:'Enterprise name (Lao)',fltNameEn:'Enterprise name (English)',
- fltRegFrom:'Registration date from',fltRegTo:'Registration date to',fltUpdFrom:'Last update from',fltUpdTo:'Last update to',
+ fltName:'Enterprise name',fltRegFrom:'Registration date from',fltRegTo:'Registration date to',fltUpdFrom:'Last update from',fltUpdTo:'Last update to',
 
  entType:'Entity type',regNo:'Registration no.',taxrisNo:'TaxRis no.',acctNo:'Capital account',
  regCardTitle:'Enterprise Registration Details',nameLoLbl:'Enterprise name (Lao)',nameEnLbl:'Enterprise name (English)',
@@ -1351,7 +1352,7 @@ function reset(){
      read:false,bell:false,umenu:false,setTab:'fee',finTab:'fee',ckTab:'queue',pg:{},colf:{},colDraft:{},certCopy:false,
      valjobs:JSON.parse(JSON.stringify(VALJOBS)),users:JSON.parse(JSON.stringify(USERS_SEED)),
      backReasonInt:'',backReasonExt:'',loginStep:'cred',loginUser:'',loginPass:'',loginErr:'',tx:null,valI:0,valForm:{val:null,files:[],err:'',docType:'valReport',docErr:''},
-     advOpen:false,adv:{kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''}};
+     advDraft:null,adv:{kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''}};
   S.tasks=seedTasks();seedReturned();seedApproved();
   render();
 }
@@ -1360,7 +1361,7 @@ function clearCache(){
   S.read=false;S.bell=false;S.umenu=false;S.certCopy=false;
   S.valjobs=JSON.parse(JSON.stringify(VALJOBS));S.users=JSON.parse(JSON.stringify(USERS_SEED));
   S.backReasonInt='';S.backReasonExt='';S.tx=null;S.valI=0;S.valForm={val:null,files:[],err:'',docType:'valReport',docErr:''};
-  S.adv={kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''};
+  S.adv={kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''};S.advDraft=null;
   if(S.view==='declare')S.view=S.sel?'detail':'dash';
   render();
 }
@@ -1889,10 +1890,10 @@ function vList(){
   var kw=(adv.kw||'').trim().toLowerCase();
   var list=S.ents.filter(function(e){
     if(S.tab!=='ALL'&&e.status!==S.tab)return false;
-    if(kw&&(e.id+' '+e.name+' '+(e.nameEn||'')).toLowerCase().indexOf(kw)<0)return false;
+    if(kw&&(e.name+' '+(e.nameEn||'')).toLowerCase().indexOf(kw)<0)return false;
     if(adv.regNo&&e.id.toLowerCase().indexOf(adv.regNo.trim().toLowerCase())<0)return false;
-    if(adv.etype&&L(e.type)!==adv.etype)return false;
-    if(adv.prov&&L(e.prov)!==adv.prov)return false;
+    if(adv.etype&&e.type.lo!==adv.etype)return false;
+    if(adv.prov&&e.prov.lo!==adv.prov)return false;
     if(adv.isic&&e.isic!==adv.isic)return false;
     if(adv.regFrom&&parseD(e.reg)<Number(adv.regFrom.replace(/-/g,'')))return false;
     if(adv.regTo&&parseD(e.reg)>Number(adv.regTo.replace(/-/g,'')))return false;
@@ -1906,32 +1907,40 @@ function vList(){
     .map(function(o){return '<span class="chipf'+(S.tab===o[0]?' on':'')+'" data-tab="'+o[0]+'">'+o[1]+' <b>'+fmt(o[2])+'</b></span>'}).join('')+'</div>';
   var pg=paginate('ent',list,S.tab+'|'+JSON.stringify(adv));
   var rows=pg.items.map(function(e){var lf=e.cap-e.paid;
-    return '<tr data-open="'+e.id+'"><td style="padding-left:18px"><span class="co">'+e.name+'<small>'+e.id+'</small></span></td>'+
-    '<td>'+L(e.type)+'</td><td>'+L(e.prov)+'</td><td class="num">'+e.reg+'</td><td class="num">'+e.due+'</td>'+
+    return '<tr data-open="'+e.id+'"><td style="padding-left:18px;min-width:150px"><span class="co">'+e.name+'</span></td>'+
+    '<td class="num">'+e.id+'</td><td>'+L(e.type)+'</td><td>'+L(e.prov)+'</td><td class="num">'+e.reg+'</td><td class="num">'+e.due+'</td>'+
     '<td class="r num">'+fmt(e.cap)+'</td><td class="r num">'+fmt(e.paid)+'</td>'+
     '<td class="r num"'+(lf?' style="color:var(--'+(e.status==='OVERDUE'?'bad':'warn')+');font-weight:600"':'')+'>'+fmt(lf)+'</td>'+
     '<td class="r" style="padding-right:18px">'+pill(e.status)+'</td></tr>'}).join('');
-  var body=rows?'<table><thead><tr><th style="padding-left:18px">'+t('cEnt')+'</th><th>'+t('cType')+'</th><th>'+t('cProv')+'</th>'+
+  var body=rows?'<table class="tight"><thead><tr><th style="padding-left:18px">'+t('cEnt')+'</th><th>'+t('regNo')+'</th><th>'+t('cType')+'</th><th>'+t('cProv')+'</th>'+
     '<th>'+t('cRegD')+'</th><th>'+t('cDue')+'</th><th class="r">'+t('cCap')+' (LAK)</th><th class="r">'+t('cPaid')+'</th>'+
     '<th class="r">'+t('cLeft')+'</th><th class="r" style="padding-right:18px">'+t('cStatus')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'+pg.bar
     :'<div class="empty"><b>'+t('noMatch')+'</b>'+t('noMatchS')+'</div>';
-  var etypeOpts=MASTER.etype.map(function(x){return '<option'+(adv.etype===L(x)?' selected':'')+'>'+L(x)+'</option>'}).join('');
-  var provOpts=MASTER.prov.map(function(p){return '<option'+(adv.prov===p?' selected':'')+'>'+p+'</option>'}).join('');
-  var isicOpts=MASTER.isic.map(function(i){return '<option'+(adv.isic===i[0]?' selected':'')+'>'+i[0]+'</option>'}).join('');
-  var nAdv=['etype','isic','regFrom','regTo','updFrom','updTo'].filter(function(k){return adv[k]}).length;
-  var panel='<div class="fbar"><div class="frow main">'+
-   '<div class="field"><label>'+t('kwLbl')+'</label><div class="sbox">'+luSvg('search')+'<input id="advKw" placeholder="'+t('kwPh')+'" value="'+esc(adv.kw||'')+'"></div></div>'+
-   '<div class="field"><label>'+t('cProv')+'</label><select id="advProv"><option value="">'+t('allProv')+'</option>'+provOpts+'</select></div>'+
-   '<div class="field"><label>'+t('fltEtype')+'</label><select id="advEtype"><option value="">-</option>'+etypeOpts+'</select></div>'+
-   '<div class="fx"><button class="btn ghost" data-advtoggle="1">'+luSvg('slidersH')+t('advFilters')+(nAdv?'<span class="badge">'+nAdv+'</span>':'')+'</button>'+
-   '<span class="lnk" data-clearadv="1">'+t('clearCriteria')+'</span></div></div>'+
-   (S.advOpen?'<div class="adv"><div class="frow">'+
-   '<div class="field"><label>ISIC</label><select id="advIsic"><option value="">'+t('allIsic')+'</option>'+isicOpts+'</select></div>'+
-   '<div class="field"><label>'+t('fltRegFrom')+'</label><input type="date" id="advRegFrom" value="'+adv.regFrom+'"></div>'+
-   '<div class="field"><label>'+t('fltRegTo')+'</label><input type="date" id="advRegTo" value="'+adv.regTo+'"></div>'+
-   '<div class="field"><label>'+t('fltUpdFrom')+'</label><input type="date" id="advUpdFrom" value="'+adv.updFrom+'"></div>'+
-   '<div class="field"><label>'+t('fltUpdTo')+'</label><input type="date" id="advUpdTo" value="'+adv.updTo+'"></div>'+
-   '</div></div>':'')+'</div>';
+  // Search card: every criterion visible. Fields edit a draft (S.advDraft); Search / Enter applies it.
+  var d=S.advDraft||adv;
+  // Dropdown values are language-independent (Lao name / ISIC code), so a search survives a language switch.
+  // Province and ISIC lists come from the data, so every enterprise can be found.
+  function opt(v,lbl,cur){return '<option value="'+esc(v)+'"'+(cur===v?' selected':'')+'>'+lbl+'</option>'}
+  var provs={},isics={};
+  S.ents.forEach(function(e){provs[e.prov.lo]=e.prov;isics[e.isic]=1});
+  MASTER.isic.forEach(function(i){isics[i[0]]=1});
+  var etypeOpts=MASTER.etype.map(function(x){return opt(x.lo,L(x),d.etype)}).join('');
+  var provOpts=Object.keys(provs).sort(function(a,b){return L(provs[a]).localeCompare(L(provs[b]))}).map(function(k){return opt(k,L(provs[k]),d.prov)}).join('');
+  var isicOpts=Object.keys(isics).sort().map(function(c){return opt(c,c,d.isic)}).join('');
+  function fld(k,lbl,ctl){return '<div class="field"><label for="adv-'+k+'">'+lbl+'</label>'+ctl+'</div>'}
+  function txt(k,type){return '<input'+(type?' type="'+type+'"':'')+' id="adv-'+k+'" data-adv="'+k+'" value="'+esc(d[k]||'')+'">'}
+  function sel(k,all,opts){return '<select id="adv-'+k+'" data-adv="'+k+'"><option value="">'+all+'</option>'+opts+'</select>'}
+  var panel=filterBar(
+   fld('kw',t('fltName'),txt('kw'))+
+   fld('regNo',t('regNo'),txt('regNo'))+
+   fld('prov',t('cProv'),sel('prov',t('allProv'),provOpts))+
+   fld('etype',t('fltEtype'),sel('etype',t('finAll'),etypeOpts))+
+   fld('isic','ISIC',sel('isic',t('allIsic'),isicOpts))+
+   fld('regFrom',t('fltRegFrom'),txt('regFrom','date'))+
+   fld('regTo',t('fltRegTo'),txt('regTo','date'))+
+   fld('updFrom',t('fltUpdFrom'),txt('updFrom','date'))+
+   fld('updTo',t('fltUpdTo'),txt('updTo','date')),
+   'data-clearadv','data-advsearch');
   var inner=panel+
   '<div class="card"><div class="h" style="padding-bottom:14px"><h3>'+t('entList')+'</h3>'+
    '<span class="cnt">'+list.length+' / '+fmt(tot)+'</span>'+
@@ -3142,23 +3151,16 @@ function bind(){
   var st=$('#stSel');if(st)st.onchange=function(){S.tab=st.value;render()};
   var q=$('#q');if(q)q.oninput=function(){var p=q.selectionStart;S.q=q.value;render();
     var n=$('#q');if(n){n.focus();n.setSelectionRange(p,p)}};
+  function advSearch(){S.adv=JSON.parse(JSON.stringify(S.advDraft||S.adv));S.advDraft=null;render()}
+  document.querySelectorAll('[data-adv]').forEach(function(el){
+    var k=el.dataset.adv,txt=el.tagName==='INPUT'&&el.type!=='date';
+    el[txt?'oninput':'onchange']=function(){
+      (S.advDraft||(S.advDraft=JSON.parse(JSON.stringify(S.adv))))[k]=el.value};
+    if(el.tagName==='INPUT')el.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();advSearch()}}});
+  document.querySelectorAll('[data-advsearch]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();advSearch()}});
   document.querySelectorAll('[data-clearadv]').forEach(function(b){b.onclick=function(){
-    S.adv={kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''};render()}});
+    S.adv={kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''};S.advDraft=null;render()}});
   document.querySelectorAll('[data-search]').forEach(function(b){b.onclick=function(){render()}});
-  var akw=$('#advKw');if(akw)akw.oninput=function(){var p=akw.selectionStart;S.adv.kw=akw.value;render();
-    var n=$('#advKw');if(n){n.focus();n.setSelectionRange(p,p)}};
-  document.querySelectorAll('[data-advtoggle]').forEach(function(b){b.onclick=function(){S.advOpen=!S.advOpen;render()}});
-  var ae=$('#advEtype');if(ae)ae.onchange=function(){S.adv.etype=ae.value;render()};
-  var anl=$('#advNameLo');if(anl)anl.oninput=function(){var p=anl.selectionStart;S.adv.nameLo=anl.value;render();
-    var n=$('#advNameLo');if(n){n.focus();n.setSelectionRange(p,p)}};
-  var ane=$('#advNameEn');if(ane)ane.oninput=function(){var p=ane.selectionStart;S.adv.nameEn=ane.value;render();
-    var n=$('#advNameEn');if(n){n.focus();n.setSelectionRange(p,p)}};
-  var apv=$('#advProv');if(apv)apv.onchange=function(){S.adv.prov=apv.value;render()};
-  var ais=$('#advIsic');if(ais)ais.onchange=function(){S.adv.isic=ais.value;render()};
-  var arf=$('#advRegFrom');if(arf)arf.onchange=function(){S.adv.regFrom=arf.value;render()};
-  var art=$('#advRegTo');if(art)art.onchange=function(){S.adv.regTo=art.value;render()};
-  var auf=$('#advUpdFrom');if(auf)auf.onchange=function(){S.adv.updFrom=auf.value;render()};
-  var aut=$('#advUpdTo');if(aut)aut.onchange=function(){S.adv.updTo=aut.value;render()};
 
   var amt=$('#fAmt');if(amt)amt.oninput=function(){S.form.amt=amt.value};
   var fev=$('#fileEvidence');if(fev)fev.onchange=function(){
