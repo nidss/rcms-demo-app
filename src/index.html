@@ -376,7 +376,7 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .pager select{font:inherit;font-size:12px;height:28px;padding:0 6px;border:1px solid var(--line);border-radius:7px;background:var(--white);color:var(--ink2);cursor:pointer}
 .pager .pg-nav{display:flex;gap:4px;flex-wrap:wrap}
 .pager .pg{min-width:28px;height:28px;padding:0 8px;border:1px solid var(--line);border-radius:7px;background:var(--white);color:var(--ink2);font:inherit;font-size:12px;cursor:pointer}
-.pager .pg:hover:not(:disabled){border-color:var(--m);color:var(--m)}
+.pager .pg:hover:not(:disabled):not(.on){border-color:var(--m);color:var(--m)}
 .pager .pg.on{background:var(--m);border-color:var(--m);color:#fff;font-weight:600}
 .pager .pg:disabled{opacity:.4;cursor:default}
 .pager .pg-gap{padding:0 2px;align-self:center}
@@ -1342,7 +1342,7 @@ function pendingOf(id){var f=S.tasks.filter(function(x){return x.ent.id===id});r
 /* ================= state ================= */
 var S={};
 function reset(){
-  S={role:null,pick:null,view:'login',mobile:false,sel:null,tab:'ALL',q:'',mini:false,
+  S={role:null,pick:null,view:'login',mobile:false,sel:null,tab:'ALL',mini:false,
      ents:seedEnts(),invs:seedInv(),tasks:[],taskI:0,form:null,modal:null,notif:[],
      read:false,bell:false,umenu:false,setTab:'fee',finTab:'fee',dashTab:'queue',pg:{},colf:{},colDraft:{},certCopy:false,
      valjobs:JSON.parse(JSON.stringify(VALJOBS)),users:JSON.parse(JSON.stringify(USERS_SEED)),
@@ -1600,15 +1600,23 @@ function colFilterBar(key,fields){
   return filterBar(flds,'data-clearcolf','data-colsearch',key);
 }
 function colNorm(v){return String(v==null?'':v).replace(/<[^>]*>/g,' ').replace(/,/g,'').replace(/\s+/g,' ').trim().toLowerCase()}
-function colMatch(key,vals){
+// Text columns match a substring; columns listed in exact (the dropdowns) must match the whole value.
+function colMatch(key,vals,exact){
   var f=S.colf[key]||{};
-  return Object.keys(f).every(function(c){var q=colNorm(f[c]);return !q||colNorm(vals[c]).indexOf(q)>=0});
+  return Object.keys(f).every(function(c){var q=colNorm(f[c]),v=colNorm(vals[c]);
+    return !q||(exact&&exact.indexOf(c)>=0?v===q:v.indexOf(q)>=0)});
+}
+// Province dropdown options from the data: [Lao name (value), label in the current language].
+function provinceOptions(){
+  var provs={};S.ents.forEach(function(e){provs[e.prov.lo]=e.prov});
+  return Object.keys(provs).sort(function(a,b){return L(provs[a]).localeCompare(L(provs[b]))}).map(function(k){return [k,L(provs[k])]});
 }
 // A searchable list: search card (o.fields), then a card with the table and pagination.
 // o: key, title, empty, all (rows), fields, vals(row)->{col:text}, heads [[label, right?]], row(row)->html,
-// hot (accent the card when non-empty), mb (gap below the card).
+// hot (accent the card when non-empty), mb (gap below the card), foot (html under the table).
 function listCard(o){
-  var key=o.key,hit=o.all.filter(function(r){return colMatch(key,o.vals(r))});
+  var key=o.key,exact=o.fields.filter(function(f){return f[2]}).map(function(f){return f[0]});
+  var hit=o.all.filter(function(r){return colMatch(key,o.vals(r),exact)});
   var pg=paginate(key,hit,JSON.stringify(S.colf[key]||{}));
   var head='<tr>'+o.heads.map(function(h,i){
     var pad=i===0?'padding-left:16px':(i===o.heads.length-1?'padding-right:16px':'');
@@ -1620,7 +1628,7 @@ function listCard(o){
   return (n?colFilterBar(key,o.fields):'')+
     '<div class="card'+(o.hot&&n?' hot':'')+'"'+(o.mb?' style="margin-bottom:16px"':'')+'><div class="h"><h3>'+o.title+'</h3>'+
     (n?'<span class="cnt" style="margin-left:auto">'+(on?hit.length+' / ':'')+n+'</span>':'')+'</div>'+
-    '<div class="c" style="padding:12px 0 0">'+table+'</div></div>';
+    '<div class="c" style="padding:12px 0 0">'+table+(o.foot||'')+'</div></div>';
 }
 function colActive(key){var f=S.colf[key]||{};return Object.keys(f).some(function(c){return (f[c]||'').trim()})}
 
@@ -1919,11 +1927,11 @@ function vList(){
   // Dropdown values are language-independent (Lao name / ISIC code), so a search survives a language switch.
   // Province and ISIC lists come from the data, so every enterprise can be found.
   function opt(v,lbl,cur){return '<option value="'+esc(v)+'"'+(cur===v?' selected':'')+'>'+lbl+'</option>'}
-  var provs={},isics={};
-  S.ents.forEach(function(e){provs[e.prov.lo]=e.prov;isics[e.isic]=1});
+  var isics={};
+  S.ents.forEach(function(e){isics[e.isic]=1});
   MASTER.isic.forEach(function(i){isics[i[0]]=1});
   var etypeOpts=MASTER.etype.map(function(x){return opt(x.lo,L(x),d.etype)}).join('');
-  var provOpts=Object.keys(provs).sort(function(a,b){return L(provs[a]).localeCompare(L(provs[b]))}).map(function(k){return opt(k,L(provs[k]),d.prov)}).join('');
+  var provOpts=provinceOptions().map(function(o){return opt(o[0],o[1],d.prov)}).join('');
   var isicOpts=Object.keys(isics).sort().map(function(c){return opt(c,c,d.isic)}).join('');
   function fld(k,lbl,ctl){return '<div class="field"><label for="adv-'+k+'">'+lbl+'</label>'+ctl+'</div>'}
   function txt(k,type){return '<input'+(type?' type="'+type+'"':'')+' id="adv-'+k+'" data-adv="'+k+'" value="'+esc(d[k]||'')+'">'}
@@ -2378,30 +2386,34 @@ function vValJobDetail(){
 }
 
 function vValQueue(){
-  var rows=S.valjobs.map(function(j){
-    var idx=S.valjobs.indexOf(j),ent=S.ents.filter(function(y){return y.id===j.ent})[0],lbl=VAL_LBL[j.status];
-    return '<tr data-valjob="'+idx+'"><td style="padding-left:16px" class="num">'+j.id+'</td>'+
-    '<td><span class="co">'+(ent?ent.name:j.ent)+'<small>'+L(j.asset)+'</small></span></td><td>'+j.firm+'</td>'+
-    '<td>'+(j.net==='in'?'<span class="pill p-ok">'+t('inNet')+'</span>':'<span class="pill p-warn">'+t('outNet').split(' (')[0]+'</span>')+'</td>'+
-    '<td class="r num">'+fmt(j.amt)+'</td><td class="r" style="padding-right:16px"><span class="pill '+lbl[1]+'">'+t(lbl[0])+'</span></td></tr>'}).join('');
   var counts={doing:0,wait:0,outapprove:0,accepted:0};
   S.valjobs.forEach(function(j){counts[j.status]++});
   var LO=lang==='lo';
   var outJobs=S.valjobs.filter(function(j){return j.status==='outapprove'});
-  var inner=sumCard({title:t('wsOverview'),
+  function entOf(j){return S.ents.filter(function(y){return y.id===j.ent})[0]}
+  var kpis=sumCard({title:t('wsOverview'),
    metrics:metric('',t('valAll'),fmt(S.valjobs.length),LO?'ໃນຄິວປະເມີນ':'In the valuation queue')+
     metric('warn',t('valDoing'),fmt(counts.doing),LO?'ບໍລິສັດກຳລັງເຮັດ':'Firms working on it')+
     metric('',t('valWait'),fmt(counts.wait),LO?'ລໍຢືນຢັນຜົນ':'Awaiting acceptance')+
     metric('bad',t('valOut'),fmt(counts.outapprove),LO?'ຕ້ອງອະນຸມັດກ່ອນ':'Approve the firm first'),
-   notes:outJobs.map(function(j){var ent=S.ents.filter(function(y){return y.id===j.ent})[0];
+   notes:outJobs.map(function(j){var ent=entOf(j);
      return {tone:'warn',text:'<b class="num">'+j.id+'</b> · '+(ent?ent.name:j.ent)+' · '+j.firm+' ('+t('outNet').split(' (')[0]+')',
-       act:'<button class="btn sm" data-valjob="'+S.valjobs.indexOf(j)+'">'+t('valOut')+'</button>'}})})+
-   '<div class="card"><div class="h"><h3>'+t('valTitle')+'</h3></div>'+
-   '<div class="c" style="padding:12px 0 0"><table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th>'+
-   '<th>'+t('cEnt')+' / '+t('valAsset')+'</th><th>'+t('valFirm')+'</th><th>'+t('valFirmType')+'</th>'+
-   '<th class="r">'+t('valDeclared')+' (LAK)</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead>'+
-   '<tbody>'+rows+'</tbody></table><div class="audit" style="margin:14px 16px 16px">'+t('valRule')+'</div></div></div>';
-  return shell(t('valTitle'),'',inner);
+       act:'<button class="btn sm" data-valjob="'+S.valjobs.indexOf(j)+'">'+t('valOut')+'</button>'}})});
+  var firms=[];S.valjobs.forEach(function(j){if(firms.indexOf(j.firm)<0)firms.push(j.firm)});
+  var card=listCard({key:'valQueue',title:t('valTitle'),empty:t('noMatch'),all:S.valjobs.map(function(j,i){return [j,i]}),
+    fields:[['ref',t('cRef')],['ent',t('cEnt')],['firm',t('valFirm'),firms.sort().map(function(f){return [f,f]})],
+      ['net',t('valFirmType'),[['in',t('inNet')],['out',t('outNet').split(' (')[0]]]],
+      ['st',t('cStatus'),Object.keys(VAL_LBL).map(function(k){return [k,t(VAL_LBL[k][0])]})]],
+    vals:function(p){var j=p[0],e=entOf(j);
+      return {ref:j.id,ent:(e?e.name+' '+(e.nameEn||'')+' ':'')+j.ent+' '+L(j.asset),firm:j.firm,net:j.net,st:j.status}},
+    heads:[[t('cRef')],[t('cEnt')+' / '+t('valAsset')],[t('valFirm')],[t('valFirmType')],[t('valDeclared')+' (LAK)',1],[t('cStatus'),1]],
+    row:function(p){var j=p[0],ent=entOf(j),lbl=VAL_LBL[j.status];
+      return '<tr data-valjob="'+p[1]+'"><td style="padding-left:16px" class="num">'+j.id+'</td>'+
+       '<td><span class="co">'+(ent?ent.name:j.ent)+'<small>'+L(j.asset)+'</small></span></td><td>'+j.firm+'</td>'+
+       '<td>'+(j.net==='in'?'<span class="pill p-ok">'+t('inNet')+'</span>':'<span class="pill p-warn">'+t('outNet').split(' (')[0]+'</span>')+'</td>'+
+       '<td class="r num">'+fmt(j.amt)+'</td><td class="r" style="padding-right:16px"><span class="pill '+lbl[1]+'">'+t(lbl[0])+'</span></td></tr>'},
+    foot:'<div class="audit" style="margin:14px 16px 16px">'+t('valRule')+'</div>'});
+  return shell(t('valTitle'),'',kpis+card);
 }
 
 function vFin(){
@@ -2647,22 +2659,15 @@ function vSet(){
 }
 
 function vPortal(){
-  var q=(S.q||'').trim().toLowerCase();
-  var list=S.ents.filter(function(e){return !q||e.name.toLowerCase().indexOf(q)>=0||(e.nameEn||'').toLowerCase().indexOf(q)>=0||e.id.toLowerCase().indexOf(q)>=0});
-  var pg=paginate('portal',list,q);
-  var rows=pg.items.map(function(e){
-    return '<tr><td style="padding-left:16px"><span class="co">'+e.name+'<small>'+e.id+'</small></span></td>'+
-    '<td>'+L(e.prov)+'</td><td class="num">'+e.due+'</td>'+
-    '<td class="r" style="padding-right:16px">'+pill(e.status)+' <button class="btn ghost sm" style="margin-left:8px" data-soon="'+t('dlPdf')+'">'+luSvg('download')+t('dlPdf')+'</button></td></tr>'}).join('');
-  var qd=S.qDraft!=null?S.qDraft:(S.q||'');
-  var inner=filterBar('<div class="field"><label for="q">'+t('kwLbl')+'</label><input id="q" placeholder="'+t('search')+'" value="'+esc(qd)+'"></div>',
-    'data-clearportal','data-portalsearch')+
-   '<div class="card"><div class="c" style="padding:0">'+
-   (rows?'<table><thead><tr><th style="padding-left:16px">'+t('cEnt')+'</th><th>'+t('cProv')+'</th>'+
-     '<th>'+t('cDue')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'+pg.bar
-    :'<div class="empty"><b>'+t('noMatch')+'</b>'+t('noMatchS')+'</div>')+'</div></div>'+
-   '<div class="audit" style="margin-top:12px">'+t('portalNote')+'</div>';
-  return shell(t('portalTitle'),'',inner);
+  var card=listCard({key:'portal',title:t('entList'),empty:t('noMatch'),all:S.ents,
+    fields:[['ent',t('cEnt')],['reg',t('regNo')],['prov',t('cProv'),provinceOptions()]],
+    vals:function(e){return {ent:e.name+' '+(e.nameEn||''),reg:e.id,prov:e.prov.lo}},
+    heads:[[t('cEnt')],[t('regNo')],[t('cProv')],[t('cDue')],[t('cStatus'),1]],
+    row:function(e){
+      return '<tr><td style="padding-left:16px"><span class="co">'+e.name+'</span></td><td class="num">'+e.id+'</td>'+
+       '<td>'+L(e.prov)+'</td><td class="num">'+e.due+'</td>'+
+       '<td class="r" style="padding-right:16px">'+pill(e.status)+' <button class="btn ghost sm" style="margin-left:8px" data-soon="'+t('dlPdf')+'">'+luSvg('download')+t('dlPdf')+'</button></td></tr>'}});
+  return shell(t('portalTitle'),'',card+'<div class="audit" style="margin-top:12px">'+t('portalNote')+'</div>');
 }
 
 function vCert(){
@@ -3153,11 +3158,6 @@ function bind(){
       document.querySelectorAll('.kpi.ok,.kpi.warn').forEach(function(k){k.classList.add('flash')})},60)}});
 
   var st=$('#stSel');if(st)st.onchange=function(){S.tab=st.value;render()};
-  function portalSearch(){S.q=S.qDraft!=null?S.qDraft:S.q;S.qDraft=null;render()}
-  var q=$('#q');if(q){q.oninput=function(){S.qDraft=q.value};
-    q.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();portalSearch()}}}
-  document.querySelectorAll('[data-portalsearch]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();portalSearch()}});
-  document.querySelectorAll('[data-clearportal]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();S.q='';S.qDraft=null;render()}});
   function advSearch(){S.adv=JSON.parse(JSON.stringify(S.advDraft||S.adv));S.advDraft=null;render()}
   document.querySelectorAll('[data-adv]').forEach(function(el){
     var k=el.dataset.adv,txt=el.tagName==='INPUT'&&el.type!=='date';

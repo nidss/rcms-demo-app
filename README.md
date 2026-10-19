@@ -130,7 +130,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   (วิสาหกิจ, ทรัพย์สิน, ประเภทเครือข่าย, มูลค่าที่แจ้ง) → การ์ด "Asset under valuation"
   (Collateral + Fields ที่ยื่นมา) ซ้าย → ฟอร์ม Submit result ขวา (เอกสารเดิมรวมอยู่ในฟอร์ม
   ไม่มีกล่องว่างแยก)
-- Checker/Approver มี Asset Valuation Queue พร้อม KPI
+- Checker/Approver มี Asset Valuation Queue พร้อม KPI, การ์ดค้นหา (Reference, Enterprise / ทรัพย์สิน,
+  Valuation firm, Network type, Status แบบ dropdown + Search / Clear) และ pagination
 
 ### ตรวจทาน → อนุมัติ → ใบรับรอง
 - Reviewer ตรวจแล้วส่งต่อหรือตีกลับ, Approver อนุมัติ + ลงลายเซ็นดิจิทัล (ต้อง MFA
@@ -216,7 +217,11 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
   ยาวพอเห็น pagination: Verification queue 15, Awaiting approval 11, Returned by me 13 รายการ
 - Pagination (`paginate()` ใน `src/index.html`, เลือกได้ 5/10/20/50 แถวต่อหน้า) ใช้กับรายการของ
   Checker ทั้ง 3 รายการ, หน้าค้นหาวิสาหกิจ (เปลี่ยนตัวกรองแล้วกลับไปหน้า 1), รายการที่ยื่นไปแล้ว
-  ของ Maker, รายการทั้ง 3 ของ Approver และ External Portal
+  ของ Maker, รายการทั้ง 3 ของ Approver, Asset Valuation Queue และ External Portal
+- External Portal: ตารางแยกคอลัมน์ Enterprise กับ Registration no. ค้นหาด้วย Enterprise,
+  Registration no. และ Province (dropdown)
+- ช่อง dropdown ในการ์ดค้นหาจับคู่ค่าแบบตรงทั้งคำ (เช่นเลือก "Vientiane Province" ไม่ปน
+  "Vientiane Capital") ส่วนช่องข้อความค้นหาจากบางส่วนของคำ
 - ชื่อสถานะบนหน้าจอใช้ภาษาลาว/ไทยเป็นหลัก และมีรหัสระบบ
   (PENDING / PARTIAL / COMPLETED / OVERDUE) กำกับไว้เพื่อเทียบกับเอกสาร requirement
 - โค้ดทั้งหมดอยู่ในไฟล์เดียว (`src/index.html`) แบ่งส่วนด้วยคอมเมนต์:
