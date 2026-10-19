@@ -1102,7 +1102,84 @@ function seedEnts(){return[
   insts:[{no:1,amt:1620000000,state:'paid',meta:{lo:'ຢືນຢັນແລ້ວ 28/11/2025',en:'Confirmed 28/11/2025'}},
          {no:2,amt:3780000000,state:'due',meta:{lo:'ລໍປະເມີນເຄື່ອງຈັກ · In-network Firm',en:'Machinery appraisal pending · in-network firm'}}],
   hist:[{d:'28/11/2025',a:{lo:'ຊຳລະທຶນງວດທີ 1',en:'Capital instalment 1 received'},m:'cash',v:1620000000,u:'ນ. ສີວິໄລ',f:'4',ch:'chCounter',st:'complete'}]}
-];}
+].concat(seedMockEnts());}
+
+// Extra enterprises that only carry a pending declaration, so the Checker / Approver lists
+// are long enough to page through. The first MOCK_QUEUE sit in the Checker queue, the rest
+// are already verified and wait on the Approver. Most queued ones were returned once by the
+// Checker and resubmitted, which fills "Returned by me". The six hand-written enterprises
+// above stay untouched so the Owner and Maker walkthroughs behave as before.
+var MOCK_QUEUE=14;
+var MOCK_ENTS=[
+ ['ວັງວຽງ ຣີສອດ','Vang Vieng Resort','ທ. ສົມສັກ ພົມມະຈັນ',1,'5510',620000000],
+ ['ປາກເຊ ກາເຟ','Pakse Coffee Co., Ltd.','ນ. ດາລາວັນ ສີລາ',2,'1079',380000000],
+ ['ໄຊສົມບູນ ກະສິກຳ','Xaisomboun Agriculture','ທ. ບົວພັນ ແສງອາລຸນ',3,'0111',250000000],
+ ['ອຸດົມໄຊ ຢາງພາລາ','Oudomxay Rubber Co., Ltd.','ທ. ຄຳຫຼ້າ ວົງສະຫວັນ',4,'2211',1850000000],
+ ['ບໍ່ແກ້ວ ຂົນສົ່ງ','Bokeo Transport','ນ. ມະນີວອນ ພິລາວົງ',5,'4923',540000000],
+ ['ສາລະວັນ ການແພດ','Salavan Medical Supplies','ທ. ວິໄລສັກ ອິນທະວົງ',6,'4772',300000000],
+ ['ຫົວພັນ ຫັດຖະກຳ','Houaphanh Handicrafts','ນ. ແສງເດືອນ ຈັນທະລາ',7,'1392',150000000],
+ ['ເຊກອງ ພະລັງງານ','Sekong Energy Co., Ltd.','ທ. ສຸລິຍາ ບຸນມີ',8,'3510',4200000000],
+ ['ອັດຕະປື ໄມ້ແປຮູບ','Attapeu Timber Processing','ທ. ທອງສະໄໝ ແກ້ວປະເສີດ',9,'1610',960000000],
+ ['ຊຽງຂວາງ ຜະລິດຕະພັນ','Xiengkhouang Products','ນ. ພອນທິບ ໄຊຍະສານ',10,'1030',280000000],
+ ['ບໍລິຄຳໄຊ ກໍ່ສ້າງ','Bolikhamxay Construction','ທ. ອານຸສອນ ສີປະເສີດ',11,'4100',2400000000],
+ ['ຜົ້ງສາລີ ຊາ','Phongsaly Tea','ນ. ບຸນທະວີ ລໍວັນໄຊ',12,'0127',200000000],
+ ['ຫຼວງນ້ຳທາ ການຄ້າ','Luang Namtha Trading','ທ. ສີສຸວັນ ພັນທະວົງ',13,'4630',720000000],
+ ['ໄຊຍະບູລີ ອາຫານສັດ','Xayabury Animal Feed','ທ. ກິ່ງແກ້ວ ສຸລິວົງ',14,'1080',1100000000],
+ ['ວຽງຈັນ ໄອທີ ໂຊລູຊັນ','Vientiane IT Solutions','ນ. ອາລິສາ ແສນສຸກ',0,'6201',350000000],
+ ['ແຂວງວຽງຈັນ ຊີເມັນ','Vientiane Province Cement','ທ. ບຸນຍັງ ທຳມະວົງ',1,'2394',6800000000],
+ ['ສະຫວັນ ເຄື່ອງດື່ມ','Savan Beverages','ນ. ສຸດາພອນ ວັນນະສອນ',15,'1104',880000000],
+ ['ຈຳປາສັກ ການທ່ອງທ່ຽວ','Champasak Travel','ທ. ພູວົງ ສິດທິລາດ',2,'7911',190000000],
+ ['ຄຳມ່ວນ ບໍ່ແຮ່','Khammouane Mining Co., Ltd.','ທ. ສົມບັດ ໄຊຍະເພັດ',16,'0729',5200000000],
+ ['ທ່າແຂກ ໂລຈິສຕິກ','Thakhek Logistics','ນ. ວັນດີ ຄຳພູວົງ',16,'5210',640000000],
+ ['ນ້ຳງື່ມ ປະມົງ','Nam Ngum Fisheries','ທ. ແກ້ວມະນີ ພົມສະຫວັດ',1,'0322',260000000],
+ ['ລາວ ດິຈິຕອລ ມີເດຍ','Lao Digital Media','ນ. ຈັນສະໝອນ ດວງດາລາ',0,'5911',420000000],
+ ['ແສງຕາເວັນ ພະລັງງານ','Sangtavanh Solar','ທ. ໄພສານ ອຸດົມສຸກ',1,'3510',1350000000],
+ ['ມິດຕະພາບ ການຢາ','Mittaphap Pharma','ນ. ລັດຕະນາ ບຸນສີ',15,'2100',780000000]
+];
+var MOCK_PROV=[['ນະຄອນຫຼວງວຽງຈັນ','Vientiane Capital'],['ແຂວງວຽງຈັນ','Vientiane Province'],['ຈຳປາສັກ','Champasak'],
+ ['ໄຊສົມບູນ','Xaisomboun'],['ອຸດົມໄຊ','Oudomxay'],['ບໍ່ແກ້ວ','Bokeo'],['ສາລະວັນ','Salavan'],['ຫົວພັນ','Houaphanh'],
+ ['ເຊກອງ','Sekong'],['ອັດຕະປື','Attapeu'],['ຊຽງຂວາງ','Xiengkhouang'],['ບໍລິຄຳໄຊ','Bolikhamxay'],['ຜົ້ງສາລີ','Phongsaly'],
+ ['ຫຼວງນ້ຳທາ','Luang Namtha'],['ໄຊຍະບູລີ','Xayabury'],['ສະຫວັນນະເຂດ','Savannakhet'],['ຄຳມ່ວນ','Khammouane']];
+var MOCK_TYPES=[['ບໍລິສັດຈຳກັດ','Limited company'],['ຫຸ້ນສ່ວນ','Partnership'],['ວິສາຫະກິດສ່ວນບຸກຄົນ','Sole proprietorship']];
+var MOCK_BACK=[['ຍອດໃນໃບໂອນບໍ່ກົງກັບຍອດທີ່ແຈ້ງ','transfer amount does not match the declared amount'],
+ ['ໃບນຳຝາກບໍ່ມີກາປະທັບທະນາຄານ','deposit slip has no bank stamp'],
+ ['ຊື່ບັນຊີບໍ່ກົງກັບຊື່ວິສາຫະກິດ','account name differs from the enterprise name'],
+ ['ຫຼັກຖານການໂອນບໍ່ຊັດເຈນ','transfer evidence unclear'],
+ ['ຂາດມະຕິກອງປະຊຸມຜູ້ຖືຫຸ້ນ','shareholder resolution missing']];
+function mockEntId(i){return 'ELN-2025-'+(1101+i)}
+function seedMockEnts(){
+  return MOCK_ENTS.map(function(m,i){
+    var cap=m[5],inst1=Math.round(cap*0.3/1000000)*1000000,partial=i%3===2;
+    var day=('0'+(1+i%28)).slice(-2),mon=['09','10','11','12'][i%4];
+    var amt=partial?cap-inst1:inst1,hist=[];
+    if(partial)hist.push({d:day+'/'+mon+'/2025',a:{lo:'ຊຳລະທຶນງວດທີ 1',en:'Capital instalment 1 received'},m:'cash',v:inst1,u:'ນ. ສີວິໄລ',f:'2',ch:'chCounter',st:'complete'});
+    if(i<MOCK_QUEUE&&i%7!==6){var r=MOCK_BACK[i%MOCK_BACK.length];
+      hist.push({d:(18+i%13)+'/07/2026',a:{lo:'ຕີກັບໃຫ້ແກ້ໄຂ - '+r[0],en:'Returned for correction - '+r[1]},m:'',v:0,u:'ນ. ສີວິໄລ',f:'-',ch:'',st:'returned'})}
+    hist.push({d:i<MOCK_QUEUE?'04/08/2026':'03/08/2026',a:{lo:'ບັນທຶກການຊຳລະທຶນ (ລໍກວດສອບ)',en:'Capital payment recorded (pending verification)'},m:'cash',v:amt,u:'ນ. ຄຳລາ',f:'1',ch:'chCounter',st:'pending'});
+    if(i>=MOCK_QUEUE)hist.push({d:'03/08/2026',a:{lo:'ກວດສອບໂດຍ Checker',en:'Verified by the Checker'},m:'',v:0,u:'ນ. ສີວິໄລ',f:'-',ch:'',st:'complete'});
+    var sent={lo:'ສົ່ງກວດສອບແລ້ວ',en:'Sent for verification'};
+    return {id:mockEntId(i),name:m[0],nameEn:m[1],rep:m[2],
+      type:{lo:MOCK_TYPES[i%3][0],en:MOCK_TYPES[i%3][1]},prov:{lo:MOCK_PROV[m[3]][0],en:MOCK_PROV[m[3]][1]},isic:m[4],
+      reg:day+'/'+mon+'/2025',due:day+'/'+mon+'/2026',cap:cap,paid:partial?inst1:0,status:partial?'PARTIAL':'PENDING',
+      acct:'APB 0'+(60+i)+'-2-'+(40100+i*137)+'-'+(i%9+1),taxris:String(208100000+i*7919),collateral:[],
+      insts:partial
+       ?[{no:1,amt:inst1,state:'paid',meta:{lo:'ຢືນຢັນແລ້ວ '+day+'/'+mon+'/2025',en:'Confirmed '+day+'/'+mon+'/2025'}},{no:2,amt:cap-inst1,state:'review',meta:sent}]
+       :[{no:1,amt:inst1,state:'review',meta:sent},{no:2,amt:cap-inst1,state:'wait',meta:{lo:'ລໍຊຳລະງວດທີ 1 ກ່ອນ',en:'Waiting on instalment 1'}}],
+      hist:hist};
+  });
+}
+// Pending declarations for the mock enterprises (see MOCK_ENTS).
+function seedMockTasks(){
+  return MOCK_ENTS.map(function(m,i){
+    var e=S.ents.filter(function(x){return x.id===mockEntId(i)})[0],q=i<MOCK_QUEUE;
+    var amt=e.insts[0].state==='paid'?e.insts[1].amt:e.insts[0].amt;
+    var mins=9*60+30+i*11,at=('0'+Math.floor(mins/60)).slice(-2)+':'+('0'+mins%60).slice(-2);
+    var trail=[{who:'ນ. ຄຳລາ (Maker)',act:{lo:'ຍື່ນຄຳຮ້ອງແຈ້ງຊຳລະທຶນ',en:'Submitted a capital payment declaration'},at:(q?'04/08/2026 ':'03/08/2026 ')+at}];
+    if(!q)trail.push({who:'ນ. ສີວິໄລ (Checker)',act:{lo:'ກວດສອບແລ້ວ ສົ່ງຕໍ່ຜູ້ອະນຸມັດ',en:'Verified and sent to the approver'},at:'03/08/2026 16:'+('0'+(i*2)).slice(-2)});
+    return {ref:'APR-2026-0'+(850+i),ent:e,amt:amt,mode:'cash',by:'ນ. ຄຳລາ',at:at,stage:q?'checker':'approve',
+      files:[{k:'doc0',lbl:'ໃບນຳຝາກ',name:'deposit-'+e.id.slice(-4)+'.pdf'}],trail:trail};
+  });
+}
 
 function seedInv(){return[
  {id:'INV-2026-1180',ent:'ELN-2025-1001',kind:'fee',title:{lo:'ຄ່າທຳນຽມຂຶ້ນທະບຽນ',en:'Registration fee'},
@@ -1124,7 +1201,7 @@ function seedTasks(){
     files:[{k:'valReport',lbl:'ບົດລາຍງານປະເມີນ',name:'valuation-1003.pdf'}],
     trail:[{who:'ນ. ຄຳລາ (Maker)',act:{lo:'ຍື່ນຄຳຮ້ອງແຈ້ງຊຳລະທຶນ',en:'Submitted a capital payment declaration'},at:'04/08/2026 09:20'},
            {who:'ນ. ສີວິໄລ (Checker)',act:{lo:'ກວດສອບແລ້ວ ສົ່ງຕໍ່ຜູ້ອະນຸມັດ',en:'Verified and sent to the approver'},at:'04/08/2026 09:35'}]}
-  ];
+  ].concat(seedMockTasks());
 }
 // Mock a case the Checker bounced back so the Maker has rework waiting.
 function seedReturned(){
