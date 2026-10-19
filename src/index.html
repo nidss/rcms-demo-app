@@ -195,10 +195,6 @@ th{text-align:left;font-weight:600;color:var(--muted);font-size:11px;padding:10p
   border-top:1px solid var(--line);border-bottom:1px solid var(--line);letter-spacing:.02em;white-space:nowrap}
 td{padding:12px 12px;border-bottom:1px solid var(--soft);color:var(--ink2)}
 tr:last-child td{border-bottom:0}
-tr.fr th{border-top:0;padding-top:0;padding-bottom:8px}
-input.cf{width:100%;min-width:64px;height:28px;font:inherit;font-size:12px;font-weight:400;padding:0 8px;letter-spacing:0;
-  border:1px solid var(--line);border-radius:7px;background:var(--white);color:var(--ink)}
-input.cf:focus{outline:none;border-color:var(--m-600);box-shadow:0 0 0 3px rgba(58,72,160,.15)}
 tbody tr{cursor:pointer;transition:background .1s}
 tbody tr:hover td{background:#F6F7FD}
 .r{text-align:right}
@@ -1591,13 +1587,17 @@ function paginate(key,list,sig){
   return {items:items,bar:bar};
 }
 
-// Per-column search for a table: a second header row with one input under each searchable
-// column (null = no input). Values live in S.colf[key][col]; colMatch() tests a row against them.
-function colFilterRow(key,cols){
+// Search card for a list, laid out like the Finance filter bar. Each field is
+// [col, label, options?]: options turns it into a dropdown ([[value,label],...]), otherwise a
+// text box. Values live in S.colf[key][col]; colMatch() tests a row against them.
+function colFilterBar(key,fields){
   var f=S.colf[key]||{};
-  return '<tr class="fr">'+cols.map(function(c,i){
-    var pad=i===0?' style="padding-left:16px"':(i===cols.length-1?' style="padding-right:16px"':'');
-    return '<th'+pad+'>'+(c?'<input class="cf" id="cf-'+key+'-'+c+'" data-colf="'+key+':'+c+'" value="'+esc(f[c]||'')+'" placeholder="'+t('kwLbl')+'" aria-label="'+t('kwLbl')+'">':'')+'</th>'}).join('')+'</tr>';
+  return filterBar(fields.map(function(fd){
+    var id='cf-'+key+'-'+fd[0],v=f[fd[0]]||'',attr=' id="'+id+'" data-colf="'+key+':'+fd[0]+'"';
+    return '<div class="field"><label for="'+id+'">'+fd[1]+'</label>'+(fd[2]
+      ?'<select'+attr+'><option value="">'+t('finAll')+'</option>'+fd[2].map(function(o){
+         return '<option value="'+o[0]+'"'+(v===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'
+      :'<input'+attr+' value="'+esc(v)+'">')+'</div>'}).join(''),'data-clearcolf',key);
 }
 function colNorm(v){return String(v==null?'':v).replace(/<[^>]*>/g,' ').replace(/,/g,'').replace(/\s+/g,' ').trim().toLowerCase()}
 function colMatch(key,vals){
@@ -1620,46 +1620,47 @@ function vCheckerDash(){
     if(pen)out+=' <span class="pill p-bad">'+t('penaltyAmt')+'</span>';
     return out;
   }
-  // One list per sub-menu (Verification queue / Awaiting approval / Returned by me), each with
-  // a search box under every column header and pagination.
+  // One list per sub-menu (Verification queue / Awaiting approval / Returned by me): a search
+  // card above the table, then the table with pagination.
+  var modeOpts=[['cash',t('modeCash')],['asset',t('modeAsset')]];
+  var taskFields=[['ref',t('cRef')],['ent',t('cEnt')],['mode',t('cMode'),modeOpts],['by',t('cBy')]];
+  function taskVals(p){var x=p[0];return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||'')+' '+x.ent.id,mode:x.mode,by:x.by}}
   function listCard(o){
     var key=o.key,hit=o.all.filter(function(r){return colMatch(key,o.vals(r))});
     var pg=paginate(key,hit,JSON.stringify(S.colf[key]||{}));
-    var body=pg.items.map(o.row).join('')||
-      '<tr><td colspan="'+o.cols.length+'"><div class="empty" style="padding:24px"><b>'+t('noMatch')+'</b></div></td></tr>';
     var head='<tr>'+o.heads.map(function(h,i){
       var pad=i===0?'padding-left:16px':(i===o.heads.length-1?'padding-right:16px':'');
       return '<th'+(h[1]?' class="r"':'')+(pad?' style="'+pad+'"':'')+'>'+h[0]+'</th>'}).join('')+'</tr>';
-    var n=o.all.length;
-    return '<div class="card'+(o.hot&&n?' hot':'')+'"><div class="h"><h3>'+o.title+'</h3>'+
-      (colActive(key)?'<span class="lnk" data-clearcolf="'+key+'" style="margin-left:auto">'+t('clearCriteria')+'</span>':'')+
-      (n?'<span class="cnt"'+(colActive(key)?'':' style="margin-left:auto"')+'>'+(colActive(key)?hit.length+' / ':'')+n+'</span>':'')+'</div>'+
-      '<div class="c" style="padding:12px 0 0">'+(n
-       ?'<table><thead>'+head+colFilterRow(key,o.cols)+'</thead><tbody>'+body+'</tbody></table>'+pg.bar
-       :'<div class="empty" style="padding:30px"><b>'+o.empty+'</b></div>')+'</div></div>';
+    var n=o.all.length,on=colActive(key);
+    var table=!n?'<div class="empty" style="padding:30px"><b>'+o.empty+'</b></div>'
+      :!hit.length?'<div class="empty"><b>'+t('noMatch')+'</b>'+t('noMatchS')+'</div>'
+      :'<table><thead>'+head+'</thead><tbody>'+pg.items.map(o.row).join('')+'</tbody></table>'+pg.bar;
+    return (n?colFilterBar(key,o.fields):'')+
+      '<div class="card'+(o.hot&&n?' hot':'')+'"><div class="h"><h3>'+o.title+'</h3>'+
+      (n?'<span class="cnt" style="margin-left:auto">'+(on?hit.length+' / ':'')+n+'</span>':'')+'</div>'+
+      '<div class="c" style="padding:12px 0 0">'+table+'</div></div>';
   }
   var tab=S.ckTab,card;
   if(tab==='atAp'){
-    card=listCard({key:'ckAtAp',title:t('ckAtApprover'),empty:t('ckNoApprover'),all:atAp,
-      heads:[[t('cRef')],[t('cEnt')],[t('cMode')],[t('cAmt'),1],['']],cols:['ref','ent','mode','amt',null],
-      vals:function(p){var x=p[0];return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||'')+' '+x.ent.id,mode:modeLbl(x.mode),amt:x.amt+' '+fmt(x.amt)}},
+    card=listCard({key:'ckAtAp',title:t('ckAtApprover'),empty:t('ckNoApprover'),all:atAp,fields:taskFields,vals:taskVals,
+      heads:[[t('cRef')],[t('cEnt')],[t('cMode')],[t('cAmt'),1],[t('cBy')],['']],
       row:function(p){var x=p[0];
         return '<tr data-open="'+x.ent.id+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
          '<td><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span></td>'+
-         '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td>'+
+         '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td><td>'+x.by+'</td>'+
          '<td style="padding-right:16px"><span class="pill p-rev">'+t('stageApprover')+'</span></td></tr>'}});
   }else if(tab==='ret'){
     card=listCard({key:'ckRet',title:t('ckReturned'),empty:t('ckNoReturned'),all:retMine.slice().reverse(),
-      heads:[[t('cEnt')],[t('ckReason')],[t('cDate'),1]],cols:['ent','reason','date'],
-      vals:function(o){return {ent:o.e.name+' '+(o.e.nameEn||'')+' '+o.e.id,reason:L(o.h.a),date:o.h.d}},
+      fields:[['ent',t('cEnt')]],
+      vals:function(o){return {ent:o.e.name+' '+(o.e.nameEn||'')+' '+o.e.id}},
+      heads:[[t('cEnt')],[t('ckReason')],[t('cDate'),1]],
       row:function(o){
         return '<tr data-open="'+o.e.id+'"><td style="padding-left:16px"><span class="co">'+o.e.name+'<small>'+o.e.id+'</small></span></td>'+
          '<td style="color:var(--muted);font-size:11px">'+L(o.h.a)+'</td>'+
          '<td class="r num" style="padding-right:16px">'+o.h.d+'</td></tr>'}});
   }else{
-    card=listCard({key:'ckQueue',title:t('ckQueue'),empty:t('ckNoQueue'),all:myQ,hot:1,
-      heads:[[t('cRef')],[t('cEnt')],[t('cMode')],[t('cAmt'),1],[t('cBy')],[t('cTime')],['']],cols:['ref','ent','mode','amt','by','at',null],
-      vals:function(p){var x=p[0];return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||'')+' '+x.ent.id+' '+flags(x),mode:modeLbl(x.mode),amt:x.amt+' '+fmt(x.amt),by:x.by,at:x.at}},
+    card=listCard({key:'ckQueue',title:t('ckQueue'),empty:t('ckNoQueue'),all:myQ,hot:1,fields:taskFields,vals:taskVals,
+      heads:[[t('cRef')],[t('cEnt')],[t('cMode')],[t('cAmt'),1],[t('cBy')],[t('cTime')],['']],
       row:function(p){var x=p[0];
         return '<tr data-task="'+p[1]+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
          '<td><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span>'+flags(x)+'</td>'+
@@ -2507,9 +2508,9 @@ function vRep(){
   return shell(t('repTitle'),'',inner);
 }
 
-function filterBar(flds,clearAttr){
+function filterBar(flds,clearAttr,clearVal){
   return '<div class="fbar"><div class="frow">'+flds+
-   '<div class="fx"><span class="lnk" '+clearAttr+'="1">'+t('clearCriteria')+'</span></div></div></div>';
+   '<div class="fx"><span class="lnk" '+clearAttr+'="'+(clearVal||1)+'">'+t('clearCriteria')+'</span></div></div></div>';
 }
 function setFilterCard(flds){return filterBar(flds,'data-clearset')}
 function exportActs(){
@@ -2990,10 +2991,12 @@ function bind(){
     ev.stopPropagation();var p=b.dataset.pg.split(':');S.pg[p[0]].p=+p[1];render()}});
   document.querySelectorAll('[data-pgsize]').forEach(function(el){el.onchange=function(){
     S.pg[el.dataset.pgsize]={p:1,n:+el.value};render()}});
-  document.querySelectorAll('[data-colf]').forEach(function(el){el.oninput=function(){
-    var k=el.dataset.colf.split(':'),id=el.id,pos=el.selectionStart;
-    (S.colf[k[0]]||(S.colf[k[0]]={}))[k[1]]=el.value;render();
-    var n=document.getElementById(id);if(n){n.focus();n.setSelectionRange(pos,pos)}}});
+  document.querySelectorAll('[data-colf]').forEach(function(el){
+    var sel=el.tagName==='SELECT';
+    el[sel?'onchange':'oninput']=function(){
+      var k=el.dataset.colf.split(':'),id=el.id,pos=sel?0:el.selectionStart;
+      (S.colf[k[0]]||(S.colf[k[0]]={}))[k[1]]=el.value;render();
+      var n=document.getElementById(id);if(n){n.focus();if(!sel)n.setSelectionRange(pos,pos)}}});
   document.querySelectorAll('[data-clearcolf]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();S.colf[b.dataset.clearcolf]={};render()}});
   ['finFEnt','finFRef','finFReceipt','finFItem'].forEach(function(id){var el=$('#'+id);if(el)el.oninput=applyFinFilter});
