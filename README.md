@@ -56,6 +56,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 | `lao.valuation` | บริษัทประเมิน (In-network firm) | My Valuation Jobs | งานประเมินของฉัน |
 | `mof.gov` | หน่วยงานภายนอก (External agency) | External Portal | พอร์ทัลภายนอก |
 | `bounmy.m` | ผู้ดูแลระบบ (System administrator) | System Overview | Dashboard, Search Enterprises, Reports, System Settings |
+| `new.user` | ผู้ใช้ใหม่ (New user) | My Registered Capital (ว่าง) | ทุนของฉัน |
 
 ---
 
@@ -66,6 +67,12 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   ไม่ต้องโหลดจากเว็บ; จอเล็กซ่อนภาพฝั่งซ้ายแล้วแสดงโลโก้เหนือฟอร์มแทน
 - ยืนยันตัวตนแบบ MFA (OTP), สลับภาษา ลาว / อังกฤษ, กู้รหัสผ่าน
 - ชิป **Demo accounts** ใต้ปุ่ม Next กดแล้วกรอก username ให้ทันที (สะดวกตอนนำเสนอ)
+- **สมัครสมาชิก (Sign up)**: ลิงก์ใต้ปุ่ม Next เปิดฟอร์ม Email, Citizen ID / Passport ID,
+  คำนำหน้าชื่อ, ชื่อ, นามสกุล (ตรวจครบทุกช่อง, รูปแบบอีเมล, เลขบัตรอย่างน้อย 6 ตัว) กดสมัครแล้ว
+  ขึ้นหน้ายืนยันว่าส่งรหัสผ่านชั่วคราวไปที่อีเมลแล้ว → กลับหน้า login (กรอกอีเมลให้) → ใส่รหัสผ่าน
+  → OTP → ขึ้น modal **ตั้งรหัสผ่านใหม่** (modal เดียวกับลืมรหัสผ่าน ปิดไม่ได้จนกว่าจะตั้ง) → เข้า
+  My Registered Capital ที่ยังไม่มีวิสาหกิจ บัญชี demo **New user** (`new.user`) ใช้ flow ครั้งแรกนี้
+  ได้เลยโดยไม่ต้องสมัคร และหลังสมัครบัญชีนี้จะเปลี่ยนเป็นชื่อ/อีเมลที่กรอก
 
 ### Dashboard แยกตามบทบาท
 แต่ละบทบาทเห็น Dashboard ที่ออกแบบเฉพาะงานของตัวเอง
