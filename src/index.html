@@ -1369,6 +1369,11 @@ function bizNotifs(){return S.notif.concat([
   {t:{lo:'ບໍລິສັດປະເມີນຮັບງານແລ້ວ',en:'Valuation firm has accepted the job'},
    s:{lo:'Lao Valuation ເລີ່ມປະເມີນທີ່ດິນ 2 ຕອນ',en:'Lao Valuation began appraising the 2 land plots'},x:'30/07',c:'var(--line)'}])}
 function notifs(){return S.role==='owner'?bizNotifs():STAFF_N}
+// The business-owner demo account holds several registered enterprises (one row each on
+// My Registered Capital); the selected one (S.sel) opens on Capital details.
+var OWNER_ENTS=['ELN-2025-1001','ELN-2024-1004','ELN-2025-1005','ELN-2025-1115','ELN-2025-1122'];
+function ownerEnts(){return S.ents.filter(function(e){return OWNER_ENTS.indexOf(e.id)>=0})}
+function ownerEnt(){var mine=ownerEnts();return mine.filter(function(e){return e.id===S.sel})[0]||mine[0]}
 function pendingOf(id){var f=S.tasks.filter(function(x){return x.ent.id===id});return f.length?f[0]:null}
 
 /* ================= state ================= */
@@ -1429,7 +1434,7 @@ function shell(title,crumb,inner,right,sub){
   var m=menus().map(function(it){
     if(it.length===1)return '<div class="sect">'+t(it[0])+'</div>';
     var on=it[0]===S.view||(it[0]==='ent'&&(S.view==='detail'||S.view==='declare'||S.view==='cert'||S.view==='tx'))||
-      (it[0]==='dash'&&S.role==='owner'&&S.view==='tx')||
+      (it[0]==='dash'&&S.role==='owner'&&(S.view==='tx'||S.view==='mycap'||S.view==='declare'||S.view==='cert'))||
       ((it[0]==='inspect'||it[0]==='approveQ')&&S.view==='task')||(it[0]==='dash'&&(S.role==='approver'||S.role==='checker')&&S.view==='task')||(it[0]==='valfirm'&&S.view==='valjobdetail');
     var cnt=it[3]?'<span class="cnt">'+it[3]+'</span>':'';
     var row='<div class="mi'+(on?' on':'')+'" data-nav="'+it[0]+'">'+
@@ -1517,7 +1522,7 @@ function daysLeft(dueStr){
 }
 
 function vDash(){
-  if(S.role==='owner')return vOwnerDash();
+  if(S.role==='owner')return ownerEnts().length>1?vOwnerList():vOwnerDash();
   if(S.role==='admin')return vAdminDash();
   if(S.role==='maker')return vMakerDash();
   if(S.role==='checker')return vCheckerDash();
@@ -1901,8 +1906,34 @@ function vAdminDash(){
   return shell(t('adminDashTitle'),'',inner);
 }
 
+function vOwnerList(){
+  var mine=ownerEnts(),LO=lang==='lo';
+  var totCap=0,totPaid=0;mine.forEach(function(e){totCap+=e.cap;totPaid+=e.paid});
+  var pct=totCap?Math.round(totPaid/totCap*100):0;
+  var cnt=function(st){return mine.filter(function(e){return e.status===st}).length};
+  var unpaidInv=S.invs.filter(function(x){return OWNER_ENTS.indexOf(x.ent)>=0&&x.status==='UNPAID'});
+  var kpis=sumCard({title:t('wsOverview'),
+   prog:{pct:pct,html:t('pfPaidCap')+' <b class="num">'+fmt(totPaid)+'</b> / <span class="num">'+fmt(totCap)+'</span> LAK'},
+   metrics:metric('',t('entList'),fmt(mine.length),LO?'ວິສາຫະກິດຂອງຂ້ອຍ':'Registered to you')+
+    metric('ok',t('fullyPaidOf'),fmt(cnt('COMPLETED'))+' / '+fmt(mine.length),LO?'ວິສາຫະກິດ':'enterprises')+
+    metric('warn',t('bizRemain'),fmt(cnt('PARTIAL')+cnt('PENDING')),LO?'ວິສາຫະກິດ':'enterprises')+
+    metric('bad',stName('OVERDUE'),fmt(cnt('OVERDUE')),LO?'ເກີນກຳນົດ · ມີຄ່າປັບ':'Past deadline · penalty'),
+   notes:unpaidInv.length?[{tone:'bad',text:unpaidInv.length+' '+t('unpaidInv')+' · <b class="num">'+fmt(unpaidInv.reduce(function(a,x){return a+x.amt},0))+' LAK</b>'}]:[]});
+  var card=listCard({key:'ownList',title:t('entList'),empty:t('noMatch'),all:mine,
+    fields:[['ent',t('cEnt')],['reg',t('regNo')],['st',t('cStatus'),['PENDING','PARTIAL','COMPLETED','OVERDUE'].map(function(x){return [x,stName(x)]})]],
+    vals:function(e){return {ent:e.name+' '+(e.nameEn||''),reg:e.id,st:e.status}},
+    heads:[[t('cEnt')],[t('regNo')],[t('cCap')+' (LAK)',1],[t('cPaid'),1],[t('cLeft'),1],[t('cDue')],[t('cStatus'),1]],
+    row:function(e){var lf=e.cap-e.paid,pend=pendingOf(e.id);
+      return '<tr data-owncap="'+e.id+'"><td style="padding-left:16px"><span class="co">'+e.name+'</span></td><td class="num">'+e.id+'</td>'+
+       '<td class="r num">'+fmt(e.cap)+'</td><td class="r num">'+fmt(e.paid)+'</td>'+
+       '<td class="r num"'+(lf?' style="color:var(--'+(e.status==='OVERDUE'?'bad':'warn')+');font-weight:600"':'')+'>'+fmt(lf)+'</td>'+
+       '<td class="num">'+e.due+'</td>'+
+       '<td class="r" style="padding-right:16px">'+(pend?'<span class="pill p-rev">'+(pend.stage==='checker'?t('stageChecker'):t('stageApprover'))+'</span> ':'')+pill(e.status)+'</td></tr>'}});
+  return shell(t('bizTitle'),'',kpis+card,'',who().n);
+}
+
 function vOwnerDash(){
-  var e=S.ents[0],remain=e.cap-e.paid,pct=Math.round(e.paid/e.cap*100),pend=pendingOf(e.id);
+  var e=ownerEnt(),remain=e.cap-e.paid,pct=Math.round(e.paid/e.cap*100),pend=pendingOf(e.id);
   var myInv=S.invs.filter(function(x){return x.ent===e.id});
   var invPg=paginate('ownInv',myInv),invRows=invPg.items.map(function(iv){
     return '<tr><td style="padding-left:16px" class="num">'+iv.id+'</td><td>'+L(iv.title)+'</td>'+
@@ -1926,7 +1957,7 @@ function vOwnerDash(){
    (invRows?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cItem')+'</th>'+
     '<th class="r">'+t('cAmt')+' (LAK)</th><th>'+t('cDue')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+invRows+'</tbody></table>'+invPg.bar
    :'<div class="empty">'+t('noInvoice')+'</div>')+'</div></div>';
-  return shell(t('bizTitle'),'',inner,'',e.name+' · <span class="num">'+e.id+'</span>');
+  return shell(t('capDetails'),ownerEnts().length>1?[t('bizTitle'),'dash']:'',inner,'',e.name+' · <span class="num">'+e.id+'</span>');
 }
 
 function vList(){
@@ -2305,9 +2336,9 @@ function vDeclare(){
   '</div>'+
   '<div class="audit"><b>'+t('auditTrail')+'</b> - '+who().n+' · 04/08/2026 09:47</div>'+
   '<div class="acts" style="margin-top:16px"><button class="btn" id="submitDeclare">'+t('submitDeclare')+'</button>'+
-  '<button class="btn ghost" data-nav="'+(isOwner?'dash':'ent')+'">'+t('cancel')+'</button></div></div></div>'+
+  '<button class="btn ghost" data-nav="'+(isOwner?'mycap':'ent')+'">'+t('cancel')+'</button></div></div></div>'+
   '</div>';
-  return shell(t('declareTitle'),[e.name,isOwner?'dash':'detail'],inner);
+  return shell(t('declareTitle'),[e.name,isOwner?'mycap':'detail'],inner);
 }
 
 function vQueue(){
@@ -2658,7 +2689,7 @@ function vCert(){
   '<div class="opt'+(S.certCopy?' on':'')+'" data-copy="1" style="padding:10px"><div class="t" style="font-size:12px;margin:0">Copy</div></div></div></div>'+
   '<div class="acts"><button class="btn" style="flex:1" data-soon="'+t('dlPdf')+'">'+t('dlPdf')+'</button>'+
   '<button class="btn ghost" data-soon="'+t('print')+'">'+t('print')+'</button></div></div></div></div></div>';
-  return shell(t('certIssued'),[e.name,'detail'],inner);
+  return shell(t('certIssued'),[e.name,S.role==='owner'?'mycap':'detail'],inner);
 }
 
 function fakeQR(seed){
@@ -2855,6 +2886,7 @@ function render(){
   else if(S.view==='ent')h=vList();
   else if(S.view==='detail')h=vDetail();
   else if(S.view==='tx')h=vTxDetail();
+  else if(S.view==='mycap')h=vOwnerDash();
   else if(S.view==='declare')h=vDeclare();
   else if(S.view==='inspect')h=vQueue();
   else if(S.view==='approveQ')h=vQueue();
@@ -2936,7 +2968,7 @@ document.addEventListener('keydown',function(ev){
 });
 
 function vMobile(){
-  var e=S.ents[0],remain=e.cap-e.paid,pct=Math.round(e.paid/e.cap*100);
+  var e=ownerEnt(),remain=e.cap-e.paid,pct=Math.round(e.paid/e.cap*100);
   var unpaid=S.invs.filter(function(x){return x.ent===e.id&&x.status==='UNPAID'})[0];
   var nav=function(on){return '<div class="mnav"><div'+(on===0?' class="on"':'')+'><span class="ic">▦</span>'+t('myCap')+'</div>'+
     '<div'+(on===1?' class="on"':'')+'><span class="ic">◷</span>'+t('notif')+'</div></div>'};
@@ -3046,7 +3078,7 @@ function bind(){
     var e=S.ents.filter(function(x){return x.id===S.sel})[0];
     S.form={mode:'cash',payMode:'full',amt:fmt(e.cap-e.paid),files:[],docType:'doc0',err:''};go('declare')}});
   document.querySelectorAll('[data-selfpay]').forEach(function(b){b.onclick=function(){
-    var e=S.ents[0];S.sel=e.id;S.form={mode:'cash',payMode:'full',amt:fmt(e.cap-e.paid),files:[],docType:'doc0',err:''};go('declare')}});
+    var e=ownerEnt();S.sel=e.id;S.form={mode:'cash',payMode:'full',amt:fmt(e.cap-e.paid),files:[],docType:'doc0',err:''};go('declare')}});
   document.querySelectorAll('[data-payinv]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();S.modal={type:'qr',inv:b.dataset.payinv};render()}});
   document.querySelectorAll('[data-viewrec]').forEach(function(b){b.onclick=function(ev){
@@ -3067,6 +3099,7 @@ function bind(){
     u.active=u.active?0:1;render();toast(u.nm,u.active?t('uActive'):t('uLocked'),true)}});
   document.querySelectorAll('[data-verify]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();S.modal={type:'verify',q:''};render()}});
+  document.querySelectorAll('[data-owncap]').forEach(function(r){r.onclick=function(){S.sel=r.dataset.owncap;go('mycap')}});
   document.querySelectorAll('[data-histrow]').forEach(function(r){r.onclick=function(){
     var parts=r.dataset.histrow.split('|');S.tx={ent:parts[0],idx:Number(parts[1]),back:S.view};go('tx')}});
   document.querySelectorAll('[data-valjob]').forEach(function(r){r.onclick=function(){
@@ -3122,7 +3155,7 @@ function bind(){
   if(sp)sp.onclick=function(){
     var e=S.ents.filter(function(x){return x.id===S.sel})[0];
     if(S.form.sending)return;
-    if(pendingOf(e.id)){toast(t('hasPending'),t('hasPendingS'));return go(S.role==='owner'?'dash':'detail')}
+    if(pendingOf(e.id)){toast(t('hasPending'),t('hasPendingS'));return go(S.role==='owner'?'mycap':'detail')}
     var v=Number(String(S.form.amt).replace(/[^0-9]/g,''));
     if(!v){S.form.err=t('errAmt');return render()}
     if(v>e.cap-e.paid){S.form.err=t('errOver')+' - '+fmt(e.cap-e.paid);return render()}
@@ -3143,7 +3176,7 @@ function bind(){
       e.insts[1].meta={lo:'ສົ່ງກວດສອບແລ້ວ 04/08/2026 09:47',en:'Sent for verification on 04/08/2026 09:47'}}
     e.hist.push({d:'04/08/2026',a:{lo:'ບັນທຶກການຊຳລະທຶນ (ລໍກວດສອບ)',en:'Capital payment recorded (pending verification)'},
       m:S.form.mode,v:v,u:subWho,f:S.form.files.length,ch:'',st:'pending'});
-    toast(t('sentCheck'),t('sentCheckS'),true);go(isOwner?'dash':'detail')};
+    toast(t('sentCheck'),t('sentCheckS'),true);go(isOwner?'mycap':'detail')};
 
   document.querySelectorAll('[data-task]').forEach(function(r){r.onclick=function(){
     S.taskI=Number(r.dataset.task);S.backReasonInt='';S.backReasonExt='';go('task')}});
