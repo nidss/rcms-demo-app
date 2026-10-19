@@ -198,6 +198,9 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 - วิสาหกิจหลัก 6 แห่ง (ELN-2025-1001 ถึง 1006) ใช้สาธิต flow ของ Owner/Maker ส่วนอีก 24 แห่ง
   (ELN-2025-1101 ถึง 1124, `MOCK_ENTS` ใน `src/index.html`) มีไว้ให้รายการของ Checker/Approver
   ยาวพอเห็น pagination: Verification queue 15, Awaiting approval 11, Returned by me 13 รายการ
+- Pagination (`paginate()` ใน `src/index.html`, เลือกได้ 5/10/20/50 แถวต่อหน้า) ใช้กับรายการของ
+  Checker ทั้ง 3 รายการ, หน้าค้นหาวิสาหกิจ (เปลี่ยนตัวกรองแล้วกลับไปหน้า 1), รายการที่ยื่นไปแล้ว
+  ของ Maker และคิวรออนุมัติของ Approver
 - ชื่อสถานะบนหน้าจอใช้ภาษาลาว/ไทยเป็นหลัก และมีรหัสระบบ
   (PENDING / PARTIAL / COMPLETED / OVERDUE) กำกับไว้เพื่อเทียบกับเอกสาร requirement
 - โค้ดทั้งหมดอยู่ในไฟล์เดียว (`src/index.html`) แบ่งส่วนด้วยคอมเมนต์:

@@ -1521,7 +1521,8 @@ function vMakerDash(){
     metric('ok',t('fullyPaidOf'),fmt(paidCo)+' / '+fmt(S.ents.length),LO?'ວິສາຫະກິດ':'enterprises'),
    notes:notes});
 
-  var pendRows=pend.map(function(x){
+  var pp=paginate('mkPend',pend);
+  var pendRows=pp.items.map(function(x){
     return '<tr data-open="'+x.ent.id+'"><td style="padding-left:16px"><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span></td>'+
      '<td class="r num">'+fmt(x.amt)+'</td>'+
      '<td>'+(x.stage==='checker'?'<span class="pill p-warn">'+t('stageChecker')+'</span>':'<span class="pill p-rev">'+t('stageApprover')+'</span>')+'</td>'+
@@ -1529,7 +1530,7 @@ function vMakerDash(){
   var pendingCard='<div class="card"><div class="h"><h3>'+t('mkPending')+'</h3>'+
     (pend.length?'<span class="cnt" style="margin-left:auto">'+pend.length+'</span>':'')+'</div>'+
     '<div class="c" style="padding:12px 0 0">'+(pendRows
-     ?'<table><thead><tr><th style="padding-left:16px">'+t('cEnt')+'</th><th class="r">'+t('cAmt')+'</th><th>'+t('mkStage')+'</th><th style="padding-right:16px">'+t('cBy')+'</th></tr></thead><tbody>'+pendRows+'</tbody></table>'
+     ?'<table><thead><tr><th style="padding-left:16px">'+t('cEnt')+'</th><th class="r">'+t('cAmt')+'</th><th>'+t('mkStage')+'</th><th style="padding-right:16px">'+t('cBy')+'</th></tr></thead><tbody>'+pendRows+'</tbody></table>'+pp.bar
      :'<div class="empty" style="padding:30px"><b>'+t('mkNoPending')+'</b></div>')+'</div></div>';
 
   var dueList=overdue.concat(dueSoon);
@@ -1561,9 +1562,11 @@ function checkerReturned(){
 
 // Client-side pagination. State per list lives in S.pg[key] = {p: page, n: rows per page}.
 // Returns the rows for the current page and the footer bar (empty when the list is empty).
+// Pass sig (e.g. the active filters) to jump back to page 1 whenever it changes.
 var PG_SIZES=[5,10,20,50];
-function paginate(key,list){
+function paginate(key,list,sig){
   var st=S.pg[key]||(S.pg[key]={p:1,n:10});
+  if(sig!==undefined&&st.sig!==sig){st.sig=sig;st.p=1}
   var pages=Math.max(1,Math.ceil(list.length/st.n));
   if(st.p>pages)st.p=pages;
   if(st.p<1)st.p=1;
@@ -1676,7 +1679,8 @@ function vApproverDash(){
       act:'<button class="btn sm" data-task="'+first[1]+'">'+t('nxStartAp')+' →</button>'}
      :{tone:'ok',text:'<b>'+t('nxClear')+'</b> · '+t('nxClearS')}]});
 
-  var qRows=myQ.map(function(p){var x=p[0];
+  var pq=paginate('apQueue',myQ);
+  var qRows=pq.items.map(function(p){var x=p[0];
     var chk=(x.trail||[]).filter(function(t2){return /Checker/.test(t2.who)}).slice(-1)[0];
     return '<tr data-task="'+p[1]+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
      '<td><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span></td>'+
@@ -1686,7 +1690,7 @@ function vApproverDash(){
   var queueCard='<div class="card'+(myQ.length?' hot':'')+'"><div class="h"><h3>'+t('apQueue')+'</h3>'+
     (myQ.length?'<span class="cnt" style="margin-left:auto">'+myQ.length+'</span>':'')+'</div>'+
     '<div class="c" style="padding:12px 0 0">'+(qRows
-     ?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cEnt')+'</th><th>'+t('cMode')+'</th><th class="r">'+t('cAmt')+'</th><th></th><th></th></tr></thead><tbody>'+qRows+'</tbody></table>'
+     ?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cEnt')+'</th><th>'+t('cMode')+'</th><th class="r">'+t('cAmt')+'</th><th></th><th></th></tr></thead><tbody>'+qRows+'</tbody></table>'+pq.bar
      :'<div class="empty" style="padding:30px"><b>'+t('apNoQueue')+'</b></div>')+'</div></div>';
 
   var stages=[[atChk,'#B4610A',t('apStgCheck')],[myQ.length,'#3A48A0',t('apStgApprove')],[completed,'#137A41',t('apStgDone')]];
@@ -1879,7 +1883,8 @@ function vList(){
   var chips='<div class="chips">'+[['ALL',t('allSt'),tot],['PENDING',stName('PENDING'),c.PENDING],['PARTIAL',stName('PARTIAL'),c.PARTIAL],
     ['COMPLETED',stName('COMPLETED'),c.COMPLETED],['OVERDUE',stName('OVERDUE'),c.OVERDUE]]
     .map(function(o){return '<span class="chipf'+(S.tab===o[0]?' on':'')+'" data-tab="'+o[0]+'">'+o[1]+' <b>'+fmt(o[2])+'</b></span>'}).join('')+'</div>';
-  var rows=list.map(function(e){var lf=e.cap-e.paid;
+  var pg=paginate('ent',list,S.tab+'|'+JSON.stringify(adv));
+  var rows=pg.items.map(function(e){var lf=e.cap-e.paid;
     return '<tr data-open="'+e.id+'"><td style="padding-left:18px"><span class="co">'+e.name+'<small>'+e.id+'</small></span></td>'+
     '<td>'+L(e.type)+'</td><td>'+L(e.prov)+'</td><td class="num">'+e.reg+'</td><td class="num">'+e.due+'</td>'+
     '<td class="r num">'+fmt(e.cap)+'</td><td class="r num">'+fmt(e.paid)+'</td>'+
@@ -1887,7 +1892,7 @@ function vList(){
     '<td class="r" style="padding-right:18px">'+pill(e.status)+'</td></tr>'}).join('');
   var body=rows?'<table><thead><tr><th style="padding-left:18px">'+t('cEnt')+'</th><th>'+t('cType')+'</th><th>'+t('cProv')+'</th>'+
     '<th>'+t('cRegD')+'</th><th>'+t('cDue')+'</th><th class="r">'+t('cCap')+' (LAK)</th><th class="r">'+t('cPaid')+'</th>'+
-    '<th class="r">'+t('cLeft')+'</th><th class="r" style="padding-right:18px">'+t('cStatus')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'
+    '<th class="r">'+t('cLeft')+'</th><th class="r" style="padding-right:18px">'+t('cStatus')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'+pg.bar
     :'<div class="empty"><b>'+t('noMatch')+'</b>'+t('noMatchS')+'</div>';
   var etypeOpts=MASTER.etype.map(function(x){return '<option'+(adv.etype===L(x)?' selected':'')+'>'+L(x)+'</option>'}).join('');
   var provOpts=MASTER.prov.map(function(p){return '<option'+(adv.prov===p?' selected':'')+'>'+p+'</option>'}).join('');
