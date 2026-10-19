@@ -1144,6 +1144,34 @@ var MOCK_BACK=[['ຍອດໃນໃບໂອນບໍ່ກົງກັບຍອ
  ['ຫຼັກຖານການໂອນບໍ່ຊັດເຈນ','transfer evidence unclear'],
  ['ຂາດມະຕິກອງປະຊຸມຜູ້ຖືຫຸ້ນ','shareholder resolution missing']];
 function mockEntId(i){return 'ELN-2025-'+(1101+i)}
+// Valuation jobs on mock enterprises, so the Asset Valuation Queue (and each firm's job list) runs
+// past one page. [enterprise index, asset type, label lo, label en, firm, status, key field].
+// The asset is pledged for the enterprise's second instalment; it also becomes its collateral.
+var MOCK_FIRMS=[['Lao Valuation Co., Ltd.','in'],['Mekong Appraisal','in'],['Indochina Asset','out']];
+var MOCK_VAL=[
+ [0,'building','ຣີສອດ 12 ຫ້ອງ','12-room resort',0,'doing','Vang Vieng Riverside Resort'],
+ [1,'land','ສວນກາເຟ 1 ຕອນ','1 coffee plantation plot',1,'wait','5520-P'],
+ [3,'land','ສວນຢາງ 2 ຕອນ','2 rubber plantation plots',0,'doing','6610-A, 6610-B'],
+ [4,'car','ລົດບັນທຸກ 3 ຄັນ','3 cargo trucks',1,'accepted','BK 3021, 3022, 3023'],
+ [5,'machine','ເຄື່ອງມືແພດ 4 ລາຍການ','4 medical devices',0,'wait','Mindray imaging set'],
+ [7,'machine','ເຄື່ອງຈັກໄຟຟ້າພະລັງນ້ຳ','Hydro turbine set',2,'outapprove','Andritz Francis turbine'],
+ [8,'machine','ເຄື່ອງແປຮູບໄມ້','Timber processing line',1,'doing','Weinig sawmill line'],
+ [9,'building','ສາງເກັບຜະລິດຕະພັນ','Product warehouse',0,'accepted','Xiengkhouang Warehouse 2'],
+ [10,'machine','ເຄື່ອງຂຸດ 2 ຄັນ','2 excavators',1,'wait','Komatsu PC200'],
+ [11,'land','ສວນຊາ 1 ຕອນ','1 tea garden plot',0,'doing','7702-T'],
+ [12,'building','ອາຄານສຳນັກງານ','Office building',2,'wait','Namtha Trade Center'],
+ [13,'building','ໂຮງງານອາຫານສັດ','Feed mill building',0,'doing','Xayabury Feed Mill'],
+ [15,'machine','ເຕົາເຜົາຊີເມັນ','Cement kiln',1,'accepted','FLSmidth rotary kiln'],
+ [18,'car','ລົດຂົນແຮ່ 4 ຄັນ','4 mining haul trucks',0,'doing','KM 7740-7743']
+];
+function mockCollateral(m){
+  var i=m[0],cap=MOCK_ENTS[i][5],v=cap-Math.round(cap*0.3/1000000)*1000000,price=fmt(v),f={};
+  if(m[1]==='land'){f={deedNo:m[6],landParcelNo:'PL-'+(4800+i),totalArea:fmt(6000+i*850),landEstimatedPrice:price}}
+  else if(m[1]==='building'){f={buildingName:m[6],noOfFloor:String(1+i%4),usageArea:fmt(900+i*120),estimatedYear:String(2012+i%10),totalPrice:price}}
+  else if(m[1]==='car'){f={licenseNo:m[6],manufactory:'Hino 500',modelYear:String(2019+i%5),estimatedPrice:price}}
+  else{f={machineName:m[6],machinePledgeType:'Chattel mortgage',manufactory:m[6].split(' ')[0],capacity:'-',estimatedPrice:price}}
+  return {type:m[1],label:{lo:m[2],en:m[3]},detail:{lo:m[6],en:m[6]},value:v,fields:f};
+}
 function seedMockEnts(){
   return MOCK_ENTS.map(function(m,i){
     var cap=m[5],inst1=Math.round(cap*0.3/1000000)*1000000,partial=i%3===2;
@@ -1158,11 +1186,11 @@ function seedMockEnts(){
     return {id:mockEntId(i),name:m[0],nameEn:m[1],rep:m[2],
       type:{lo:MOCK_TYPES[i%3][0],en:MOCK_TYPES[i%3][1]},prov:{lo:MOCK_PROV[m[3]][0],en:MOCK_PROV[m[3]][1]},isic:m[4],
       reg:day+'/'+mon+'/2025',due:day+'/'+mon+'/2026',cap:cap,paid:partial?inst1:0,status:partial?'PARTIAL':'PENDING',
-      acct:'APB 0'+(60+i)+'-2-'+(40100+i*137)+'-'+(i%9+1),taxris:String(208100000+i*7919),collateral:[],
+      acct:'APB 0'+(60+i)+'-2-'+(40100+i*137)+'-'+(i%9+1),taxris:String(208100000+i*7919),
       insts:partial
        ?[{no:1,amt:inst1,state:'paid',meta:{lo:'ຢືນຢັນແລ້ວ '+day+'/'+mon+'/2025',en:'Confirmed '+day+'/'+mon+'/2025'}},{no:2,amt:cap-inst1,state:'review',meta:sent}]
        :[{no:1,amt:inst1,state:'review',meta:sent},{no:2,amt:cap-inst1,state:'wait',meta:{lo:'ລໍຊຳລະງວດທີ 1 ກ່ອນ',en:'Waiting on instalment 1'}}],
-      hist:hist};
+      hist:hist,collateral:MOCK_VAL.filter(function(v){return v[0]===i}).map(mockCollateral)};
   });
 }
 // Pending declarations for the mock enterprises (see MOCK_ENTS).
@@ -1224,7 +1252,11 @@ var VALJOBS=[
   files:['valuation-report-VAL-2026-0330.pdf','site-inspection.jpg']},
  {id:'VAL-2026-0318',ent:'ELN-2025-1005',asset:{lo:'ດິນ 1 ຕອນ',en:'1 land plot'},firm:'Lao Valuation Co., Ltd.',net:'in',amt:180000000,status:'accepted',
   files:['valuation-report-VAL-2026-0318.pdf','asset-photos.pdf','site-inspection.jpg']}
-];
+].concat(MOCK_VAL.map(function(m,k){
+  var id='VAL-2026-0'+(342+k),c=mockCollateral(m),firm=MOCK_FIRMS[m[4]];
+  return {id:id,ent:mockEntId(m[0]),asset:c.label,firm:firm[0],net:firm[1],amt:c.value,status:m[5],
+    files:m[5]==='doing'?[]:['valuation-report-'+id+'.pdf','asset-photos.pdf']};
+}));
 var VAL_LBL={doing:['valDoing','p-warn'],wait:['valWait','p-rev'],outapprove:['valOut','p-idle'],accepted:['stPaid','p-ok']};
 
 var USERS_SEED=[

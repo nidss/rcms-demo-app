@@ -215,6 +215,9 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
 - วิสาหกิจหลัก 6 แห่ง (ELN-2025-1001 ถึง 1006) ใช้สาธิต flow ของ Owner/Maker ส่วนอีก 24 แห่ง
   (ELN-2025-1101 ถึง 1124, `MOCK_ENTS` ใน `src/index.html`) มีไว้ให้รายการของ Checker/Approver
   ยาวพอเห็น pagination: Verification queue 15, Awaiting approval 11, Returned by me 13 รายการ
+- งานประเมิน mock อีก 14 งาน (VAL-2026-0342 ถึง 0355, `MOCK_VAL`) บนวิสาหกิจ mock พร้อมข้อมูล
+  หลักประกันของแต่ละงาน ทำให้ Asset Valuation Queue มี 18 งาน (2 หน้า) และ My Valuation Jobs
+  ของ Lao Valuation มี 9 งาน (สถานะคละ: กำลังประเมิน / รอรับผล / รออนุมัติบริษัท / ยืนยันแล้ว)
 - Pagination (`paginate()` ใน `src/index.html`, เลือกได้ 5/10/20/50 แถวต่อหน้า) ใช้กับทุกตาราง:
   รายการของ Checker / Approver / Maker (ทั้งรายการที่ยื่นไปแล้วและรายการใกล้ครบ/เกินกำหนด),
   หน้าค้นหาวิสาหกิจ, Asset Valuation Queue, งานของบริษัทประเมิน, External Portal, Finance ทั้ง
