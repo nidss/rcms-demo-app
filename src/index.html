@@ -306,6 +306,7 @@ td.num{white-space:nowrap}
 .fbar .frow.main{grid-template-columns:minmax(240px,2fr) repeat(2,minmax(160px,1fr)) auto}
 .fbar .field{margin:0}
 .fbar .fx{display:flex;gap:8px;align-items:center;justify-content:flex-end;height:40px}
+.fbar .fx .btn{height:40px}
 .fbar .adv{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
 .fbar .sbox{position:relative}
 .fbar .sbox svg{position:absolute;left:12px;top:50%;width:16px;height:16px;transform:translateY(-50%);color:var(--muted);pointer-events:none}
@@ -651,7 +652,7 @@ lo:{
  cPaid:'ຊຳລະແລ້ວ',cLeft:'ຍັງເຫຼືອ',cStatus:'ສະຖານະ',cDate:'ວັນທີ',cAct:'ລາຍການ',cMode:'ຊ່ອງທາງ',
  cAmt:'ຈຳນວນ',cBy:'ຜູ້ສົ່ງເລື່ອງ',cDoc:'ເອກະສານ',cTime:'ເວລາ',cRef:'ເລກທີ່ອ້າງອີງ',
  hstComplete:'ສຳເລັດ',hstPending:'ລໍກວດສອບ',hstReturned:'ຕີກັບ',
- search:'ຄົ້ນຫາຊື່ ຫຼື ເລກທະບຽນ',searchBtn:'ຄົ້ນຫາ',allSt:'ທຸກສະຖານະ',allProv:'ທຸກແຂວງ',allIsic:'ISIC ທຸກຂະແໜງ',
+ search:'ຄົ້ນຫາຊື່ ຫຼື ເລກທະບຽນ',searchBtn:'ຄົ້ນຫາ',clearBtn:'ລ້າງ',allSt:'ທຸກສະຖານະ',allProv:'ທຸກແຂວງ',allIsic:'ISIC ທຸກຂະແໜງ',
  allCh:'ທຸກຊ່ອງທາງ',allOrg:'ທຸກໜ່ວຍງານ',allRole:'ທຸກສິດ',
  export:'ສົ່ງອອກ Excel',print:'ພິມ',showing:'ສະແດງ',of:'ຈາກ',items:'ລາຍການ',
  noMatch:'ບໍ່ພົບລາຍການທີ່ຕົງກັບເງື່ອນໄຂ',noMatchS:'ລອງປ່ຽນເງື່ອນໄຂ ຫຼື ລ້າງຄ່າຄົ້ນຫາ',
@@ -816,7 +817,7 @@ en:{
  cPaid:'Paid',cLeft:'Outstanding',cStatus:'Status',cDate:'Date',cAct:'Activity',cMode:'Channel',
  cAmt:'Amount',cBy:'Submit by',cDoc:'Files',cTime:'Time',cRef:'Reference',
  hstComplete:'Complete',hstPending:'Pending',hstReturned:'Returned',
- search:'Search by name or registration number',searchBtn:'Search',allSt:'All statuses',allProv:'All provinces',allIsic:'All ISIC sectors',
+ search:'Search by name or registration number',searchBtn:'Search',clearBtn:'Clear',allSt:'All statuses',allProv:'All provinces',allIsic:'All ISIC sectors',
  allCh:'All channels',allOrg:'All organisations',allRole:'All roles',
  export:'Export to Excel',print:'Print',showing:'Showing',of:'of',items:'records',
  noMatch:'No records match these filters',noMatchS:'Try different criteria or clear the search',
@@ -994,6 +995,7 @@ var LU={
  plug:'<path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>',
  layoutDashboard:'<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
  search:'<path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/>',
+ brushCleaning:'<path d="m16 22-1-4"/><path d="M19 13.99a1 1 0 0 0 1-1V12a2 2 0 0 0-2-2h-3a1 1 0 0 1-1-1V4a2 2 0 0 0-4 0v5a1 1 0 0 1-1 1H6a2 2 0 0 0-2 2v.99a1 1 0 0 0 1 1"/><path d="M5 14h14l1.973 6.767A1 1 0 0 1 20 22H4a1 1 0 0 1-.973-1.233z"/><path d="m8 22 1-4"/>',
  clipboardList:'<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>',
  globe:'<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
  chartColumn:'<path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
@@ -1346,7 +1348,7 @@ var S={};
 function reset(){
   S={role:null,pick:null,view:'login',mobile:false,sel:null,tab:'ALL',q:'',mini:false,
      ents:seedEnts(),invs:seedInv(),tasks:[],taskI:0,form:null,modal:null,notif:[],
-     read:false,bell:false,umenu:false,setTab:'fee',finTab:'fee',ckTab:'queue',pg:{},colf:{},certCopy:false,
+     read:false,bell:false,umenu:false,setTab:'fee',finTab:'fee',ckTab:'queue',pg:{},colf:{},colDraft:{},certCopy:false,
      valjobs:JSON.parse(JSON.stringify(VALJOBS)),users:JSON.parse(JSON.stringify(USERS_SEED)),
      backReasonInt:'',backReasonExt:'',loginStep:'cred',loginUser:'',loginPass:'',loginErr:'',tx:null,valI:0,valForm:{val:null,files:[],err:'',docType:'valReport',docErr:''},
      advOpen:false,adv:{kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''}};
@@ -1589,15 +1591,19 @@ function paginate(key,list,sig){
 
 // Search card for a list, laid out like the Finance filter bar. Each field is
 // [col, label, options?]: options turns it into a dropdown ([[value,label],...]), otherwise a
-// text box. Values live in S.colf[key][col]; colMatch() tests a row against them.
+// text box. Typing only edits the draft (S.colDraft[key]); [Search] or Enter copies it into
+// S.colf[key], which colMatch() tests rows against. [Clear] empties both.
 function colFilterBar(key,fields){
-  var f=S.colf[key]||{};
-  return filterBar(fields.map(function(fd){
+  var f=S.colDraft[key]||S.colf[key]||{};
+  var flds=fields.map(function(fd){
     var id='cf-'+key+'-'+fd[0],v=f[fd[0]]||'',attr=' id="'+id+'" data-colf="'+key+':'+fd[0]+'"';
     return '<div class="field"><label for="'+id+'">'+fd[1]+'</label>'+(fd[2]
       ?'<select'+attr+'><option value="">'+t('finAll')+'</option>'+fd[2].map(function(o){
          return '<option value="'+o[0]+'"'+(v===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'
-      :'<input'+attr+' value="'+esc(v)+'">')+'</div>'}).join(''),'data-clearcolf',key);
+      :'<input'+attr+' value="'+esc(v)+'">')+'</div>'}).join('');
+  return '<div class="fbar"><div class="frow">'+flds+
+   '<div class="fx"><button class="btn" data-colsearch="'+key+'">'+luSvg('search')+t('searchBtn')+'</button>'+
+   '<button class="btn ghost" data-clearcolf="'+key+'">'+luSvg('brushCleaning')+t('clearBtn')+'</button></div></div></div>';
 }
 function colNorm(v){return String(v==null?'':v).replace(/<[^>]*>/g,' ').replace(/,/g,'').replace(/\s+/g,' ').trim().toLowerCase()}
 function colMatch(key,vals){
@@ -2508,9 +2514,9 @@ function vRep(){
   return shell(t('repTitle'),'',inner);
 }
 
-function filterBar(flds,clearAttr,clearVal){
+function filterBar(flds,clearAttr){
   return '<div class="fbar"><div class="frow">'+flds+
-   '<div class="fx"><span class="lnk" '+clearAttr+'="'+(clearVal||1)+'">'+t('clearCriteria')+'</span></div></div></div>';
+   '<div class="fx"><span class="lnk" '+clearAttr+'="1">'+t('clearCriteria')+'</span></div></div></div>';
 }
 function setFilterCard(flds){return filterBar(flds,'data-clearset')}
 function exportActs(){
@@ -2991,14 +2997,16 @@ function bind(){
     ev.stopPropagation();var p=b.dataset.pg.split(':');S.pg[p[0]].p=+p[1];render()}});
   document.querySelectorAll('[data-pgsize]').forEach(function(el){el.onchange=function(){
     S.pg[el.dataset.pgsize]={p:1,n:+el.value};render()}});
+  function colSearch(key){S.colf[key]=JSON.parse(JSON.stringify(S.colDraft[key]||{}));render()}
   document.querySelectorAll('[data-colf]').forEach(function(el){
-    var sel=el.tagName==='SELECT';
-    el[sel?'onchange':'oninput']=function(){
-      var k=el.dataset.colf.split(':'),id=el.id,pos=sel?0:el.selectionStart;
-      (S.colf[k[0]]||(S.colf[k[0]]={}))[k[1]]=el.value;render();
-      var n=document.getElementById(id);if(n){n.focus();if(!sel)n.setSelectionRange(pos,pos)}}});
+    var k=el.dataset.colf.split(':');
+    el[el.tagName==='SELECT'?'onchange':'oninput']=function(){
+      var d=S.colDraft[k[0]]||(S.colDraft[k[0]]=JSON.parse(JSON.stringify(S.colf[k[0]]||{})));d[k[1]]=el.value};
+    if(el.tagName==='INPUT')el.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();colSearch(k[0])}}});
+  document.querySelectorAll('[data-colsearch]').forEach(function(b){b.onclick=function(ev){
+    ev.stopPropagation();colSearch(b.dataset.colsearch)}});
   document.querySelectorAll('[data-clearcolf]').forEach(function(b){b.onclick=function(ev){
-    ev.stopPropagation();S.colf[b.dataset.clearcolf]={};render()}});
+    ev.stopPropagation();S.colf[b.dataset.clearcolf]={};S.colDraft[b.dataset.clearcolf]={};render()}});
   ['finFEnt','finFRef','finFReceipt','finFItem'].forEach(function(id){var el=$('#'+id);if(el)el.oninput=applyFinFilter});
   ['finFStatus','finFDays','finFFrom','finFTo'].forEach(function(id){var el=$('#'+id);if(el)el.onchange=applyFinFilter});
   document.querySelectorAll('[data-clearfin]').forEach(function(b){b.onclick=function(){

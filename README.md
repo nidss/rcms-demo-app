@@ -79,7 +79,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 - **Checker (Verification Workspace)** เลือกรายการจากเมนูย่อยใต้ Dashboard: Verification
   queue, Awaiting approval, Returned by me หน้าแสดงการ์ดค้นหาแบบเดียวกับหน้า Finance &
   Penalties (Reference, Enterprise, Channel แบบ dropdown, Submit by; Returned by me มีแค่
-  Enterprise ค้นได้ทั้งชื่อลาว/อังกฤษ/เลขทะเบียน) พร้อม Clear criteria แล้วตามด้วยตาราง
+  Enterprise ค้นได้ทั้งชื่อลาว/อังกฤษ/เลขทะเบียน) กรอกแล้วกดปุ่ม Search หรือ Enter เพื่อค้นหา
+  ปุ่ม Clear ล้างเงื่อนไข แล้วตามด้วยตาราง
   ที่มี pagination เลือกได้ 5/10/20/50 แถวต่อหน้า
 - **Approver (Approval Workspace)** รูปแบบเดียวกัน (ปุ่ม Open to sign), คิวรออนุมัติ +
   ลงลายเซ็นดิจิทัล, รายการเสี่ยง / เกินกำหนด
