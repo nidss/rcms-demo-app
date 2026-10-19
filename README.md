@@ -80,7 +80,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   วิสาหกิจนั้น (ลิงก์ย้อนกลับไปหน้ารายการ; แจ้งชำระ, ใบรับรอง, รายละเอียดรายการ กลับมาที่หน้านี้)
   ถ้าผู้ประกอบการมีวิสาหกิจเดียวจะเปิด Capital Details ทันที
 - **Maker (Counter Workspace)** ไม่มี Overview เลือกรายการจากเมนูย่อยใต้ Dashboard (เปิดที่ Returned
-  ก่อน): **Returned** งานที่ถูกตีกลับ (ค้นหา Enterprise, Reason, Returned by; ปุ่ม Fix เข้าไปแก้),
+  ก่อน): **Returned** งานที่ถูกตีกลับ (ค้นหา Enterprise, Registration no., Returned by; ปุ่ม Fix เข้าไปแก้),
   **Awaiting result** รายการที่ยื่นไปแล้ว (Reference, Enterprise, Stage แบบ dropdown, Submit by)
   และ **Due / Overdue** วิสาหกิจใกล้ครบ/เกินกำหนด (Enterprise, Status) ทุกรายการมีปุ่ม Search /
   Clear และ pagination
@@ -231,6 +231,8 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
   3 แท็บ, System Settings ทุกแท็บ (การ์ดเล็กใน Fees / Master Data เริ่มที่ 5 แถว), ตารางใน
   Dashboard ของผู้ดูแลระบบ, ใบแจ้งหนี้ของผู้ประกอบการ และประวัติการดำเนินการของวิสาหกิจ
   เปลี่ยนเงื่อนไขค้นหาแล้วกลับไปหน้า 1 เสมอ
+- ทุกตารางที่มีวิสาหกิจแสดง Enterprise กับ Registration no. คนละคอลัมน์ และการ์ดค้นหามีช่อง
+  Enterprise (ชื่อลาว / อังกฤษ) แยกจาก Registration no.
 - ตารางที่มีการ์ดค้นหาทั้งหมดใช้ `listCard()` ตัวเดียวกัน (กรองจาก state ไม่ได้ซ่อนแถวใน DOM)
   ช่องค้นหารองรับข้อความ, dropdown, วันที่ และเงื่อนไขเฉพาะ (เช่นช่วงจำนวนวันเกินกำหนด)
 - External Portal: ตารางแยกคอลัมน์ Enterprise กับ Registration no. ค้นหาด้วย Enterprise,
