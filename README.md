@@ -76,10 +76,10 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 - **Maker (Counter Workspace)** แถบ % ทุนที่ชำระแล้วทั้งพอร์ต + ตัวเลข 5 ช่อง (รอตรวจ,
   ถูกตีกลับ, ใกล้ครบกำหนด, เกินกำหนด, ชำระครบ x/30); แจ้งเตือนงานที่ถูกตีกลับ (ปุ่ม Fix)
   และวิสาหกิจที่ติดค่าปรับ; ต่อด้วยรายการที่ยื่นไปแล้ว และรายการใกล้ครบ/เกินกำหนด
-- **Checker (Verification Workspace)** ตัวเลข 4 ช่อง + แจ้งเตือน "งานถัดไป" พร้อมปุ่ม
-  Start review เข้างานแรกทันที (ไม่มีงาน = แถบสีเขียว All caught up) รายการแยกเป็นเมนูย่อย
-  ใต้ Dashboard: Verification queue, Awaiting approval, Returned by me (มีแท็บเดียวกันในหน้า
-  สำหรับ sidebar แบบย่อ/มือถือ) แต่ละรายการมี pagination เลือกได้ 5/10/20/50 แถวต่อหน้า
+- **Checker (Verification Workspace)** เลือกรายการจากเมนูย่อยใต้ Dashboard: Verification
+  queue, Awaiting approval, Returned by me หน้าแสดงตารางของรายการนั้นอย่างเดียว มีช่องค้นหา
+  ใต้หัวตารางทุกคอลัมน์ (ค้นได้ทั้งชื่อลาว/อังกฤษ/เลขทะเบียน, ยอดเงินพิมพ์มีหรือไม่มีจุลภาคก็ได้)
+  ปุ่ม Clear criteria และ pagination เลือกได้ 5/10/20/50 แถวต่อหน้า
 - **Approver (Approval Workspace)** รูปแบบเดียวกัน (ปุ่ม Open to sign), คิวรออนุมัติ +
   ลงลายเซ็นดิจิทัล, รายการเสี่ยง / เกินกำหนด
 - **System administrator (System Overview)** แยกจากงานติดตามทุน มาเน้นงานดูแล

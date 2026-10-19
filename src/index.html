@@ -195,6 +195,10 @@ th{text-align:left;font-weight:600;color:var(--muted);font-size:11px;padding:10p
   border-top:1px solid var(--line);border-bottom:1px solid var(--line);letter-spacing:.02em;white-space:nowrap}
 td{padding:12px 12px;border-bottom:1px solid var(--soft);color:var(--ink2)}
 tr:last-child td{border-bottom:0}
+tr.fr th{border-top:0;padding-top:0;padding-bottom:8px}
+input.cf{width:100%;min-width:64px;height:28px;font:inherit;font-size:12px;font-weight:400;padding:0 8px;letter-spacing:0;
+  border:1px solid var(--line);border-radius:7px;background:var(--white);color:var(--ink)}
+input.cf:focus{outline:none;border-color:var(--m-600);box-shadow:0 0 0 3px rgba(58,72,160,.15)}
 tbody tr{cursor:pointer;transition:background .1s}
 tbody tr:hover td{background:#F6F7FD}
 .r{text-align:right}
@@ -372,7 +376,6 @@ td.num{white-space:nowrap}
 .ftabs .ft{padding:7px 16px;font-size:12.5px;color:var(--ink2);cursor:pointer;border-radius:8px;font-weight:500;white-space:nowrap;transition:.12s}
 .ftabs .ft:hover{color:var(--ink)}
 .ftabs .ft.on{background:var(--white);color:var(--m);font-weight:600;box-shadow:var(--sh-sm)}
-.ftabs .ft .ftc{margin-left:6px;font-size:11px;color:var(--muted);font-weight:500}
 .pager{display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;padding:10px 16px;font-size:12px;color:var(--muted)}
 .pager .pg-info{margin-right:auto}
 .pager .pg-size{display:inline-flex;align-items:center;gap:6px}
@@ -632,7 +635,7 @@ lo:{
  mkSecWork:'ງານທີ່ຕ້ອງຈັດການ',mkSecPortfolio:'ພາບລວມພອດໂຟລິໂອ',mkTotalCo:'ວິສາຫະກິດທັງໝົດ',mkPaidCo:'ຊຳລະທຶນຄົບແລ້ວ',mkUnpaidCo:'ຍັງຊຳລະບໍ່ຄົບ',mkAwaitApprove:'ລໍຫົວໜ້າອະນຸມັດ',
  ckTitle:'ໜ້າວຽກກວດສອບ (Checker)',ckKQueue:'ລໍກວດສອບໃນຄິວ',ckKValue:'ມູນຄ່າລວມໃນຄິວ',ckKApprover:'ສົ່ງຕໍ່ ລໍອະນຸມັດ',ckKReturned:'ຕີກັບໃຫ້ແກ້',
  ckQueue:'ຄິວລໍກວດສອບ',ckNoQueue:'ບໍ່ມີງານລໍກວດສອບ',ckAtApprover:'ສົ່ງຕໍ່ແລ້ວ ລໍອະນຸມັດ',ckNoApprover:'ຍັງບໍ່ມີງານທີ່ສົ່ງຕໍ່',
- ckReturned:'ຕີກັບໃຫ້ແກ້ໄຂ (ໂດຍຂ້ອຍ)',ckMQueue:'ຄິວລໍກວດສອບ',ckMAtAp:'ລໍອະນຸມັດ',ckMRet:'ຕີກັບໂດຍຂ້ອຍ',
+ ckReturned:'ຕີກັບໃຫ້ແກ້ໄຂ (ໂດຍຂ້ອຍ)',ckMQueue:'ຄິວລໍກວດສອບ',ckMAtAp:'ລໍອະນຸມັດ',ckMRet:'ຕີກັບໂດຍຂ້ອຍ',ckReason:'ເຫດຜົນ',
  pgRows:'ແຖວຕໍ່ໜ້າ',pgOf:'ຈາກ',pgPrev:'ໜ້າກ່ອນ',pgNext:'ໜ້າຖັດໄປ',ckNoReturned:'ຍັງບໍ່ໄດ້ຕີກັບລາຍການໃດ',ckReview:'ຕ້ອງກວດເຂັ້ມ',ckOpen:'ເປີດກວດ',ckHighVal:'ຍອດສູງ',
  apTitle:'ໜ້າວຽກອະນຸມັດ (Approver)',apKQueue:'ລໍອະນຸມັດ + ລົງນາມ',apKValue:'ມູນຄ່າລໍລົງນາມ',apKSigned:'ລົງນາມແລ້ວມື້ນີ້',apKOverdue:'ເກີນກຳນົດ (ທັງຝ່າຍ)',
  apQueue:'ຄິວລໍອະນຸມັດ + ລົງນາມ',apNoQueue:'ບໍ່ມີງານລໍອະນຸມັດ',apSign:'ລົງນາມ',apVerifiedBy:'ກວດໂດຍ',apActionNeeded:'ຕ້ອງດຳເນີນການ',
@@ -797,7 +800,7 @@ en:{
  mkSecWork:'Needs your action',mkSecPortfolio:'Portfolio overview',mkTotalCo:'Total enterprises',mkPaidCo:'Fully paid',mkUnpaidCo:'Not fully paid',mkAwaitApprove:'Awaiting approval',
  ckTitle:'Verification Workspace (Checker)',ckKQueue:'Awaiting my review',ckKValue:'Value in queue',ckKApprover:'Forwarded, at approver',ckKReturned:'Returned to fix',
  ckQueue:'Verification queue',ckNoQueue:'Nothing waiting for verification',ckAtApprover:'Forwarded - awaiting approval',ckNoApprover:'Nothing forwarded yet',
- ckReturned:'Returned for correction (by me)',ckMQueue:'Verification queue',ckMAtAp:'Awaiting approval',ckMRet:'Returned by me',
+ ckReturned:'Returned for correction (by me)',ckMQueue:'Verification queue',ckMAtAp:'Awaiting approval',ckMRet:'Returned by me',ckReason:'Reason',
  pgRows:'Rows per page',pgOf:'of',pgPrev:'Previous page',pgNext:'Next page',ckNoReturned:'You have not returned any case',ckReview:'Needs close review',ckOpen:'Review',ckHighVal:'High value',
  apTitle:'Approval Workspace (Approver)',apKQueue:'Awaiting my approval',apKValue:'Value awaiting sign-off',apKSigned:'Signed today',apKOverdue:'Overdue (division)',
  apQueue:'Awaiting approval + E-Sign',apNoQueue:'Nothing waiting for approval',apSign:'Sign',apVerifiedBy:'Verified by',apActionNeeded:'Action needed',
@@ -1347,7 +1350,7 @@ var S={};
 function reset(){
   S={role:null,pick:null,view:'login',mobile:false,sel:null,tab:'ALL',q:'',mini:false,
      ents:seedEnts(),invs:seedInv(),tasks:[],taskI:0,form:null,modal:null,notif:[],
-     read:false,bell:false,umenu:false,setTab:'fee',finTab:'fee',ckTab:'queue',pg:{},certCopy:false,
+     read:false,bell:false,umenu:false,setTab:'fee',finTab:'fee',ckTab:'queue',pg:{},colf:{},certCopy:false,
      valjobs:JSON.parse(JSON.stringify(VALJOBS)),users:JSON.parse(JSON.stringify(USERS_SEED)),
      backReasonInt:'',backReasonExt:'',loginStep:'cred',loginUser:'',loginPass:'',loginErr:'',tx:null,valI:0,valForm:{val:null,files:[],err:'',docType:'valReport',docErr:''},
      advOpen:false,adv:{kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''}};
@@ -1588,22 +1591,26 @@ function paginate(key,list,sig){
   return {items:items,bar:bar};
 }
 
+// Per-column search for a table: a second header row with one input under each searchable
+// column (null = no input). Values live in S.colf[key][col]; colMatch() tests a row against them.
+function colFilterRow(key,cols){
+  var f=S.colf[key]||{};
+  return '<tr class="fr">'+cols.map(function(c,i){
+    var pad=i===0?' style="padding-left:16px"':(i===cols.length-1?' style="padding-right:16px"':'');
+    return '<th'+pad+'>'+(c?'<input class="cf" id="cf-'+key+'-'+c+'" data-colf="'+key+':'+c+'" value="'+esc(f[c]||'')+'" placeholder="'+t('kwLbl')+'" aria-label="'+t('kwLbl')+'">':'')+'</th>'}).join('')+'</tr>';
+}
+function colNorm(v){return String(v==null?'':v).replace(/<[^>]*>/g,' ').replace(/,/g,'').replace(/\s+/g,' ').trim().toLowerCase()}
+function colMatch(key,vals){
+  var f=S.colf[key]||{};
+  return Object.keys(f).every(function(c){var q=colNorm(f[c]);return !q||colNorm(vals[c]).indexOf(q)>=0});
+}
+function colActive(key){var f=S.colf[key]||{};return Object.keys(f).some(function(c){return (f[c]||'').trim()})}
+
 function vCheckerDash(){
-  var me=who().n,LO=lang==='lo';
+  var me=who().n;
   var myQ=[],atAp=[];
   S.tasks.forEach(function(x,i){if(x.stage==='checker')myQ.push([x,i]);else if(x.stage==='approve')atAp.push([x,i])});
-  var qVal=myQ.reduce(function(a,p){return a+p[0].amt},0);
   var retMine=checkerReturned();
-
-  var first=myQ[0];
-  var kpis=sumCard({title:t('wsOverview'),
-   metrics:metric('warn',t('ckKQueue'),fmt(myQ.length),LO?'ລໍໃຫ້ຂ້ອຍກວດ':'Waiting on you')+
-    metric('',t('ckKValue'),fmt(qVal),'LAK')+
-    metric('',t('ckKApprover'),fmt(atAp.length),LO?'ຢູ່ຂັ້ນຜູ້ອະນຸມັດ':'At the approver')+
-    metric('bad',t('ckKReturned'),fmt(retMine.length),LO?'ຕີກັບຫາ Maker':'Sent back to Maker'),
-   notes:[first?{tone:'info',text:'<b>'+myQ.length+' '+t('nxCk')+'</b> · '+t('nxNext')+': <span class="num">'+first[0].ref+'</span> · '+first[0].ent.name,
-      act:'<button class="btn sm" data-task="'+first[1]+'">'+t('nxStartCk')+' →</button>'}
-     :{tone:'ok',text:'<b>'+t('nxClear')+'</b> · '+t('nxClearS')}]});
 
   function flags(x){
     var e=x.ent,out='';
@@ -1613,45 +1620,54 @@ function vCheckerDash(){
     if(pen)out+=' <span class="pill p-bad">'+t('penaltyAmt')+'</span>';
     return out;
   }
-  // One list per sub-menu: Verification queue / Awaiting approval / Returned by me.
+  // One list per sub-menu (Verification queue / Awaiting approval / Returned by me), each with
+  // a search box under every column header and pagination.
+  function listCard(o){
+    var key=o.key,hit=o.all.filter(function(r){return colMatch(key,o.vals(r))});
+    var pg=paginate(key,hit,JSON.stringify(S.colf[key]||{}));
+    var body=pg.items.map(o.row).join('')||
+      '<tr><td colspan="'+o.cols.length+'"><div class="empty" style="padding:24px"><b>'+t('noMatch')+'</b></div></td></tr>';
+    var head='<tr>'+o.heads.map(function(h,i){
+      var pad=i===0?'padding-left:16px':(i===o.heads.length-1?'padding-right:16px':'');
+      return '<th'+(h[1]?' class="r"':'')+(pad?' style="'+pad+'"':'')+'>'+h[0]+'</th>'}).join('')+'</tr>';
+    var n=o.all.length;
+    return '<div class="card'+(o.hot&&n?' hot':'')+'"><div class="h"><h3>'+o.title+'</h3>'+
+      (colActive(key)?'<span class="lnk" data-clearcolf="'+key+'" style="margin-left:auto">'+t('clearCriteria')+'</span>':'')+
+      (n?'<span class="cnt"'+(colActive(key)?'':' style="margin-left:auto"')+'>'+(colActive(key)?hit.length+' / ':'')+n+'</span>':'')+'</div>'+
+      '<div class="c" style="padding:12px 0 0">'+(n
+       ?'<table><thead>'+head+colFilterRow(key,o.cols)+'</thead><tbody>'+body+'</tbody></table>'+pg.bar
+       :'<div class="empty" style="padding:30px"><b>'+o.empty+'</b></div>')+'</div></div>';
+  }
   var tab=S.ckTab,card;
   if(tab==='atAp'){
-    var pa=paginate('ckAtAp',atAp);
-    var apRows=pa.items.map(function(p){var x=p[0];
-      return '<tr data-open="'+x.ent.id+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
-       '<td><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span></td>'+
-       '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td>'+
-       '<td style="padding-right:16px"><span class="pill p-rev">'+t('stageApprover')+'</span></td></tr>'}).join('');
-    card='<div class="card"><div class="h"><h3>'+t('ckAtApprover')+'</h3>'+(atAp.length?'<span class="cnt" style="margin-left:auto">'+atAp.length+'</span>':'')+'</div>'+
-      '<div class="c" style="padding:12px 0 0">'+(apRows
-       ?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cEnt')+'</th><th>'+t('cMode')+'</th><th class="r">'+t('cAmt')+'</th><th></th></tr></thead><tbody>'+apRows+'</tbody></table>'+pa.bar
-       :'<div class="empty" style="padding:30px"><b>'+t('ckNoApprover')+'</b></div>')+'</div></div>';
+    card=listCard({key:'ckAtAp',title:t('ckAtApprover'),empty:t('ckNoApprover'),all:atAp,
+      heads:[[t('cRef')],[t('cEnt')],[t('cMode')],[t('cAmt'),1],['']],cols:['ref','ent','mode','amt',null],
+      vals:function(p){var x=p[0];return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||'')+' '+x.ent.id,mode:modeLbl(x.mode),amt:x.amt+' '+fmt(x.amt)}},
+      row:function(p){var x=p[0];
+        return '<tr data-open="'+x.ent.id+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
+         '<td><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span></td>'+
+         '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td>'+
+         '<td style="padding-right:16px"><span class="pill p-rev">'+t('stageApprover')+'</span></td></tr>'}});
   }else if(tab==='ret'){
-    var pr=paginate('ckRet',retMine.slice().reverse());
-    var retRows=pr.items.map(function(o){
-      return '<tr data-open="'+o.e.id+'"><td style="padding-left:16px"><span class="co">'+o.e.name+'<small>'+o.e.id+'</small></span></td>'+
-       '<td style="color:var(--muted);font-size:11px">'+L(o.h.a)+'</td>'+
-       '<td class="r num" style="padding-right:16px">'+o.h.d+'</td></tr>'}).join('');
-    card='<div class="card"><div class="h"><h3>'+t('ckReturned')+'</h3>'+(retMine.length?'<span class="cnt" style="margin-left:auto">'+retMine.length+'</span>':'')+'</div>'+
-      '<div class="c" style="padding:12px 0 0">'+(retRows?'<table><tbody>'+retRows+'</tbody></table>'+pr.bar:'<div class="empty" style="padding:30px"><b>'+t('ckNoReturned')+'</b></div>')+'</div></div>';
+    card=listCard({key:'ckRet',title:t('ckReturned'),empty:t('ckNoReturned'),all:retMine.slice().reverse(),
+      heads:[[t('cEnt')],[t('ckReason')],[t('cDate'),1]],cols:['ent','reason','date'],
+      vals:function(o){return {ent:o.e.name+' '+(o.e.nameEn||'')+' '+o.e.id,reason:L(o.h.a),date:o.h.d}},
+      row:function(o){
+        return '<tr data-open="'+o.e.id+'"><td style="padding-left:16px"><span class="co">'+o.e.name+'<small>'+o.e.id+'</small></span></td>'+
+         '<td style="color:var(--muted);font-size:11px">'+L(o.h.a)+'</td>'+
+         '<td class="r num" style="padding-right:16px">'+o.h.d+'</td></tr>'}});
   }else{
-    var pq=paginate('ckQueue',myQ);
-    var qRows=pq.items.map(function(p){var x=p[0];
-      return '<tr data-task="'+p[1]+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
-       '<td><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span>'+flags(x)+'</td>'+
-       '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td>'+
-       '<td>'+x.by+'</td><td class="num">'+x.at+'</td>'+
-       '<td class="r" style="padding-right:16px"><button class="btn sm">'+t('ckOpen')+' →</button></td></tr>'}).join('');
-    card='<div class="card'+(myQ.length?' hot':'')+'"><div class="h"><h3>'+t('ckQueue')+'</h3>'+(myQ.length?'<span class="cnt" style="margin-left:auto">'+myQ.length+'</span>':'')+'</div>'+
-      '<div class="c" style="padding:12px 0 0">'+(qRows
-       ?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cEnt')+'</th><th>'+t('cMode')+'</th><th class="r">'+t('cAmt')+'</th><th>'+t('cBy')+'</th><th>'+t('cTime')+'</th><th></th></tr></thead><tbody>'+qRows+'</tbody></table>'+pq.bar
-       :'<div class="empty" style="padding:30px"><b>'+t('ckNoQueue')+'</b></div>')+'</div></div>';
+    card=listCard({key:'ckQueue',title:t('ckQueue'),empty:t('ckNoQueue'),all:myQ,hot:1,
+      heads:[[t('cRef')],[t('cEnt')],[t('cMode')],[t('cAmt'),1],[t('cBy')],[t('cTime')],['']],cols:['ref','ent','mode','amt','by','at',null],
+      vals:function(p){var x=p[0];return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||'')+' '+x.ent.id+' '+flags(x),mode:modeLbl(x.mode),amt:x.amt+' '+fmt(x.amt),by:x.by,at:x.at}},
+      row:function(p){var x=p[0];
+        return '<tr data-task="'+p[1]+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
+         '<td><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span>'+flags(x)+'</td>'+
+         '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td>'+
+         '<td>'+x.by+'</td><td class="num">'+x.at+'</td>'+
+         '<td class="r" style="padding-right:16px"><button class="btn sm">'+t('ckOpen')+' →</button></td></tr>'}});
   }
-  // Same three lists as tabs, for the collapsed sidebar and small screens.
-  var tabBar='<div class="ftabs">'+[['queue','ckMQueue',myQ.length],['atAp','ckMAtAp',atAp.length],['ret','ckMRet',retMine.length]].map(function(tb){
-    return '<div class="ft'+(tab===tb[0]?' on':'')+'" data-subtab="dash:'+tb[0]+'">'+t(tb[1])+'<span class="ftc num">'+tb[2]+'</span></div>'}).join('')+'</div>';
-
-  return shell(t('ckTitle'),'',kpis+tabBar+card,'',t('mkGreeting')+' <b>'+me+'</b>');
+  return shell(t('ckTitle'),'',card,'',t('mkGreeting')+' <b>'+me+'</b>');
 }
 
 function vApproverDash(){
@@ -2974,6 +2990,12 @@ function bind(){
     ev.stopPropagation();var p=b.dataset.pg.split(':');S.pg[p[0]].p=+p[1];render()}});
   document.querySelectorAll('[data-pgsize]').forEach(function(el){el.onchange=function(){
     S.pg[el.dataset.pgsize]={p:1,n:+el.value};render()}});
+  document.querySelectorAll('[data-colf]').forEach(function(el){el.oninput=function(){
+    var k=el.dataset.colf.split(':'),id=el.id,pos=el.selectionStart;
+    (S.colf[k[0]]||(S.colf[k[0]]={}))[k[1]]=el.value;render();
+    var n=document.getElementById(id);if(n){n.focus();n.setSelectionRange(pos,pos)}}});
+  document.querySelectorAll('[data-clearcolf]').forEach(function(b){b.onclick=function(ev){
+    ev.stopPropagation();S.colf[b.dataset.clearcolf]={};render()}});
   ['finFEnt','finFRef','finFReceipt','finFItem'].forEach(function(id){var el=$('#'+id);if(el)el.oninput=applyFinFilter});
   ['finFStatus','finFDays','finFFrom','finFTo'].forEach(function(id){var el=$('#'+id);if(el)el.onchange=applyFinFilter});
   document.querySelectorAll('[data-clearfin]').forEach(function(b){b.onclick=function(){
