@@ -9,6 +9,8 @@ Prototype สำหรับนำเสนอโครงการ **Registrati
 
 > ข้อมูลทั้งหมดเป็น mock data สำหรับสาธิตเท่านั้น ไม่ได้เชื่อมฐานข้อมูลจริง
 
+> ส่งต่อให้ทีม frontend: ดู [`docs/handoff/`](docs/handoff/README.md) (แนวทางย้ายไป React หรือ Next.js)
+
 ---
 
 ## โครงสร้างโปรเจกต์
