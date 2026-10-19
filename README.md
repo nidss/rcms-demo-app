@@ -79,10 +79,11 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   (Enterprise, Registration no., Status) + ตารางวิสาหกิจ กดแถวเพื่อเข้า **Capital Details** ของ
   วิสาหกิจนั้น (ลิงก์ย้อนกลับไปหน้ารายการ; แจ้งชำระ, ใบรับรอง, รายละเอียดรายการ กลับมาที่หน้านี้)
   ถ้าผู้ประกอบการมีวิสาหกิจเดียวจะเปิด Capital Details ทันที
-- **Maker (Counter Workspace)** แถบ % ทุนที่ชำระแล้วทั้งพอร์ต + ตัวเลข 5 ช่อง (รอตรวจ,
-  ถูกตีกลับ, ใกล้ครบกำหนด, เกินกำหนด, ชำระครบ x/30); แจ้งเตือนงานที่ถูกตีกลับ (ปุ่ม Fix)
-  และวิสาหกิจที่ติดค่าปรับ; ต่อด้วยการ์ดค้นหา (Reference, Enterprise, Stage แบบ dropdown,
-  Submit by + ปุ่ม Search / Clear) ของรายการที่ยื่นไปแล้ว และรายการใกล้ครบ/เกินกำหนด
+- **Maker (Counter Workspace)** ไม่มี Overview เลือกรายการจากเมนูย่อยใต้ Dashboard (เปิดที่ Returned
+  ก่อน): **Returned** งานที่ถูกตีกลับ (ค้นหา Enterprise, Reason, Returned by; ปุ่ม Fix เข้าไปแก้),
+  **Awaiting result** รายการที่ยื่นไปแล้ว (Reference, Enterprise, Stage แบบ dropdown, Submit by)
+  และ **Due / Overdue** วิสาหกิจใกล้ครบ/เกินกำหนด (Enterprise, Status) ทุกรายการมีปุ่ม Search /
+  Clear และ pagination
 - **Checker (Verification Workspace)** เลือกรายการจากเมนูย่อยใต้ Dashboard: Verification
   queue, Awaiting approval, Returned by me หน้าแสดงการ์ดค้นหาแบบเดียวกับหน้า Finance &
   Penalties (Reference, Enterprise, Channel แบบ dropdown, Submit by; Returned by me มีแค่
