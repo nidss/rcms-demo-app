@@ -1601,9 +1601,7 @@ function colFilterBar(key,fields){
       ?'<select'+attr+'><option value="">'+t('finAll')+'</option>'+fd[2].map(function(o){
          return '<option value="'+o[0]+'"'+(v===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'
       :'<input'+attr+' value="'+esc(v)+'">')+'</div>'}).join('');
-  return '<div class="fbar"><div class="frow">'+flds+
-   '<div class="fx"><button class="btn" data-colsearch="'+key+'">'+luSvg('search')+t('searchBtn')+'</button>'+
-   '<button class="btn ghost" data-clearcolf="'+key+'">'+luSvg('brushCleaning')+t('clearBtn')+'</button></div></div></div>';
+  return filterBar(flds,'data-clearcolf','data-colsearch',key);
 }
 function colNorm(v){return String(v==null?'':v).replace(/<[^>]*>/g,' ').replace(/,/g,'').replace(/\s+/g,' ').trim().toLowerCase()}
 function colMatch(key,vals){
@@ -2468,7 +2466,7 @@ function vFin(){
      '<div class="field"><label>'+t('cRef')+'</label><input id="finFRef"></div>'+
      '<div class="field"><label>'+t('payStatus')+'</label><select id="finFStatus">'+statusOpts+'</select></div>';
   }
-  var filterCard=filterBar(flds,'data-clearfin');
+  var filterCard=filterBar(flds,'data-clearfin','data-finsearch');
   return shell(t('finTitle'),'','<div class="toolbar">'+tabBar+'<span class="sp"></span>'+exportActs()+'</div>'+filterCard+'<div id="finContent">'+body+'</div>');
 }
 function applyFinFilter(){
@@ -2514,9 +2512,15 @@ function vRep(){
   return shell(t('repTitle'),'',inner);
 }
 
-function filterBar(flds,clearAttr){
+// Filter card. With searchAttr it ends in [Search] [Clear] buttons (val tells the handlers which
+// list they act on); without it, a plain "Clear criteria" link.
+function filterBar(flds,clearAttr,searchAttr,val){
+  var v='="'+(val||1)+'"';
   return '<div class="fbar"><div class="frow">'+flds+
-   '<div class="fx"><span class="lnk" '+clearAttr+'="1">'+t('clearCriteria')+'</span></div></div></div>';
+   '<div class="fx">'+(searchAttr
+    ?'<button class="btn" '+searchAttr+v+'>'+luSvg('search')+t('searchBtn')+'</button>'+
+     '<button class="btn ghost" '+clearAttr+v+'>'+luSvg('brushCleaning')+t('clearBtn')+'</button>'
+    :'<span class="lnk" '+clearAttr+v+'>'+t('clearCriteria')+'</span>')+'</div></div></div>';
 }
 function setFilterCard(flds){return filterBar(flds,'data-clearset')}
 function exportActs(){
@@ -3007,8 +3011,8 @@ function bind(){
     ev.stopPropagation();colSearch(b.dataset.colsearch)}});
   document.querySelectorAll('[data-clearcolf]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();S.colf[b.dataset.clearcolf]={};S.colDraft[b.dataset.clearcolf]={};render()}});
-  ['finFEnt','finFRef','finFReceipt','finFItem'].forEach(function(id){var el=$('#'+id);if(el)el.oninput=applyFinFilter});
-  ['finFStatus','finFDays','finFFrom','finFTo'].forEach(function(id){var el=$('#'+id);if(el)el.onchange=applyFinFilter});
+  ['finFEnt','finFRef','finFReceipt','finFItem'].forEach(function(id){var el=$('#'+id);
+    if(el)el.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();applyFinFilter()}}});
   document.querySelectorAll('[data-clearfin]').forEach(function(b){b.onclick=function(){
     ['finFEnt','finFRef','finFReceipt','finFItem','finFStatus','finFDays','finFFrom','finFTo'].forEach(function(id){var el=$('#'+id);if(el)el.value=''});
     applyFinFilter()}});

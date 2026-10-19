@@ -132,8 +132,9 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 ### Finance
 - 3 แท็บภายในเมนูเดียว: **Fees / Penalties / E-Receipts**
 - แต่ละแท็บมี search filter แยกตาม criteria ของตัวเอง (เช่น Enterprise,
-  Reference, Payment status, Days overdue, Receipt no, ช่วงวันที่) กรองทันที
-  ขณะพิมพ์ แท็บเป็น segmented control และปุ่ม Export / Print อยู่แถวเดียวกับแท็บ
+  Reference, Payment status, Days overdue, Receipt no, ช่วงวันที่) กรอกแล้วกดปุ่ม
+  Search หรือ Enter เพื่อกรอง ปุ่ม Clear ล้างเงื่อนไข (แบบเดียวกับหน้า Checker)
+  แท็บเป็น segmented control และปุ่ม Export / Print อยู่แถวเดียวกับแท็บ
 
 ### Reports
 - เลือกรายงานตามประเภท + ช่วงวันที่ แล้ว generate / export (ตัด chart ออก เหลือ
