@@ -215,9 +215,14 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
 - วิสาหกิจหลัก 6 แห่ง (ELN-2025-1001 ถึง 1006) ใช้สาธิต flow ของ Owner/Maker ส่วนอีก 24 แห่ง
   (ELN-2025-1101 ถึง 1124, `MOCK_ENTS` ใน `src/index.html`) มีไว้ให้รายการของ Checker/Approver
   ยาวพอเห็น pagination: Verification queue 15, Awaiting approval 11, Returned by me 13 รายการ
-- Pagination (`paginate()` ใน `src/index.html`, เลือกได้ 5/10/20/50 แถวต่อหน้า) ใช้กับรายการของ
-  Checker ทั้ง 3 รายการ, หน้าค้นหาวิสาหกิจ (เปลี่ยนตัวกรองแล้วกลับไปหน้า 1), รายการที่ยื่นไปแล้ว
-  ของ Maker, รายการทั้ง 3 ของ Approver, Asset Valuation Queue และ External Portal
+- Pagination (`paginate()` ใน `src/index.html`, เลือกได้ 5/10/20/50 แถวต่อหน้า) ใช้กับทุกตาราง:
+  รายการของ Checker / Approver / Maker (ทั้งรายการที่ยื่นไปแล้วและรายการใกล้ครบ/เกินกำหนด),
+  หน้าค้นหาวิสาหกิจ, Asset Valuation Queue, งานของบริษัทประเมิน, External Portal, Finance ทั้ง
+  3 แท็บ, System Settings ทุกแท็บ (การ์ดเล็กใน Fees / Master Data เริ่มที่ 5 แถว), ตารางใน
+  Dashboard ของผู้ดูแลระบบ, ใบแจ้งหนี้ของผู้ประกอบการ และประวัติการดำเนินการของวิสาหกิจ
+  เปลี่ยนเงื่อนไขค้นหาแล้วกลับไปหน้า 1 เสมอ
+- ตารางที่มีการ์ดค้นหาทั้งหมดใช้ `listCard()` ตัวเดียวกัน (กรองจาก state ไม่ได้ซ่อนแถวใน DOM)
+  ช่องค้นหารองรับข้อความ, dropdown, วันที่ และเงื่อนไขเฉพาะ (เช่นช่วงจำนวนวันเกินกำหนด)
 - External Portal: ตารางแยกคอลัมน์ Enterprise กับ Registration no. ค้นหาด้วย Enterprise,
   Registration no. และ Province (dropdown)
 - ช่อง dropdown ในการ์ดค้นหาจับคู่ค่าแบบตรงทั้งคำ (เช่นเลือก "Vientiane Province" ไม่ปน

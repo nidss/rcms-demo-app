@@ -1530,8 +1530,8 @@ function vMakerDash(){
        '<td>'+(x.stage==='checker'?'<span class="pill p-warn">'+t('stageChecker')+'</span>':'<span class="pill p-rev">'+t('stageApprover')+'</span>')+'</td>'+
        '<td style="padding-right:16px;color:var(--muted);font-size:11px">'+x.by+'</td></tr>'}});
 
-  var dueList=overdue.concat(dueSoon);
-  var dueRows=dueList.map(function(e){
+  var dueList=overdue.concat(dueSoon),dpg=paginate('mkDue',dueList);
+  var dueRows=dpg.items.map(function(e){
     var d=daysLeft(e.due),over=d<0,pen=penBy[e.id]||0;
     return '<tr data-open="'+e.id+'"><td style="padding-left:16px"><span class="co">'+e.name+'<small>'+e.id+'</small></span></td>'+
      '<td class="num">'+e.due+'</td>'+
@@ -1543,7 +1543,7 @@ function vMakerDash(){
     '<span class="more" data-nav="ent">'+t('seeAll')+' →</span></div>'+
     '<div class="c" style="padding:12px 0 0">'+(dueRows
      ?'<table><thead><tr><th style="padding-left:16px">'+t('cEnt')+'</th><th>'+t('cDue')+'</th><th>'+t('daysLeft')+'</th>'+
-      '<th class="r">'+t('outstanding')+'</th><th class="r">'+t('penaltyAmt')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+dueRows+'</tbody></table>'
+      '<th class="r">'+t('outstanding')+'</th><th class="r">'+t('penaltyAmt')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+dueRows+'</tbody></table>'+dpg.bar
      :'<div class="empty" style="padding:30px"><b>'+t('mkNoDue')+'</b></div>')+'</div></div>';
 
   var inner=kpis+pendingCard+dueCard;
@@ -1561,8 +1561,8 @@ function checkerReturned(){
 // Returns the rows for the current page and the footer bar (empty when the list is empty).
 // Pass sig (e.g. the active filters) to jump back to page 1 whenever it changes.
 var PG_SIZES=[5,10,20,50];
-function paginate(key,list,sig){
-  var st=S.pg[key]||(S.pg[key]={p:1,n:10});
+function paginate(key,list,sig,n0){
+  var st=S.pg[key]||(S.pg[key]={p:1,n:n0||10});
   if(sig!==undefined&&st.sig!==sig){st.sig=sig;st.p=1}
   var pages=Math.max(1,Math.ceil(list.length/st.n));
   if(st.p>pages)st.p=pages;
@@ -1586,8 +1586,8 @@ function paginate(key,list,sig){
 }
 
 // Search card for a list, laid out like the Finance filter bar. Each field is
-// [col, label, options?]: options turns it into a dropdown ([[value,label],...]), otherwise a
-// text box. Typing only edits the draft (S.colDraft[key]); [Search] or Enter copies it into
+// [col, label, options?, type?, match?]: options turns it into a dropdown ([[value,label],...]),
+// type 'date' a date picker, otherwise a text box. match(row, value) overrides the default test. Typing only edits the draft (S.colDraft[key]); [Search] or Enter copies it into
 // S.colf[key], which colMatch() tests rows against. [Clear] empties both.
 function colFilterBar(key,fields){
   var f=S.colDraft[key]||S.colf[key]||{};
@@ -1596,15 +1596,19 @@ function colFilterBar(key,fields){
     return '<div class="field"><label for="'+id+'">'+fd[1]+'</label>'+(fd[2]
       ?'<select'+attr+'><option value="">'+t('finAll')+'</option>'+fd[2].map(function(o){
          return '<option value="'+o[0]+'"'+(v===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'
-      :'<input'+attr+' value="'+esc(v)+'">')+'</div>'}).join('');
+      :'<input'+(fd[3]?' type="'+fd[3]+'"':'')+attr+' value="'+esc(v)+'">')+'</div>'}).join('');
   return filterBar(flds,'data-clearcolf','data-colsearch',key);
 }
 function colNorm(v){return String(v==null?'':v).replace(/<[^>]*>/g,' ').replace(/,/g,'').replace(/\s+/g,' ').trim().toLowerCase()}
-// Text columns match a substring; columns listed in exact (the dropdowns) must match the whole value.
-function colMatch(key,vals,exact){
-  var f=S.colf[key]||{};
-  return Object.keys(f).every(function(c){var q=colNorm(f[c]),v=colNorm(vals[c]);
-    return !q||(exact&&exact.indexOf(c)>=0?v===q:v.indexOf(q)>=0)});
+// Does row r pass the searched values of list o? Text boxes match a substring, dropdowns the
+// whole value, and a field's own match(row, value) wins when it has one.
+function listMatch(o,r){
+  var f=S.colf[o.key]||{},v=o.vals?o.vals(r):{};
+  return o.fields.every(function(fd){
+    var q=(f[fd[0]]||'').trim();if(!q)return true;
+    if(fd[4])return fd[4](r,q);
+    var a=colNorm(v[fd[0]]),b=colNorm(q);
+    return fd[2]?a===b:a.indexOf(b)>=0});
 }
 // Province dropdown options from the data: [Lao name (value), label in the current language].
 function provinceOptions(){
@@ -1613,10 +1617,10 @@ function provinceOptions(){
 }
 // A searchable list: search card (o.fields), then a card with the table and pagination.
 // o: key, title, empty, all (rows), fields, vals(row)->{col:text}, heads [[label, right?]], row(row)->html,
-// hot (accent the card when non-empty), mb (gap below the card), foot (html under the table).
+// hot (accent the card when non-empty), mb (gap below the card), foot (html under the table),
+// acts (html at the right of the card header).
 function listCard(o){
-  var key=o.key,exact=o.fields.filter(function(f){return f[2]}).map(function(f){return f[0]});
-  var hit=o.all.filter(function(r){return colMatch(key,o.vals(r),exact)});
+  var key=o.key,hit=o.all.filter(function(r){return listMatch(o,r)});
   var pg=paginate(key,hit,JSON.stringify(S.colf[key]||{}));
   var head='<tr>'+o.heads.map(function(h,i){
     var pad=i===0?'padding-left:16px':(i===o.heads.length-1?'padding-right:16px':'');
@@ -1627,9 +1631,11 @@ function listCard(o){
     :'<table><thead>'+head+'</thead><tbody>'+pg.items.map(o.row).join('')+'</tbody></table>'+pg.bar;
   return (n?colFilterBar(key,o.fields):'')+
     '<div class="card'+(o.hot&&n?' hot':'')+'"'+(o.mb?' style="margin-bottom:16px"':'')+'><div class="h"><h3>'+o.title+'</h3>'+
-    (n?'<span class="cnt" style="margin-left:auto">'+(on?hit.length+' / ':'')+n+'</span>':'')+'</div>'+
+    (n?'<span class="cnt" style="margin-left:auto">'+(on?hit.length+' / ':'')+n+'</span>':'')+
+    (o.acts?'<span style="margin-left:'+(n?'10px':'auto')+'">'+o.acts+'</span>':'')+'</div>'+
     '<div class="c" style="padding:12px 0 0">'+table+(o.foot||'')+'</div></div>';
 }
+function isoDate(d){return (d||'').split('/').reverse().join('-')}
 function colActive(key){var f=S.colf[key]||{};return Object.keys(f).some(function(c){return (f[c]||'').trim()})}
 
 function vCheckerDash(){
@@ -1791,7 +1797,7 @@ function vAdminDash(){
   var orgSegs=Object.keys(byOrg).map(function(k,i){return [byOrg[k],PAL[i%PAL.length],k]});
   var byRole={};S.users.forEach(function(u){byRole[u.role]=(byRole[u.role]||0)+1});
   var roleSegs=Object.keys(byRole).map(function(k,i){return [byRole[k],PAL[i%PAL.length],k]});
-  var orgRows=Object.keys(byOrg).map(function(k){
+  var orgPg=paginate('admOrg',Object.keys(byOrg)),orgRows=orgPg.items.map(function(k){
     var us=S.users.filter(function(u){return u.org===k});
     var onl=us.filter(function(u){return u.online}).length,lck=us.filter(function(u){return !u.active}).length;
     return '<tr><td style="padding-left:16px">'+k+'</td><td class="r num">'+us.length+'</td>'+
@@ -1802,7 +1808,7 @@ function vAdminDash(){
   var apiUpN=API_ENDPOINTS.filter(function(a){return a.st==='up'}).length;
   var apiFails=6;
   var apiSt={up:[{lo:'ອອນລາຍ',en:'Online'},'p-ok'],slow:[{lo:'ຕອບຊ້າ',en:'Degraded'},'p-warn'],down:[{lo:'ຫຼຸດການເຊື່ອມ',en:'Offline'},'p-bad']};
-  var apiRows=API_ENDPOINTS.map(function(a){var s=apiSt[a.st];
+  var apiPg=paginate('admApi',API_ENDPOINTS),apiRows=apiPg.items.map(function(a){var s=apiSt[a.st];
     return '<tr><td style="padding-left:16px"><span class="co">'+a.nm+'<small>'+L(a.desc)+'</small></span></td>'+
     '<td><span class="pill '+s[1]+'">'+L(s[0])+'</span></td>'+
     '<td class="r num">'+a.rate+'</td><td class="r num">'+a.lat+'</td>'+
@@ -1811,7 +1817,7 @@ function vAdminDash(){
   // audit / security trail
   var catMap={auth:[{lo:'ເຂົ້າສູ່ລະບົບ',en:'Sign-in'},'p-idle'],rbac:[{lo:'ສິດ RBAC',en:'RBAC'},'p-rev'],
     security:[{lo:'ຄວາມປອດໄພ',en:'Security'},'p-bad'],system:[{lo:'ລະບົບ',en:'System'},'p-warn'],config:[{lo:'ຕັ້ງຄ່າ',en:'Config'},'p-ok']};
-  var audRows=AUDIT_LOG.map(function(l){var cc=catMap[l.cat];
+  var audPg=paginate('admAud',AUDIT_LOG),audRows=audPg.items.map(function(l){var cc=catMap[l.cat];
     var tt=typeof l.t==='string'?l.t:L(l.t),uu=typeof l.u==='string'?l.u:L(l.u);
     return '<tr><td style="padding-left:16px" class="num">'+tt+'</td><td>'+uu+'</td><td>'+L(l.a)+'</td>'+
     '<td class="r" style="padding-right:16px"><span class="pill '+cc[1]+'">'+L(cc[0])+'</span></td></tr>'}).join('');
@@ -1843,13 +1849,13 @@ function vAdminDash(){
    '<div class="card" style="margin-top:14px"><div class="h"><h3>'+t('orgBreakdown')+'</h3></div><div class="c" style="padding:10px 0 0">'+
    '<table><thead><tr><th style="padding-left:16px">'+t('uOrg')+'</th><th class="r">'+t('totalUsers')+'</th>'+
    '<th class="r">'+t('onlineNow')+'</th><th class="r" style="padding-right:16px">'+t('uLocked')+'</th></tr></thead>'+
-   '<tbody>'+orgRows+'</tbody></table></div></div>'+
+   '<tbody>'+orgRows+'</tbody></table>'+orgPg.bar+'</div></div>'+
 
    '<div style="height:16px"></div><div class="card"><div class="h"><h3>'+t('secIntegration')+'</h3><span class="more" data-subtab="set:api">'+t('setApi')+' →</span></div>'+
    '<div class="c" style="padding:10px 0 0">'+
    '<table><thead><tr><th style="padding-left:16px">'+t('apiEndpoint')+'</th><th>'+t('cStatus')+'</th>'+
    '<th class="r">'+t('apiRate')+'</th><th class="r">'+t('apiDur')+'</th><th class="r" style="padding-right:16px">'+t('apiLast')+'</th></tr></thead>'+
-   '<tbody>'+apiRows+'</tbody></table></div></div>'+
+   '<tbody>'+apiRows+'</tbody></table>'+apiPg.bar+'</div></div>'+
 
    '<div style="height:16px"></div>'+
    sumCard({title:t('secConfig'),acts:'<button class="btn ghost sm" data-nav="set">'+t('setTitle')+' →</button>',
@@ -1859,14 +1865,14 @@ function vAdminDash(){
    '<div class="card"><div class="h"><h3>'+t('secAudit')+'</h3></div><div class="c" style="padding:10px 0 0">'+
    '<table><thead><tr><th style="padding-left:16px">'+t('cTime')+'</th><th>'+t('audUser')+'</th>'+
    '<th>'+t('audAction')+'</th><th class="r" style="padding-right:16px">'+t('audCat')+'</th></tr></thead>'+
-   '<tbody>'+audRows+'</tbody></table></div></div>';
+   '<tbody>'+audRows+'</tbody></table>'+audPg.bar+'</div></div>';
   return shell(t('adminDashTitle'),'',inner);
 }
 
 function vOwnerDash(){
   var e=S.ents[0],remain=e.cap-e.paid,pct=Math.round(e.paid/e.cap*100),pend=pendingOf(e.id);
   var myInv=S.invs.filter(function(x){return x.ent===e.id});
-  var invRows=myInv.map(function(iv){
+  var invPg=paginate('ownInv',myInv),invRows=invPg.items.map(function(iv){
     return '<tr><td style="padding-left:16px" class="num">'+iv.id+'</td><td>'+L(iv.title)+'</td>'+
     '<td class="r num">'+fmt(iv.amt)+'</td><td class="num">'+iv.due+'</td>'+
     '<td class="r" style="padding-right:16px">'+(iv.status==='UNPAID'
@@ -1886,7 +1892,7 @@ function vOwnerDash(){
    historySection(e)+
    '<div class="card" style="margin:16px 0"><div class="h"><h3>'+t('myInvoices')+'</h3></div><div class="c" style="padding:12px 0 0">'+
    (invRows?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cItem')+'</th>'+
-    '<th class="r">'+t('cAmt')+' (LAK)</th><th>'+t('cDue')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+invRows+'</tbody></table>'
+    '<th class="r">'+t('cAmt')+' (LAK)</th><th>'+t('cDue')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+invRows+'</tbody></table>'+invPg.bar
    :'<div class="empty">'+t('noInvoice')+'</div>')+'</div></div>';
   return shell(t('bizTitle'),'',inner,'',e.name+' · <span class="num">'+e.id+'</span>');
 }
@@ -2102,7 +2108,8 @@ function stepCircles(steps){
     return circle+line}).join('')+'</div></div></div>';
 }
 function historySection(e){
-  var hist=e.hist.length?e.hist.map(function(h,idx){
+  var hpg=paginate('hist',e.hist,e.id);
+  var hist=e.hist.length?hpg.items.map(function(h){var idx=e.hist.indexOf(h);
     var clickable=!!h.v;
     return '<tr'+(clickable?' data-histrow="'+e.id+'|'+idx+'"':'')+'><td style="padding-left:16px" class="num">'+h.d+'</td><td>'+L(h.a)+
     (h.internal?'<div style="font-size:10px;color:var(--muted);margin-top:2px"><i style="font-style:normal;color:var(--m)">'+t('reasonIntLbl')+':</i> '+esc(h.internal)+'</div>':'')+'</td>'+
@@ -2113,7 +2120,7 @@ function historySection(e){
   return '<div class="card"><div class="h"><h3>'+t('auditTrail')+'</h3><span class="hs">'+t('auditNote')+'</span></div>'+
     '<div class="c" style="padding:12px 0 0"><table><thead><tr><th style="padding-left:16px">'+t('cDate')+'</th><th>'+t('cAct')+'</th>'+
     '<th>'+t('cMode')+'</th><th class="r">'+t('cAmt')+' (LAK)</th><th>'+t('cStatus')+'</th><th>'+t('cBy')+'</th>'+
-    '<th class="r" style="padding-right:16px">'+t('cDoc')+'</th></tr></thead><tbody>'+hist+'</tbody></table></div></div>';
+    '<th class="r" style="padding-right:16px">'+t('cDoc')+'</th></tr></thead><tbody>'+hist+'</tbody></table>'+hpg.bar+'</div></div>';
 }
 function vTxDetail(){
   var tx=S.tx;if(!tx)return vList();
@@ -2325,8 +2332,8 @@ function vTask(){
 }
 
 function vValFirm(){
-  var mine=S.valjobs.filter(function(x){return x.firm===who().n});
-  var rows=mine.map(function(j){
+  var mine=S.valjobs.filter(function(x){return x.firm===who().n}),pg=paginate('valFirm',mine);
+  var rows=pg.items.map(function(j){
     var idx=S.valjobs.indexOf(j),lbl=VAL_LBL[j.status];
     return '<tr data-valjobfirm="'+idx+'"><td style="padding-left:16px" class="num">'+j.id+'</td>'+
     '<td><span class="co">'+(S.ents.filter(function(y){return y.id===j.ent})[0]||{}).name+'<small>'+L(j.asset)+'</small></span></td>'+
@@ -2336,7 +2343,7 @@ function vValFirm(){
   var inner='<div class="card"><div class="h"><h3>'+t('myJobs')+'</h3></div>'+
    '<div class="c" style="padding:12px 0 0">'+
    (rows?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cEnt')+' / '+t('valAsset')+'</th>'+
-     '<th>'+t('valFirmType')+'</th><th class="r">'+t('valDeclared')+' (LAK)</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'
+     '<th>'+t('valFirmType')+'</th><th class="r">'+t('valDeclared')+' (LAK)</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'+pg.bar
     :'<div class="empty">'+t('noMatch')+'</div>')+'</div></div>';
   return shell(t('valPortal'),'',inner);
 }
@@ -2417,101 +2424,53 @@ function vValQueue(){
 }
 
 function vFin(){
-  var tab=S.finTab;
-  var body;
+  var tab=S.finTab,card;
+  function entName(id){var e=S.ents.filter(function(y){return y.id===id})[0];return e?e.name:id}
+  var stOpts=[['paid',t('stPaid')],['due',t('stDue')]];
   if(tab==='pen'){
-    var realPen=S.invs.filter(function(x){return x.kind==='penalty'}).map(function(x){
-      var ent=S.ents.filter(function(y){return y.id===x.ent})[0];
-      return [ent?ent.name:x.ent,x.ent,'-',x.amt,x.status]});
-    var penMock=[['ຈຳປາສັກ ອາຫານ ຈຳກັດ','ELN-2024-1004',53,15960000,'UNPAID']];
-    var pen=realPen.concat(penMock);
-    body='<div class="card"><div class="c" style="padding:0"><table><thead><tr>'+
-     '<th style="padding-left:16px">'+t('cEnt')+'</th><th class="r">'+t('penDays')+'</th>'+
-     '<th class="r">'+t('penaltyAmt')+' (LAK)</th><th class="r" style="padding-right:16px">'+t('payStatus')+'</th></tr></thead><tbody>'+
-     pen.map(function(x){var paid=x[4]==='PAID';
-     return '<tr data-ent="'+esc((x[0]+' '+x[1]).toLowerCase())+'" data-days="'+(typeof x[2]==='number'?x[2]:'')+'" data-status="'+(paid?'paid':'due')+'"><td style="padding-left:16px"><span class="co">'+x[0]+'<small>'+x[1]+'</small></span></td>'+
-     '<td class="r num">'+x[2]+'</td><td class="r num" style="color:var(--'+(paid?'ok':'bad')+')">'+fmt(x[3])+'</td>'+
-     '<td class="r" style="padding-right:16px"><span class="pill '+(paid?'p-ok':'p-bad')+'">'+(paid?t('stPaid'):t('stDue'))+'</span></td></tr>'}).join('')+
-     '</tbody></table></div></div>';
+    var pen=S.invs.filter(function(x){return x.kind==='penalty'}).map(function(x){return [entName(x.ent),x.ent,'-',x.amt,x.status]})
+      .concat([['ຈຳປາສັກ ອາຫານ ຈຳກັດ','ELN-2024-1004',53,15960000,'UNPAID']]);
+    var dayRange={'1-30':[1,30],'31-60':[31,60],'61-90':[61,90],'90+':[91,1e9]};
+    card=listCard({key:'finPen',title:t('penTab'),empty:t('noHistory'),all:pen,
+      fields:[['ent',t('cEnt')],
+        ['days',t('penDays'),[['1-30','1 - 30'],['31-60','31 - 60'],['61-90','61 - 90'],['90+','> 90']],null,
+          function(x,q){var r=dayRange[q];return typeof x[2]==='number'&&x[2]>=r[0]&&x[2]<=r[1]}],
+        ['st',t('payStatus'),stOpts]],
+      vals:function(x){return {ent:x[0]+' '+x[1],st:x[4]==='PAID'?'paid':'due'}},
+      heads:[[t('cEnt')],[t('penDays'),1],[t('penaltyAmt')+' (LAK)',1],[t('payStatus'),1]],
+      row:function(x){var paid=x[4]==='PAID';
+        return '<tr><td style="padding-left:16px"><span class="co">'+x[0]+'<small>'+x[1]+'</small></span></td>'+
+         '<td class="r num">'+x[2]+'</td><td class="r num" style="color:var(--'+(paid?'ok':'bad')+')">'+fmt(x[3])+'</td>'+
+         '<td class="r" style="padding-right:16px"><span class="pill '+(paid?'p-ok':'p-bad')+'">'+(paid?t('stPaid'):t('stDue'))+'</span></td></tr>'}});
   } else if(tab==='rec'){
-    var paidInvs=S.invs.filter(function(x){return x.status==='PAID'||x.status==='REFUNDED'});
-    if(paidInvs.length){
-      var recRows=paidInvs.map(function(x){
-        var ent=S.ents.filter(function(y){return y.id===x.ent})[0];
-        var iso=(x.paidAt||'').split('/').reverse().join('-');
-        return '<tr data-receipt="'+esc(x.receipt.toLowerCase())+'" data-ent="'+esc(((ent?ent.name:x.ent)+' '+x.ent).toLowerCase())+'" data-item="'+esc(L(x.title).toLowerCase())+'" data-date="'+iso+'"><td style="padding-left:16px" class="num">'+x.receipt+'</td>'+
-        '<td><span class="co">'+(ent?ent.name:x.ent)+'</span></td><td>'+L(x.title)+
-        (x.status==='REFUNDED'?' <span class="pill p-idle">'+t('refunded')+'</span>':'')+'</td>'+
-        '<td class="r num">'+fmt(x.amt)+'</td><td class="num">'+x.paidAt+'</td>'+
-        '<td class="r" style="padding-right:16px;color:var(--m);cursor:pointer" data-viewrec="'+x.id+'">'+t('viewReceipt')+'</td></tr>'}).join('');
-      body='<div class="card"><div class="c" style="padding:0"><table><thead><tr>'+
-       '<th style="padding-left:16px">'+t('receiptNo')+'</th><th>'+t('cEnt')+'</th><th>'+t('cItem')+'</th>'+
-       '<th class="r">'+t('cAmt')+' (LAK)</th><th>'+t('cDate')+'</th>'+
-       '<th class="r" style="padding-right:16px">'+t('manage')+'</th></tr></thead><tbody>'+recRows+'</tbody></table></div></div>';
-    } else {
-      body='<div class="card"><div class="empty"><b>'+t('recTab')+'</b>'+t('noHistory')+'</div></div>';
-    }
+    card=listCard({key:'finRec',title:t('recTab'),empty:t('noHistory'),
+      all:S.invs.filter(function(x){return x.status==='PAID'||x.status==='REFUNDED'}),
+      fields:[['receipt',t('receiptNo')],['ent',t('cEnt')],['item',t('cItem')],
+        ['from',t('finDateFrom'),null,'date',function(x,q){return isoDate(x.paidAt)>=q}],
+        ['to',t('finDateTo'),null,'date',function(x,q){return isoDate(x.paidAt)<=q}]],
+      vals:function(x){return {receipt:x.receipt,ent:entName(x.ent)+' '+x.ent,item:L(x.title)}},
+      heads:[[t('receiptNo')],[t('cEnt')],[t('cItem')],[t('cAmt')+' (LAK)',1],[t('cDate')],[t('manage'),1]],
+      row:function(x){
+        return '<tr><td style="padding-left:16px" class="num">'+x.receipt+'</td>'+
+         '<td><span class="co">'+entName(x.ent)+'</span></td><td>'+L(x.title)+
+         (x.status==='REFUNDED'?' <span class="pill p-idle">'+t('refunded')+'</span>':'')+'</td>'+
+         '<td class="r num">'+fmt(x.amt)+'</td><td class="num">'+x.paidAt+'</td>'+
+         '<td class="r" style="padding-right:16px;color:var(--m);cursor:pointer" data-viewrec="'+x.id+'">'+t('viewReceipt')+'</td></tr>'}});
   } else {
-    var realFee=S.invs.filter(function(x){return x.kind==='fee'}).map(function(x){
-      var ent=S.ents.filter(function(y){return y.id===x.ent})[0];
-      return [ent?ent.name:x.ent,x.id,x.amt,x.status==='PAID'?1:0]});
-    var feeMock=[['ວຽງຈັນ ການຄ້າ','INV-2026-1181',450000,0]];
-    var fee=realFee.concat(feeMock);
-    body='<div class="card"><div class="c" style="padding:0"><table><thead><tr>'+
-     '<th style="padding-left:16px">'+t('cEnt')+'</th><th>'+t('cRef')+'</th>'+
-     '<th class="r">'+t('feeAmt')+' (LAK)</th><th class="r" style="padding-right:16px">'+t('payStatus')+'</th></tr></thead><tbody>'+
-     fee.map(function(x){return '<tr data-ent="'+esc((x[0]+' '+x[1]).toLowerCase())+'" data-ref="'+esc(x[1].toLowerCase())+'" data-status="'+(x[3]?'paid':'due')+'"><td style="padding-left:16px"><span class="co">'+x[0]+'</span></td>'+
-     '<td class="num">'+x[1]+'</td><td class="r num">'+fmt(x[2])+'</td>'+
-     '<td class="r" style="padding-right:16px"><span class="pill '+(x[3]?'p-ok':'p-warn')+'">'+(x[3]?t('stPaid'):t('stDue'))+'</span></td></tr>'}).join('')+
-     '</tbody></table></div></div>';
+    var fee=S.invs.filter(function(x){return x.kind==='fee'}).map(function(x){return [entName(x.ent),x.id,x.amt,x.status==='PAID'?1:0]})
+      .concat([['ວຽງຈັນ ການຄ້າ','INV-2026-1181',450000,0]]);
+    card=listCard({key:'finFee',title:t('feeTab'),empty:t('noHistory'),all:fee,
+      fields:[['ent',t('cEnt')],['ref',t('cRef')],['st',t('payStatus'),stOpts]],
+      vals:function(x){return {ent:x[0],ref:x[1],st:x[3]?'paid':'due'}},
+      heads:[[t('cEnt')],[t('cRef')],[t('feeAmt')+' (LAK)',1],[t('payStatus'),1]],
+      row:function(x){
+        return '<tr><td style="padding-left:16px"><span class="co">'+x[0]+'</span></td>'+
+         '<td class="num">'+x[1]+'</td><td class="r num">'+fmt(x[2])+'</td>'+
+         '<td class="r" style="padding-right:16px"><span class="pill '+(x[3]?'p-ok':'p-warn')+'">'+(x[3]?t('stPaid'):t('stDue'))+'</span></td></tr>'}});
   }
   var tabBar='<div class="ftabs">'+[['fee','feeTab'],['pen','penTab'],['rec','recTab']].map(function(tb){
     return '<div class="ft'+(tab===tb[0]?' on':'')+'" data-subtab="fin:'+tb[0]+'">'+t(tb[1])+'</div>';}).join('')+'</div>';
-  var statusOpts='<option value="">'+t('finAll')+'</option><option value="paid">'+t('stPaid')+'</option><option value="due">'+t('stDue')+'</option>';
-  var flds;
-  if(tab==='pen'){
-    flds='<div class="field"><label>'+t('cEnt')+'</label><input id="finFEnt"></div>'+
-     '<div class="field"><label>'+t('penDays')+'</label><select id="finFDays"><option value="">'+t('finAll')+'</option>'+
-      '<option value="1-30">1 - 30</option><option value="31-60">31 - 60</option><option value="61-90">61 - 90</option><option value="90+">&gt; 90</option></select></div>'+
-     '<div class="field"><label>'+t('payStatus')+'</label><select id="finFStatus">'+statusOpts+'</select></div>';
-  } else if(tab==='rec'){
-    flds='<div class="field"><label>'+t('receiptNo')+'</label><input id="finFReceipt"></div>'+
-     '<div class="field"><label>'+t('cEnt')+'</label><input id="finFEnt"></div>'+
-     '<div class="field"><label>'+t('cItem')+'</label><input id="finFItem"></div>'+
-     '<div class="field"><label>'+t('finDateFrom')+'</label><input type="date" id="finFFrom"></div>'+
-     '<div class="field"><label>'+t('finDateTo')+'</label><input type="date" id="finFTo"></div>';
-  } else {
-    flds='<div class="field"><label>'+t('cEnt')+'</label><input id="finFEnt"></div>'+
-     '<div class="field"><label>'+t('cRef')+'</label><input id="finFRef"></div>'+
-     '<div class="field"><label>'+t('payStatus')+'</label><select id="finFStatus">'+statusOpts+'</select></div>';
-  }
-  var filterCard=filterBar(flds,'data-clearfin','data-finsearch');
-  return shell(t('finTitle'),'','<div class="toolbar">'+tabBar+'<span class="sp"></span>'+exportActs()+'</div>'+filterCard+'<div id="finContent">'+body+'</div>');
-}
-function applyFinFilter(){
-  var gv=function(id){var el=document.getElementById(id);return el?el.value.trim().toLowerCase():null;};
-  var fEnt=gv('finFEnt'),fRef=gv('finFRef'),fRec=gv('finFReceipt'),fItem=gv('finFItem'),fStatus=gv('finFStatus'),fDays=gv('finFDays');
-  var fe=document.getElementById('finFFrom'),te=document.getElementById('finFTo');
-  var from=fe&&fe.value?fe.value:'',to=te&&te.value?te.value:'';
-  document.querySelectorAll('#finContent tbody tr').forEach(function(tr){
-    var d=tr.dataset,ok=true;
-    if(fEnt&&(d.ent||'').indexOf(fEnt)<0)ok=false;
-    if(fRef&&(d.ref||'').indexOf(fRef)<0)ok=false;
-    if(fRec&&(d.receipt||'').indexOf(fRec)<0)ok=false;
-    if(fItem&&(d.item||'').indexOf(fItem)<0)ok=false;
-    if(fStatus&&d.status!==fStatus)ok=false;
-    if(fDays){
-      if(d.days===''||d.days==null){ok=false}
-      else{var n=Number(d.days);
-        if(fDays==='1-30')ok=ok&&n>=1&&n<=30;
-        else if(fDays==='31-60')ok=ok&&n>=31&&n<=60;
-        else if(fDays==='61-90')ok=ok&&n>=61&&n<=90;
-        else if(fDays==='90+')ok=ok&&n>90;}
-    }
-    if(from&&(d.date||'')<from)ok=false;
-    if(to&&(d.date||'')>to)ok=false;
-    tr.style.display=ok?'':'none';
-  });
+  return shell(t('finTitle'),'','<div class="toolbar">'+tabBar+'<span class="sp"></span>'+exportActs()+'</div>'+card);
 }
 
 function vRep(){
@@ -2541,121 +2500,84 @@ function filterBar(flds,clearAttr,searchAttr,val){
      '<button class="btn ghost" '+clearAttr+v+'>'+luSvg('brushCleaning')+t('clearBtn')+'</button>'
     :'<span class="lnk" '+clearAttr+v+'>'+t('clearCriteria')+'</span>')+'</div></div></div>';
 }
-function setFilterCard(flds){return filterBar(flds,'data-clearset','data-setsearch')}
 function exportActs(){
   return '<span class="acts"><button class="btn ghost sm" data-soon="'+t('export')+'">'+luSvg('download')+t('export')+'</button>'+
    '<button class="btn ghost sm" data-soon="'+t('print')+'">'+luSvg('printer')+t('print')+'</button></span>';
 }
-function applySetFilter(){
-  var gv=function(id){var el=document.getElementById(id);return el?el.value.trim().toLowerCase():null};
-  var gEnt=gv('glFEnt'),gAcct=gv('glFAcct'),gCh=gv('glFCh'),gBy=gv('glFBy');
-  var gf=document.getElementById('glFFrom'),gt=document.getElementById('glFTo');
-  var gFrom=gf&&gf.value?gf.value:'',gTo=gt&&gt.value?gt.value:'';
-  var uUser=gv('setFUser'),uOrg=gv('setFOrg'),uRole=gv('setFRole'),uStatus=gv('setFStatus');
-  document.querySelectorAll('#setContent tbody tr').forEach(function(tr){
-    var d=tr.dataset,ok=true;
-    if(gEnt&&(d.ent||'').indexOf(gEnt)<0)ok=false;
-    if(gAcct&&(d.acct||'').indexOf(gAcct)<0)ok=false;
-    if(gCh&&d.channel!==gCh)ok=false;
-    if(gBy&&(d.by||'').indexOf(gBy)<0)ok=false;
-    if(gFrom&&(d.date||'')<gFrom)ok=false;
-    if(gTo&&(d.date||'')>gTo)ok=false;
-    if(uUser&&(d.user||'').indexOf(uUser)<0)ok=false;
-    if(uOrg&&(d.org||'')!==uOrg)ok=false;
-    if(uRole&&(d.role||'')!==uRole)ok=false;
-    if(uStatus&&d.ustatus!==uStatus)ok=false;
-    tr.style.display=ok?'':'none';
-  });
-}
 function vSet(){
   var tab=S.setTab;
-  var body,filterCard='';
+  var body;
+  // A small paged table inside a card (Fees, Master Data, API Log).
+  function pagedCard(key,title,heads,list,row,n0,foot){
+    var pg=paginate(key,list,'',n0);
+    var head=heads?'<thead><tr>'+heads.map(function(h,i){
+      var pad=i===0?'padding-left:16px':(i===heads.length-1?'padding-right:16px':'');
+      return '<th'+(h[1]?' class="r"':'')+(pad?' style="'+pad+'"':'')+'>'+h[0]+'</th>'}).join('')+'</tr></thead>':'';
+    return '<div class="card"><div class="h"><h3>'+title+'</h3></div><div class="c" style="padding:12px 0 0">'+
+      '<table>'+head+'<tbody>'+pg.items.map(row).join('')+'</tbody></table>'+pg.bar+(foot||'')+'</div></div>';
+  }
   if(tab==='fee'){
-    var feeTypeRows=FEES.byType.map(function(x){return '<tr><td style="padding-left:16px">'+L(x[0])+'</td>'+
-     '<td class="r num" style="padding-right:16px">'+fmt(x[1])+'</td></tr>'}).join('');
-    var feeCapRows=FEES.byCapital.map(function(x){return '<tr><td style="padding-left:16px" class="num">'+x[0]+'</td>'+
-     '<td class="r num" style="padding-right:16px">'+fmt(x[1])+'</td></tr>'}).join('');
     body='<div class="grid3" style="align-items:stretch">'+
-     '<div class="card"><div class="h"><h3>'+t('feeByType')+'</h3></div><div class="c" style="padding:12px 0 0">'+
-     '<table><thead><tr><th style="padding-left:16px">'+t('entType')+'</th>'+
-     '<th class="r" style="padding-right:16px">'+t('feeAmt')+' (LAK)</th></tr></thead><tbody>'+feeTypeRows+'</tbody></table></div></div>'+
-     '<div class="card"><div class="h"><h3>'+t('feeByCapital')+'</h3></div><div class="c" style="padding:12px 0 0">'+
-     '<table><thead><tr><th style="padding-left:16px">'+t('feeRange')+' (LAK)</th>'+
-     '<th class="r" style="padding-right:16px">'+t('feeAmt')+' (LAK)</th></tr></thead><tbody>'+feeCapRows+'</tbody></table>'+
-     '<div class="audit" style="margin:14px 16px 16px">'+t('feeDecreeNote')+'</div></div></div>'+
+     pagedCard('feeType',t('feeByType'),[[t('entType')],[t('feeAmt')+' (LAK)',1]],FEES.byType,function(x){
+       return '<tr><td style="padding-left:16px">'+L(x[0])+'</td><td class="r num" style="padding-right:16px">'+fmt(x[1])+'</td></tr>'},5)+
+     pagedCard('feeCap',t('feeByCapital'),[[t('feeRange')+' (LAK)'],[t('feeAmt')+' (LAK)',1]],FEES.byCapital,function(x){
+       return '<tr><td style="padding-left:16px" class="num">'+x[0]+'</td><td class="r num" style="padding-right:16px">'+fmt(x[1])+'</td></tr>'},5,
+       '<div class="audit" style="margin:14px 16px 16px">'+t('feeDecreeNote')+'</div>')+
      '<div class="card"><div class="h"><h3>'+t('penRate')+'</h3></div><div class="c"><div class="empty" style="padding:20px"><b>'+t('penRateTBD')+'</b></div></div></div>'+
      '</div>';
   } else if(tab==='master'){
-    var mc=function(title,rows){return '<div class="card"><div class="h"><h3>'+title+'</h3></div>'+
-      '<div class="c" style="padding:12px 0 0"><table><tbody>'+rows+'</tbody></table></div></div>'};
-    var isicRows=MASTER.isic.map(function(x){return '<tr><td style="padding-left:16px" class="num">'+x[0]+'</td>'+
-      '<td style="padding-right:16px">'+x[1]+'</td></tr>'}).join('');
-    var provRows=MASTER.prov.map(function(p){return '<tr><td style="padding:8px 16px">'+p+'</td></tr>'}).join('');
-    var etypeRows=MASTER.etype.map(function(x){return '<tr><td style="padding:8px 16px">'+L(x)+'</td></tr>'}).join('');
-    var docRows=MASTER.doctype.map(function(x){return '<tr><td style="padding:8px 16px">'+L(x)+'</td></tr>'}).join('');
-    var firmRows=MASTER.valfirms.map(function(x){return '<tr><td style="padding-left:16px"><span class="co">'+x.nm+'</span></td>'+
-      '<td class="r" style="padding-right:16px">'+(x.net==='in'?'<span class="pill p-ok">'+t('inNet')+'</span>':'<span class="pill p-warn">'+t('outNet').split(' (')[0]+'</span>')+'</td></tr>'}).join('');
+    function one(x){return '<tr><td style="padding:8px 16px">'+x+'</td></tr>'}
     body='<div class="grid3" style="align-items:stretch;margin-bottom:12px">'+
-      mc('ISIC Code',isicRows)+mc(t('cProv'),provRows)+mc(t('entType'),etypeRows)+'</div>'+
+      pagedCard('mIsic','ISIC Code',null,MASTER.isic,function(x){return '<tr><td style="padding-left:16px" class="num">'+x[0]+'</td>'+
+        '<td style="padding-right:16px">'+x[1]+'</td></tr>'},5)+
+      pagedCard('mProv',t('cProv'),null,MASTER.prov,one,5)+
+      pagedCard('mEtype',t('entType'),null,MASTER.etype,function(x){return one(L(x))},5)+'</div>'+
      '<div class="grid3" style="align-items:stretch">'+
-      mc(t('cDoc'),docRows)+mc(t('valFirm'),firmRows)+'</div>';
+      pagedCard('mDoc',t('cDoc'),null,MASTER.doctype,function(x){return one(L(x))},5)+
+      pagedCard('mFirm',t('valFirm'),null,MASTER.valfirms,function(x){return '<tr><td style="padding-left:16px"><span class="co">'+x.nm+'</span></td>'+
+        '<td class="r" style="padding-right:16px">'+(x.net==='in'?'<span class="pill p-ok">'+t('inNet')+'</span>':'<span class="pill p-warn">'+t('outNet').split(' (')[0]+'</span>')+'</td></tr>'},5)+'</div>';
   } else if(tab==='gl'){
     var glRows=[];
     S.ents.forEach(function(e){e.hist.forEach(function(h){
       if((h.m==='cash'||h.m==='asset')&&h.v)glRows.push({ent:e.name,acct:e.acct,d:h.d,m:h.m,v:h.v,u:h.u})})});
-    body='<div class="card"><div class="h"><h3>'+t('glTitle')+'</h3></div><div class="c" style="padding:12px 0 0">'+
-     (glRows.length?'<table><thead><tr><th style="padding-left:16px">'+t('cEnt')+'</th><th>'+t('acctNo')+'</th>'+
-     '<th>'+t('cDate')+'</th><th>'+t('cMode')+'</th><th class="r">'+t('cAmt')+' (LAK)</th>'+
-     '<th class="r" style="padding-right:16px">'+t('cBy')+'</th></tr></thead><tbody>'+
-     glRows.map(function(g){var iso=g.d.split('/').reverse().join('-');
-     return '<tr data-ent="'+esc(g.ent.toLowerCase())+'" data-acct="'+esc(g.acct.toLowerCase())+'" data-date="'+iso+'" data-channel="'+g.m+'" data-by="'+esc((g.u||'').toLowerCase())+'">'+
-     '<td style="padding-left:16px"><span class="co">'+g.ent+'</span></td>'+
-     '<td class="num" style="font-size:10.5px">'+g.acct+'</td><td class="num">'+g.d+'</td>'+
-     '<td>'+modeLbl(g.m)+'</td><td class="r num">'+fmt(g.v)+'</td>'+
-     '<td class="r" style="padding-right:16px">'+g.u+'</td></tr>'}).join('')+'</tbody></table>'
-      :'<div class="empty">'+t('noHistory')+'</div>')+
-     '<div class="audit" style="margin:14px 16px 16px">'+t('glNote')+'</div></div></div>';
-    var chOpts='<option value="">'+t('allCh')+'</option><option value="cash">'+t('modeCash')+'</option><option value="asset">'+t('modeAsset')+'</option>';
-    filterCard=setFilterCard(
-     '<div class="field"><label>'+t('cEnt')+'</label><input id="glFEnt"></div>'+
-     '<div class="field"><label>'+t('acctNo')+'</label><input id="glFAcct"></div>'+
-     '<div class="field"><label>'+t('finDateFrom')+'</label><input type="date" id="glFFrom"></div>'+
-     '<div class="field"><label>'+t('finDateTo')+'</label><input type="date" id="glFTo"></div>'+
-     '<div class="field"><label>'+t('cMode')+'</label><select id="glFCh">'+chOpts+'</select></div>'+
-     '<div class="field"><label>'+t('cBy')+'</label><input id="glFBy"></div>');
+    body=listCard({key:'setGl',title:t('glTitle'),empty:t('noHistory'),all:glRows,
+      fields:[['ent',t('cEnt')],['acct',t('acctNo')],
+        ['from',t('finDateFrom'),null,'date',function(g,q){return isoDate(g.d)>=q}],
+        ['to',t('finDateTo'),null,'date',function(g,q){return isoDate(g.d)<=q}],
+        ['ch',t('cMode'),[['cash',t('modeCash')],['asset',t('modeAsset')]]],['by',t('cBy')]],
+      vals:function(g){return {ent:g.ent,acct:g.acct,ch:g.m,by:g.u}},
+      heads:[[t('cEnt')],[t('acctNo')],[t('cDate')],[t('cMode')],[t('cAmt')+' (LAK)',1],[t('cBy'),1]],
+      row:function(g){
+        return '<tr><td style="padding-left:16px"><span class="co">'+g.ent+'</span></td>'+
+         '<td class="num" style="font-size:10.5px">'+g.acct+'</td><td class="num">'+g.d+'</td>'+
+         '<td>'+modeLbl(g.m)+'</td><td class="r num">'+fmt(g.v)+'</td>'+
+         '<td class="r" style="padding-right:16px">'+g.u+'</td></tr>'},
+      foot:'<div class="audit" style="margin:14px 16px 16px">'+t('glNote')+'</div>'});
   } else if(tab==='user'){
-    body='<div class="card"><div class="h"><h3>'+t('setUser')+'</h3><button class="btn sm" style="margin-left:auto" data-adduser="1">+ '+t('addUser')+'</button></div><div class="c" style="padding:12px 0 0">'+
-     '<table><thead><tr><th style="padding-left:16px">'+t('uName')+'</th><th>'+t('uOrg')+'</th><th>'+t('uRole')+'</th>'+
-     '<th>'+t('onlineNow')+'</th><th>'+t('cStatus')+'</th><th>'+t('uPwd')+'</th><th class="r" style="padding-right:16px">'+t('manage')+'</th></tr></thead><tbody>'+
-     S.users.map(function(u,i){return '<tr data-user="'+esc(u.nm.toLowerCase())+'" data-org="'+esc(u.org.toLowerCase())+'" data-role="'+esc(u.role.toLowerCase())+'" data-ustatus="'+(u.active?'active':'locked')+'">'+
-     '<td style="padding-left:16px"><span class="co">'+u.nm+'</span></td><td>'+u.org+'</td><td>'+u.role+'</td>'+
-     '<td>'+(u.online?'<span class="pill p-ok">'+t('onlineNow')+'</span>':'<span class="pill p-idle">-</span>')+'</td>'+
-     '<td>'+(u.active?'<span class="pill p-ok">'+t('uActive')+'</span>':'<span class="pill p-bad">'+t('uLocked')+'</span>')+'</td>'+
-     '<td class="num" style="'+(Number(u.pwd)>90?'color:var(--bad)':'')+'">'+u.pwd+'</td>'+
-     '<td class="r" style="padding-right:16px;color:var(--m);cursor:pointer" data-toggleuser="'+i+'">'+(u.active?t('deactivate'):t('activate'))+'</td></tr>'}).join('')+
-     '</tbody></table></div></div>';
     var orgs=[],roles=[];
     S.users.forEach(function(u){if(orgs.indexOf(u.org)<0)orgs.push(u.org);if(roles.indexOf(u.role)<0)roles.push(u.role)});
-    var orgOpts='<option value="">'+t('allOrg')+'</option>'+orgs.map(function(o){return '<option value="'+esc(o.toLowerCase())+'">'+o+'</option>'}).join('');
-    var roleOpts='<option value="">'+t('allRole')+'</option>'+roles.map(function(r){return '<option value="'+esc(r.toLowerCase())+'">'+r+'</option>'}).join('');
-    var uStatusOpts='<option value="">'+t('allSt')+'</option><option value="active">'+t('uActive')+'</option><option value="locked">'+t('uLocked')+'</option>';
-    filterCard=setFilterCard(
-     '<div class="field"><label>'+t('uName')+'</label><input id="setFUser"></div>'+
-     '<div class="field"><label>'+t('uOrg')+'</label><select id="setFOrg">'+orgOpts+'</select></div>'+
-     '<div class="field"><label>'+t('uRole')+'</label><select id="setFRole">'+roleOpts+'</select></div>'+
-     '<div class="field"><label>'+t('cStatus')+'</label><select id="setFStatus">'+uStatusOpts+'</select></div>');
+    body=listCard({key:'setUser',title:t('setUser'),empty:t('noMatch'),all:S.users.map(function(u,i){return [u,i]}),
+      acts:'<button class="btn sm" data-adduser="1">+ '+t('addUser')+'</button>',
+      fields:[['user',t('uName')],['org',t('uOrg'),orgs.map(function(o){return [o,o]})],['role',t('uRole'),roles.map(function(r){return [r,r]})],
+        ['st',t('cStatus'),[['active',t('uActive')],['locked',t('uLocked')]]]],
+      vals:function(p){var u=p[0];return {user:u.nm,org:u.org,role:u.role,st:u.active?'active':'locked'}},
+      heads:[[t('uName')],[t('uOrg')],[t('uRole')],[t('onlineNow')],[t('cStatus')],[t('uPwd')],[t('manage'),1]],
+      row:function(p){var u=p[0],i=p[1];
+        return '<tr><td style="padding-left:16px"><span class="co">'+u.nm+'</span></td><td>'+u.org+'</td><td>'+u.role+'</td>'+
+         '<td>'+(u.online?'<span class="pill p-ok">'+t('onlineNow')+'</span>':'<span class="pill p-idle">-</span>')+'</td>'+
+         '<td>'+(u.active?'<span class="pill p-ok">'+t('uActive')+'</span>':'<span class="pill p-bad">'+t('uLocked')+'</span>')+'</td>'+
+         '<td class="num" style="'+(Number(u.pwd)>90?'color:var(--bad)':'')+'">'+u.pwd+'</td>'+
+         '<td class="r" style="padding-right:16px;color:var(--m);cursor:pointer" data-toggleuser="'+i+'">'+(u.active?t('deactivate'):t('activate'))+'</td></tr>'}});
   } else {
     var logs=[['09:15:02','eBRS','sync 1,284',1,'1.2s'],['09:15:04','TaxRis','12',1,'0.8s'],['09:12:44','FinLink','Virtual GL',1,'2.1s']];
-    body='<div class="card"><div class="h"><h3>'+t('setApi')+'</h3></div><div class="c" style="padding:12px 0 0">'+
-     '<table><thead><tr><th style="padding-left:16px">'+t('cTime')+'</th><th>'+t('apiDest')+'</th><th>'+t('cAct')+'</th>'+
-     '<th>'+t('cStatus')+'</th><th class="r" style="padding-right:16px">'+t('apiDur')+'</th></tr></thead><tbody>'+
-     logs.map(function(l){return '<tr><td style="padding-left:16px" class="num">'+l[0]+'</td><td>'+l[1]+'</td><td>'+l[2]+'</td>'+
-     '<td><span class="pill p-ok">'+t('success')+'</span></td><td class="r num" style="padding-right:16px">'+l[4]+'</td></tr>'}).join('')+
-     '</tbody></table><div class="audit" style="margin:14px 16px 16px">'+t('apiNote')+'</div></div></div>';
+    body=pagedCard('apiLog',t('setApi'),[[t('cTime')],[t('apiDest')],[t('cAct')],[t('cStatus')],[t('apiDur'),1]],logs,function(l){
+      return '<tr><td style="padding-left:16px" class="num">'+l[0]+'</td><td>'+l[1]+'</td><td>'+l[2]+'</td>'+
+       '<td><span class="pill p-ok">'+t('success')+'</span></td><td class="r num" style="padding-right:16px">'+l[4]+'</td></tr>'},10,
+      '<div class="audit" style="margin:14px 16px 16px">'+t('apiNote')+'</div>');
   }
   var tabBar='<div class="ftabs">'+[['fee','setFee'],['master','master'],['gl','glTitle'],['user','setUser'],['api','setApi']].map(function(tb){
     return '<div class="ft'+(tab===tb[0]?' on':'')+'" data-subtab="set:'+tb[0]+'">'+t(tb[1])+'</div>';}).join('')+'</div>';
-  return shell(t('setTitle'),'','<div class="toolbar">'+tabBar+'</div>'+filterCard+'<div id="setContent">'+body+'</div>');
+  return shell(t('setTitle'),'','<div class="toolbar">'+tabBar+'</div>'+body);
 }
 
 function vPortal(){
@@ -3029,18 +2951,6 @@ function bind(){
     ev.stopPropagation();colSearch(b.dataset.colsearch)}});
   document.querySelectorAll('[data-clearcolf]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();S.colf[b.dataset.clearcolf]={};S.colDraft[b.dataset.clearcolf]={};render()}});
-  ['finFEnt','finFRef','finFReceipt','finFItem'].forEach(function(id){var el=$('#'+id);
-    if(el)el.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();applyFinFilter()}}});
-  document.querySelectorAll('[data-clearfin]').forEach(function(b){b.onclick=function(){
-    ['finFEnt','finFRef','finFReceipt','finFItem','finFStatus','finFDays','finFFrom','finFTo'].forEach(function(id){var el=$('#'+id);if(el)el.value=''});
-    applyFinFilter()}});
-  document.querySelectorAll('[data-finsearch]').forEach(function(b){b.onclick=function(){applyFinFilter()}});
-  ['glFEnt','glFAcct','glFBy','setFUser'].forEach(function(id){var el=$('#'+id);
-    if(el)el.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();applySetFilter()}}});
-  document.querySelectorAll('[data-clearset]').forEach(function(b){b.onclick=function(){
-    ['glFEnt','glFAcct','glFBy','glFFrom','glFTo','glFCh','setFUser','setFOrg','setFRole','setFStatus'].forEach(function(id){var el=$('#'+id);if(el)el.value=''});
-    applySetFilter()}});
-  document.querySelectorAll('[data-setsearch]').forEach(function(b){b.onclick=function(){applySetFilter()}});
   document.querySelectorAll('[data-burger]').forEach(function(b){b.onclick=function(){
     if(window.matchMedia('(max-width:900px)').matches){S.navOpen=false}else{S.mini=!S.mini}render()}});
   document.querySelectorAll('[data-navopen]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();S.navOpen=true;render()}});
