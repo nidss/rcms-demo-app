@@ -1574,7 +1574,7 @@ function vMakerDash(){
   }else{
     var lastRet=function(e){return e.hist.filter(function(h){return h.st==='returned'}).slice(-1)[0]||{}};
     card=listCard({key:'mkRet',title:t('mkReturned'),empty:t('mkNoReturned'),all:makerReturned(),hot:1,
-      fields:[['ent',t('cEnt')],['reg',t('regNo')],['by',t('ckRetBy')]],
+      fields:[['ent',t('cEnt')],['reg',t('regNo')],['by',t('ckRetBy'),optsOf(makerReturned(),function(e){return lastRet(e).u})]],
       vals:function(e){var r=lastRet(e);return {ent:entVals(e),reg:e.id,by:r.u||''}},
       heads:[[t('cEnt')],[t('regNo')],[t('ckReason')],[t('ckRetBy')],[t('cDate')],['']],
       row:function(e){var r=lastRet(e);

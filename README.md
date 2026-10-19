@@ -233,7 +233,7 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
   เปลี่ยนเงื่อนไขค้นหาแล้วกลับไปหน้า 1 เสมอ
 - ทุกตารางที่มีวิสาหกิจแสดง Enterprise กับ Registration no. คนละคอลัมน์ และการ์ดค้นหามีช่อง
   Enterprise (ชื่อลาว / อังกฤษ) แยกจาก Registration no.
-- ช่อง Submit by / Verified by เป็น dropdown ที่ดึงรายชื่อจากข้อมูลในรายการนั้น (`optsOf()`)
+- ช่อง Submit by / Verified by / Returned by เป็น dropdown ที่ดึงรายชื่อจากข้อมูลในรายการนั้น (`optsOf()`)
 - My Valuation Jobs (บริษัทประเมิน) มีการ์ดค้นหา: Reference, Enterprise / Asset, Registration no.,
   Network type และ Status (dropdown)
 - ตารางที่มีการ์ดค้นหาทั้งหมดใช้ `listCard()` ตัวเดียวกัน (กรองจาก state ไม่ได้ซ่อนแถวใน DOM)
