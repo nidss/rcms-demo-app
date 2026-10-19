@@ -153,6 +153,12 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   (Enterprise, Capital account, ช่วงวันที่, Channel, Submit by)
 - **Users** จัดการผู้ใช้ / RBAC + search filter (User, Organisation, Role, Status)
 - **API Log** บันทึกการเชื่อมต่อระบบภายนอก
+- การ์ดค้นหาของ Virtual GL และ Users ใช้ปุ่ม **Search** / **Clear** แบบเดียวกับหน้าอื่น
+  (กรองเมื่อกด Search หรือ Enter)
+
+ทุกจุดที่มีการค้นหาใช้รูปแบบเดียวกัน: ช่องค้นหา + ปุ่ม Search (icon `search`) + ปุ่ม Clear
+(icon `brush-cleaning`) ได้แก่ Checker workspace, Search Enterprises, Finance, System Settings,
+External Portal และกล่อง "ตรวจสอบสถานะวิสาหกิจ" (QR verify) ที่หน้า login
 
 ---
 

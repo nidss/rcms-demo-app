@@ -306,13 +306,9 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 /* filter bar + toolbar */
 .fbar{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);padding:14px 18px;margin-bottom:16px}
 .fbar .frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;align-items:end}
-.fbar .frow.main{grid-template-columns:minmax(240px,2fr) repeat(2,minmax(160px,1fr)) auto}
 .fbar .field{margin:0}
-.fbar .fx{display:flex;gap:8px;align-items:center;justify-content:flex-end;height:40px}
+.fbar .fx{display:flex;gap:8px;align-items:center;justify-content:flex-end;height:40px;grid-column:-2/-1}
 .fbar .fx .btn{height:40px}
-.fbar .sbox{position:relative}
-.fbar .sbox svg{position:absolute;left:12px;top:50%;width:16px;height:16px;transform:translateY(-50%);color:var(--muted);pointer-events:none}
-.fbar .sbox input{padding-left:36px!important}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
 .chipf{border:1px solid var(--line);background:var(--white);border-radius:20px;padding:6px 12px;font-size:12px;color:var(--ink2);
   cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:.12s}
@@ -513,7 +509,6 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .ttl .title,.ttl .tsub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 @media(max-width:1180px){
-  .fbar .frow.main{grid-template-columns:1fr 1fr}
   .worksplit{grid-template-columns:minmax(0,1fr) minmax(300px,.9fr)}
 }
 @media(max-width:1100px){
@@ -549,8 +544,8 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 }
 @media(max-width:640px){
   .top .lang{display:none}
-  .fbar .frow.main,.fbar .frow{grid-template-columns:1fr}
-  .fbar .fx{justify-content:space-between;height:auto}
+  .fbar .frow{grid-template-columns:1fr}
+  .fbar .fx{height:auto}
   /* phone reading order: status, numbers, notices, then the actions */
   .sumcard{display:flex;flex-direction:column}
   .sc-top{display:contents}
@@ -2531,7 +2526,7 @@ function filterBar(flds,clearAttr,searchAttr,val){
      '<button class="btn ghost" '+clearAttr+v+'>'+luSvg('brushCleaning')+t('clearBtn')+'</button>'
     :'<span class="lnk" '+clearAttr+v+'>'+t('clearCriteria')+'</span>')+'</div></div></div>';
 }
-function setFilterCard(flds){return filterBar(flds,'data-clearset')}
+function setFilterCard(flds){return filterBar(flds,'data-clearset','data-setsearch')}
 function exportActs(){
   return '<span class="acts"><button class="btn ghost sm" data-soon="'+t('export')+'">'+luSvg('download')+t('export')+'</button>'+
    '<button class="btn ghost sm" data-soon="'+t('print')+'">'+luSvg('printer')+t('print')+'</button></span>';
@@ -2655,7 +2650,9 @@ function vPortal(){
     return '<tr><td style="padding-left:16px"><span class="co">'+e.name+'<small>'+e.id+'</small></span></td>'+
     '<td>'+L(e.prov)+'</td><td class="num">'+e.due+'</td>'+
     '<td class="r" style="padding-right:16px">'+pill(e.status)+' <button class="btn ghost sm" style="margin-left:8px" data-soon="'+t('dlPdf')+'">'+luSvg('download')+t('dlPdf')+'</button></td></tr>'}).join('');
-  var inner='<div class="fbar"><div class="frow main" style="grid-template-columns:minmax(260px,420px)"><div class="field"><label>'+t('kwLbl')+'</label><div class="sbox">'+luSvg('search')+'<input id="q" placeholder="'+t('search')+'" value="'+esc(S.q||'')+'"></div></div></div></div>'+
+  var qd=S.qDraft!=null?S.qDraft:(S.q||'');
+  var inner=filterBar('<div class="field"><label for="q">'+t('kwLbl')+'</label><input id="q" placeholder="'+t('search')+'" value="'+esc(qd)+'"></div>',
+    'data-clearportal','data-portalsearch')+
    '<div class="card"><div class="c" style="padding:0">'+
    (rows?'<table><thead><tr><th style="padding-left:16px">'+t('cEnt')+'</th><th>'+t('cProv')+'</th>'+
      '<th>'+t('cDue')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'
@@ -2865,7 +2862,10 @@ function vModal(){
     var vq=(m.q||'').trim().toLowerCase();
     var vmatch=vq?S.ents.filter(function(x){return x.name.toLowerCase().indexOf(vq)>=0||x.id.toLowerCase().indexOf(vq)>=0})[0]:null;
     return '<div class="veil" id="veil"><div class="modal"><h3>'+t('qrVerify')+'</h3><p>'+t('qrVerifyNote')+'</p>'+
-    '<div class="field"><input id="verifyQ" placeholder="'+t('search')+'" value="'+esc(m.q||'')+'"></div>'+
+    '<div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap">'+
+     '<div class="field" style="flex:1 1 140px;margin:0"><input id="verifyQ" placeholder="'+t('search')+'" value="'+esc(m.qd!=null?m.qd:(m.q||''))+'"></div>'+
+     '<button class="btn" data-verifysearch>'+luSvg('search')+t('searchBtn')+'</button>'+
+     '<button class="btn ghost" data-verifyclear>'+luSvg('brushCleaning')+t('clearBtn')+'</button></div>'+
     (vq?(vmatch?
       '<div class="kv"><div><span class="k">'+t('cEnt')+'</span><span class="v">'+vmatch.name+'</span></div>'+
       '<div><span class="k">'+t('regNo')+'</span><span class="v num">'+vmatch.id+'</span></div>'+
@@ -3026,8 +3026,8 @@ function bind(){
     ['finFEnt','finFRef','finFReceipt','finFItem','finFStatus','finFDays','finFFrom','finFTo'].forEach(function(id){var el=$('#'+id);if(el)el.value=''});
     applyFinFilter()}});
   document.querySelectorAll('[data-finsearch]').forEach(function(b){b.onclick=function(){applyFinFilter()}});
-  ['glFEnt','glFAcct','glFBy','setFUser'].forEach(function(id){var el=$('#'+id);if(el)el.oninput=applySetFilter});
-  ['glFCh','glFFrom','glFTo','setFOrg','setFRole','setFStatus'].forEach(function(id){var el=$('#'+id);if(el)el.onchange=applySetFilter});
+  ['glFEnt','glFAcct','glFBy','setFUser'].forEach(function(id){var el=$('#'+id);
+    if(el)el.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();applySetFilter()}}});
   document.querySelectorAll('[data-clearset]').forEach(function(b){b.onclick=function(){
     ['glFEnt','glFAcct','glFBy','glFFrom','glFTo','glFCh','setFUser','setFOrg','setFRole','setFStatus'].forEach(function(id){var el=$('#'+id);if(el)el.value=''});
     applySetFilter()}});
@@ -3149,8 +3149,11 @@ function bind(){
       document.querySelectorAll('.kpi.ok,.kpi.warn').forEach(function(k){k.classList.add('flash')})},60)}});
 
   var st=$('#stSel');if(st)st.onchange=function(){S.tab=st.value;render()};
-  var q=$('#q');if(q)q.oninput=function(){var p=q.selectionStart;S.q=q.value;render();
-    var n=$('#q');if(n){n.focus();n.setSelectionRange(p,p)}};
+  function portalSearch(){S.q=S.qDraft!=null?S.qDraft:S.q;S.qDraft=null;render()}
+  var q=$('#q');if(q){q.oninput=function(){S.qDraft=q.value};
+    q.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();portalSearch()}}}
+  document.querySelectorAll('[data-portalsearch]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();portalSearch()}});
+  document.querySelectorAll('[data-clearportal]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();S.q='';S.qDraft=null;render()}});
   function advSearch(){S.adv=JSON.parse(JSON.stringify(S.advDraft||S.adv));S.advDraft=null;render()}
   document.querySelectorAll('[data-adv]').forEach(function(el){
     var k=el.dataset.adv,txt=el.tagName==='INPUT'&&el.type!=='date';
@@ -3267,9 +3270,12 @@ function bind(){
     S.users.push({nm:nm,org:org,role:role,active:1,pwd:'0',online:0});
     S.modal=null;render();toast(t('userAdded'),nm,true)};
 
+  function verifySearch(){var m=S.modal;m.q=m.qd!=null?m.qd:m.q;m.qd=null;render()}
   var vfq=$('#verifyQ');
-  if(vfq)vfq.oninput=function(){var p=vfq.selectionStart;S.modal.q=vfq.value;render();
-    var n=$('#verifyQ');if(n){n.focus();n.setSelectionRange(p,p)}};
+  if(vfq){vfq.oninput=function(){S.modal.qd=vfq.value};
+    vfq.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();verifySearch()}}}
+  document.querySelectorAll('[data-verifysearch]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();verifySearch()}});
+  document.querySelectorAll('[data-verifyclear]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();S.modal.q='';S.modal.qd=null;render()}});
 
   var sim=$('#doSimPay');
   if(sim)sim.onclick=function(){
