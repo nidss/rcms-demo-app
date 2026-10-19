@@ -75,15 +75,20 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 
 - **Maker (Counter Workspace)** แถบ % ทุนที่ชำระแล้วทั้งพอร์ต + ตัวเลข 5 ช่อง (รอตรวจ,
   ถูกตีกลับ, ใกล้ครบกำหนด, เกินกำหนด, ชำระครบ x/30); แจ้งเตือนงานที่ถูกตีกลับ (ปุ่ม Fix)
-  และวิสาหกิจที่ติดค่าปรับ; ต่อด้วยรายการที่ยื่นไปแล้ว และรายการใกล้ครบ/เกินกำหนด
+  และวิสาหกิจที่ติดค่าปรับ; ต่อด้วยการ์ดค้นหา (Reference, Enterprise, Stage แบบ dropdown,
+  Submit by + ปุ่ม Search / Clear) ของรายการที่ยื่นไปแล้ว และรายการใกล้ครบ/เกินกำหนด
 - **Checker (Verification Workspace)** เลือกรายการจากเมนูย่อยใต้ Dashboard: Verification
   queue, Awaiting approval, Returned by me หน้าแสดงการ์ดค้นหาแบบเดียวกับหน้า Finance &
   Penalties (Reference, Enterprise, Channel แบบ dropdown, Submit by; Returned by me มีแค่
   Enterprise ค้นได้ทั้งชื่อลาว/อังกฤษ/เลขทะเบียน) กรอกแล้วกดปุ่ม Search หรือ Enter เพื่อค้นหา
   ปุ่ม Clear ล้างเงื่อนไข แล้วตามด้วยตาราง
   ที่มี pagination เลือกได้ 5/10/20/50 แถวต่อหน้า
-- **Approver (Approval Workspace)** รูปแบบเดียวกัน (ปุ่ม Open to sign), คิวรออนุมัติ +
-  ลงลายเซ็นดิจิทัล, รายการเสี่ยง / เกินกำหนด
+- **Approver (Approval Workspace)** Overview รวม pipeline ไว้ในการ์ดเดียว: แถบอัตราการชำระ
+  รวม + ตัวเลข 5 ช่องเรียงตามขั้นตอน (อยู่ขั้นตรวจสอบ, รออนุมัติ + มูลค่า, ลงนามวันนี้, ชำระครบ x/30,
+  เกินกำหนด) และแจ้งเตือนงานถัดไป (ปุ่ม Open to sign) ด้านล่างเป็นรายการจากเมนูย่อยใต้ Dashboard:
+  Awaiting approval (ค้นหา Reference, Enterprise, Channel, Verified by), Overdue / penalties
+  (Enterprise, Status) และ Recently signed (E-Sign) (Enterprise, Date) แต่ละรายการมีปุ่ม
+  Search / Clear และ pagination
 - **System administrator (System Overview)** แยกจากงานติดตามทุน มาเน้นงานดูแล
   ระบบแทน ได้แก่
   - **System health** (การ์ดสรุป): ผู้ใช้ทั้งหมด / ออนไลน์ / ถูกล็อก, สถานะการเชื่อมต่อ,
@@ -211,7 +216,7 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
   ยาวพอเห็น pagination: Verification queue 15, Awaiting approval 11, Returned by me 13 รายการ
 - Pagination (`paginate()` ใน `src/index.html`, เลือกได้ 5/10/20/50 แถวต่อหน้า) ใช้กับรายการของ
   Checker ทั้ง 3 รายการ, หน้าค้นหาวิสาหกิจ (เปลี่ยนตัวกรองแล้วกลับไปหน้า 1), รายการที่ยื่นไปแล้ว
-  ของ Maker และคิวรออนุมัติของ Approver
+  ของ Maker, รายการทั้ง 3 ของ Approver และ External Portal
 - ชื่อสถานะบนหน้าจอใช้ภาษาลาว/ไทยเป็นหลัก และมีรหัสระบบ
   (PENDING / PARTIAL / COMPLETED / OVERDUE) กำกับไว้เพื่อเทียบกับเอกสาร requirement
 - โค้ดทั้งหมดอยู่ในไฟล์เดียว (`src/index.html`) แบ่งส่วนด้วยคอมเมนต์:

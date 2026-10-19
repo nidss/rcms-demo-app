@@ -632,7 +632,7 @@ lo:{
  pgRows:'ແຖວຕໍ່ໜ້າ',pgOf:'ຈາກ',pgPrev:'ໜ້າກ່ອນ',pgNext:'ໜ້າຖັດໄປ',ckNoReturned:'ຍັງບໍ່ໄດ້ຕີກັບລາຍການໃດ',ckReview:'ຕ້ອງກວດເຂັ້ມ',ckOpen:'ເປີດກວດ',ckHighVal:'ຍອດສູງ',
  apTitle:'ໜ້າວຽກອະນຸມັດ (Approver)',apKQueue:'ລໍອະນຸມັດ + ລົງນາມ',apKValue:'ມູນຄ່າລໍລົງນາມ',apKSigned:'ລົງນາມແລ້ວມື້ນີ້',apKOverdue:'ເກີນກຳນົດ (ທັງຝ່າຍ)',
  apQueue:'ຄິວລໍອະນຸມັດ + ລົງນາມ',apNoQueue:'ບໍ່ມີງານລໍອະນຸມັດ',apSign:'ລົງນາມ',apVerifiedBy:'ກວດໂດຍ',apActionNeeded:'ຕ້ອງດຳເນີນການ',
- apPipeline:'ທໍ່ຂະບວນການ',apStgCheck:'ຢູ່ຂັ້ນກວດສອບ',apStgApprove:'ຢູ່ຂັ້ນອະນຸມັດ',apStgDone:'ຄົບຖ້ວນແລ້ວ',
+ apStgCheck:'ຢູ່ຂັ້ນກວດສອບ',
  apRisk:'ເກີນກຳນົດ / ຄ່າປັບ',apNoRisk:'ບໍ່ມີລາຍການສ່ຽງ',apRecent:'ລົງນາມລ່າສຸດ (E-Sign)',apNoRecent:'ຍັງບໍ່ໄດ້ລົງນາມລາຍການໃດ',
 
  dashTitle:'ພາບລວມການປະກອບທຶນຈົດທະບຽນ',kPending:'PENDING - ລໍຊຳລະ',kPartial:'PARTIAL - ຊຳລະບາງສ່ວນ',
@@ -797,7 +797,7 @@ en:{
  pgRows:'Rows per page',pgOf:'of',pgPrev:'Previous page',pgNext:'Next page',ckNoReturned:'You have not returned any case',ckReview:'Needs close review',ckOpen:'Review',ckHighVal:'High value',
  apTitle:'Approval Workspace (Approver)',apKQueue:'Awaiting my approval',apKValue:'Value awaiting sign-off',apKSigned:'Signed today',apKOverdue:'Overdue (division)',
  apQueue:'Awaiting approval + E-Sign',apNoQueue:'Nothing waiting for approval',apSign:'Sign',apVerifiedBy:'Verified by',apActionNeeded:'Action needed',
- apPipeline:'Pipeline',apStgCheck:'At verification',apStgApprove:'At approval',apStgDone:'Completed',
+ apStgCheck:'At verification',
  apRisk:'Overdue / penalties',apNoRisk:'No at-risk cases',apRecent:'Recently signed (E-Sign)',apNoRecent:'You have not signed any case yet',
 
  dashTitle:'Registered Capital Contribution Overview',kPending:'PENDING - awaiting payment',kPartial:'PARTIAL - partly paid',
@@ -1344,7 +1344,7 @@ var S={};
 function reset(){
   S={role:null,pick:null,view:'login',mobile:false,sel:null,tab:'ALL',q:'',mini:false,
      ents:seedEnts(),invs:seedInv(),tasks:[],taskI:0,form:null,modal:null,notif:[],
-     read:false,bell:false,umenu:false,setTab:'fee',finTab:'fee',ckTab:'queue',pg:{},colf:{},colDraft:{},certCopy:false,
+     read:false,bell:false,umenu:false,setTab:'fee',finTab:'fee',dashTab:'queue',pg:{},colf:{},colDraft:{},certCopy:false,
      valjobs:JSON.parse(JSON.stringify(VALJOBS)),users:JSON.parse(JSON.stringify(USERS_SEED)),
      backReasonInt:'',backReasonExt:'',loginStep:'cred',loginUser:'',loginPass:'',loginErr:'',tx:null,valI:0,valForm:{val:null,files:[],err:'',docType:'valReport',docErr:''},
      advDraft:null,adv:{kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''}};
@@ -1375,7 +1375,8 @@ function menus(){
     return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',[['queue','ckMQueue',Tc],['atAp','ckMAtAp',Ta,1],['ret','ckMRet',Tr,1]]],
     ['ent',I('search'),'ent'],['valQueue',I('clipboardCheck'),'valQueue'],['mOther'],['fin',I('banknote'),'fin'],['rep',I('chartColumn'),'rep']];
   }
-  if(S.role==='approver')return [['mMonitor'],['dash',I('layoutDashboard'),'dash'],
+  if(S.role==='approver')return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',
+    [['queue','ckMAtAp',Ta],['risk','apRisk',approverRisk().length,1],['signed','apRecent',approverSigned().length,1]]],
     ['ent',I('search'),'ent'],['valQueue',I('clipboardCheck'),'valQueue'],['mOther'],['fin',I('banknote'),'fin'],['rep',I('chartColumn'),'rep']];
   return [['mMonitor'],['dash',I('layoutDashboard'),'dash'],['ent',I('search'),'ent'],['mOther'],['rep',I('chartColumn'),'rep'],['set',I('settings'),'set']];
 }
@@ -1402,7 +1403,7 @@ function shell(title,crumb,inner,right,sub){
     var row='<div class="mi'+(on?' on':'')+'" data-nav="'+it[0]+'">'+
       '<span class="ic">'+it[1]+'</span><span class="lbl">'+t(it[2])+'</span>'+cnt+'</div>';
     if(it[4]&&(on||it[0]==='dash')){
-      var curSub=it[0]==='fin'?S.finTab:it[0]==='dash'?S.ckTab:S.setTab;
+      var curSub=it[0]==='fin'?S.finTab:it[0]==='dash'?S.dashTab:S.setTab;
       row+=it[4].map(function(s){return '<div class="mi sub'+(on&&curSub===s[0]?' on':'')+'" data-subtab="'+it[0]+':'+s[0]+'">'+
         '<span class="lbl">'+t(s[1])+'</span>'+(s[2]?'<span class="cnt'+(s[3]?' mute':'')+'">'+s[2]+'</span>':'')+'</div>'}).join('');
     }
@@ -1518,17 +1519,16 @@ function vMakerDash(){
     metric('ok',t('fullyPaidOf'),fmt(paidCo)+' / '+fmt(S.ents.length),LO?'ວິສາຫະກິດ':'enterprises'),
    notes:notes});
 
-  var pp=paginate('mkPend',pend);
-  var pendRows=pp.items.map(function(x){
-    return '<tr data-open="'+x.ent.id+'"><td style="padding-left:16px"><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span></td>'+
-     '<td class="r num">'+fmt(x.amt)+'</td>'+
-     '<td>'+(x.stage==='checker'?'<span class="pill p-warn">'+t('stageChecker')+'</span>':'<span class="pill p-rev">'+t('stageApprover')+'</span>')+'</td>'+
-     '<td style="padding-right:16px;color:var(--muted);font-size:11px">'+x.by+'</td></tr>'}).join('');
-  var pendingCard='<div class="card"><div class="h"><h3>'+t('mkPending')+'</h3>'+
-    (pend.length?'<span class="cnt" style="margin-left:auto">'+pend.length+'</span>':'')+'</div>'+
-    '<div class="c" style="padding:12px 0 0">'+(pendRows
-     ?'<table><thead><tr><th style="padding-left:16px">'+t('cEnt')+'</th><th class="r">'+t('cAmt')+'</th><th>'+t('mkStage')+'</th><th style="padding-right:16px">'+t('cBy')+'</th></tr></thead><tbody>'+pendRows+'</tbody></table>'+pp.bar
-     :'<div class="empty" style="padding:30px"><b>'+t('mkNoPending')+'</b></div>')+'</div></div>';
+  var pendingCard=listCard({key:'mkPend',title:t('mkPending'),empty:t('mkNoPending'),all:pend,mb:1,
+    fields:[['ref',t('cRef')],['ent',t('cEnt')],['stage',t('mkStage'),[['checker',t('stageChecker')],['approve',t('stageApprover')]]],['by',t('cBy')]],
+    vals:function(x){return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||'')+' '+x.ent.id,stage:x.stage,by:x.by}},
+    heads:[[t('cRef')],[t('cEnt')],[t('cAmt'),1],[t('mkStage')],[t('cBy')]],
+    row:function(x){
+      return '<tr data-open="'+x.ent.id+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
+       '<td><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span></td>'+
+       '<td class="r num">'+fmt(x.amt)+'</td>'+
+       '<td>'+(x.stage==='checker'?'<span class="pill p-warn">'+t('stageChecker')+'</span>':'<span class="pill p-rev">'+t('stageApprover')+'</span>')+'</td>'+
+       '<td style="padding-right:16px;color:var(--muted);font-size:11px">'+x.by+'</td></tr>'}});
 
   var dueList=overdue.concat(dueSoon);
   var dueRows=dueList.map(function(e){
@@ -1546,7 +1546,7 @@ function vMakerDash(){
       '<th class="r">'+t('outstanding')+'</th><th class="r">'+t('penaltyAmt')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+dueRows+'</tbody></table>'
      :'<div class="empty" style="padding:30px"><b>'+t('mkNoDue')+'</b></div>')+'</div></div>';
 
-  var inner=kpis+pendingCard.replace('<div class="card">','<div class="card" style="margin-bottom:16px">')+dueCard;
+  var inner=kpis+pendingCard+dueCard;
   return shell(t('mkTitle'),'',inner,'',t('mkGreeting')+' <b>'+who().n+'</b>');
 }
 
@@ -1604,6 +1604,24 @@ function colMatch(key,vals){
   var f=S.colf[key]||{};
   return Object.keys(f).every(function(c){var q=colNorm(f[c]);return !q||colNorm(vals[c]).indexOf(q)>=0});
 }
+// A searchable list: search card (o.fields), then a card with the table and pagination.
+// o: key, title, empty, all (rows), fields, vals(row)->{col:text}, heads [[label, right?]], row(row)->html,
+// hot (accent the card when non-empty), mb (gap below the card).
+function listCard(o){
+  var key=o.key,hit=o.all.filter(function(r){return colMatch(key,o.vals(r))});
+  var pg=paginate(key,hit,JSON.stringify(S.colf[key]||{}));
+  var head='<tr>'+o.heads.map(function(h,i){
+    var pad=i===0?'padding-left:16px':(i===o.heads.length-1?'padding-right:16px':'');
+    return '<th'+(h[1]?' class="r"':'')+(pad?' style="'+pad+'"':'')+'>'+h[0]+'</th>'}).join('')+'</tr>';
+  var n=o.all.length,on=colActive(key);
+  var table=!n?'<div class="empty" style="padding:30px"><b>'+o.empty+'</b></div>'
+    :!hit.length?'<div class="empty"><b>'+t('noMatch')+'</b>'+t('noMatchS')+'</div>'
+    :'<table><thead>'+head+'</thead><tbody>'+pg.items.map(o.row).join('')+'</tbody></table>'+pg.bar;
+  return (n?colFilterBar(key,o.fields):'')+
+    '<div class="card'+(o.hot&&n?' hot':'')+'"'+(o.mb?' style="margin-bottom:16px"':'')+'><div class="h"><h3>'+o.title+'</h3>'+
+    (n?'<span class="cnt" style="margin-left:auto">'+(on?hit.length+' / ':'')+n+'</span>':'')+'</div>'+
+    '<div class="c" style="padding:12px 0 0">'+table+'</div></div>';
+}
 function colActive(key){var f=S.colf[key]||{};return Object.keys(f).some(function(c){return (f[c]||'').trim()})}
 
 function vCheckerDash(){
@@ -1625,22 +1643,7 @@ function vCheckerDash(){
   var modeOpts=[['cash',t('modeCash')],['asset',t('modeAsset')]];
   var taskFields=[['ref',t('cRef')],['ent',t('cEnt')],['mode',t('cMode'),modeOpts],['by',t('cBy')]];
   function taskVals(p){var x=p[0];return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||'')+' '+x.ent.id,mode:x.mode,by:x.by}}
-  function listCard(o){
-    var key=o.key,hit=o.all.filter(function(r){return colMatch(key,o.vals(r))});
-    var pg=paginate(key,hit,JSON.stringify(S.colf[key]||{}));
-    var head='<tr>'+o.heads.map(function(h,i){
-      var pad=i===0?'padding-left:16px':(i===o.heads.length-1?'padding-right:16px':'');
-      return '<th'+(h[1]?' class="r"':'')+(pad?' style="'+pad+'"':'')+'>'+h[0]+'</th>'}).join('')+'</tr>';
-    var n=o.all.length,on=colActive(key);
-    var table=!n?'<div class="empty" style="padding:30px"><b>'+o.empty+'</b></div>'
-      :!hit.length?'<div class="empty"><b>'+t('noMatch')+'</b>'+t('noMatchS')+'</div>'
-      :'<table><thead>'+head+'</thead><tbody>'+pg.items.map(o.row).join('')+'</tbody></table>'+pg.bar;
-    return (n?colFilterBar(key,o.fields):'')+
-      '<div class="card'+(o.hot&&n?' hot':'')+'"><div class="h"><h3>'+o.title+'</h3>'+
-      (n?'<span class="cnt" style="margin-left:auto">'+(on?hit.length+' / ':'')+n+'</span>':'')+'</div>'+
-      '<div class="c" style="padding:12px 0 0">'+table+'</div></div>';
-  }
-  var tab=S.ckTab,card;
+  var tab=S.dashTab,card;
   if(tab==='atAp'){
     card=listCard({key:'ckAtAp',title:t('ckAtApprover'),empty:t('ckNoApprover'),all:atAp,fields:taskFields,vals:taskVals,
       heads:[[t('cRef')],[t('cEnt')],[t('cMode')],[t('cAmt'),1],[t('cBy')],['']],
@@ -1671,80 +1674,80 @@ function vCheckerDash(){
   return shell(t('ckTitle'),'',card,'',t('mkGreeting')+' <b>'+me+'</b>');
 }
 
+// Approver lists, shared by the dashboard and the sidebar sub-menu counts.
+function approverSigned(){
+  var me=who().n,out=[];
+  S.ents.forEach(function(e){e.hist.forEach(function(h){
+    if(h.st==='complete'&&h.u===me&&/digitally signed|ລົງລາຍເຊັນ/.test(L(h.a)))out.push({e:e,h:h})})});
+  return out;
+}
+function approverRisk(){
+  var overdue=S.ents.filter(function(e){return e.status==='OVERDUE'});
+  return overdue.concat(S.ents.filter(function(e){
+    return overdue.indexOf(e)<0&&S.invs.some(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='UNPAID'})}));
+}
+
 function vApproverDash(){
   var me=who().n,LO=lang==='lo',TODAY='04/08/2026';
   var myQ=[],atChk=0;
   S.tasks.forEach(function(x,i){if(x.stage==='approve')myQ.push([x,i]);else if(x.stage==='checker')atChk++});
   var qVal=myQ.reduce(function(a,p){return a+p[0].amt},0);
-  var signedAll=[],signedToday=0;
-  S.ents.forEach(function(e){e.hist.forEach(function(h){
-    if(h.st==='complete'&&h.u===me&&/digitally signed|ລົງລາຍເຊັນ/.test(L(h.a))){signedAll.push({e:e,h:h});if(h.d===TODAY)signedToday++}
-  })});
+  var signedAll=approverSigned(),signedToday=signedAll.filter(function(o){return o.h.d===TODAY}).length;
   var overdue=S.ents.filter(function(e){return e.status==='OVERDUE'});
-  var penEnts=S.ents.filter(function(e){return S.invs.some(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='UNPAID'})});
+  var riskList=approverRisk();
   var completed=S.ents.filter(function(e){return e.status==='COMPLETED'}).length;
   var totCap=0,totPaid=0;S.ents.forEach(function(e){totCap+=e.cap;totPaid+=e.paid});
   var paidRate=totCap?Math.round(totPaid/totCap*100):0;
 
+  // Overview carries the pipeline: paid-rate bar, then the stages in order
+  // (at verification -> awaiting my approval -> fully paid), then today's sign-offs and risk.
   var first=myQ[0];
   var kpis=sumCard({title:t('wsOverview'),
-   metrics:metric('warn',t('apKQueue'),fmt(myQ.length),LO?'ຕ້ອງ E-Sign':'Needs your E-Sign')+
-    metric('',t('apKValue'),fmt(qVal),'LAK')+
+   prog:{pct:paidRate,html:t('heroPaidPct')+' · <b class="num">'+fmt(totPaid)+'</b> / <span class="num">'+fmt(totCap)+'</span> LAK'},
+   metrics:metric('',t('apStgCheck'),fmt(atChk),LO?'ຢູ່ຂັ້ນ Checker':'With the Checker')+
+    metric('warn',t('apKQueue'),fmt(myQ.length),fmt(qVal)+' LAK')+
     metric('ok',t('apKSigned'),fmt(signedToday),LO?'ລົງນາມດິຈິຕອນ':'Digitally signed')+
+    metric('ok',t('fullyPaidOf'),fmt(completed)+' / '+fmt(S.ents.length),LO?'ວິສາຫະກິດ':'enterprises')+
     metric('bad',t('apKOverdue'),fmt(overdue.length),LO?'ຄວາມສ່ຽງ compliance':'Compliance risk'),
    notes:[first?{tone:'info',text:'<b>'+myQ.length+' '+t('nxAp')+'</b> · '+t('nxNext')+': <span class="num">'+first[0].ref+'</span> · '+first[0].ent.name,
       act:'<button class="btn sm" data-task="'+first[1]+'">'+t('nxStartAp')+' →</button>'}
      :{tone:'ok',text:'<b>'+t('nxClear')+'</b> · '+t('nxClearS')}]});
 
-  var pq=paginate('apQueue',myQ);
-  var qRows=pq.items.map(function(p){var x=p[0];
-    var chk=(x.trail||[]).filter(function(t2){return /Checker/.test(t2.who)}).slice(-1)[0];
-    return '<tr data-task="'+p[1]+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
-     '<td><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span></td>'+
-     '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td>'+
-     '<td style="font-size:11px;color:var(--muted)">'+t('apVerifiedBy')+' '+(chk?chk.who.replace(/ \(.*/,''):x.by)+'</td>'+
-     '<td class="r" style="padding-right:16px"><button class="btn sm">'+t('apSign')+' →</button></td></tr>'}).join('');
-  var queueCard='<div class="card'+(myQ.length?' hot':'')+'"><div class="h"><h3>'+t('apQueue')+'</h3>'+
-    (myQ.length?'<span class="cnt" style="margin-left:auto">'+myQ.length+'</span>':'')+'</div>'+
-    '<div class="c" style="padding:12px 0 0">'+(qRows
-     ?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cEnt')+'</th><th>'+t('cMode')+'</th><th class="r">'+t('cAmt')+'</th><th></th><th></th></tr></thead><tbody>'+qRows+'</tbody></table>'+pq.bar
-     :'<div class="empty" style="padding:30px"><b>'+t('apNoQueue')+'</b></div>')+'</div></div>';
-
-  var stages=[[atChk,'#B4610A',t('apStgCheck')],[myQ.length,'#3A48A0',t('apStgApprove')],[completed,'#137A41',t('apStgDone')]];
-  var maxS=Math.max(atChk,myQ.length,completed,1);
-  var pipeRows=stages.map(function(s){var w=s[0]/maxS*100;
-    return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:11px">'+
-     '<span style="width:130px;font-size:11.5px;color:var(--ink2)">'+s[2]+'</span>'+
-     '<div style="flex:1;background:var(--soft);border-radius:5px;height:12px;overflow:hidden"><div style="width:'+w+'%;height:100%;background:'+s[1]+';border-radius:5px"></div></div>'+
-     '<span class="num" style="width:24px;text-align:right;font-weight:600">'+s[0]+'</span></div>';}).join('');
-  var pipeCard='<div class="card"><div class="h"><h3>'+t('apPipeline')+'</h3></div><div class="c">'+
-    '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:16px"><span class="num" style="font-size:27px;font-weight:700;color:var(--m)">'+paidRate+'%</span>'+
-    '<span style="font-size:11px;color:var(--muted)">'+t('heroPaidPct')+'</span></div>'+pipeRows+'</div></div>';
-
-  var riskList=overdue.concat(penEnts.filter(function(e){return overdue.indexOf(e)<0}));
-  var riskRows=riskList.map(function(e){
-    var pen=S.invs.filter(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='UNPAID'}).reduce(function(a,iv){return a+iv.amt},0);
-    return '<tr data-open="'+e.id+'"><td style="padding-left:16px"><span class="co">'+e.name+'<small>'+e.id+'</small></span></td>'+
-     '<td class="num" style="color:'+(daysLeft(e.due)<0?'var(--bad)':'var(--ink2)')+'">'+e.due+'</td>'+
-     '<td class="r num" style="color:'+(pen?'var(--bad)':'var(--muted)')+'">'+(pen?fmt(pen):'-')+'</td>'+
-     '<td class="r" style="padding-right:16px">'+pill(e.status)+'</td></tr>'}).join('');
-  var riskCard='<div class="card"><div class="h"><h3>'+t('apRisk')+'</h3></div>'+
-    '<div class="c" style="padding:12px 0 0">'+(riskRows
-     ?'<table><thead><tr><th style="padding-left:16px">'+t('cEnt')+'</th><th>'+t('cDue')+'</th><th class="r">'+t('penaltyAmt')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+riskRows+'</tbody></table>'
-     :'<div class="empty" style="padding:30px"><b>'+t('apNoRisk')+'</b></div>')+'</div></div>';
-
-  var recRows=signedAll.slice(-6).reverse().map(function(o){
-    return '<tr data-open="'+o.e.id+'"><td style="padding-left:16px"><span class="co">'+o.e.name+'<small>'+o.e.id+'</small></span></td>'+
-     '<td class="r num">'+(o.h.v?fmt(o.h.v):'-')+'</td>'+
-     '<td class="num" style="padding-right:16px">'+o.h.d+'</td></tr>'}).join('');
-  var recCard='<div class="card"><div class="h"><h3>'+t('apRecent')+'</h3>'+(signedAll.length?'<span class="cnt" style="margin-left:auto">'+signedAll.length+'</span>':'')+'</div>'+
-    '<div class="c" style="padding:12px 0 0">'+(recRows?'<table><tbody>'+recRows+'</tbody></table>':'<div class="empty" style="padding:30px"><b>'+t('apNoRecent')+'</b></div>')+'</div></div>';
-
-  var inner=
-   kpis+
-   '<div class="split70" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)">'+queueCard+pipeCard+'</div>'+
-   '<div class="split70" style="grid-template-columns:1fr 1fr">'+riskCard+recCard+'</div>';
-  return shell(t('apTitle'),'',inner,'',t('mkGreeting')+' <b>'+me+'</b>');
+  function verifier(x){var chk=(x.trail||[]).filter(function(t2){return /Checker/.test(t2.who)}).slice(-1)[0];return chk?chk.who.replace(/ \(.*/,''):x.by}
+  function penOf(e){return S.invs.filter(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='UNPAID'}).reduce(function(a,iv){return a+iv.amt},0)}
+  // One list per sub-menu: Awaiting approval / Overdue - penalties / Recently signed.
+  var tab=S.dashTab,card;
+  if(tab==='risk'){
+    card=listCard({key:'apRisk',title:t('apRisk'),empty:t('apNoRisk'),all:riskList,
+      fields:[['ent',t('cEnt')],['st',t('cStatus'),['PENDING','PARTIAL','COMPLETED','OVERDUE'].map(function(s){return [s,stName(s)]})]],
+      vals:function(e){return {ent:e.name+' '+(e.nameEn||'')+' '+e.id,st:e.status}},
+      heads:[[t('cEnt')],[t('cDue')],[t('penaltyAmt'),1],[t('cStatus'),1]],
+      row:function(e){var pen=penOf(e);
+        return '<tr data-open="'+e.id+'"><td style="padding-left:16px"><span class="co">'+e.name+'<small>'+e.id+'</small></span></td>'+
+         '<td class="num" style="color:'+(daysLeft(e.due)<0?'var(--bad)':'var(--ink2)')+'">'+e.due+'</td>'+
+         '<td class="r num" style="color:'+(pen?'var(--bad)':'var(--muted)')+'">'+(pen?fmt(pen):'-')+'</td>'+
+         '<td class="r" style="padding-right:16px">'+pill(e.status)+'</td></tr>'}});
+  }else if(tab==='signed'){
+    card=listCard({key:'apSigned',title:t('apRecent'),empty:t('apNoRecent'),all:signedAll.slice().reverse(),
+      fields:[['ent',t('cEnt')],['d',t('cDate')]],
+      vals:function(o){return {ent:o.e.name+' '+(o.e.nameEn||'')+' '+o.e.id,d:o.h.d}},
+      heads:[[t('cEnt')],[t('cAmt'),1],[t('cDate'),1]],
+      row:function(o){
+        return '<tr data-open="'+o.e.id+'"><td style="padding-left:16px"><span class="co">'+o.e.name+'<small>'+o.e.id+'</small></span></td>'+
+         '<td class="r num">'+(o.h.v?fmt(o.h.v):'-')+'</td>'+
+         '<td class="r num" style="padding-right:16px">'+o.h.d+'</td></tr>'}});
+  }else{
+    card=listCard({key:'apQueue',title:t('apQueue'),empty:t('apNoQueue'),all:myQ,hot:1,
+      fields:[['ref',t('cRef')],['ent',t('cEnt')],['mode',t('cMode'),[['cash',t('modeCash')],['asset',t('modeAsset')]]],['chk',t('apVerifiedBy')]],
+      vals:function(p){var x=p[0];return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||'')+' '+x.ent.id,mode:x.mode,chk:verifier(x)}},
+      heads:[[t('cRef')],[t('cEnt')],[t('cMode')],[t('cAmt'),1],[t('apVerifiedBy')],['']],
+      row:function(p){var x=p[0];
+        return '<tr data-task="'+p[1]+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
+         '<td><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span></td>'+
+         '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td><td>'+verifier(x)+'</td>'+
+         '<td class="r" style="padding-right:16px"><button class="btn sm">'+t('apSign')+' →</button></td></tr>'}});
+  }
+  return shell(t('apTitle'),'',kpis+card,'',t('mkGreeting')+' <b>'+me+'</b>');
 }
 
 function vStaffDash(){
@@ -2645,8 +2648,9 @@ function vSet(){
 
 function vPortal(){
   var q=(S.q||'').trim().toLowerCase();
-  var list=S.ents.filter(function(e){return !q||e.name.toLowerCase().indexOf(q)>=0||e.id.toLowerCase().indexOf(q)>=0});
-  var rows=list.map(function(e){
+  var list=S.ents.filter(function(e){return !q||e.name.toLowerCase().indexOf(q)>=0||(e.nameEn||'').toLowerCase().indexOf(q)>=0||e.id.toLowerCase().indexOf(q)>=0});
+  var pg=paginate('portal',list,q);
+  var rows=pg.items.map(function(e){
     return '<tr><td style="padding-left:16px"><span class="co">'+e.name+'<small>'+e.id+'</small></span></td>'+
     '<td>'+L(e.prov)+'</td><td class="num">'+e.due+'</td>'+
     '<td class="r" style="padding-right:16px">'+pill(e.status)+' <button class="btn ghost sm" style="margin-left:8px" data-soon="'+t('dlPdf')+'">'+luSvg('download')+t('dlPdf')+'</button></td></tr>'}).join('');
@@ -2655,7 +2659,7 @@ function vPortal(){
     'data-clearportal','data-portalsearch')+
    '<div class="card"><div class="c" style="padding:0">'+
    (rows?'<table><thead><tr><th style="padding-left:16px">'+t('cEnt')+'</th><th>'+t('cProv')+'</th>'+
-     '<th>'+t('cDue')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'
+     '<th>'+t('cDue')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'+pg.bar
     :'<div class="empty"><b>'+t('noMatch')+'</b>'+t('noMatchS')+'</div>')+'</div></div>'+
    '<div class="audit" style="margin-top:12px">'+t('portalNote')+'</div>';
   return shell(t('portalTitle'),'',inner);
@@ -2925,7 +2929,7 @@ function roleHome(role){
 }
 function switchRole(id){
   if(id===S.role){S.umenu=false;return render()}
-  S.role=id;S.view=roleHome(id);S.mobile=false;S.read=false;S.bell=false;S.umenu=false;S.modal=null;S.sel=null;
+  S.role=id;S.view=roleHome(id);S.dashTab='queue';S.mobile=false;S.read=false;S.bell=false;S.umenu=false;S.modal=null;S.sel=null;
   render();toast(t('roleSwitched'),who().n+' · '+who().r,true);
 }
 
@@ -3005,7 +3009,7 @@ function bind(){
     ev.stopPropagation();go(el.dataset.nav)}});
   document.querySelectorAll('[data-subtab]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();var p=b.dataset.subtab.split(':');
-    if(p[0]==='fin'){S.finTab=p[1];go('fin')}else if(p[0]==='dash'){S.ckTab=p[1];go('dash')}else{S.setTab=p[1];go('set')}}});
+    if(p[0]==='fin'){S.finTab=p[1];go('fin')}else if(p[0]==='dash'){S.dashTab=p[1];go('dash')}else{S.setTab=p[1];go('set')}}});
   document.querySelectorAll('[data-pg]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();var p=b.dataset.pg.split(':');S.pg[p[0]].p=+p[1];render()}});
   document.querySelectorAll('[data-pgsize]').forEach(function(el){el.onchange=function(){
@@ -3225,7 +3229,7 @@ function bind(){
   var o1=$('#otp');if(o1)otpWire(o1,function(f){$('#doLogin').disabled=!f});
   var dl=$('#doLogin');
   if(dl)dl.onclick=function(){
-    S.role=S.pick;S.mobile=false;S.read=false;S.view=roleHome(S.role);
+    S.role=S.pick;S.dashTab='queue';S.mobile=false;S.read=false;S.view=roleHome(S.role);
     render()};
   var o2=$('#otp2');if(o2)otpWire(o2,function(f){$('#doApprove').disabled=!f});
   var da=$('#doApprove');if(da)da.onclick=function(){approve(S.modal.i)};
