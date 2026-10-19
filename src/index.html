@@ -1549,7 +1549,7 @@ function vMakerDash(){
   var tab=S.dashTab,card;
   if(tab==='queue'){
     card=listCard({key:'mkPend',title:t('mkPending'),empty:t('mkNoPending'),all:S.tasks,
-      fields:[['ref',t('cRef')],['ent',t('cEnt')],['reg',t('regNo')],['stage',t('mkStage'),[['checker',t('stageChecker')],['approve',t('stageApprover')]]],['by',t('cBy')]],
+      fields:[['ref',t('cRef')],['ent',t('cEnt')],['reg',t('regNo')],['stage',t('mkStage'),[['checker',t('stageChecker')],['approve',t('stageApprover')]]],['by',t('cBy'),optsOf(S.tasks,function(x){return x.by})]],
       vals:function(x){return {ref:x.ref,ent:entVals(x.ent),reg:x.ent.id,stage:x.stage,by:x.by}},
       heads:[[t('cRef')],[t('cEnt')],[t('regNo')],[t('cAmt'),1],[t('mkStage')],[t('cBy')]],
       row:function(x){
@@ -1670,6 +1670,9 @@ function listCard(o){
     (o.acts?'<span style="margin-left:'+(n?'10px':'auto')+'">'+o.acts+'</span>':'')+'</div>'+
     '<div class="c" style="padding:12px 0 0">'+table+(o.foot||'')+'</div></div>';
 }
+// Dropdown options from the distinct values of a list: [[value, value], ...] sorted.
+function optsOf(list,get){var seen={};list.forEach(function(r){var v=get(r);if(v)seen[v]=1});
+  return Object.keys(seen).sort().map(function(v){return [v,v]})}
 function isoDate(d){return (d||'').split('/').reverse().join('-')}
 function colActive(key){var f=S.colf[key]||{};return Object.keys(f).some(function(c){return (f[c]||'').trim()})}
 
@@ -1690,7 +1693,7 @@ function vCheckerDash(){
   // One list per sub-menu (Verification queue / Awaiting approval / Returned by me): a search
   // card above the table, then the table with pagination.
   var modeOpts=[['cash',t('modeCash')],['asset',t('modeAsset')]];
-  var taskFields=[['ref',t('cRef')],['ent',t('cEnt')],['reg',t('regNo')],['mode',t('cMode'),modeOpts],['by',t('cBy')]];
+  var taskFields=[['ref',t('cRef')],['ent',t('cEnt')],['reg',t('regNo')],['mode',t('cMode'),modeOpts],['by',t('cBy'),optsOf(S.tasks,function(x){return x.by})]];
   function taskVals(p){var x=p[0];return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||''),reg:x.ent.id,mode:x.mode,by:x.by}}
   var tab=S.dashTab,card;
   if(tab==='atAp'){
@@ -1778,8 +1781,8 @@ function vApproverDash(){
          '<td class="r" style="padding-right:16px">'+pill(e.status)+'</td></tr>'}});
   }else if(tab==='signed'){
     card=listCard({key:'apSigned',title:t('apRecent'),empty:t('apNoRecent'),all:signedAll.slice().reverse(),
-      fields:[['ent',t('cEnt')],['reg',t('regNo')],['d',t('cDate')]],
-      vals:function(o){return {ent:o.e.name+' '+(o.e.nameEn||''),reg:o.e.id,d:o.h.d}},
+      fields:[['ent',t('cEnt')],['reg',t('regNo')]],
+      vals:function(o){return {ent:o.e.name+' '+(o.e.nameEn||''),reg:o.e.id}},
       heads:[[t('cEnt')],[t('regNo')],[t('cAmt'),1],[t('cDate'),1]],
       row:function(o){
         return '<tr data-open="'+o.e.id+'"><td style="padding-left:16px"><span class="co">'+o.e.name+'</span></td><td class="num">'+o.e.id+'</td>'+
@@ -1787,7 +1790,7 @@ function vApproverDash(){
          '<td class="r num" style="padding-right:16px">'+o.h.d+'</td></tr>'}});
   }else{
     card=listCard({key:'apQueue',title:t('apQueue'),empty:t('apNoQueue'),all:myQ,hot:1,
-      fields:[['ref',t('cRef')],['ent',t('cEnt')],['reg',t('regNo')],['mode',t('cMode'),[['cash',t('modeCash')],['asset',t('modeAsset')]]],['chk',t('apVerifiedBy')]],
+      fields:[['ref',t('cRef')],['ent',t('cEnt')],['reg',t('regNo')],['mode',t('cMode'),[['cash',t('modeCash')],['asset',t('modeAsset')]]],['chk',t('apVerifiedBy'),optsOf(myQ,function(p){return verifier(p[0])})]],
       vals:function(p){var x=p[0];return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||''),reg:x.ent.id,mode:x.mode,chk:verifier(x)}},
       heads:[[t('cRef')],[t('cEnt')],[t('regNo')],[t('cMode')],[t('cAmt'),1],[t('apVerifiedBy')],['']],
       row:function(p){var x=p[0];
@@ -2393,20 +2396,21 @@ function vTask(){
 }
 
 function vValFirm(){
-  var mine=S.valjobs.filter(function(x){return x.firm===who().n}),pg=paginate('valFirm',mine);
-  var rows=pg.items.map(function(j){
-    var idx=S.valjobs.indexOf(j),lbl=VAL_LBL[j.status];
-    return '<tr data-valjobfirm="'+idx+'"><td style="padding-left:16px" class="num">'+j.id+'</td>'+
-    '<td><span class="co">'+(S.ents.filter(function(y){return y.id===j.ent})[0]||{}).name+'<small>'+L(j.asset)+'</small></span></td>'+
-    '<td class="num">'+j.ent+'</td><td><span class="pill '+(j.net==='in'?'p-ok':'p-idle')+'">'+(j.net==='in'?t('inNet'):t('outNet').split(' (')[0])+'</span></td>'+
-    '<td class="r num">'+fmt(j.amt)+'</td>'+
-    '<td class="r" style="padding-right:16px"><span class="pill '+lbl[1]+'">'+t(lbl[0])+'</span></td></tr>'}).join('');
-  var inner='<div class="card"><div class="h"><h3>'+t('myJobs')+'</h3></div>'+
-   '<div class="c" style="padding:12px 0 0">'+
-   (rows?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cEnt')+' / '+t('valAsset')+'</th>'+
-     '<th>'+t('regNo')+'</th><th>'+t('valFirmType')+'</th><th class="r">'+t('valDeclared')+' (LAK)</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'+pg.bar
-    :'<div class="empty">'+t('noMatch')+'</div>')+'</div></div>';
-  return shell(t('valPortal'),'',inner);
+  var mine=[];S.valjobs.forEach(function(j,i){if(j.firm===who().n)mine.push([j,i])});
+  function entOf(j){return S.ents.filter(function(y){return y.id===j.ent})[0]||{}}
+  var card=listCard({key:'valFirm',title:t('myJobs'),empty:t('noMatch'),all:mine,
+    fields:[['ref',t('cRef')],['ent',t('cEnt')+' / '+t('valAsset')],['reg',t('regNo')],
+      ['net',t('valFirmType'),[['in',t('inNet')],['out',t('outNet').split(' (')[0]]]],
+      ['st',t('cStatus'),Object.keys(VAL_LBL).map(function(k){return [k,t(VAL_LBL[k][0])]})]],
+    vals:function(p){var j=p[0],e=entOf(j);return {ref:j.id,ent:(e.name||'')+' '+(e.nameEn||'')+' '+L(j.asset),reg:j.ent,net:j.net,st:j.status}},
+    heads:[[t('cRef')],[t('cEnt')+' / '+t('valAsset')],[t('regNo')],[t('valFirmType')],[t('valDeclared')+' (LAK)',1],[t('cStatus'),1]],
+    row:function(p){var j=p[0],lbl=VAL_LBL[j.status];
+      return '<tr data-valjobfirm="'+p[1]+'"><td style="padding-left:16px" class="num">'+j.id+'</td>'+
+       '<td><span class="co">'+entOf(j).name+'<small>'+L(j.asset)+'</small></span></td>'+
+       '<td class="num">'+j.ent+'</td><td><span class="pill '+(j.net==='in'?'p-ok':'p-idle')+'">'+(j.net==='in'?t('inNet'):t('outNet').split(' (')[0])+'</span></td>'+
+       '<td class="r num">'+fmt(j.amt)+'</td>'+
+       '<td class="r" style="padding-right:16px"><span class="pill '+lbl[1]+'">'+t(lbl[0])+'</span></td></tr>'}});
+  return shell(t('valPortal'),'',card);
 }
 
 function vValJobDetail(){
@@ -2605,7 +2609,7 @@ function vSet(){
       fields:[['ent',t('cEnt')],['reg',t('regNo')],['acct',t('acctNo')],
         ['from',t('finDateFrom'),null,'date',function(g,q){return isoDate(g.d)>=q}],
         ['to',t('finDateTo'),null,'date',function(g,q){return isoDate(g.d)<=q}],
-        ['ch',t('cMode'),[['cash',t('modeCash')],['asset',t('modeAsset')]]],['by',t('cBy')]],
+        ['ch',t('cMode'),[['cash',t('modeCash')],['asset',t('modeAsset')]]],['by',t('cBy'),optsOf(glRows,function(g){return g.u})]],
       vals:function(g){return {ent:g.ent,reg:g.id,acct:g.acct,ch:g.m,by:g.u}},
       heads:[[t('cEnt')],[t('regNo')],[t('acctNo')],[t('cDate')],[t('cMode')],[t('cAmt')+' (LAK)',1],[t('cBy'),1]],
       row:function(g){

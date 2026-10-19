@@ -94,7 +94,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   รวม + ตัวเลข 5 ช่องเรียงตามขั้นตอน (อยู่ขั้นตรวจสอบ, รออนุมัติ + มูลค่า, ลงนามวันนี้, ชำระครบ x/30,
   เกินกำหนด) และแจ้งเตือนงานถัดไป (ปุ่ม Open to sign) ด้านล่างเป็นรายการจากเมนูย่อยใต้ Dashboard:
   Awaiting approval (ค้นหา Reference, Enterprise, Channel, Verified by), Overdue / penalties
-  (Enterprise, Status) และ Recently signed (E-Sign) (Enterprise, Date) แต่ละรายการมีปุ่ม
+  (Enterprise, Status) และ Recently signed (E-Sign) (Enterprise, Registration no.) แต่ละรายการมีปุ่ม
   Search / Clear และ pagination
 - **System administrator (System Overview)** แยกจากงานติดตามทุน มาเน้นงานดูแล
   ระบบแทน ได้แก่
@@ -233,6 +233,9 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
   เปลี่ยนเงื่อนไขค้นหาแล้วกลับไปหน้า 1 เสมอ
 - ทุกตารางที่มีวิสาหกิจแสดง Enterprise กับ Registration no. คนละคอลัมน์ และการ์ดค้นหามีช่อง
   Enterprise (ชื่อลาว / อังกฤษ) แยกจาก Registration no.
+- ช่อง Submit by / Verified by เป็น dropdown ที่ดึงรายชื่อจากข้อมูลในรายการนั้น (`optsOf()`)
+- My Valuation Jobs (บริษัทประเมิน) มีการ์ดค้นหา: Reference, Enterprise / Asset, Registration no.,
+  Network type และ Status (dropdown)
 - ตารางที่มีการ์ดค้นหาทั้งหมดใช้ `listCard()` ตัวเดียวกัน (กรองจาก state ไม่ได้ซ่อนแถวใน DOM)
   ช่องค้นหารองรับข้อความ, dropdown, วันที่ และเงื่อนไขเฉพาะ (เช่นช่วงจำนวนวันเกินกำหนด)
 - External Portal: ตารางแยกคอลัมน์ Enterprise กับ Registration no. ค้นหาด้วย Enterprise,
