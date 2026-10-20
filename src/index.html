@@ -462,10 +462,26 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .login .vlink{font-size:12px;color:#D5D9F7;cursor:pointer;display:inline-flex;align-items:center;gap:7px;margin-top:22px;
   padding:7px 12px;border:1px solid rgba(255,255,255,.22);border-radius:8px}
 .login .vlink:hover{background:rgba(255,255,255,.08)}
-.login .rt2{background:var(--white);padding:40px 56px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
-.login .rt2 .lbox{width:100%;max-width:420px;margin:0 auto}
+.login .rt2{background:var(--white);padding:40px 56px;display:flex;flex-direction:column;overflow-y:auto}
+.login .rt2 .lbox{width:100%;max-width:420px;margin:auto}
 .login .rt2 h2{font-size:22px;font-weight:700;margin-bottom:4px;letter-spacing:-.01em}
 .login .rt2 p{font-size:12.5px;color:var(--muted);margin-bottom:20px;line-height:1.6}
+.sustep{display:flex;gap:8px;margin:0 0 20px}
+.sustep .ss{flex:1;min-width:0;display:flex;align-items:center;gap:7px;padding-top:9px;border-top:3px solid var(--line);font-size:11px;color:var(--muted);line-height:1.3}
+.sustep .ss i{font-style:normal;width:20px;height:20px;flex:0 0 20px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10.5px}
+.sustep .ss.now{border-color:var(--m);color:var(--ink);font-weight:600}
+.sustep .ss.now i{background:var(--m);color:#fff}
+.sustep .ss.done{border-color:var(--ok)}
+.sustep .ss.done i{background:var(--ok);color:#fff}
+.suseg{display:inline-flex;border:1px solid #DADDE8;border-radius:8px;overflow:hidden;margin-bottom:8px}
+.suseg span{padding:6px 12px;font-size:11.5px;cursor:pointer;color:var(--ink2)}
+.suseg span+span{border-left:1px solid #DADDE8}
+.suseg span.on{background:var(--m);color:#fff;font-weight:600}
+.suname{border:0;padding:0;margin:0 0 4px;min-width:0}
+.suname legend{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.suname .g3{display:grid;grid-template-columns:92px 1fr 1fr;gap:10px}
+.sudoc .drop{padding:12px;flex-direction:row;justify-content:center;gap:8px}
+.sudoc .filelist{margin-top:0}
 .demoacc{margin-top:18px}
 .demoacc .dk{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:8px}
 .demoacc .chips .chipf{font-size:11.5px;padding:5px 10px}
@@ -601,9 +617,18 @@ lo:{
  nxCk:'ລາຍການລໍໃຫ້ທ່ານກວດສອບ',nxAp:'ລາຍການລໍໃຫ້ທ່ານອະນຸມັດ ແລະ E-Sign',nxNext:'ລາຍການຕໍ່ໄປ',nxStartCk:'ເລີ່ມກວດສອບ',nxStartAp:'ເປີດເພື່ອລົງນາມ',nxClear:'ບໍ່ມີວຽກຄ້າງ',nxClearS:'ບໍ່ມີລາຍການລໍຖ້າທ່ານໃນຕອນນີ້',nxValue:'ມູນຄ່າລວມ',pfTitle:'ພາບລວມພອດ',pfPaidCap:'ທຶນທີ່ຊຳລະແລ້ວ',advFilters:'ຕົວກອງເພີ່ມເຕີມ',kwPh:'ຄົ້ນຫາດ້ວຍຊື່ ຫຼື ເລກທະບຽນ',kwLbl:'ຄົ້ນຫາ',entList:'ລາຍຊື່ວິສາຫະກິດ',demoAccts:'ບັນຊີເດໂມ',unpaidInv:'ໃບແຈ້ງໜີ້ຄ້າງຊຳລະ',secIdentity:'ຂໍ້ມູນວິສາຫະກິດ',secRegistration:'ການຈົດທະບຽນ',secLocation:'ທີ່ຕັ້ງ',secTaxFin:'ອາກອນ ແລະ ການເງິນ',valAssetCard:'ຊັບສິນທີ່ປະເມີນ',menuLbl:'ເມນູ',wsOverview:'ພາບລວມ',sysHealth:'ສະຖານະລະບົບ',docsOnFile:'ເອກະສານທີ່ມີແລ້ວ',nxOpenAll:'ເບິ່ງທັງໝົດ',apiDegraded:'ເຊື່ອມຕໍ່ຊ້າ',lockedAcc:'ບັນຊີຖືກລັອກ',fullyPaidOf:'ຊຳລະຄົບ',
  loginUser:'ຊື່ຜູ້ໃຊ້',loginPass:'ລະຫັດຜ່ານ',loginNext:'ຖັດໄປ',loginBack:'← ກັບຄືນ',
  otpTitle:'ຢືນຢັນຕົວຕົນ (MFA)',login:'ເຂົ້າສູ່ລະບົບ',
- forgotPw:'ລືມລະຫັດຜ່ານ?',noAcct:'ຍັງບໍ່ມີບັນຊີ?',signUp:'ສະໝັກສະມາຊິກ',signupTitle:'ສະໝັກບັນຊີໃໝ່',
- signupHint:'ກອກຂໍ້ມູນໃຫ້ຄົບ ລະບົບຈະສົ່ງລະຫັດຜ່ານຊົ່ວຄາວໄປທີ່ອີເມວຂອງທ່ານ',suEmail:'ອີເມວ',suIdNo:'ເລກບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',
- suTitle:'ຄຳນຳໜ້າ',suFirst:'ຊື່',suLast:'ນາມສະກຸນ',suBack:'← ກັບໄປໜ້າເຂົ້າສູ່ລະບົບ',suDoneTitle:'ສະໝັກສຳເລັດ',
+ forgotPw:'ລືມລະຫັດຜ່ານ?',noAcct:'ຍັງບໍ່ມີບັນຊີ?',signUp:'ສ້າງບັນຊີ',signupTitle:'ສ້າງບັນຊີ',
+ signupHint:'ກອກຂໍ້ມູນຜູ້ສະໝັກ ລະບົບຈະສົ່ງລະຫັດຢືນຢັນໄປທີ່ອີເມວຂອງທ່ານ',suEmail:'ອີເມວ',suIdNo:'ເລກບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',
+ suTitle:'ຄຳນຳໜ້າ',suFirst:'ຊື່',suLast:'ນາມສະກຸນ',suBack:'← ກັບໄປໜ້າເຂົ້າສູ່ລະບົບ',suDoneTitle:'ສ້າງບັນຊີສຳເລັດ',
+ suStep1:'ຂໍ້ມູນຜູ້ສະໝັກ',suStep2:'ຢືນຢັນອີເມວ',suStep3:'ເອກະສານ',suIdType:'ປະເພດເອກະສານຢັ້ງຢືນຕົວຕົນ',suCid:'ບັດປະຈຳຕົວ',suPassport:'ໜັງສືຜ່ານແດນ',
+ suCidNo:'ເລກບັດປະຈຳຕົວ',suPassportNo:'ເລກໜັງສືຜ່ານແດນ',suNameLo:'ຊື່ພາສາລາວ',suNameEn:'ຊື່ພາສາອັງກິດ',suSubmit:'ສົ່ງຂໍ້ມູນ',
+ suOtpTitle:'ຢືນຢັນອີເມວ',suOtpMsg:'ລະບົບໄດ້ສົ່ງລະຫັດ 6 ຫຼັກໄປທີ່',suOtpHint:'ກະລຸນາໃສ່ລະຫັດຈາກອີເມວ',suResend:'ສົ່ງລະຫັດອີກຄັ້ງ',
+ suOtpSent:'ສົ່ງລະຫັດຢືນຢັນແລ້ວ',suEmailOk:'ຢືນຢັນອີເມວແລ້ວ',suDocTitle:'ເອກະສານຢືນຢັນວິສາຫະກິດ',
+ suDocHint:'ອັບໂຫຼດເອກະສານເພື່ອຢືນຢັນວິສາຫະກິດທີ່ທ່ານຕ້ອງການສ້າງບັນຊີ',suEntSec:'ຂໍ້ມູນວິສາຫະກິດ',suRegNo:'ເລກທະບຽນວິສາຫະກິດ',
+ suEtype:'ປະເພດວິສາຫະກິດ',suEtypePick:'- ເລືອກປະເພດວິສາຫະກິດ -',suDocsSec:'ເອກະສານທີ່ຕ້ອງອັບໂຫຼດ',suPickFirst:'ເລືອກປະເພດວິສາຫະກິດກ່ອນ ເພື່ອເບິ່ງເອກະສານທີ່ຕ້ອງໃຊ້',
+ suDropT:'ກົດເພື່ອເລືອກໄຟລ໌ ຫຼື ລາກມາວາງ',suFileRule:'PDF, JPG, PNG ບໍ່ເກີນ 10 MB ຕໍ່ໄຟລ໌',suOptional:'(ຖ້າມີ)',
+ suErrType:'ຮັບສະເພາະໄຟລ໌ PDF, JPG ຫຼື PNG',suErrSize:'ໄຟລ໌ໃຫຍ່ເກີນ 10 MB',suErrDoc:'ກະລຸນາອັບໂຫຼດເອກະສານທີ່ຈຳເປັນໃຫ້ຄົບ',
+ suErrEnName:'ຊື່ພາສາອັງກິດໃຊ້ໄດ້ສະເພາະຕົວອັກສອນ A-Z',
  suDoneMsg:'ລະບົບໄດ້ສົ່ງລະຫັດຜ່ານຊົ່ວຄາວໄປທີ່',suDoneHint:'ໃຊ້ອີເມວນີ້ ແລະ ລະຫັດຜ່ານທີ່ໄດ້ຮັບເພື່ອເຂົ້າສູ່ລະບົບ ຈາກນັ້ນລະບົບຈະໃຫ້ຕັ້ງລະຫັດຜ່ານໃໝ່',
  suToSignIn:'ໄປໜ້າເຂົ້າສູ່ລະບົບ',errEmail:'ຮູບແບບອີເມວບໍ່ຖືກຕ້ອງ',errIdNo:'ເລກບັດ / ໜັງສືຜ່ານແດນ ຕ້ອງມີຢ່າງໜ້ອຍ 6 ຕົວ',
  firstPwTitle:'ຕັ້ງລະຫັດຜ່ານໃໝ່',firstPwNote:'ນີ້ແມ່ນການເຂົ້າສູ່ລະບົບຄັ້ງທຳອິດ ກະລຸນາຕັ້ງລະຫັດຜ່ານຂອງທ່ານເອງແທນລະຫັດຊົ່ວຄາວ',
@@ -773,11 +798,20 @@ en:{
  nxCk:'items waiting for your verification',nxAp:'items waiting for your approval and E-Sign',nxNext:'Next up',nxStartCk:'Start review',nxStartAp:'Open to sign',nxClear:'All caught up',nxClearS:'Nothing is waiting on you right now',nxValue:'Total value',pfTitle:'Portfolio',pfPaidCap:'Capital paid up',advFilters:'More filters',kwPh:'Search by name or registration no.',kwLbl:'Search',entList:'Enterprises',demoAccts:'Demo accounts',unpaidInv:'unpaid invoice(s)',secIdentity:'Identity',secRegistration:'Registration',secLocation:'Location',secTaxFin:'Tax & finance',valAssetCard:'Asset under valuation',menuLbl:'Menu',wsOverview:'Overview',sysHealth:'System health',docsOnFile:'Documents on file',nxOpenAll:'View all',apiDegraded:'degraded',lockedAcc:'locked account(s)',fullyPaidOf:'Fully paid',
  loginUser:'Username',loginPass:'Password',loginNext:'Next',loginBack:'← Back',
  otpTitle:'Verify identity (MFA)',login:'Sign in',
- forgotPw:'Forgot password?',noAcct:"Don't have an account?",signUp:'Sign up',signupTitle:'Create an account',
- signupHint:'Fill in your details. A temporary password will be emailed to you.',suEmail:'Email',suIdNo:'Citizen ID / Passport ID',
- suTitle:'Title',suFirst:'First name',suLast:'Last name',suBack:'← Back to sign in',suDoneTitle:'Registration complete',
+ forgotPw:'Forgot password?',noAcct:"Don't have an account?",signUp:'Create Account',signupTitle:'Create Account',
+ signupHint:'Enter the applicant details. We will email you a verification code.',suEmail:'Email',suIdNo:'Citizen ID / Passport Number',
+ suTitle:'Title',suFirst:'First name',suLast:'Last name',suBack:'← Back to sign in',suDoneTitle:'Account created',
+ suStep1:'Applicant details',suStep2:'Verify email',suStep3:'Documents',suIdType:'Identity document',suCid:'Citizen ID',suPassport:'Passport',
+ suCidNo:'Citizen ID number',suPassportNo:'Passport number',suNameLo:'Lao name',suNameEn:'English name',suSubmit:'Submit',
+ suOtpTitle:'Verify email',suOtpMsg:'We sent a 6-digit code to',suOtpHint:'Enter the code from the email',suResend:'Resend code',
+ suOtpSent:'Verification code sent',suEmailOk:'Email verified',suDocTitle:'Enterprise documents',
+ suDocHint:'Upload documents that verify the enterprise this account is for.',suEntSec:'Enterprise details',suRegNo:'Enterprise registration number',
+ suEtype:'Enterprise type',suEtypePick:'- Select enterprise type -',suDocsSec:'Documents to upload',suPickFirst:'Select an enterprise type to see the documents it needs',
+ suDropT:'Click to choose a file, or drag it here',suFileRule:'PDF, JPG, PNG up to 10 MB per file',suOptional:'(optional)',
+ suErrType:'Only PDF, JPG or PNG files are accepted',suErrSize:'File is larger than 10 MB',suErrDoc:'Upload every required document',
+ suErrEnName:'English name may use the letters A-Z only',
  suDoneMsg:'A temporary password has been sent to',suDoneHint:'Sign in with this email and that password; you will then set a new password.',
- suToSignIn:'Go to sign in',errEmail:'Invalid email address',errIdNo:'Citizen ID / Passport ID must have at least 6 characters',
+ suToSignIn:'Go to sign in',errEmail:'Invalid email address',errIdNo:'Citizen ID / Passport Number must have at least 6 characters',
  firstPwTitle:'Set a new password',firstPwNote:'This is your first sign-in. Replace the temporary password with your own.',
  firstPwDone:'Password set',nuEmpty:'No enterprise is linked to this account yet',
 forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
@@ -1066,6 +1100,38 @@ var ACCTS=[
  {id:'newuser',user:'new.user',nm:'ທ້າວ ສົມສັກ ພົມມະວົງ',rl:{lo:'ຜູ້ໃຊ້ໃໝ່ · New user',en:'New user'},av:'ສພ',tempPw:true}
 ];
 var TITLES={mr:{lo:'ທ້າວ',en:'Mr.'},mrs:{lo:'ນາງ',en:'Mrs.'},ms:{lo:'ນາງສາວ',en:'Ms.'}};
+// Create Account step 3: enterprise types and the documents each one must upload (opt:1 = optional).
+var SU_DOC={
+  regCert:{lo:'ໃບທະບຽນວິສາຫະກິດ',en:'Enterprise registration certificate'},
+  ownerId:{lo:'ບັດປະຈຳຕົວ ຫຼື ໜັງສືຜ່ານແດນຂອງເຈົ້າຂອງ',en:"Owner's ID card or passport"},
+  partnerAgree:{lo:'ສັນຍາຫຸ້ນສ່ວນ',en:'Partnership agreement'},
+  partnerIds:{lo:'ບັດປະຈຳຕົວ ຫຼື ໜັງສືຜ່ານແດນຂອງຜູ້ເປັນຫຸ້ນສ່ວນ',en:"Partners' ID cards or passports"},
+  articles:{lo:'ກົດລະບຽບບໍລິສັດ',en:'Articles of association'},
+  shareholders:{lo:'ບັນຊີລາຍຊື່ຜູ້ຖືຮຸ້ນ',en:'Shareholder register'},
+  authLetter:{lo:'ໜັງສືມອບສິດ',en:'Letter of authorization'},
+  estDecision:{lo:'ຂໍ້ຕົກລົງສ້າງຕັ້ງວິສາຫະກິດ',en:'Establishment decision'},
+  jvAgree:{lo:'ສັນຍາຮ່ວມທຶນ',en:'Joint venture agreement'},
+  appointLetter:{lo:'ໜັງສືແຕ່ງຕັ້ງຜູ້ຕາງໜ້າ',en:'Appointment letter of the representative'},
+  coopCert:{lo:'ໃບທະບຽນສະຫະກອນ',en:'Cooperative registration certificate'},
+  coopCharter:{lo:'ກົດລະບຽບສະຫະກອນ',en:'Cooperative charter'},
+  memberList:{lo:'ບັນຊີລາຍຊື່ສະມາຊິກ',en:'Member list'}
+};
+var SU_ETYPES=[
+  {k:'sole',lo:'ວິສາຫະກິດສ່ວນບຸກຄົນ',en:'Sole proprietorship',docs:[['regCert'],['ownerId']]},
+  {k:'partnership',lo:'ຫຸ້ນສ່ວນ',en:'Partnership',docs:[['regCert'],['partnerAgree'],['partnerIds']]},
+  {k:'company',lo:'ບໍລິສັດ',en:'Company',docs:[['regCert'],['articles'],['shareholders'],['authLetter',1]]},
+  {k:'statejv',lo:'ວິສາຫະກິດລັດ / ວິສາຫະກິດຮ່ວມທຶນ',en:'State / Joint venture',docs:[['regCert'],['estDecision'],['appointLetter'],['jvAgree',1]]},
+  {k:'coop',lo:'ສະຫະກອນ',en:'Cooperative',docs:[['coopCert'],['coopCharter'],['memberList']]}
+];
+var SU_MAX_BYTES=10*1024*1024;
+function suEtype(k){return SU_ETYPES.filter(function(x){return x.k===k})[0]}
+// Returns an error message, or '' when the file is a PDF/JPG/PNG of at most 10 MB.
+function suFileErr(f){
+  if(!/\.(pdf|jpe?g|png)$/i.test(f.name||''))return t('suErrType');
+  if(f.size>SU_MAX_BYTES)return t('suErrSize');
+  return '';
+}
+function fileSize(b){return b>=1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB'}
 function who(){var a=ACCTS.filter(function(x){return x.id===S.role})[0]||ACCTS[0];
   return {n:a.nm,r:a.rl[lang]||a.rl.en,av:a.av}}
 function matchAcct(){var u=(S.loginUser||'').trim().toLowerCase();return ACCTS.filter(function(a){return a.user.toLowerCase()===u})[0]}
@@ -1509,19 +1575,62 @@ function vLogin(){
    '<div style="text-align:right;margin-top:-6px"><span class="lnk" style="font-size:12px" data-forgot="1">'+t('forgotPw')+'</span></div>'+
    '<button class="btn" style="width:100%;padding:12px;margin-top:16px;font-size:13.5px" id="doCred">'+t('loginNext')+'</button>'+
    '<div style="text-align:center;margin-top:14px;font-size:12.5px;color:var(--muted)">'+t('noAcct')+' <span class="lnk" data-signup="1">'+t('signUp')+'</span></div>';
-  var su=S.signup||{},suErr=su.err||'';
-  var signupBody=
-   '<h2>'+t('signupTitle')+'</h2><p>'+t('signupHint')+'</p>'+
-   '<div class="field"><label for="suEmail">'+t('suEmail')+'</label><input id="suEmail" type="email" autocomplete="email" data-su="email" value="'+esc(su.email||'')+'"></div>'+
-   '<div class="field"><label for="suIdNo">'+t('suIdNo')+'</label><input id="suIdNo" data-su="idNo" value="'+esc(su.idNo||'')+'"></div>'+
-   '<div class="frow" style="display:grid;grid-template-columns:110px 1fr;gap:10px">'+
-    '<div class="field"><label for="suTitle">'+t('suTitle')+'</label><select id="suTitle" data-su="title">'+
-     Object.keys(TITLES).map(function(k){return '<option value="'+k+'"'+(su.title===k?' selected':'')+'>'+L(TITLES[k])+'</option>'}).join('')+'</select></div>'+
-    '<div class="field"><label for="suFirst">'+t('suFirst')+'</label><input id="suFirst" autocomplete="given-name" data-su="first" value="'+esc(su.first||'')+'"></div></div>'+
-   '<div class="field"><label for="suLast">'+t('suLast')+'</label><input id="suLast" autocomplete="family-name" data-su="last" value="'+esc(su.last||'')+'"></div>'+
-   (suErr?'<div class="hint err" style="margin:-8px 0 12px">'+suErr+'</div>':'')+
-   '<button class="btn" style="width:100%;padding:12px;margin-top:6px;font-size:13.5px" id="doSignup">'+t('signUp')+'</button>'+
+  var su=S.signup||{},suErr=su.err||'',sustep=su.step||1;
+  var errLine=suErr?'<div class="hint err" style="margin:-4px 0 12px">'+suErr+'</div>':'';
+  var stepBar='<div class="sustep">'+[t('suStep1'),t('suStep2'),t('suStep3')].map(function(lbl,i){
+    var n=i+1,st=n<sustep?'done':(n===sustep?'now':'');
+    return '<div class="ss'+(st?' '+st:'')+'"><i>'+(st==='done'?'✓':n)+'</i><span>'+lbl+'</span></div>'}).join('')+'</div>';
+  var titleSel=function(key,ln){return '<select id="su_'+key+'" data-su="'+key+'" aria-label="'+t('suTitle')+'">'+
+    Object.keys(TITLES).map(function(k){return '<option value="'+k+'"'+(su[key]===k?' selected':'')+'>'+TITLES[k][ln]+'</option>'}).join('')+'</select>'};
+  var nameGroup=function(ln,legend){var p=ln==='lo'?'Lo':'En';
+    return '<fieldset class="suname"><legend>'+legend+' *</legend><div class="g3">'+
+     '<div class="field"><label for="su_title'+p+'">'+t('suTitle')+'</label>'+titleSel('title'+p,ln)+'</div>'+
+     '<div class="field"><label for="su_first'+p+'">'+t('suFirst')+'</label><input id="su_first'+p+'" data-su="first'+p+'"'+(ln==='en'?' autocomplete="given-name"':'')+' value="'+esc(su['first'+p]||'')+'"></div>'+
+     '<div class="field"><label for="su_last'+p+'">'+t('suLast')+'</label><input id="su_last'+p+'" data-su="last'+p+'"'+(ln==='en'?' autocomplete="family-name"':'')+' value="'+esc(su['last'+p]||'')+'"></div>'+
+    '</div></fieldset>'};
+  var isPp=su.idType==='pp';
+  var su1=
+   '<h2>'+t('signupTitle')+'</h2><p>'+t('signupHint')+'</p>'+stepBar+
+   '<div class="field"><label for="suEmail">'+t('suEmail')+' *</label><input id="suEmail" type="email" autocomplete="email" placeholder="name@example.com" data-su="email" value="'+esc(su.email||'')+'"></div>'+
+   '<div class="field"><label for="suIdNo">'+t('suIdNo')+' *</label>'+
+    '<div class="suseg" role="radiogroup" aria-label="'+t('suIdType')+'">'+
+     '<span role="radio" aria-checked="'+!isPp+'" class="'+(isPp?'':'on')+'" data-suidt="cid">'+t('suCid')+'</span>'+
+     '<span role="radio" aria-checked="'+isPp+'" class="'+(isPp?'on':'')+'" data-suidt="pp">'+t('suPassport')+'</span></div>'+
+    '<input id="suIdNo" data-su="idNo" placeholder="'+(isPp?t('suPassportNo'):t('suCidNo'))+'" aria-label="'+(isPp?t('suPassportNo'):t('suCidNo'))+'" value="'+esc(su.idNo||'')+'"></div>'+
+   nameGroup('lo',t('suNameLo'))+nameGroup('en',t('suNameEn'))+errLine+
+   '<button class="btn" style="width:100%;padding:12px;margin-top:6px;font-size:13.5px" id="doSignup">'+t('suSubmit')+'</button>'+
    '<div class="lnk" style="margin-top:14px;display:inline-block" data-backcred="1">'+t('suBack')+'</div>';
+  var su2=
+   '<h2>'+t('suOtpTitle')+'</h2><p>'+t('suOtpMsg')+' <b>'+esc(su.email||'')+'</b><br>'+t('suOtpHint')+'</p>'+stepBar+
+   '<div class="otp" id="suOtp">'+[0,1,2,3,4,5].map(function(){return '<input maxlength="1" size="1" inputmode="numeric" aria-label="OTP">'}).join('')+'</div>'+
+   '<div style="text-align:right"><span class="lnk" data-suresend="1">'+t('suResend')+'</span></div>'+
+   '<button class="btn" style="width:100%;padding:12px;margin-top:16px;font-size:13.5px" id="doSuOtp" disabled>'+t('loginNext')+'</button>'+
+   '<div class="lnk" style="margin-top:14px;display:inline-block" data-sugo="1">'+t('loginBack')+'</div>';
+  var et=suEtype(su.etype),docs=su.docs||{},docErr=su.docErr||{};
+  var docField=function(d){var k=d[0],f=docs[k],lbl=L(SU_DOC[k]);
+    return '<div class="field sudoc"><label>'+lbl+(d[1]?' <span style="color:var(--muted)">'+t('suOptional')+'</span>':' *')+'</label>'+
+     (f?'<div class="filelist"><div class="filerow up"><span class="fic">'+luSvg('circleCheck')+'</span>'+
+        '<div class="fmeta"><b>'+esc(f.name)+'</b><span>'+fileSize(f.size)+'</span></div>'+
+        '<span class="frm" data-surm="'+k+'" title="'+t('cancel')+'">✕</span></div></div>'
+       :'<div class="drop" data-sudrop="'+k+'" role="button" tabindex="0"><span class="dropIcon">⬆</span><b>'+t('suDropT')+'</b></div>')+
+     '<input type="file" hidden accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" data-sufile="'+k+'">'+
+     (docErr[k]?'<div class="hint err">'+docErr[k]+'</div>':'')+'</div>'};
+  var su3=
+   '<h2>'+t('suDocTitle')+'</h2><p>'+t('suDocHint')+'</p>'+stepBar+
+   '<div class="sc-note ok" style="border-radius:10px;margin:0 0 16px;padding:9px 14px"><span class="ni">'+luSvg('circleCheck')+'</span>'+
+    '<div class="nt">'+t('suEmailOk')+' - <b>'+esc(su.email||'')+'</b></div></div>'+
+   '<fieldset class="suname"><legend>'+t('suEntSec')+'</legend>'+
+   '<div class="field"><label for="suRegNo">'+t('suRegNo')+' *</label><input id="suRegNo" data-su="regNo" placeholder="ELN-2025-xxxx" value="'+esc(su.regNo||'')+'"></div>'+
+   '<div class="field"><label for="suEtype">'+t('suEtype')+' *</label><select id="suEtype" data-suetype="1">'+
+    '<option value="">'+t('suEtypePick')+'</option>'+
+    SU_ETYPES.map(function(x){return '<option value="'+x.k+'"'+(su.etype===x.k?' selected':'')+'>'+L(x)+'</option>'}).join('')+'</select></div></fieldset>'+
+   '<fieldset class="suname"><legend>'+t('suDocsSec')+'</legend>'+
+    '<div class="hint" style="margin:-4px 0 12px">'+t('suFileRule')+'</div>'+
+    (et?et.docs.map(docField).join(''):'<div class="hint" style="padding:6px 0 12px">'+t('suPickFirst')+'</div>')+'</fieldset>'+
+   errLine+
+   '<button class="btn" style="width:100%;padding:12px;margin-top:6px;font-size:13.5px" id="doSuCreate">'+t('signUp')+'</button>'+
+   '<div class="lnk" style="margin-top:14px;display:inline-block" data-backcred="1">'+t('suBack')+'</div>';
+  var signupBody=sustep===3?su3:sustep===2?su2:su1;
   var signupDone=
    '<h2>'+t('suDoneTitle')+'</h2>'+
    '<div class="sc-note ok" style="border-radius:10px;margin:14px 0"><span class="ni">'+luSvg('circleCheck')+'</span>'+
@@ -3273,20 +3382,58 @@ function bind(){
     ev.stopPropagation();if(S.loginStep==='signupDone'){S.loginUser=S.signup.email.trim();S.loginPass=''}
     S.loginStep='cred';render()}});
   document.querySelectorAll('[data-signup]').forEach(function(b){b.onclick=function(ev){
-    ev.stopPropagation();S.signup={title:'mr'};S.loginStep='signup';S.loginErr='';render()}});
+    ev.stopPropagation();S.signup={step:1,idType:'cid',titleLo:'mr',titleEn:'mr',docs:{},docErr:{}};S.loginStep='signup';S.loginErr='';render()}});
   document.querySelectorAll('[data-su]').forEach(function(el){
     el[el.tagName==='SELECT'?'onchange':'oninput']=function(){S.signup[el.dataset.su]=el.value}});
+  document.querySelectorAll('[data-suidt]').forEach(function(b){b.onclick=function(){
+    S.signup.idType=b.dataset.suidt;render();var n=$('#suIdNo');if(n)n.focus()}});
+  var suv=function(k){return ((S.signup||{})[k]||'').trim()};
   var dsg=$('#doSignup');
   if(dsg)dsg.onclick=function(){
-    var su=S.signup,v=function(k){return (su[k]||'').trim()};
-    if(!v('email')||!v('idNo')||!v('first')||!v('last')){su.err=t('errRequired');return render()}
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email'))){su.err=t('errEmail');return render()}
-    if(v('idNo').length<6){su.err=t('errIdNo');return render()}
+    var su=S.signup,need=['email','idNo','firstLo','lastLo','firstEn','lastEn'];
+    if(need.some(function(k){return !suv(k)})){su.err=t('errRequired');return render()}
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(suv('email'))){su.err=t('errEmail');return render()}
+    if(suv('idNo').length<6){su.err=t('errIdNo');return render()}
+    if(!/^[A-Za-z][A-Za-z .'-]*$/.test(suv('firstEn')+' '+suv('lastEn'))){su.err=t('suErrEnName');return render()}
+    su.err='';su.step=2;render();toast(t('suOtpSent'),suv('email'),true)};
+  var suo=$('#suOtp');if(suo)otpWire(suo,function(f){$('#doSuOtp').disabled=!f});
+  document.querySelectorAll('[data-suresend]').forEach(function(b){b.onclick=function(){
+    render();toast(t('suOtpSent'),suv('email'),true)}});
+  document.querySelectorAll('[data-sugo]').forEach(function(b){b.onclick=function(){
+    S.signup.step=Number(b.dataset.sugo);S.signup.err='';render()}});
+  var dso=$('#doSuOtp');if(dso)dso.onclick=function(){S.signup.step=3;S.signup.err='';render();toast(t('suEmailOk'),suv('email'),true)};
+  var sue=$('#suEtype');if(sue)sue.onchange=function(){
+    // Documents differ per enterprise type, so a new type starts from an empty upload list.
+    S.signup.etype=sue.value;S.signup.docs={};S.signup.docErr={};S.signup.err='';render()};
+  var suTake=function(k,file){
+    if(!file)return;
+    var su=S.signup,err=suFileErr(file);
+    if(err){su.docErr[k]=err+' ('+file.name+')';delete su.docs[k]}
+    else{su.docErr[k]='';su.docs[k]={name:file.name,size:file.size}}
+    su.err='';render()};
+  document.querySelectorAll('[data-sufile]').forEach(function(inp){inp.onchange=function(){
+    suTake(inp.dataset.sufile,inp.files&&inp.files[0])}});
+  document.querySelectorAll('[data-sudrop]').forEach(function(el){
+    var k=el.dataset.sudrop,pick=function(){var inp=document.querySelector('[data-sufile="'+k+'"]');if(inp)inp.click()};
+    el.onclick=pick;
+    el.onkeydown=function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();pick()}};
+    el.ondragover=function(ev){ev.preventDefault();el.classList.add('drag')};
+    el.ondragleave=function(){el.classList.remove('drag')};
+    el.ondrop=function(ev){ev.preventDefault();el.classList.remove('drag');
+      var dt=ev.dataTransfer&&ev.dataTransfer.files;suTake(k,dt&&dt[0])}});
+  document.querySelectorAll('[data-surm]').forEach(function(b){b.onclick=function(){
+    delete S.signup.docs[b.dataset.surm];render()}});
+  var dsc2=$('#doSuCreate');
+  if(dsc2)dsc2.onclick=function(){
+    var su=S.signup,et=suEtype(su.etype);
+    if(!suv('regNo')||!et){su.err=t('errRequired');return render()}
+    var missing=et.docs.filter(function(d){return !d[1]&&!su.docs[d[0]]});
+    if(missing.length){su.err=t('suErrDoc')+': '+missing.map(function(d){return L(SU_DOC[d[0]])}).join(', ');return render()}
     // The demo "New user" account becomes the person who just registered.
-    var a=ACCTS.filter(function(x){return x.id==='newuser'})[0];
-    a.user=v('email');a.nm=L(TITLES[su.title||'mr'])+' '+v('first')+' '+v('last');a.tempPw=true;
-    a.av=(v('first').charAt(0)+v('last').charAt(0)).toUpperCase();
-    su.err='';S.loginStep='signupDone';render();toast(t('suDoneTitle'),v('email'),true)};
+    var a=ACCTS.filter(function(x){return x.id==='newuser'})[0],p=lang==='lo'?'Lo':'En';
+    a.user=suv('email');a.nm=TITLES[su['title'+p]||'mr'][lang]+' '+suv('first'+p)+' '+suv('last'+p);a.tempPw=true;
+    a.av=(suv('first'+p).charAt(0)+suv('last'+p).charAt(0)).toUpperCase();
+    su.err='';S.loginStep='signupDone';render();toast(t('suDoneTitle'),suv('email'),true)};
   document.querySelectorAll('[data-forgot]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();S.modal={type:'forgot',step:'id',idv:''};render()}});
 
