@@ -76,11 +76,15 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
      (ตรวจครบทุกช่อง, รูปแบบอีเมล, เลขบัตรอย่างน้อย 6 ตัว, ชื่ออังกฤษใช้ได้แค่ A-Z) กด Submit แล้วระบบส่ง OTP ไปที่อีเมล
   2. **Verify email**: แจ้งว่าส่ง OTP ไปที่อีเมลที่ระบุแล้ว ให้นำรหัสมาใส่ (หากไม่พบให้ดูในโฟลเดอร์ Spam / Junk)
      ใส่ OTP 6 หลัก (demo ใส่เลขอะไรก็ได้) กด Next, มีลิงก์ Resend code และ Back กลับไปแก้อีเมล
-  3. **Documents**: Enterprise registration number และ Enterprise type (Sole proprietorship, Partnership,
-     Company, State / Joint venture, Cooperative) เลือกประเภทแล้วจะขึ้นช่องอัปโหลดเอกสารตามประเภทนั้น
-     (`SU_ETYPES` / `SU_DOC`) รับเฉพาะ PDF, JPG, PNG ไม่เกิน 10 MB ต่อไฟล์ (ตรวจจากไฟล์จริง ทั้งกดเลือกและลากวาง)
-     ต้องอัปโหลดเอกสารที่จำเป็นให้ครบก่อนกด Create Account
-- หลังกด Create Account ขึ้นหน้า **Application submitted** แจ้งว่าเอกสารรอตรวจสอบ (แสดงเลขทะเบียน + ประเภทวิสาหกิจ)
+  3. **Documents**: เนื้อหาเปลี่ยนตาม Role ที่เลือกใน step 1 (`suDocsFor()`)
+     - **Owner**: Enterprise details คือ Enterprise registration number และ Enterprise type (Sole proprietorship,
+       Partnership, Company, State / Joint venture, Cooperative) เลือกประเภทแล้วจะขึ้นช่องอัปโหลดเอกสารตามประเภทนั้น
+       (`SU_ETYPES` / `SU_DOC`)
+     - **Role อื่น**: ไม่มี Enterprise details ให้อัปโหลดบัตรประชาชน (หรือพาสปอร์ต ถ้า step 1 เลือก Passport)
+       และบัตรพนักงาน
+     - รับเฉพาะ PDF, JPG, PNG ไม่เกิน 10 MB ต่อไฟล์ (ตรวจจากไฟล์จริง ทั้งกดเลือกและลากวาง)
+       ต้องอัปโหลดเอกสารที่จำเป็นให้ครบก่อนกด Create Account
+- หลังกด Create Account ขึ้นหน้า **Application submitted** แจ้งว่าเอกสารรอตรวจสอบ (Owner แสดงเลขทะเบียน + ประเภทวิสาหกิจ, Role อื่นแสดง Role)
   และเมื่อเอกสารผ่านจะส่งรหัสผ่านชั่วคราวไปที่อีเมล → กลับหน้า login (กรอกอีเมลให้) → (demo: ข้ามขั้นรอตรวจ) ใส่รหัสผ่าน
   → OTP → ขึ้น modal **ตั้งรหัสผ่านใหม่** (modal เดียวกับลืมรหัสผ่าน ปิดไม่ได้จนกว่าจะตั้ง) → เข้า
   My Registered Capital ที่ยังไม่มีวิสาหกิจ บัญชี demo **New user** (`new.user`) ใช้ flow ครั้งแรกนี้
