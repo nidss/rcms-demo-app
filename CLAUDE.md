@@ -17,6 +17,19 @@ npm run preview  # serve the built file
 
 There are no tests, linter or formatter. To verify a change, run it in a browser against `npm run dev`. After `npm run build`, the root `index.html` also opens straight from disk (`file://`), which is handy for headless browser checks. `src/index.html` itself does not: it is an ES module that imports Leaflet and the images, so it needs Vite.
 
+Keyboard shortcuts (global `keydown` handler, ignored while typing in a field) help when testing:
+- `Alt+R` resets the demo data.
+- `Alt+L` switches language.
+- `Alt+Q` logs out.
+- `Alt+B` collapses the sidebar.
+- `Alt+M` toggles the owner mobile preview.
+- `Alt+/` lists every shortcut.
+
+## Git
+
+- Merges to `main` are squash merges, and the commit title ends with the PR number, e.g. `Rename Sign in / Sign out to Log in / Log out in English UI (#23)`.
+- A push to `main` deploys to GitHub Pages, which serves the root `index.html`.
+
 ## Source vs build
 
 - **Edit only `src/index.html`.** The root `index.html` is generated output. `vite-plugin-singlefile` inlines all JS/CSS, and images become data URIs, so the file works over `file://` and on GitHub Pages (served from `main`, repo root).
