@@ -50,7 +50,15 @@ Section comments split the file: dictionary → helpers → accounts → seed da
     - `roleHome()` picks the home view.
     - `firstTab()` picks the default sub-menu.
     - `vDash()` dispatches to the per-role dashboard (`vMakerDash`, `vCheckerDash`, `vApproverDash`, `vAdminDash`, `vOwnerList` / `vOwnerDash`).
+- **Login and Create Account** (`vLogin()`, steps in `S.loginStep`: `cred` → `otp`, or `signup` → `signupDone`)
   - Login runs credentials, then OTP. Accounts with `tempPw` then get the forced set-password modal (`S.modal={type:'forgot',step:'new',first:true}`).
+  - Create Account keeps its form in `S.signup`, with `S.signup.step` 1-3:
+    1. Applicant details: email, Citizen ID or Passport (`idType` `cid`/`pp`), Role applied for (`SU_ROLES`), Lao and English names.
+    2. Verify email: OTP via `otpWire()`.
+    3. Documents, chosen by `suDocsFor(su)`. Owner gets Enterprise details plus the documents for the type (`SU_ETYPES` / `SU_DOC`). Other roles upload ID/Passport plus an employee ID card.
+  - Uploads are real `<input type="file">` (`data-sufile`, drop zone `data-sudrop`). `suFileErr()` allows PDF/JPG/PNG up to 10 MB.
+  - Submitting shows a "pending document review" page. The demo skips the review: the `newuser` account becomes the applicant and can log in at once.
+  - English UI says "Log in" / "Log out" and "Create Account", never "Sign in" / "Sign up".
 - **Lists, search and paging** (use these instead of hand-rolled tables)
   - `listCard(o)` renders the search card (`colFilterBar` → `filterBar` with Search / Clear) plus a table card with count and pager.
     - Fields: `[col, label, options?, type?, match?]`. `options` makes a dropdown (exact match), `type:'date'` a date picker, `match(row, value)` a custom rule (`listMatch()`).

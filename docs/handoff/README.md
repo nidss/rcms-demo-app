@@ -82,6 +82,22 @@ interface Enterprise {
   hist: HistoryEntry[];
 }
 
+// คำขอสร้างบัญชี (Create Account) ที่รอเจ้าหน้าที่ตรวจเอกสาร
+type SignupRole = 'owner' | 'appraiser' | 'moicMaker' | 'moicChecker' | 'moicApprover' | 'bankMaker' | 'bankChecker';
+type EntityType = 'sole' | 'partnership' | 'company' | 'statejv' | 'coop';
+interface SignupApplication {
+  email: string;               // ต้องยืนยันด้วย OTP ก่อนถึงขั้นเอกสาร
+  idType: 'cid' | 'pp';        // Citizen ID หรือ Passport (เลือกอย่างใดอย่างหนึ่ง)
+  idNo: string;
+  role: SignupRole;
+  nameLo: { title: 'mr' | 'mrs' | 'ms'; first: string; last: string };
+  nameEn: { title: 'mr' | 'mrs' | 'ms'; first: string; last: string };
+  regNo?: string;              // เฉพาะ owner
+  entityType?: EntityType;     // เฉพาะ owner
+  docs: { k: string; name: string; size: number }[];   // k ตาม SU_DOC เช่น regCert, idCard, staffCard
+  status: 'pending' | 'approved' | 'rejected';         // approved แล้วจึงส่งรหัสผ่านชั่วคราวทางอีเมล
+}
+
 interface Collateral {
   type: 'land' | 'building' | 'car' | 'machine';
   label: I18nText; detail: I18nText; value: number;
@@ -137,7 +153,8 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 
 | Route (เสนอ) | View ใน demo | Role ที่เข้าได้ |
 |---|---|---|
-| `/login`, `/signup` | `vLogin` (step `cred` / `otp` / `signup` / `signupDone`) | ทุกคน (ยังไม่ login) |
+| `/login` | `vLogin` (step `cred` / `otp`) | ทุกคน (ยังไม่ login) |
+| `/create-account` | `vLogin` (step `signup` ซึ่งมี `S.signup.step` 1-3 และ `signupDone`) | ทุกคน (ยังไม่ login) |
 | `/my-capital` | `vOwnerList` | owner, newuser |
 | `/my-capital/:id` | `vOwnerDash` | owner |
 | `/workspace/:tab` | `vMakerDash` (`ret`, `queue`, `due`) | maker |
@@ -182,9 +199,20 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
   - ชำระครบแล้วเป็น `COMPLETED` ถ้ายังไม่ครบเป็น `PARTIAL` (ดู `approve()`)
   - เกินวันครบกำหนดเป็น `OVERDUE` และมีค่าปรับ (ดู `penOf()`)
 - **ใบรับรอง**: ออกได้เมื่อทุนชำระครบเท่านั้น
-- **Sign-up**
-  - ทุกช่องต้องกรอก, อีเมลต้องถูกรูปแบบ, เลขบัตรอย่างน้อย 6 ตัว
-  - บัญชีที่ใช้รหัสผ่านชั่วคราวต้องตั้งรหัสใหม่หลัง OTP โดยปิด modal ไม่ได้
+- **Create Account** (handler `#doSignup`, `#doSuOtp`, `#doSuCreate` ใน `bind()`)
+  - Step 1 Applicant details: ทุกช่องต้องกรอก (Email, Citizen ID หรือ Passport, Role applied for,
+    ชื่อลาว และชื่ออังกฤษ อย่างละ คำนำหน้า / ชื่อ / นามสกุล), อีเมลต้องถูกรูปแบบ, เลขบัตรอย่างน้อย 6 ตัว,
+    ชื่ออังกฤษใช้ได้แค่ A-Z
+  - Step 2 Verify email: OTP 6 หลักที่ส่งไปอีเมล ปุ่ม Next กดได้เมื่อกรอกครบ มี Resend code
+  - Step 3 Documents เปลี่ยนตาม role (`suDocsFor()`)
+    - owner: ต้องกรอก Enterprise registration number + Enterprise type แล้วอัปโหลดเอกสารตามประเภท
+      (`SU_ETYPES` / `SU_DOC`, บางรายการไม่บังคับ)
+    - role อื่น: ไม่มี Enterprise details อัปโหลดบัตรประชาชน (หรือ Passport ตาม step 1) + บัตรพนักงาน
+    - รับเฉพาะ PDF, JPG, PNG ไม่เกิน 10 MB ต่อไฟล์ (`suFileErr()`) ต้องตรวจซ้ำฝั่ง backend (ทั้งนามสกุลและ MIME)
+  - ส่งแล้วเป็นสถานะรอตรวจเอกสาร เมื่อเอกสารผ่านจึงส่งรหัสผ่านชั่วคราวไปที่อีเมล
+  - Role ที่สมัครยังไม่ได้ผูกกับ role ในระบบ (`Role`) ต้องตกลงกับลูกค้าว่า Bank Maker / Checker,
+    MOIC Maker ฯลฯ ตรงกับ role ไหน
+- **รหัสผ่านชั่วคราว**: บัญชีที่ใช้รหัสผ่านชั่วคราวต้องตั้งรหัสใหม่หลัง OTP โดยปิด modal ไม่ได้
 - **ค่าธรรมเนียม**: ตาม `FEES` (ตามประเภทวิสาหกิจ และตามช่วงทุน)
   - อัตราค่าปรับต่อวันยังไม่ได้กำหนดใน TOR (ข้อความ `penRateTBD`) ต้องถามลูกค้า
 - **"วันนี้"**: demo ล็อกไว้ที่ 04/08/2026 (`daysLeft()`) ระบบจริงต้องใช้วันที่จาก server
@@ -204,7 +232,9 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 | `DocRow` | `docRow()` | แถวเอกสารแบบเดียวกันทั้งระบบ |
 | `Donut` | helper โดนัท | palette `#283579 #5B8DEF #137A41 #E6B92C #C8202E #8B6FD6` |
 | `Modal` + ชนิดต่างๆ | `vModal()` | `approve`, `verify`, `backreason`, `receipt`, `qr`, `valjob`, `adduser`, `forgot`, `done`, `help`, `keys`, `clearcache` |
-| `OtpInput` | `otpWire()` | 6 ช่อง, เลื่อนช่องอัตโนมัติ, Backspace ย้อนกลับ |
+| `OtpInput` | `otpWire()` | 6 ช่อง, เลื่อนช่องอัตโนมัติ, Backspace ย้อนกลับ (ใช้ทั้ง login และ Verify email) |
+| `StepBar` | `stepBar` ใน `vLogin()` | แถบ 3 ขั้นของ Create Account (ขั้นที่ผ่านแล้วเป็น ✓ สีเขียว) |
+| `FileDrop` | `docField` ใน `vLogin()` | กดเลือกหรือลากวาง, ตรวจชนิด/ขนาดไฟล์, แสดงชื่อ + ขนาด + ปุ่มลบ |
 | `Toast` | `toast()` | แสดงกลางล่าง |
 | `MapView` | Leaflet ใน `vDetail` | ต้องรันฝั่ง client เท่านั้น |
 | `WorkSplit` layout | หน้า Task / Transaction | ซ้ายข้อมูลอ้างอิง ขวาส่วนตัดสินใจแบบ sticky |
@@ -243,7 +273,9 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 - ชิป Demo accounts และ datalist ชื่อผู้ใช้ที่หน้า login
 - เมนูสลับ role ในเมนูผู้ใช้
 - Reset demo data / Clear cache และคีย์ลัด `Alt+R`
-- รหัสผ่าน / OTP อะไรก็ผ่าน
+- รหัสผ่าน / OTP อะไรก็ผ่าน (รวม OTP ยืนยันอีเมลตอน Create Account)
+- Create Account ข้ามขั้นรอตรวจเอกสาร: บัญชี demo `new.user` เปลี่ยนเป็นผู้สมัครทันทีและ log in ได้เลย
+  ระบบจริงต้องมีหน้าหลังบ้านให้เจ้าหน้าที่ตรวจเอกสารแล้วอนุมัติ / ปฏิเสธ (ยังไม่มีใน demo)
 - วันที่ล็อก 04/08/2026
 - mobile preview ของ owner (`Alt+M`, `vMobile`)
 - โค้ดที่ไม่มีทางเข้า: `vStaffDash`, `vQueue` (view `inspect` / `approveQ`)
@@ -257,7 +289,14 @@ POST   /auth/login                 { user, password } -> { challengeId }
 POST   /auth/otp                   { challengeId, otp } -> session (+ mustChangePassword)
 POST   /auth/password              { newPassword }
 POST   /auth/forgot                { email }
-POST   /auth/signup                { email, citizenId, title, firstName, lastName }
+POST   /auth/signup                { email, idType, idNo, role, nameLo, nameEn } -> { applicationId } (ส่ง OTP ไปอีเมล)
+POST   /auth/signup/:id/otp        { otp }  (ยืนยันอีเมล)
+POST   /auth/signup/:id/otp/resend
+POST   /auth/signup/:id/documents  multipart: k, file  (PDF/JPG/PNG ≤10 MB)
+POST   /auth/signup/:id/submit     { regNo?, entityType? } -> status 'pending'
+GET    /admin/signup-applications  ?status=&role=&page=&size=
+POST   /admin/signup-applications/:id/approve   (ส่งรหัสผ่านชั่วคราวทางอีเมล)
+POST   /admin/signup-applications/:id/reject    { reason }
 
 GET    /enterprises                ?name=&regNo=&prov=&type=&isic=&regFrom=&regTo=&updFrom=&updTo=&status=&page=&size=
 GET    /enterprises/:id
@@ -279,7 +318,8 @@ GET    /receipts
 GET    /reports/:type              ?from=&to=
 GET    /certificates/:entId        (PDF)
 
-GET    /lookups/{provinces,isic,entity-types,valuation-firms,doc-types,staff?role=}
+GET    /lookups/{provinces,isic,entity-types,valuation-firms,doc-types,staff?role=,signup-roles}
+                                   (entity-types ควรคืนรายการเอกสารที่ต้องอัปโหลดของแต่ละประเภทด้วย)
 GET    /admin/{users,gl,api-log,audit,fees,master}
 ```
 
@@ -292,7 +332,7 @@ GET    /admin/{users,gl,api-log,audit,fees,master}
    - ตั้งโปรเจกต์ ย้าย `tokens.css` ฟอนต์ และ i18n (lo / en)
    - ทำ mock API จาก seed data
 2. **Shell + Auth**
-   - login, OTP, forced password change, sign-up
+   - login, OTP, forced password change, Create Account (3 ขั้น + อัปโหลดเอกสาร)
    - `AppShell`, เมนูตาม role, route guard
 3. **Shared list**
    - `FilterBar`, `DataTable`, `Pager`, `ListCard`, `SummaryCard`, `StatusPill`

@@ -27,7 +27,7 @@ app/
   globals.css                     # tokens.css + base
   (auth)/
     login/page.tsx
-    signup/page.tsx
+    create-account/page.tsx       # 3 ขั้นเป็น client component เดียว
   (app)/
     layout.tsx                    # AppShell (Sidebar + Topbar) อ่าน session ฝั่ง server
     page.tsx                      # redirect ตาม roleHome()
@@ -187,7 +187,7 @@ export function middleware(req: NextRequest) {
   if (rule && !rule[1].includes(session.role)) return NextResponse.redirect(new URL('/', req.url));
   return NextResponse.next();
 }
-export const config = { matcher: ['/((?!login|signup|api|_next|favicon.ico).*)'] };
+export const config = { matcher: ['/((?!login|create-account|api|_next|favicon.ico).*)'] };
 ```
 
 - middleware เป็นแค่ด่านแรก backend ต้องตรวจสิทธิ์ซ้ำทุก request
@@ -269,10 +269,14 @@ export const MapView = dynamic(() => import('./LeafletMap'), { ssr: false });
 ```
 /login (credentials) -> OTP -> session cookie (httpOnly)
   -> ถ้า mustChangePassword: modal ตั้งรหัสใหม่ (ปิดไม่ได้) -> redirect ตาม roleHome()
-/signup -> หน้ายืนยันส่งรหัสชั่วคราว -> /login?user=<email>
+/create-account
+  1 Applicant details -> 2 Verify email (OTP) -> 3 Documents (ตาม role)
+  -> หน้า "Application submitted" (รอตรวจเอกสาร ผ่านแล้วส่งรหัสผ่านชั่วคราวทางอีเมล) -> /login?user=<email>
 ```
 
 - ทำ step ของ login (`cred` / `otp` / `new`) เป็น state ใน client component เดียว เหมือน `vLogin()`
+- Create Account ก็เช่นกัน: 3 ขั้นอยู่ใน client component เดียว อัปโหลดไฟล์ผ่าน route handler หรือ Server Action
+  (ตรวจชนิด PDF/JPG/PNG และขนาด ≤10 MB ซ้ำฝั่ง server)
 - หรือแยกเป็น `?step=`
 
 ## 6. Deploy

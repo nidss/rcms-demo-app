@@ -48,7 +48,7 @@ src/
     SummaryCard.tsx, Metric.tsx, StatusPill.tsx, DocRow.tsx, Donut.tsx, OtpInput.tsx
     modal/Modal.tsx, ...
   features/
-    auth/LoginPage.tsx, SignupPage.tsx, ChangePasswordModal.tsx
+    auth/LoginPage.tsx, CreateAccountPage.tsx, ChangePasswordModal.tsx
     owner/MyCapitalList.tsx, CapitalDetails.tsx
     maker/MakerWorkspace.tsx
     checker/CheckerWorkspace.tsx
@@ -208,7 +208,7 @@ export function VerificationQueue() {
 // src/router.tsx
 export const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
-  { path: '/signup', element: <SignupPage /> },
+  { path: '/create-account', element: <CreateAccountPage /> },
   {
     element: <RequireAuth><AppShell /></RequireAuth>,
     children: [
@@ -236,8 +236,14 @@ export const router = createBrowserRouter([
 
 ```
 /login (user + password) -> OTP -> ถ้า mustChangePassword: ChangePasswordModal (ปิดไม่ได้, Escape ไม่ปิด) -> RoleHome
-/signup -> หน้ายืนยัน "ส่งรหัสผ่านชั่วคราวไปที่อีเมลแล้ว" -> /login?user=<email>
+/create-account
+  1 Applicant details -> 2 Verify email (OTP) -> 3 Documents (ตาม role)
+  -> หน้า "Application submitted" (รอตรวจเอกสาร ผ่านแล้วส่งรหัสผ่านชั่วคราวทางอีเมล) -> /login?user=<email>
 ```
+
+- `CreateAccountPage`: เก็บข้อมูลทั้ง 3 ขั้นใน state เดียว (หรือ `useReducer`) กด Back แล้วข้อมูลไม่หาย
+  - ขั้น 3 ใช้ `FileDrop` (`<input type="file" accept=".pdf,.jpg,.jpeg,.png">` + drag and drop) ตรวจชนิดและขนาด ≤10 MB ก่อนอัปโหลด
+  - เปลี่ยน Enterprise type แล้วล้างไฟล์ที่เลือกไว้ เพราะรายการเอกสารต่างกัน
 
 - `OtpInput`: 6 ช่อง, `inputMode="numeric"`, พิมพ์แล้วเลื่อนไปช่องถัดไป, Backspace ในช่องว่างย้อนกลับ, รองรับ paste ทั้ง 6 หลัก
 - เก็บ token ใน httpOnly cookie (ให้ backend ตั้ง) ดีกว่า `localStorage`
