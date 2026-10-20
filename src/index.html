@@ -621,7 +621,7 @@ lo:{
  signupHint:'ກອກຂໍ້ມູນຜູ້ສະໝັກ ລະບົບຈະສົ່ງລະຫັດຢືນຢັນໄປທີ່ອີເມວຂອງທ່ານ',suEmail:'ອີເມວ',suIdNo:'ເລກບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',
  suTitle:'ຄຳນຳໜ້າ',suFirst:'ຊື່',suLast:'ນາມສະກຸນ',suBack:'← ກັບໄປໜ້າເຂົ້າສູ່ລະບົບ',suDoneTitle:'ສົ່ງຄຳຂໍສ້າງບັນຊີແລ້ວ',suPendTitle:'ລໍຖ້າກວດສອບເອກະສານ',
  suStep1:'ຂໍ້ມູນຜູ້ສະໝັກ',suStep2:'ຢືນຢັນອີເມວ',suStep3:'ເອກະສານ',suIdType:'ປະເພດເອກະສານຢັ້ງຢືນຕົວຕົນ',suCid:'ບັດປະຈຳຕົວ',suPassport:'ໜັງສືຜ່ານແດນ',
- suCidNo:'ເລກບັດປະຈຳຕົວ',suPassportNo:'ເລກໜັງສືຜ່ານແດນ',suNameLo:'ຊື່ພາສາລາວ',suNameEn:'ຊື່ພາສາອັງກິດ',suSubmit:'ສົ່ງຂໍ້ມູນ',
+ suCidNo:'ເລກບັດປະຈຳຕົວ',suRole:'ບົດບາດທີ່ສະໝັກ',suRolePick:'- ເລືອກບົດບາດ -',suPassportNo:'ເລກໜັງສືຜ່ານແດນ',suNameLo:'ຊື່ພາສາລາວ',suNameEn:'ຊື່ພາສາອັງກິດ',suSubmit:'ສົ່ງຂໍ້ມູນ',
  suOtpTitle:'ຢືນຢັນອີເມວ',suOtpMsg:'ລະບົບໄດ້ສົ່ງລະຫັດ OTP 6 ຫຼັກໄປທີ່ອີເມວ',suOtpHint:'ກະລຸນາກວດສອບອີເມວຂອງທ່ານ ແລ້ວນຳລະຫັດ OTP ມາໃສ່ຂ້າງລຸ່ມນີ້',
  suOtpSpam:'ຫາກບໍ່ພົບອີເມວ ກະລຸນາກວດສອບໃນໂຟນເດີ Spam ຫຼື Junk',suResend:'ສົ່ງລະຫັດອີກຄັ້ງ',
  suOtpSent:'ສົ່ງລະຫັດຢືນຢັນແລ້ວ',suEmailOk:'ຢືນຢັນອີເມວແລ້ວ',suDocTitle:'ເອກະສານຢືນຢັນວິສາຫະກິດ',
@@ -803,7 +803,7 @@ en:{
  signupHint:'Enter the applicant details. We will email you a verification code.',suEmail:'Email',suIdNo:'Citizen ID / Passport Number',
  suTitle:'Title',suFirst:'First name',suLast:'Last name',suBack:'← Back to sign in',suDoneTitle:'Application submitted',suPendTitle:'Documents pending review',
  suStep1:'Applicant details',suStep2:'Verify email',suStep3:'Documents',suIdType:'Identity document',suCid:'Citizen ID',suPassport:'Passport',
- suCidNo:'Citizen ID number',suPassportNo:'Passport number',suNameLo:'Lao name',suNameEn:'English name',suSubmit:'Submit',
+ suCidNo:'Citizen ID number',suRole:'Role applied for',suRolePick:'- Select role -',suPassportNo:'Passport number',suNameLo:'Lao name',suNameEn:'English name',suSubmit:'Submit',
  suOtpTitle:'Verify email',suOtpMsg:'We have sent a 6-digit OTP code to',suOtpHint:'Please check your email and enter the OTP code below.',
  suOtpSpam:"Can't find the email? Check your Spam or Junk folder.",suResend:'Resend code',
  suOtpSent:'Verification code sent',suEmailOk:'Email verified',suDocTitle:'Enterprise documents',
@@ -1124,6 +1124,16 @@ var SU_ETYPES=[
   {k:'company',lo:'ບໍລິສັດ',en:'Company',docs:[['regCert'],['articles'],['shareholders'],['authLetter',1]]},
   {k:'statejv',lo:'ວິສາຫະກິດລັດ / ວິສາຫະກິດຮ່ວມທຶນ',en:'State / Joint venture',docs:[['regCert'],['estDecision'],['appointLetter'],['jvAgree',1]]},
   {k:'coop',lo:'ສະຫະກອນ',en:'Cooperative',docs:[['coopCert'],['coopCharter'],['memberList']]}
+];
+// Create Account step 1: the role the applicant asks for.
+var SU_ROLES=[
+  {k:'owner',lo:'ຜູ້ປະກອບການ (Owner)',en:'Owner'},
+  {k:'appraiser',lo:'ຜູ້ປະເມີນລາຄາ (Appraiser)',en:'Appraiser'},
+  {k:'moicMaker',lo:'MOIC - ຜູ້ບັນທຶກ (Maker)',en:'MOIC Maker'},
+  {k:'moicChecker',lo:'MOIC - ຜູ້ກວດສອບ (Checker)',en:'MOIC Checker'},
+  {k:'moicApprover',lo:'MOIC - ຜູ້ອະນຸມັດ (Approver)',en:'MOIC Approver'},
+  {k:'bankMaker',lo:'ທະນາຄານ - ຜູ້ບັນທຶກ (Maker)',en:'Bank Maker'},
+  {k:'bankChecker',lo:'ທະນາຄານ - ຜູ້ກວດສອບ (Checker)',en:'Bank Checker'}
 ];
 var SU_MAX_BYTES=10*1024*1024;
 function suEtype(k){return SU_ETYPES.filter(function(x){return x.k===k})[0]}
@@ -1599,6 +1609,9 @@ function vLogin(){
      '<span role="radio" aria-checked="'+!isPp+'" class="'+(isPp?'':'on')+'" data-suidt="cid">'+t('suCid')+'</span>'+
      '<span role="radio" aria-checked="'+isPp+'" class="'+(isPp?'on':'')+'" data-suidt="pp">'+t('suPassport')+'</span></div>'+
     '<input id="suIdNo" data-su="idNo" placeholder="'+(isPp?t('suPassportNo'):t('suCidNo'))+'" aria-label="'+(isPp?t('suPassportNo'):t('suCidNo'))+'" value="'+esc(su.idNo||'')+'"></div>'+
+   '<div class="field"><label for="suRole">'+t('suRole')+' *</label><select id="suRole" data-su="role">'+
+    '<option value="">'+t('suRolePick')+'</option>'+
+    SU_ROLES.map(function(x){return '<option value="'+x.k+'"'+(su.role===x.k?' selected':'')+'>'+L(x)+'</option>'}).join('')+'</select></div>'+
    nameGroup('lo',t('suNameLo'))+nameGroup('en',t('suNameEn'))+errLine+
    '<button class="btn" style="width:100%;padding:12px;margin-top:6px;font-size:13.5px" id="doSignup">'+t('suSubmit')+'</button>'+
    '<div class="lnk" style="margin-top:14px;display:inline-block" data-backcred="1">'+t('suBack')+'</div>';
@@ -3394,7 +3407,7 @@ function bind(){
   var suv=function(k){return ((S.signup||{})[k]||'').trim()};
   var dsg=$('#doSignup');
   if(dsg)dsg.onclick=function(){
-    var su=S.signup,need=['email','idNo','firstLo','lastLo','firstEn','lastEn'];
+    var su=S.signup,need=['email','idNo','role','firstLo','lastLo','firstEn','lastEn'];
     if(need.some(function(k){return !suv(k)})){su.err=t('errRequired');return render()}
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(suv('email'))){su.err=t('errEmail');return render()}
     if(suv('idNo').length<6){su.err=t('errIdNo');return render()}
