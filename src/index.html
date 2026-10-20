@@ -622,7 +622,8 @@ lo:{
  suTitle:'ຄຳນຳໜ້າ',suFirst:'ຊື່',suLast:'ນາມສະກຸນ',suBack:'← ກັບໄປໜ້າເຂົ້າສູ່ລະບົບ',suDoneTitle:'ສົ່ງຄຳຂໍສ້າງບັນຊີແລ້ວ',suPendTitle:'ລໍຖ້າກວດສອບເອກະສານ',
  suStep1:'ຂໍ້ມູນຜູ້ສະໝັກ',suStep2:'ຢືນຢັນອີເມວ',suStep3:'ເອກະສານ',suIdType:'ປະເພດເອກະສານຢັ້ງຢືນຕົວຕົນ',suCid:'ບັດປະຈຳຕົວ',suPassport:'ໜັງສືຜ່ານແດນ',
  suCidNo:'ເລກບັດປະຈຳຕົວ',suPassportNo:'ເລກໜັງສືຜ່ານແດນ',suNameLo:'ຊື່ພາສາລາວ',suNameEn:'ຊື່ພາສາອັງກິດ',suSubmit:'ສົ່ງຂໍ້ມູນ',
- suOtpTitle:'ຢືນຢັນອີເມວ',suOtpMsg:'ລະບົບໄດ້ສົ່ງລະຫັດ 6 ຫຼັກໄປທີ່',suOtpHint:'ກະລຸນາໃສ່ລະຫັດຈາກອີເມວ',suResend:'ສົ່ງລະຫັດອີກຄັ້ງ',
+ suOtpTitle:'ຢືນຢັນອີເມວ',suOtpMsg:'ລະບົບໄດ້ສົ່ງລະຫັດ OTP 6 ຫຼັກໄປທີ່ອີເມວ',suOtpHint:'ກະລຸນາກວດສອບອີເມວຂອງທ່ານ ແລ້ວນຳລະຫັດ OTP ມາໃສ່ຂ້າງລຸ່ມນີ້',
+ suOtpSpam:'ຫາກບໍ່ພົບອີເມວ ກະລຸນາກວດສອບໃນໂຟນເດີ Spam ຫຼື Junk',suResend:'ສົ່ງລະຫັດອີກຄັ້ງ',
  suOtpSent:'ສົ່ງລະຫັດຢືນຢັນແລ້ວ',suEmailOk:'ຢືນຢັນອີເມວແລ້ວ',suDocTitle:'ເອກະສານຢືນຢັນວິສາຫະກິດ',
  suDocHint:'ອັບໂຫຼດເອກະສານເພື່ອຢືນຢັນວິສາຫະກິດທີ່ທ່ານຕ້ອງການສ້າງບັນຊີ',suEntSec:'ຂໍ້ມູນວິສາຫະກິດ',suRegNo:'ເລກທະບຽນວິສາຫະກິດ',
  suEtype:'ປະເພດວິສາຫະກິດ',suEtypePick:'- ເລືອກປະເພດວິສາຫະກິດ -',suDocsSec:'ເອກະສານທີ່ຕ້ອງອັບໂຫຼດ',suPickFirst:'ເລືອກປະເພດວິສາຫະກິດກ່ອນ ເພື່ອເບິ່ງເອກະສານທີ່ຕ້ອງໃຊ້',
@@ -803,7 +804,8 @@ en:{
  suTitle:'Title',suFirst:'First name',suLast:'Last name',suBack:'← Back to sign in',suDoneTitle:'Application submitted',suPendTitle:'Documents pending review',
  suStep1:'Applicant details',suStep2:'Verify email',suStep3:'Documents',suIdType:'Identity document',suCid:'Citizen ID',suPassport:'Passport',
  suCidNo:'Citizen ID number',suPassportNo:'Passport number',suNameLo:'Lao name',suNameEn:'English name',suSubmit:'Submit',
- suOtpTitle:'Verify email',suOtpMsg:'We sent a 6-digit code to',suOtpHint:'Enter the code from the email',suResend:'Resend code',
+ suOtpTitle:'Verify email',suOtpMsg:'We have sent a 6-digit OTP code to',suOtpHint:'Please check your email and enter the OTP code below.',
+ suOtpSpam:"Can't find the email? Check your Spam or Junk folder.",suResend:'Resend code',
  suOtpSent:'Verification code sent',suEmailOk:'Email verified',suDocTitle:'Enterprise documents',
  suDocHint:'Upload documents that verify the enterprise this account is for.',suEntSec:'Enterprise details',suRegNo:'Enterprise registration number',
  suEtype:'Enterprise type',suEtypePick:'- Select enterprise type -',suDocsSec:'Documents to upload',suPickFirst:'Select an enterprise type to see the documents it needs',
@@ -1603,7 +1605,8 @@ function vLogin(){
   var su2=
    '<h2>'+t('suOtpTitle')+'</h2><p>'+t('suOtpMsg')+' <b>'+esc(su.email||'')+'</b><br>'+t('suOtpHint')+'</p>'+stepBar+
    '<div class="otp" id="suOtp">'+[0,1,2,3,4,5].map(function(){return '<input maxlength="1" size="1" inputmode="numeric" aria-label="OTP">'}).join('')+'</div>'+
-   '<div style="text-align:right"><span class="lnk" data-suresend="1">'+t('suResend')+'</span></div>'+
+   '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">'+
+    '<span class="hint" style="margin:0">'+t('suOtpSpam')+'</span><span class="lnk" data-suresend="1">'+t('suResend')+'</span></div>'+
    '<button class="btn" style="width:100%;padding:12px;margin-top:16px;font-size:13.5px" id="doSuOtp" disabled>'+t('loginNext')+'</button>'+
    '<div class="lnk" style="margin-top:14px;display:inline-block" data-sugo="1">'+t('loginBack')+'</div>';
   var et=suEtype(su.etype),docs=su.docs||{},docErr=su.docErr||{};
