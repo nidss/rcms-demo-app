@@ -15,13 +15,22 @@ npm run build    # writes the single self-contained index.html at the repo root
 npm run preview  # serve the built file
 ```
 
-There are no tests, linter or formatter. To verify a change, run it in a browser against `npm run dev`.
+There are no tests, linter or formatter. To verify a change, run it in a browser against `npm run dev`. After `npm run build`, the root `index.html` also opens straight from disk (`file://`), which is handy for headless browser checks. `src/index.html` itself does not: it is an ES module that imports Leaflet and the images, so it needs Vite.
 
 ## Source vs build
 
 - **Edit only `src/index.html`.** The root `index.html` is generated output. `vite-plugin-singlefile` inlines all JS/CSS, and images become data URIs, so the file works over `file://` and on GitHub Pages (served from `main`, repo root).
 - After changing `src/index.html`, run `npm run build` and commit **both** files. Pages serves the root file, so an unbuilt change never ships.
 - `vite.config.js` sets `root: 'src'` and `emptyOutDir: false`, so the build overwrites only `index.html`.
+- The only runtime dependency is Leaflet (`import Leaflet from 'leaflet'` in the module script). Map tiles come from OpenStreetMap, so the map needs network access even in the built file.
+
+## Docs to keep in sync
+
+- `README.md` (Thai) is the per-screen spec and lists the business rules. Update it whenever a screen, role or rule changes.
+- `docs/handoff/` is the guide for rebuilding the demo in React or Next.js:
+  - `README.md` covers the data model, routes, business rules, components and the API draft.
+  - `react.md` and `nextjs.md` cover framework-specific notes.
+  - Update it when a flow, a data shape or a route changes.
 
 ## Code style
 
@@ -31,7 +40,7 @@ There are no tests, linter or formatter. To verify a change, run it in a browser
 
 ## Architecture (all in `src/index.html`)
 
-Section comments split the file: dictionary → helpers → accounts → seed data → state → app shell → views → render/navigation → `bind()`.
+The `<style>` block comes first (CSS tokens in `:root`, then `/* ---------- name ---------- */` sections). The `<script type="module">` follows. Inside it, section comments (`/* ===== name ===== */`) split the code: dictionary → helpers → accounts → seed data → state → app shell → views → render/navigation → `bind()`. `reset()` runs at the end of the file to start the app.
 
 - **i18n**
   - `D.lo` / `D.en` hold every UI string; `t('key')` looks one up.
@@ -74,4 +83,4 @@ Section comments split the file: dictionary → helpers → accounts → seed da
   - The owner's enterprises: `OWNER_ENTS`.
   - "Today" is fixed at 04/08/2026 (`daysLeft()`).
   - Keep the six original enterprises' states intact; demo flows depend on them.
-- **Dead code**: `vStaffDash` and `vQueue` (views `inspect` / `approveQ`) are unreachable from any role or menu.
+- **Dead code**: no menu leads to `vStaffDash` or `vQueue` (views `inspect` / `approveQ`). They survive only as fallbacks: `vDash()` returns `vStaffDash()` for an unmatched role, and `vTask()` returns `vQueue()` when the task is missing.
