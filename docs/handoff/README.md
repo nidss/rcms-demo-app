@@ -108,27 +108,45 @@ interface Instalment { no: number; amt: number; state: 'paid' | 'due' | 'wait'; 
 
 interface HistoryEntry {
   d: string; a: I18nText;
-  m: 'cash' | 'asset' | '';  v: number;
+  m: string;                 // ประเภทการชำระคั่นด้วยจุลภาค เช่น 'cash' หรือ 'cash,asset' ('' = ไม่มียอด)
+  v: number;
   u: string;                 // ผู้ดำเนินการ
   f: string;                 // จำนวนไฟล์
   ch: string;                // ช่องทาง เช่น chCounter
   st: 'complete' | 'pending' | 'returned';
 }
 
-// คำร้องแจ้งชำระทุนที่ Maker ยื่น
+// คำร้องแจ้งชำระทุนที่ Maker หรือผู้ประกอบการยื่น (หนึ่งงวด มีการชำระได้หลายรายการ)
 interface Declaration {
   ref: string;               // APR-2026-0912
   entId: string;             // demo เก็บทั้ง object (ent) แต่ API ควรส่ง id
-  amt: number; mode: 'cash' | 'asset';
+  amt: number;               // ยอดรวมทุกรายการใน pays
+  mode: string;              // ประเภทที่ใช้ คั่นด้วยจุลภาค เช่น 'cash,asset,labour'
+  pays: Payment[];           // seed เก่าไม่มี demo สร้างให้ตอนเปิดดู (taskPays())
+  ch?: 'counter' | 'online'; // ช่องทางยื่น (ไม่มี = ดูจาก trail)
   by: string; at: string;
   stage: 'checker' | 'approve';
-  files: { k: string; lbl: string; name: string }[];
+  files: DocFile[];          // ไฟล์ทุกรายการรวมกัน (ใช้นับจำนวน)
   trail: { who: string; act: I18nText; at: string }[];
 }
+
+interface DocFile { k: string; lbl: string; name: string; size?: string }
+
+// หนึ่งรายการใน "Capital being paid" (การ์ดหนึ่งใบ)
+type Payment =
+  | { type: 'cash'; amt: string; bank: string; acctNo: string; acctName: string; files: DocFile[] }
+  | { type: 'asset'; cat: 'land' | 'building' | 'car' | 'machine'; firmType: 'in' | 'out'; firmName: string;
+      vals: Record<string, string>;   // key ตาม ASSET_FIELDS[cat], ยอด = vals[ASSET_PRICE_KEY[cat]]
+      files: DocFile[] }
+  | { type: 'labour'; lb: { name: string; idNo: string; skill: string; role: string; months: string; value: string };
+      files: DocFile[] };
 
 interface ValuationJob {
   id: string;                // VAL-2026-0341
   ent: string; asset: I18nText;
+  type: 'land' | 'building' | 'car' | 'machine';   // ใช้แบ่งกลุ่มใน Dashboard ของบริษัทประเมิน
+  part?: [number, number];   // เช่น [2, 2] = ทรัพย์สินชิ้นที่ 2 จาก 2 ในการแจ้งเดียวกัน
+  remark?: string;           // หมายเหตุที่บริษัทประเมินใส่ตอนส่งผล
   firm: string; net: 'in' | 'out';
   amt: number;
   status: 'doing' | 'wait' | 'outapprove' | 'accepted';
@@ -159,7 +177,7 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 | `/my-capital/:id` | `vOwnerDash` | owner |
 | `/workspace/:tab` | `vMakerDash` (`ret`, `queue`, `due`) | maker |
 | `/workspace/:tab` | `vCheckerDash` (`queue`, `atAp`, `ret`) | checker |
-| `/workspace/:tab` | `vApproverDash` (`queue`, `risk`, `signed`) | approver |
+| `/workspace/:tab` | `vApproverDash` (`overview`, `queue`, `risk`, `signed`) | approver |
 | `/overview` | `vAdminDash` | admin |
 | `/enterprises` | `vList` | maker, checker, approver, admin |
 | `/enterprises/:id` | `vDetail` | maker, checker, approver, admin |
@@ -168,6 +186,7 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 | `/transactions/:id` | `vTxDetail` | owner, staff |
 | `/tasks/:ref` | `vTask` | checker, approver |
 | `/valuation-queue` | `vValQueue` | checker, approver |
+| `/valuation-dashboard` | `vValDash` | valfirm |
 | `/valuation-jobs`, `/valuation-jobs/:id` | `vValFirm`, `vValJobDetail` | valfirm |
 | `/finance/:tab` | `vFin` (`fee`, `pen`, `rec`) | checker, approver |
 | `/reports` | `vRep` | checker, approver, admin |
@@ -185,12 +204,14 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 
 - **การชำระทุน** (handler `#submitDeclare` ใน `bind()`)
   - แบ่งชำระ 2 งวดได้เฉพาะเมื่อยังไม่เคยชำระ (`paid === 0`) ถ้าเคยชำระแล้วต้องชำระเต็มยอดคงเหลือ
-  - งวดแรกต้องไม่ต่ำกว่า 30% ของทุนจดทะเบียน
-    - **demo แสดงยอดขั้นต่ำ (`dcMinInst`) แต่ไม่ได้ตรวจตอนกดส่ง** ระบบจริงต้องตรวจ
-  - ต้องใส่จำนวนเงิน (`errAmt`) และต้องไม่เกินยอดคงเหลือ `cap - paid` (`errOver`)
-  - ชำระเป็นทรัพย์สิน: ต้องกรอกช่องบังคับของประเภททรัพย์สิน (`ASSET_REQ`, `errAssetField`)
-  - ต้องแนบเอกสารหลักฐานอย่างน้อย 1 ไฟล์ (`errFile`)
-    - ถ้าชำระเป็นทรัพย์สินต้องแนบรายงานประเมิน (Valuation report) (ดู `docsErrMsg()`)
+  - ต้องมีการชำระอย่างน้อย 1 รายการ (`errNoPay`)
+  - ยอดรวมทุกรายการ (`payTotal()`) ต้องไม่ต่ำกว่ายอดขั้นต่ำของงวด (`errMinInst`; งวดแรกแบบแบ่ง = 30%
+    ของทุนจดทะเบียน, แบบ Single = ยอดคงเหลือทั้งหมด) และต้องไม่เกิน `cap - paid` (`errOver`)
+  - ตรวจทีละรายการด้วย `payErr()` แล้วแสดง error ใต้การ์ดนั้น (การ์ดที่ย่ออยู่จะเปิดเอง)
+    - Cash: จำนวนเงิน, Bank code, From Account No / Name และ Payment evidence
+    - Asset: ช่องบังคับของประเภททรัพย์สิน (`ASSET_REQ`, `errAssetField`), Estimated price และ Valuation report
+    - Labour capital: Contributor name, ID / Passport No., Skill type, Agreed value และ Labour contribution agreement
+  - เปลี่ยนประเภทของการ์ดที่กรอกแล้วต้องยืนยันก่อน (modal `chgpay`) เพราะข้อมูลในการ์ดจะถูกล้าง
   - วิสาหกิจที่มีคำร้องค้างอยู่ ยื่นซ้ำไม่ได้ (`pendingOf()`, `hasPending`)
 - **ลำดับงาน**
   - Maker ยื่น → Checker ตรวจ (ส่งต่อ หรือตีกลับพร้อมเหตุผล) → Approver อนุมัติ + E-Sign (ต้อง MFA ซ้ำ)
@@ -231,13 +252,16 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 | `StatusPill`, `HistoryPill` | `pill()`, `histPill()` | มีจุดสีนำหน้าเสมอ |
 | `DocRow` | `docRow()` | แถวเอกสารแบบเดียวกันทั้งระบบ |
 | `Donut` | helper โดนัท | palette `#283579 #5B8DEF #137A41 #E6B92C #C8202E #8B6FD6` |
-| `Modal` + ชนิดต่างๆ | `vModal()` | `approve`, `verify`, `backreason`, `receipt`, `qr`, `valjob`, `adduser`, `forgot`, `done`, `help`, `keys`, `clearcache` |
+| `Modal` + ชนิดต่างๆ | `vModal()` | `approve`, `verify`, `backreason`, `chgpay`, `receipt`, `qr`, `valjob`, `adduser`, `forgot`, `done`, `help`, `keys`, `clearcache` |
+| `PaymentBlock` (แก้ไข / อ่านอย่างเดียว) | `payCardEdit()`, `payCardView()` | หัวการ์ด `payHead()`, ย่อ/ขยายด้วย `tglBtn()` |
+| `PaymentSummary` | `paySummary()` | ยอดแยกตามประเภท + Total this instalment + Outstanding after |
+| `EnterpriseBrief` | `entBrief()` | 4 ช่องย่อ + Show details (ไม่มีแผนที่) ใช้ในหน้า Declare และ Task |
 | `OtpInput` | `otpWire()` | 6 ช่อง, เลื่อนช่องอัตโนมัติ, Backspace ย้อนกลับ (ใช้ทั้ง login และ Verify email) |
 | `StepBar` | `stepBar` ใน `vLogin()` | แถบ 3 ขั้นของ Create Account (ขั้นที่ผ่านแล้วเป็น ✓ สีเขียว) |
 | `FileDrop` | `docField` ใน `vLogin()` | กดเลือกหรือลากวาง, ตรวจชนิด/ขนาดไฟล์, แสดงชื่อ + ขนาด + ปุ่มลบ |
 | `Toast` | `toast()` | แสดงกลางล่าง |
 | `MapView` | Leaflet ใน `vDetail` | ต้องรันฝั่ง client เท่านั้น |
-| `WorkSplit` layout | หน้า Task / Transaction | ซ้ายข้อมูลอ้างอิง ขวาส่วนตัดสินใจแบบ sticky |
+| `WorkSplit` layout | หน้า Transaction | ซ้ายข้อมูลอ้างอิง ขวาคำร้อง + เอกสารแบบ sticky (หน้า Declare, Task, Valuation job เป็นแบบเต็มความกว้าง `vstack`) |
 
 ## 7. พฤติกรรมที่ต้องเก็บไว้ให้เหมือน demo
 
@@ -301,7 +325,7 @@ POST   /admin/signup-applications/:id/reject    { reason }
 GET    /enterprises                ?name=&regNo=&prov=&type=&isic=&regFrom=&regTo=&updFrom=&updTo=&status=&page=&size=
 GET    /enterprises/:id
 GET    /me/enterprises             (owner)
-POST   /enterprises/:id/declarations   multipart: amt, mode, files[], collateral
+POST   /enterprises/:id/declarations   { plan, payments: Payment[] } + ไฟล์ของแต่ละรายการ (multipart)
 
 GET    /declarations               ?stage=checker|approve&ref=&ent=&regNo=&channel=&by=&page=&size=
 GET    /declarations/:ref
@@ -311,7 +335,7 @@ POST   /declarations/:ref/approve  { otp } (approver: E-Sign)
 
 GET    /valuation-jobs             ?ref=&ent=&regNo=&firm=&net=&status=&page=&size=
 GET    /valuation-jobs/:id
-POST   /valuation-jobs/:id/result  multipart: value, files[], docType
+POST   /valuation-jobs/:id/result  multipart: value, remark, files[], docType
 
 GET    /invoices                   ?kind=fee|penalty&...
 GET    /receipts

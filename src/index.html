@@ -390,6 +390,50 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .drop:hover{border-color:var(--m);background:var(--m-lite)}
 .drop .dropIcon{font-size:18px;color:var(--m)}
 .drop b{color:var(--ink2);font-size:13px;font-weight:600}
+/* ---------- payment blocks (Declare / Add payment, review) ---------- */
+.pblk{border:1px solid var(--line);border-radius:10px;background:var(--white);padding:16px;display:flex;flex-direction:column;gap:12px}
+.pblk+.pblk{margin-top:16px}
+.pblk-h{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pblk-h .pl,.pblk-h .pr{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.pblk-h .pr{gap:16px}
+.pblk-h .pt{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink)}
+.pblk-h .pt svg{width:16px;height:16px;flex:0 0 16px}
+.pblk-h .pn{background:var(--m-lite);color:var(--m);border-radius:20px;padding:4px 8px;font-size:11px;font-weight:600;line-height:16px}
+.pblk-h .pamt{font-size:13px;font-weight:600;color:var(--ink)}
+.lnkbtn{background:none;border:0;padding:0;font-family:inherit;cursor:pointer}
+.prm{font-size:12px;font-weight:600;color:var(--bad)}
+.prm:hover{text-decoration:underline}
+.tgl{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--m)}
+.tgl svg{width:14px;height:14px}
+.tgl.open svg{transform:rotate(180deg)}
+.tgl:hover{text-decoration:underline}
+.g4,.pv{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.g4 .field,.g3 .field,.pblk .field{margin:0}
+.radrow{display:flex;align-items:center;gap:20px;min-height:40px;flex-wrap:wrap}
+.radrow label{display:flex!important;align-items:center;gap:6px;margin:0!important;font-size:11.5px;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.radrow input{width:auto!important;margin:0}
+.pv .k{display:block;font-size:11.5px;color:var(--ink2);margin-bottom:6px}
+.pv .v{display:block;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink);overflow-wrap:anywhere}
+.pv .v.big{font-size:15px;font-weight:700;color:var(--m)}
+.pv.c6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.psum{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;gap:16px;flex-wrap:wrap}
+.psum>div{flex:1 1 0;min-width:130px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--ink)}
+.psum .k{color:var(--muted)}
+.psum .tot{font-size:13px;font-weight:600}
+.psum .tot .k{color:var(--ink)}
+.pfoot{display:flex;justify-content:flex-end;gap:8px;padding-top:16px;flex-wrap:wrap}
+.pnote{background:var(--soft);border-radius:10px;padding:12px 16px;font-size:11px;color:var(--muted)}
+.drop .dropIcon svg{width:20px;height:20px}
+.pblk .drop{padding:12px 20px;gap:4px}
+.rgrid.rgrid2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:900px){.rgrid.rgrid2{grid-template-columns:1fr}}
+.vstack{display:flex;flex-direction:column;gap:16px}
+.vstack>.card,.vstack>.sumcard{margin:0}
+.sc-gh{padding:8px 20px;background:var(--soft);border-top:1px solid var(--line);font-size:11.5px;font-weight:600;color:var(--ink2)}
+.sc-gh+.sc-metrics{margin-top:0}
+@media(max-width:900px){.g4,.pv,.pv.c6{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:1fr}}
+@media(max-width:560px){.g4,.pv,.pv.c6{grid-template-columns:1fr}}
 .files{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .chip{background:var(--m-lite);border:1px solid var(--m-line);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--ink2)}
 .chip b{color:var(--ok);margin-right:4px}
@@ -711,6 +755,23 @@ forgotTitle:'ກູ້ຄືນລະຫັດຜ່ານ',forgotIdLbl:'ອີ�
  dlPdf:'ດາວໂຫຼດ PDF',issueCert:'ອອກໃບຢັ້ງຢືນ',notifyBiz:'ແຈ້ງເຕືອນຜູ້ປະກອບການ',sendVal:'ສົ່ງເລື່ອງປະເມີນຊັບສິນ',
 
  declareTitle:'ແຈ້ງຊຳລະທຶນຈົດທະບຽນ',channelOnline:'ຍື່ນອອນລາຍ (Owner)',channelCounter:'ຍື່ນທີ່ເຄົາເຕີ (Maker)',
+ entNameLbl:'ຊື່ວິສາຫະກິດ',modeLabour:'ທຶນແຮງງານ',ptAsset:'ຊັບສິນ',payN:'ການຊຳລະ',payRemove:'ລຶບອອກ',showDetails:'ສະແດງລາຍລະອຽດ',hideDetails:'ເຊື່ອງລາຍລະອຽດ',
+ payMethod:'ວິທີການຊຳລະ',dcSec2Sub2:'ເລືອກວິທີຊຳລະສຳລັບງວດນີ້.',bankCode:'ລະຫັດທະນາຄານ',fromAcctNo:'ຈາກເລກບັນຊີ',fromAcctName:'ຈາກຊື່ບັນຊີ',
+ fromAcctNoPh:'ປ້ອນເລກບັນຊີຕົ້ນທາງ',fromAcctNamePh:'ປ້ອນຊື່ບັນຊີ',firmNamePh:'ປ້ອນຊື່ບໍລິສັດປະເມີນ',
+ lbName:'ຊື່ຜູ້ປະກອບແຮງງານ',lbId:'ເລກບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',lbSkill:'ປະເພດທັກສະ',lbRole:'ໜ້າທີ່ / ຕຳແໜ່ງ',lbMonths:'ໄລຍະເວລາປະກອບ (ເດືອນ)',lbValue:'ມູນຄ່າທີ່ຕົກລົງ (ກີບ)',
+ skTech:'ຄວາມຊ່ຽວຊານດ້ານເຕັກນິກ',skMgmt:'ການບໍລິຫານ',skProf:'ບໍລິການວິຊາຊີບ',skLabour:'ແຮງງານມີຝີມື',
+ docLabourAgree:'ສັນຍາປະກອບທຶນດ້ວຍແຮງງານ',docLabourId:'ສຳເນົາບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',docLabourCv:'ຊີວະປະຫວັດ / ໃບຢັ້ງຢືນວຸດທິ',
+ sumAssetEst:'ຊັບສິນ (ປະເມີນ)',sumTotal:'ລວມງວດນີ້',sumAfter:'ຍັງເຫຼືອຫຼັງຊຳລະ',
+ chgTitle:'ປ່ຽນວິທີການຊຳລະ?',chgMsg:'ຂໍ້ມູນທີ່ປ້ອນໄວ້ຈະຫາຍໄປ ແລະ ບໍ່ສາມາດກູ້ຄືນໄດ້.',chgKeep:'ໃຊ້ວິທີເດີມ',chgDo:'ປ່ຽນວິທີ',
+ errNoPay:'ກະລຸນາເພີ່ມການຊຳລະຢ່າງໜ້ອຍ 1 ລາຍການ',errMinInst:'ຍອດລວມຕ່ຳກວ່າຂັ້ນຕ່ຳຂອງງວດນີ້',errPayFields:'ກະລຸນາປ້ອນຂໍ້ມູນທີ່ຈຳເປັນ (ມີເຄື່ອງໝາຍ *)',
+ mapLbl:'ແຜນທີ່',chOnlineShort:'ອອນລາຍ',apMenu:'ໜ້າວຽກອະນຸມັດ',
+ ovCapEnt:'ທຶນ ແລະ ວິສາຫະກິດ',ovByStatus:'ວິສາຫະກິດຕາມສະຖານະການຊຳລະ',ovApproval:'ສະຖານະການອະນຸມັດ',ovPaidCap:'ທຶນທີ່ຊຳລະແລ້ວ',ovOutCap:'ທຶນຄົງເຫຼືອ',
+ ovEntPaid:'ວິສາຫະກິດທີ່ຊຳລະແລ້ວ',ovEntNot:'ວິສາຫະກິດທີ່ຍັງບໍ່ຊຳລະ',ovOfReg:'ຂອງທຶນຈົດທະບຽນ',ovMadeOne:'ຊຳລະແລ້ວຢ່າງໜ້ອຍ 1 ຄັ້ງ',ovNoPay:'ຍັງບໍ່ມີການຊຳລະ',
+ ovOutstanding:'LAK ຄ້າງຊຳລະ',ovPaidLbl:'LAK ຊຳລະແລ້ວ',ovWithChecker:'ຢູ່ຂັ້ນ Checker',ovDigSigned:'ລົງນາມດິຈິຕອນ',ovRiskS:'ເກີນກຳນົດ ຫຼື ມີຄ່າປັບຄ້າງ',
+ vdConfirmed:'ວຽກທີ່ຢືນຢັນແລ້ວ',vdJobs:'ວຽກ',vdJobsVal:'ວຽກ ແລະ ມູນຄ່າທີ່ແຈ້ງ',vdByStatus:'ວຽກຕາມສະຖານະ',vdByType:'ວຽກຕາມປະເພດຊັບສິນ',
+ vdAssigned:'ມອບໝາຍໃຫ້ບໍລິສັດນີ້',vdAllJobs:'ວຽກທັງໝົດ',vdConfVal:'ມູນຄ່າທີ່ຢືນຢັນແລ້ວ',vdNotConf:'ຍັງບໍ່ຢືນຢັນ',vdOfDecl:'ຂອງມູນຄ່າທີ່ແຈ້ງ',
+ vdDeclared:'LAK ທີ່ແຈ້ງ',vdInProg:'ວຽກກຳລັງດຳເນີນ',vdOpen:'ເປີດວຽກ',
+ valPrice:'ລາຄາປະເມີນ (ກີບ)',valRemark:'ໝາຍເຫດ',valRemarkPh:'ປ້ອນເຫດຜົນຂອງລາຄາປະເມີນນີ້',declDocs:'ເອກະສານທີ່ຍື່ນຕອນແຈ້ງຊຳລະທຶນ',
  capMode:'ຮູບແບບການປະກອບທຶນ',modeCash:'ເງິນສົດ',modeAsset:'ຊັບສິນ',
  modeCashD:'ຊຳລະຜ່ານ QR / Mobile Banking ຫຼື ໂອນເຂົ້າບັນຊີ APB',modeAssetD:'ເລືອກປະເພດຊັບສິນ ແລະ ບໍລິສັດປະເມີນ',
  assetCategory:'ປະເພດຊັບສິນ',
@@ -894,6 +955,23 @@ forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
  dlPdf:'Download PDF',issueCert:'Issue certificate',notifyBiz:'Notify business owner',sendVal:'Send for asset valuation',
 
  declareTitle:'Declare Capital Payment',channelOnline:'Submit online (Owner)',channelCounter:'Submit at counter (Maker)',
+ entNameLbl:'Enterprise name',modeLabour:'Labour capital',ptAsset:'Asset',payN:'Payment',payRemove:'Remove',showDetails:'Show details',hideDetails:'Hide details',
+ payMethod:'Payment method',dcSec2Sub2:'Choose how this instalment is paid.',bankCode:'Bank code',fromAcctNo:'From Account No',fromAcctName:'From Account Name',
+ fromAcctNoPh:'Enter source account no.',fromAcctNamePh:'Enter account name',firmNamePh:'Enter valuation firm name',
+ lbName:'Contributor name',lbId:'ID / Passport No.',lbSkill:'Skill type',lbRole:'Role / position',lbMonths:'Contribution period (months)',lbValue:'Agreed value (LAK)',
+ skTech:'Technical expertise',skMgmt:'Management',skProf:'Professional services',skLabour:'Skilled labour',
+ docLabourAgree:'Labour contribution agreement',docLabourId:'ID / Passport copy',docLabourCv:'CV / qualification certificate',
+ sumAssetEst:'Asset (estimated)',sumTotal:'Total this instalment',sumAfter:'Outstanding after',
+ chgTitle:'Change payment method?',chgMsg:'The information you entered will be lost. This cannot be undone.',chgKeep:'Keep current method',chgDo:'Change method',
+ errNoPay:'Add at least one payment',errMinInst:'The total is below the minimum for this instalment',errPayFields:'Please fill in the required fields (marked with *)',
+ mapLbl:'Map',chOnlineShort:'Online',apMenu:'Approval Workspace',
+ ovCapEnt:'Capital and enterprises',ovByStatus:'Enterprises by payment status',ovApproval:'Approval status',ovPaidCap:'Paid capital',ovOutCap:'Outstanding capital',
+ ovEntPaid:'Enterprises paid',ovEntNot:'Enterprises not yet paid',ovOfReg:'of registered capital',ovMadeOne:'Made at least one payment',ovNoPay:'No payment yet',
+ ovOutstanding:'LAK outstanding',ovPaidLbl:'LAK paid',ovWithChecker:'with the Checker',ovDigSigned:'digitally signed',ovRiskS:'Past deadline or unpaid penalty',
+ vdConfirmed:'Jobs confirmed',vdJobs:'jobs',vdJobsVal:'Jobs and declared value',vdByStatus:'Jobs by status',vdByType:'Jobs by asset type',
+ vdAssigned:'Assigned to this firm',vdAllJobs:'all assigned jobs',vdConfVal:'Confirmed value',vdNotConf:'Not yet confirmed',vdOfDecl:'of declared value',
+ vdDeclared:'LAK declared',vdInProg:'jobs in progress',vdOpen:'Open jobs',
+ valPrice:'Valuation price (LAK)',valRemark:'Remark',valRemarkPh:'Enter the reason for this valuation price',declDocs:'Documents submitted at capital declaration',
  capMode:'Capital contribution mode',modeCash:'Cash',modeAsset:'Assets',
  modeCashD:'Pay via QR / Mobile Banking or transfer to the APB account',modeAssetD:'Choose the asset category and a valuation firm',
  assetCategory:'Asset category',
@@ -995,7 +1073,10 @@ function stName(s){return ST[s]?t(ST[s][0]).split(' - ')[1]||t(ST[s][0]):s}
 function pill(s){var x=ST[s]||['','p-idle'];return '<span class="pill '+x[1]+'">'+stName(s)+'</span>'}
 var HST={complete:['hstComplete','p-ok'],pending:['hstPending','p-warn'],returned:['hstReturned','p-bad']};
 function histPill(s){var x=HST[s]||HST.complete;return '<span class="pill '+x[1]+'">'+t(x[0])+'</span>'}
-function modeLbl(m){return t(m==='cash'?'modeCash':'modeAsset')}
+// A declaration can mix payment types, so the mode is a comma list (e.g. 'cash,asset').
+function modeLbl(m){return String(m||'').split(',').map(function(k){return t(k==='cash'?'modeCash':k==='labour'?'modeLabour':'modeAsset')}).join(', ')}
+// Dropdown filter on a mode column: matches when the row includes that payment type.
+function modeMatch(get){return function(r,q){return String(get(r)||'').split(',').indexOf(q)>=0}}
 function toast(a,b,ok){
   var d=document.createElement('div');d.className='toast'+(ok?' ok':'');
   d.innerHTML='<b>'+a+'</b>'+(b?'<small>'+b+'</small>':'');
@@ -1029,6 +1110,11 @@ function donutLegend(segs){
 var KPI_ICON={PENDING:'◷',PARTIAL:'◐',COMPLETED:'✓',OVERDUE:'⚠'};
 // Lucide icons (https://lucide.dev/icons) - inner markup, inlined for offline use.
 var LU={
+ plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',
+ chevronDown:'<path d="m6 9 6 6 6-6"/>',
+ creditCard:'<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>',
+ package:'<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/>',
+ upload:'<path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>',
  clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
  rotateCcw:'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
  calendarClock:'<path d="M16 14v2.2l1.6 1"/><path d="M16 2v3"/><path d="M21 7.338V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2.338"/><path d="M3 9h5.859"/><path d="M8 2v3"/><circle cx="16" cy="16" r="6"/>',
@@ -1172,7 +1258,9 @@ function seedEnts(){return[
   type:{lo:'ບໍລິສັດຈຳກັດ',en:'Limited company'},prov:{lo:'ນະຄອນຫຼວງວຽງຈັນ',en:'Vientiane Capital'},isic:'0111',
   reg:'16/10/2024',due:'18/08/2026',cap:1000000000,paid:300000000,status:'PARTIAL',acct:'APB 010-2-88471-6',taxris:'741202588000',
   collateral:[{type:'land',label:{lo:'ທີ່ດິນ 2 ຕອນ',en:'2 land plots'},detail:{lo:'ເນື້ອທີ່ 1.5 ha · ໃບຕາດິນເລກທີ 4471-A, 4471-B',en:'Area 1.5 ha · Land title nos. 4471-A, 4471-B'},value:700000000,
-   fields:{deedNo:'4471-A, 4471-B',landParcelNo:'PL-4471',totalArea:'15,000',landEstimatedPrice:'700,000,000'}}],
+   fields:{deedNo:'4471-A, 4471-B',landParcelNo:'PL-4471',totalArea:'15,000',landEstimatedPrice:'700,000,000'}},
+   {type:'car',label:{lo:'Toyota Hilux Revo',en:'Toyota Hilux Revo'},detail:{lo:'ທະບຽນ ກຂ 4521 · ປີ 2023 · ສີຂາວ',en:'License plate ກຂ 4521 · Model year 2023 · White'},value:200000000,
+   fields:{licenseNo:'ກຂ 4521',chassisNo:'MR0FZ22G5P1234567',manufactory:'Toyota Hilux Revo',modelYear:'2023',carColor:'White',estimatedPrice:'200,000,000'}}],
   insts:[{no:1,amt:300000000,state:'paid',meta:{lo:'ເງິນສົດ · ໂອນເຂົ້າບັນຊີ APB 010-2-88471-6 · ຢືນຢັນໂດຍ Checker 02/11/2025',en:'Cash · transferred to APB 010-2-88471-6 · confirmed by the Checker on 02/11/2025'}},
          {no:2,amt:700000000,state:'due',meta:{lo:'ແຈ້ງເປັນຊັບສິນ (ທີ່ດິນ 2 ຕອນ) · ລໍຜົນປະເມີນ',en:'Declared as assets (2 land plots) · awaiting appraisal'}}],
   hist:[{d:'02/11/2025',a:{lo:'ຊຳລະທຶນງວດທີ 1 (ເງິນສົດ)',en:'Capital instalment 1 received (cash)'},m:'cash',v:300000000,u:'ນ. ສີວິໄລ',f:'3',ch:'chCounter',st:'complete'}]},
@@ -1358,16 +1446,18 @@ function seedApproved(){
 }
 
 var VALJOBS=[
- {id:'VAL-2026-0341',ent:'ELN-2025-1001',asset:{lo:'ທີ່ດິນ 2 ຕອນ',en:'2 land plots'},firm:'Lao Valuation Co., Ltd.',net:'in',amt:700000000,status:'doing'},
- {id:'VAL-2026-0338',ent:'ELN-2025-1006',asset:{lo:'ເຄື່ອງຈັກ 6 ລາຍການ',en:'6 machinery items'},firm:'Mekong Appraisal',net:'in',amt:3780000000,status:'wait',
+ {id:'VAL-2026-0341',ent:'ELN-2025-1001',type:'land',asset:{lo:'ທີ່ດິນ 2 ຕອນ',en:'2 land plots'},firm:'Lao Valuation Co., Ltd.',net:'in',amt:700000000,status:'doing'},
+ // Second asset of the same declaration (part = [n, of m]).
+ {id:'VAL-2026-0392',ent:'ELN-2025-1001',type:'car',part:[2,2],asset:{lo:'Toyota Hilux Revo',en:'Toyota Hilux Revo'},firm:'Lao Valuation Co., Ltd.',net:'in',amt:200000000,status:'doing'},
+ {id:'VAL-2026-0338',ent:'ELN-2025-1006',type:'machine',asset:{lo:'ເຄື່ອງຈັກ 6 ລາຍການ',en:'6 machinery items'},firm:'Mekong Appraisal',net:'in',amt:3780000000,status:'wait',
   files:['valuation-report-VAL-2026-0338.pdf','asset-photos.pdf']},
- {id:'VAL-2026-0330',ent:'ELN-2025-1003',asset:{lo:'ອາຄານສາງສິນຄ້າ',en:'Warehouse building'},firm:'Indochina Asset',net:'out',amt:1540000000,status:'outapprove',
+ {id:'VAL-2026-0330',ent:'ELN-2025-1003',type:'building',asset:{lo:'ອາຄານສາງສິນຄ້າ',en:'Warehouse building'},firm:'Indochina Asset',net:'out',amt:1540000000,status:'outapprove',
   files:['valuation-report-VAL-2026-0330.pdf','site-inspection.jpg']},
- {id:'VAL-2026-0318',ent:'ELN-2025-1005',asset:{lo:'ດິນ 1 ຕອນ',en:'1 land plot'},firm:'Lao Valuation Co., Ltd.',net:'in',amt:180000000,status:'accepted',
+ {id:'VAL-2026-0318',ent:'ELN-2025-1005',type:'land',asset:{lo:'ດິນ 1 ຕອນ',en:'1 land plot'},firm:'Lao Valuation Co., Ltd.',net:'in',amt:180000000,status:'accepted',
   files:['valuation-report-VAL-2026-0318.pdf','asset-photos.pdf','site-inspection.jpg']}
 ].concat(MOCK_VAL.map(function(m,k){
   var id='VAL-2026-0'+(342+k),c=mockCollateral(m),firm=MOCK_FIRMS[m[4]];
-  return {id:id,ent:mockEntId(m[0]),asset:c.label,firm:firm[0],net:firm[1],amt:c.value,status:m[5],
+  return {id:id,ent:mockEntId(m[0]),type:m[1],asset:c.label,firm:firm[0],net:firm[1],amt:c.value,status:m[5],
     files:m[5]==='doing'?[]:['valuation-report-'+id+'.pdf','asset-photos.pdf']};
 }));
 var VAL_LBL={doing:['valDoing','p-warn'],wait:['valWait','p-rev'],outapprove:['valOut','p-idle'],accepted:['stPaid','p-ok']};
@@ -1519,15 +1609,15 @@ function menus(){
   if(S.role==='owner'||S.role==='newuser')return [['mMonitor'],['dash',I('wallet'),'myCap']];
   if(S.role==='maker')return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',
     [['ret','mkMRet',makerReturned().length],['queue','mkMWait',S.tasks.length,1],['due','mkMDue',makerDue().length,1]]],['ent',I('search'),'ent']];
-  if(S.role==='valfirm')return [['mMonitor'],['valfirm',I('clipboardList'),'valPortal']];
+  if(S.role==='valfirm')return [['mMonitor'],['valdash',I('layoutDashboard'),'dash'],['valfirm',I('clipboardList'),'valPortal']];
   if(S.role==='external')return [['mMonitor'],['portal',I('globe'),'portal']];
   if(S.role==='checker'){
     var Tr=checkerReturned().length;
     return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',[['queue','ckMQueue',Tc],['atAp','ckMAtAp',Ta,1],['ret','ckMRet',Tr,1]]],
     ['ent',I('search'),'ent'],['valQueue',I('clipboardCheck'),'valQueue'],['mOther'],['fin',I('banknote'),'fin'],['rep',I('chartColumn'),'rep']];
   }
-  if(S.role==='approver')return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',
-    [['queue','ckMAtAp',Ta],['risk','apRisk',approverRisk().length,1],['signed','apRecent',approverSigned().length,1]]],
+  if(S.role==='approver')return [['mMonitor'],['dash',I('layoutDashboard'),'apMenu','',
+    [['overview','dash'],['queue','ckMAtAp',Ta],['risk','apRisk',approverRisk().length,1],['signed','apRecent',approverSigned().length,1]]],
     ['ent',I('search'),'ent'],['valQueue',I('clipboardCheck'),'valQueue'],['mOther'],['fin',I('banknote'),'fin'],['rep',I('chartColumn'),'rep']];
   return [['mMonitor'],['dash',I('layoutDashboard'),'dash'],['ent',I('search'),'ent'],['mOther'],['rep',I('chartColumn'),'rep'],['set',I('settings'),'set']];
 }
@@ -1867,15 +1957,15 @@ function vCheckerDash(){
   function flags(x){
     var e=x.ent,out='';
     var pen=S.invs.some(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='UNPAID'});
-    if(x.mode==='asset')out+=' <span class="pill p-rev">'+t('modeAsset')+'</span>';
+    if(String(x.mode).indexOf('asset')>=0)out+=' <span class="pill p-rev">'+t('modeAsset')+'</span>';
     if(x.amt>=500000000)out+=' <span class="pill p-warn">'+t('ckHighVal')+'</span>';
     if(pen)out+=' <span class="pill p-bad">'+t('penaltyAmt')+'</span>';
     return out;
   }
   // One list per sub-menu (Verification queue / Awaiting approval / Returned by me): a search
   // card above the table, then the table with pagination.
-  var modeOpts=[['cash',t('modeCash')],['asset',t('modeAsset')]];
-  var taskFields=[['ref',t('cRef')],['ent',t('cEnt')],['reg',t('regNo')],['mode',t('cMode'),modeOpts],['by',t('cBy'),optsOf(S.tasks,function(x){return x.by})]];
+  var modeOpts=[['cash',t('modeCash')],['asset',t('modeAsset')],['labour',t('modeLabour')]];
+  var taskFields=[['ref',t('cRef')],['ent',t('cEnt')],['reg',t('regNo')],['mode',t('cMode'),modeOpts,'',modeMatch(function(p){return p[0].mode})],['by',t('cBy'),optsOf(S.tasks,function(x){return x.by})]];
   function taskVals(p){var x=p[0];return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||''),reg:x.ent.id,mode:x.mode,by:x.by}}
   var tab=S.dashTab,card;
   if(tab==='atAp'){
@@ -1922,30 +2012,43 @@ function approverRisk(){
 }
 
 function vApproverDash(){
-  var me=who().n,LO=lang==='lo',TODAY='04/08/2026';
+  var me=who().n,TODAY='04/08/2026';
   var myQ=[],atChk=0;
   S.tasks.forEach(function(x,i){if(x.stage==='approve')myQ.push([x,i]);else if(x.stage==='checker')atChk++});
   var qVal=myQ.reduce(function(a,p){return a+p[0].amt},0);
   var signedAll=approverSigned(),signedToday=signedAll.filter(function(o){return o.h.d===TODAY}).length;
-  var overdue=S.ents.filter(function(e){return e.status==='OVERDUE'});
   var riskList=approverRisk();
-  var completed=S.ents.filter(function(e){return e.status==='COMPLETED'}).length;
   var totCap=0,totPaid=0;S.ents.forEach(function(e){totCap+=e.cap;totPaid+=e.paid});
   var paidRate=totCap?Math.round(totPaid/totCap*100):0;
 
-  // Overview carries the pipeline: paid-rate bar, then the stages in order
-  // (at verification -> awaiting my approval -> fully paid), then today's sign-offs and risk.
-  var first=myQ[0];
-  var kpis=sumCard({title:t('wsOverview'),
+  // Dashboard sub-tab: the paid-rate bar, then three titled rows - capital, enterprises by
+  // payment status, and the approval pipeline - with the next item to sign underneath.
+  var first=myQ[0],chkVal=0;S.tasks.forEach(function(x){if(x.stage==='checker')chkVal+=x.amt});
+  var paidEnts=S.ents.filter(function(e){return e.paid>0}).length,N=S.ents.length;
+  var byStatus=function(st){var l=S.ents.filter(function(e){return e.status===st});
+    return {n:l.length,left:l.reduce(function(a,e){return a+e.cap-e.paid},0),paid:l.reduce(function(a,e){return a+e.paid},0)}};
+  var stP=byStatus('PENDING'),stPa=byStatus('PARTIAL'),stC=byStatus('COMPLETED'),stO=byStatus('OVERDUE');
+  var signedVal=signedAll.filter(function(o){return o.h.d===TODAY}).reduce(function(a,o){return a+(o.h.v||0)},0);
+  var cap1=function(x){return x.charAt(0).toUpperCase()+x.slice(1)};
+  var overview=sumCard({title:t('wsOverview'),
    prog:{pct:paidRate,html:t('heroPaidPct')+' · <b class="num">'+fmt(totPaid)+'</b> / <span class="num">'+fmt(totCap)+'</span> LAK'},
-   metrics:metric('',t('apStgCheck'),fmt(atChk),LO?'ຢູ່ຂັ້ນ Checker':'With the Checker')+
-    metric('warn',t('apKQueue'),fmt(myQ.length),fmt(qVal)+' LAK')+
-    metric('ok',t('apKSigned'),fmt(signedToday),LO?'ລົງນາມດິຈິຕອນ':'Digitally signed')+
-    metric('ok',t('fullyPaidOf'),fmt(completed)+' / '+fmt(S.ents.length),LO?'ວິສາຫະກິດ':'enterprises')+
-    metric('bad',t('apKOverdue'),fmt(overdue.length),LO?'ຄວາມສ່ຽງ compliance':'Compliance risk'),
+   groups:[
+    {title:t('ovCapEnt'),metrics:metric('ok',t('ovPaidCap'),fmt(totPaid),'LAK · '+paidRate+'% '+t('ovOfReg'))+
+      metric('warn',t('ovOutCap'),fmt(totCap-totPaid),'LAK · '+(100-paidRate)+'% '+t('ovOfReg'))+
+      metric('ok',t('ovEntPaid'),fmt(paidEnts)+' / '+fmt(N),t('ovMadeOne'))+
+      metric('',t('ovEntNot'),fmt(N-paidEnts)+' / '+fmt(N),t('ovNoPay'))},
+    {title:t('ovByStatus'),metrics:metric('',cap1(stName('PENDING')),fmt(stP.n),fmt(stP.left)+' '+t('ovOutstanding'))+
+      metric('warn',cap1(stName('PARTIAL')),fmt(stPa.n),fmt(stPa.left)+' '+t('ovOutstanding'))+
+      metric('ok',cap1(stName('COMPLETED')),fmt(stC.n),fmt(stC.paid)+' '+t('ovPaidLbl'))+
+      metric('bad',cap1(stName('OVERDUE')),fmt(stO.n),fmt(stO.left)+' '+t('ovOutstanding'))},
+    {title:t('ovApproval'),metrics:metric('',t('apStgCheck'),fmt(atChk),fmt(chkVal)+' LAK · '+t('ovWithChecker'))+
+      metric('warn',t('apKQueue'),fmt(myQ.length),fmt(qVal)+' LAK')+
+      metric('ok',t('apKSigned'),fmt(signedToday),fmt(signedVal)+' LAK · '+t('ovDigSigned'))+
+      metric('bad',t('apRisk'),fmt(riskList.length),t('ovRiskS'))}],
    notes:[first?{tone:'info',text:'<b>'+myQ.length+' '+t('nxAp')+'</b> · '+t('nxNext')+': <span class="num">'+first[0].ref+'</span> · '+first[0].ent.name,
-      act:'<button class="btn sm" data-task="'+first[1]+'">'+t('nxStartAp')+' →</button>'}
+      act:'<button class="btn sm" data-subtab="dash:queue">'+luSvg('signature')+t('nxStartAp')+'</button>'}
      :{tone:'ok',text:'<b>'+t('nxClear')+'</b> · '+t('nxClearS')}]});
+  if(S.dashTab==='overview')return shell(t('apTitle'),'',overview,'',t('mkGreeting')+' <b>'+me+'</b>');
 
   function verifier(x){var chk=(x.trail||[]).filter(function(t2){return /Checker/.test(t2.who)}).slice(-1)[0];return chk?chk.who.replace(/ \(.*/,''):x.by}
   function penOf(e){return S.invs.filter(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='UNPAID'}).reduce(function(a,iv){return a+iv.amt},0)}
@@ -1972,7 +2075,7 @@ function vApproverDash(){
          '<td class="r num" style="padding-right:16px">'+o.h.d+'</td></tr>'}});
   }else{
     card=listCard({key:'apQueue',title:t('apQueue'),empty:t('apNoQueue'),all:myQ,hot:1,
-      fields:[['ref',t('cRef')],['ent',t('cEnt')],['reg',t('regNo')],['mode',t('cMode'),[['cash',t('modeCash')],['asset',t('modeAsset')]]],['chk',t('apVerifiedBy'),optsOf(myQ,function(p){return verifier(p[0])})]],
+      fields:[['ref',t('cRef')],['ent',t('cEnt')],['reg',t('regNo')],['mode',t('cMode'),[['cash',t('modeCash')],['asset',t('modeAsset')],['labour',t('modeLabour')]],'',modeMatch(function(p){return p[0].mode})],['chk',t('apVerifiedBy'),optsOf(myQ,function(p){return verifier(p[0])})]],
       vals:function(p){var x=p[0];return {ref:x.ref,ent:x.ent.name+' '+(x.ent.nameEn||''),reg:x.ent.id,mode:x.mode,chk:verifier(x)}},
       heads:[[t('cRef')],[t('cEnt')],[t('regNo')],[t('cMode')],[t('cAmt'),1],[t('apVerifiedBy')],['']],
       row:function(p){var x=p[0];
@@ -1981,7 +2084,7 @@ function vApproverDash(){
          '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td><td>'+verifier(x)+'</td>'+
          '<td class="r" style="padding-right:16px"><button class="btn sm">'+t('apSign')+' →</button></td></tr>'}});
   }
-  return shell(t('apTitle'),'',kpis+card,'',t('mkGreeting')+' <b>'+me+'</b>');
+  return shell(t('apTitle'),'',card,'',t('mkGreeting')+' <b>'+me+'</b>');
 }
 
 function vStaffDash(){
@@ -2226,7 +2329,9 @@ function sumCard(o){
    (o.acts?'<div class="acts">'+o.acts+'</div>':'')+'</div>'+
    (o.prog?'<div class="sc-prog"><div class="sc-pl"><b class="num">'+o.prog.pct+'%</b><span>'+o.prog.html+'</span></div>'+
      '<div class="bar'+(o.prog.over?' over':'')+'"><i style="width:'+o.prog.pct+'%"></i></div></div>':'')+
-   '<div class="sc-metrics">'+o.metrics+'</div>'+
+   (o.metrics?'<div class="sc-metrics">'+o.metrics+'</div>':'')+
+   // Optional titled metric rows (dashboards with several groups of figures).
+   (o.groups||[]).map(function(g){return '<div class="sc-gh">'+g.title+'</div><div class="sc-metrics">'+g.metrics+'</div>'}).join('')+
    (o.notes||[]).filter(Boolean).map(function(n){
      return '<div class="sc-note '+n.tone+'"><span class="ni">'+luSvg(NOTE_ICON[n.tone]||'triangleAlert')+'</span>'+
       '<div class="nt">'+n.text+'</div>'+(n.act?'<div class="acts">'+n.act+'</div>':'')+'</div>'}).join('')+
@@ -2258,7 +2363,8 @@ function docLabel(name){
 }
 function docRow(f,opt){
   var name=f.name||f,lbl=f.lbl||docLabel(name);opt=opt||{};
-  return '<div class="filerow'+(opt.rm?' up':'')+'"><span class="fic">'+luSvg(opt.rm?'circleCheck':'fileText')+'</span>'+
+  var up=opt.rm||opt.ok;
+  return '<div class="filerow'+(up?' up':'')+'"><span class="fic">'+luSvg(up?'circleCheck':'fileText')+'</span>'+
    '<div class="fmeta"><b>'+lbl+'</b><span>'+name+'</span></div>'+
    (opt.rm?'<span class="frm" '+opt.rm+'="'+(f.k||'')+'" title="'+t('cancel')+'">✕</span>'
      :'<span class="lnk" data-soon="'+t('openDoc')+'">'+t('openDoc')+'</span>')+'</div>';
@@ -2305,22 +2411,6 @@ function mountRegMap(){
   }).addTo(regMapInst);
   Leaflet.marker([lat,lng]).addTo(regMapInst);
 }
-function docsErrMsg(f){
-  if(f.mode==='asset'){
-    if(!f.files.some(function(x){return x.k==='valReport'}))
-      return t('errFile')+' - '+t('reqLbl')+': '+L(MASTER.doctype[3]);
-  }else if(!f.files.length){
-    return t('errFile')+' - '+t('anyOneLbl')+': '+MASTER.doctype.slice(0,3).map(L).join(' / ');
-  }
-  return '';
-}
-function docTypeOptions(mode){
-  return mode==='asset'
-    ?[{k:'valReport',lbl:L(MASTER.doctype[3])},{k:'assetPhoto',lbl:t('docAssetPhoto')}]
-    :MASTER.doctype.slice(0,3).map(function(d,i){return {k:'doc'+i,lbl:L(d)}});
-}
-var DOC_MOCKS={doc0:'bank-slip-20260804.pdf',doc1:'transfer-receipt.pdf',doc2:'confirmation-letter.pdf',
-  valReport:'valuation-report.pdf',assetPhoto:'asset-photos.jpg'};
 function valDocTypeOptions(){
   return [{k:'valReport',lbl:L(MASTER.doctype[3])},{k:'assetPhoto',lbl:t('docAssetPhoto')},{k:'siteInspect',lbl:t('docSiteInspect')}];
 }
@@ -2348,7 +2438,7 @@ function wireDropTyped(el,f,opts,mocks){
     push(dt&&dt.length?dt[0].name:(mocks[f.docType]||'document.pdf'))};
 }
 function stepCircles(steps){
-  return '<div class="card" style="margin-bottom:14px"><div class="c"><div class="stepc">'+steps.map(function(s,i){
+  return '<div class="card" style="margin-bottom:16px"><div class="c"><div class="stepc">'+steps.map(function(s,i){
     var state=s[0],label=s[1];
     var circle='<div class="scwrap"><div class="sc '+state+'">'+(state==='done'?'✓':(i+1))+'</div><div class="scl'+(state==='now'?' on':'')+'">'+label+'</div></div>';
     var line=i<steps.length-1?'<div class="scline'+(state==='done'?' done':'')+'"></div>':'';
@@ -2434,94 +2524,230 @@ function vDetail(){
   return shell(e.name,[t('ent'),'ent'],inner,'',e.nameEn?e.nameEn+' · <span class="num">'+e.id+'</span>':'<span class="num">'+e.id+'</span>');
 }
 
+/* ===== payments (one instalment = one or more payment blocks: cash, asset, labour capital) ===== */
+var PAY_ICON={cash:'creditCard',asset:'package',labour:'users'};
+var PAY_BANKS=[['APB','dcChTransfer'],['BCEL'],['LDB'],['JDB'],['STB']];
+var PAY_SKILLS=['skTech','skMgmt','skProf','skLabour'];
+// Mock file sizes so an attached file shows the same size on every screen.
+var FILE_SIZES={'bank-slip.pdf':'312 KB','valuation-report-land.pdf':'1.2 MB','valuation-report-car.pdf':'980 KB',
+  'labour-contribution-agreement.pdf':'860 KB'};
+function fileSizeMock(name){
+  if(FILE_SIZES[name])return FILE_SIZES[name];
+  var h=0;String(name).split('').forEach(function(c){h=(h*31+c.charCodeAt(0))%9973});
+  return (120+h%880)+' KB';
+}
+function numOf(v){return Number(String(v==null?'':v).replace(/[^0-9]/g,''))||0}
+function ptLabel(type){return t(type==='cash'?'modeCash':type==='labour'?'modeLabour':'ptAsset')}
+function payDocOpts(p){
+  if(p.type==='cash')return [{k:'doc0',lbl:t('dcEvidence')}];
+  if(p.type==='labour')return [{k:'labAgree',lbl:t('docLabourAgree')},{k:'labId',lbl:t('docLabourId')},{k:'labCv',lbl:t('docLabourCv')}];
+  return [{k:'valReport',lbl:L(MASTER.doctype[3])},{k:'assetPhoto',lbl:t('docAssetPhoto')}];
+}
+function payDocMock(p,k){
+  return {doc0:'bank-slip.pdf',valReport:'valuation-report-'+(p.cat||'asset')+'.pdf',assetPhoto:'asset-photos.jpg',
+    labAgree:'labour-contribution-agreement.pdf',labId:'id-passport-copy.pdf',labCv:'cv-qualification.pdf'}[k]||'document.pdf';
+}
+// The amount a block contributes: cash paid, the asset's estimated price, or the agreed labour value.
+function payAmt(p){
+  if(p.type==='cash')return numOf(p.amt);
+  if(p.type==='labour')return numOf((p.lb||{}).value);
+  return numOf((p.vals||{})[ASSET_PRICE_KEY[p.cat]]);
+}
+function payTotal(pays){return pays.reduce(function(a,p){return a+payAmt(p)},0)}
+// A new block is pre-filled with whatever is still outstanding after the other blocks.
+function payNew(type,left){
+  var v=left>0?fmt(left):'',p={type:type,open:true,touched:false,err:'',files:[]};
+  if(type==='cash'){p.amt=v;p.bank='APB';p.acctNo='';p.acctName='';p.docType='doc0'}
+  else if(type==='labour'){p.lb={name:'',idNo:'',skill:'skTech',role:'',months:'',value:v};p.docType='labAgree'}
+  else{p.cat='land';p.firmType='in';p.firmName=MASTER.valfirms.filter(function(vf){return vf.net==='in'})[0].nm;
+    p.vals={};p.vals[ASSET_PRICE_KEY.land]=v;p.docType='valReport'}
+  return p;
+}
+function payErr(p){
+  var blank=function(v){return !String(v==null?'':v).trim()};
+  if(p.type==='cash'){
+    if(!payAmt(p))return t('errAmt');
+    if(blank(p.bank)||blank(p.acctNo)||blank(p.acctName))return t('errPayFields');
+    if(!p.files.length)return t('errFile')+' - '+t('dcEvidence');
+  }else if(p.type==='labour'){
+    var lb=p.lb||{};
+    if(blank(lb.name)||blank(lb.idNo)||blank(lb.skill))return t('errPayFields');
+    if(!payAmt(p))return t('errAmt');
+    if(!p.files.some(function(x){return x.k==='labAgree'}))return t('errFile')+' - '+t('reqLbl')+': '+t('docLabourAgree');
+  }else{
+    if(blank((p.vals||{})[ASSET_REQ[p.cat]]))return t('errAssetField');
+    if(!payAmt(p))return t('errAmt');
+    if(!p.files.some(function(x){return x.k==='valReport'}))return t('errFile')+' - '+t('reqLbl')+': '+L(MASTER.doctype[3]);
+  }
+  return '';
+}
+// Totals bar under the blocks: one cell per payment type used, then the total and what is left.
+function paySummary(pays,remain){
+  var by={cash:0,asset:0,labour:0},used=[];
+  pays.forEach(function(p){if(used.indexOf(p.type)<0)used.push(p.type);by[p.type]+=payAmt(p)});
+  var tot=payTotal(pays),cell=function(k,v,cls){return '<div'+(cls?' class="'+cls+'"':'')+'><span class="k">'+k+'</span><span>'+fmt(v)+' LAK</span></div>'};
+  return '<div class="psum">'+['cash','asset','labour'].filter(function(k){return used.indexOf(k)>=0}).map(function(k){
+      return cell(k==='asset'?t('sumAssetEst'):ptLabel(k),by[k])}).join('')+
+    cell(t('sumTotal'),tot,'tot')+cell(t('sumAfter'),Math.max(0,remain-tot))+'</div>';
+}
+function tglBtn(attr,open){
+  return '<button type="button" class="lnkbtn tgl'+(open?' open':'')+'" '+attr+'>'+t(open?'hideDetails':'showDetails')+luSvg('chevronDown')+'</button>';
+}
+function payHead(p,i,n,editable){
+  return '<div class="pblk-h"><div class="pl"><span class="pt">'+luSvg(PAY_ICON[p.type])+ptLabel(p.type)+'</span>'+
+    '<span class="pn">'+t('payN')+' '+(i+1)+'</span>'+
+    (editable&&n>1?'<button type="button" class="lnkbtn prm" data-rmpay="'+i+'">'+t('payRemove')+'</button>':'')+'</div>'+
+    '<div class="pr"><span class="pamt">'+fmt(payAmt(p))+' LAK</span>'+tglBtn('data-tglpay="'+i+'"',p.open!==false)+'</div></div>';
+}
+function payFiles(p,opt){
+  return p.files.length?docList(p.files.map(function(f){return {k:f.k,lbl:f.name,name:f.size||fileSizeMock(f.name)}}),opt):'';
+}
+// One editable payment block on Declare / Add payment.
+function payCardEdit(p,i,n){
+  var id=function(path){return 'pf-'+i+'-'+path.replace('.','-')};
+  var inp=function(path,lbl,val,o){o=o||{};
+    return '<div class="field"><label for="'+id(path)+'">'+lbl+'</label><input id="'+id(path)+'" data-pf="'+i+'|'+path+'"'+
+      (o.num?' class="num" inputmode="numeric"':'')+(o.ph?' placeholder="'+esc(o.ph)+'"':'')+' value="'+esc(val||'')+'"></div>'};
+  var sel=function(path,lbl,opts,cur){
+    return '<div class="field"><label for="'+id(path)+'">'+lbl+'</label><select id="'+id(path)+'" data-pf="'+i+'|'+path+'">'+
+      opts.map(function(o){return '<option value="'+esc(o[0])+'"'+(o[0]===cur?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select></div>'};
+  var drop='<div class="drop" data-pdrop="'+i+'"><span class="dropIcon">'+luSvg('upload')+'</span><b>'+t('dropT')+'</b></div>';
+  var docSel=function(){return '<div class="g4">'+sel('docType',t('fDocs')+' *',payDocOpts(p).map(function(o){return [o.k,o.lbl]}),p.docType)+'</div>'+drop+
+    (p.files.length?payFiles(p,{rm:'data-rmpfile'}).replace(/data-rmpfile="/g,'data-rmpfile="'+i+'|'):'<div class="hint" style="text-align:center;padding:4px 0 0">'+t('noFiles')+'</div>')};
+  var body='';
+  if(p.type==='cash'){
+    body='<div class="g4">'+inp('amt',t('dcAmtPaid')+' (LAK) *',p.amt,{num:1})+
+      sel('bank',t('bankCode')+' *',PAY_BANKS.map(function(b){return [b[0],b[1]?t(b[1]):b[0]]}),p.bank)+
+      inp('acctNo',t('fromAcctNo')+' *',p.acctNo,{ph:t('fromAcctNoPh')})+inp('acctName',t('fromAcctName')+' *',p.acctName,{ph:t('fromAcctNamePh')})+'</div>'+
+      '<div class="field"><label>'+t('dcEvidence')+' *</label>'+drop+
+      (p.files.length?payFiles(p,{rm:'data-rmpfile'}).replace(/data-rmpfile="/g,'data-rmpfile="'+i+'|'):'')+'</div>';
+  }else if(p.type==='labour'){
+    var lb=p.lb||{};
+    body='<div class="g4">'+inp('lb.name',t('lbName')+' *',lb.name)+inp('lb.idNo',t('lbId')+' *',lb.idNo)+
+      sel('lb.skill',t('lbSkill')+' *',PAY_SKILLS.map(function(k){return [k,t(k)]}),lb.skill)+inp('lb.role',t('lbRole'),lb.role)+
+      inp('lb.months',t('lbMonths'),lb.months,{num:1})+inp('lb.value',t('lbValue')+' *',lb.value,{num:1})+'</div>'+docSel();
+  }else{
+    var inNet=p.firmType!=='out';
+    body='<div class="g4">'+sel('cat',t('assetCategory'),['land','building','car','machine'].map(function(k){return [k,t(k+'Type')]}),p.cat)+
+      '<div class="field"><label>'+t('firmNet')+'</label><div class="radrow">'+
+       '<label><input type="radio" name="firm'+i+'" data-pfirm="'+i+'|in"'+(inNet?' checked':'')+'>'+t('inNet')+'</label>'+
+       '<label><input type="radio" name="firm'+i+'" data-pfirm="'+i+'|out"'+(inNet?'':' checked')+'>'+t('outNetShort')+'</label></div></div>'+
+      (inNet?sel('firmName',t('firmNameLbl'),MASTER.valfirms.filter(function(vf){return vf.net==='in'}).map(function(vf){return [vf.nm,vf.nm]}),p.firmName)
+        :inp('firmName',t('firmNameLbl'),p.firmName,{ph:t('firmNamePh')}))+
+      ASSET_FIELDS[p.cat].map(function(af){return inp('vals.'+af[0],L(af[1]),(p.vals||{})[af[0]],{num:af[2]==='number'})}).join('')+'</div>'+docSel();
+  }
+  return '<div class="pblk">'+payHead(p,i,n,true)+(p.open!==false?
+    '<div class="g4"><div class="field"><label for="pm-'+i+'">'+t('payMethod')+' *</label><select id="pm-'+i+'" data-pmethod="'+i+'">'+
+      ['cash','asset','labour'].map(function(k){return '<option value="'+k+'"'+(p.type===k?' selected':'')+'>'+ptLabel(k)+'</option>'}).join('')+'</select></div></div>'+
+    body:'')+
+    (p.err?'<div class="hint err">'+p.err+'</div>':'')+'</div>';
+}
+// Document type of a block's first file, in the current language (seeded files carry a Lao label).
+function docKind(p){
+  var opts=payDocOpts(p),k=p.files[0]&&p.files[0].k,o=opts.filter(function(x){return x.k===k})[0]||opts[0];
+  return o.lbl;
+}
+// Read-only payment block on the Checker / Approver review pages.
+function payCardView(p,i){
+  var cell=function(k,v){return '<div><span class="k">'+k+'</span><span class="v">'+(v==null||v===''?'-':esc(v))+'</span></div>'};
+  var docs=function(lbl,val){return '<div><div class="pv" style="grid-template-columns:1fr">'+cell(lbl,val)+'</div>'+payFiles(p,{ok:1})+'</div>'};
+  var body='';
+  if(p.type==='cash'){
+    var bk=PAY_BANKS.filter(function(b){return b[0]===p.bank})[0];
+    body='<div class="pv">'+cell(t('dcAmtPaid')+' (LAK)',fmt(payAmt(p)))+cell(t('bankCode'),bk&&bk[1]?t(bk[1]):p.bank)+
+      cell(t('fromAcctNo'),p.acctNo)+cell(t('fromAcctName'),p.acctName)+'</div>'+
+      '<div><div class="pv" style="grid-template-columns:1fr"><div><span class="k">'+t('dcEvidence')+'</span></div></div>'+payFiles(p,{ok:1})+'</div>';
+  }else if(p.type==='labour'){
+    var lb=p.lb||{};
+    body='<div class="pv">'+cell(t('lbName'),lb.name)+cell(t('lbId'),lb.idNo)+cell(t('lbSkill'),lb.skill?t(lb.skill):'')+cell(t('lbRole'),lb.role)+
+      cell(t('lbMonths'),lb.months)+cell(t('lbValue'),fmt(payAmt(p)))+'</div>'+
+      docs(t('fDocs'),docKind(p));
+  }else{
+    body='<div class="pv">'+cell(t('assetCategory'),t(p.cat+'Type'))+cell(t('firmNet'),p.firmType==='out'?t('outNetShort'):t('inNet'))+
+      cell(t('firmNameLbl'),p.firmName)+
+      ASSET_FIELDS[p.cat].filter(function(af){return (p.vals||{})[af[0]]}).map(function(af){
+        return cell(L(af[1]).replace(/ \*$/,''),p.vals[af[0]])}).join('')+'</div>'+
+      docs(t('fDocs'),docKind(p));
+  }
+  return '<div class="pblk">'+payHead(p,i,0,false)+(p.open!==false?body:'')+'</div>';
+}
+// Payment blocks of a pending declaration. Seeded tasks only carry one mode and an amount,
+// so their block is built once from the enterprise (bank details, collateral, valuation firm).
+function taskPays(x){
+  if(x.pays)return x.pays;
+  var e=x.ent,files=(x.files||[]).map(function(f){return {k:f.k,lbl:f.lbl,name:f.name,size:fileSizeMock(f.name)}});
+  if(x.mode==='asset'){
+    var col=(e.collateral||[])[0]||{type:'land',fields:{}},job=VALJOBS.filter(function(j){return j.ent===e.id})[0];
+    var vals={};Object.keys(col.fields||{}).forEach(function(k){vals[k]=col.fields[k]});
+    vals[ASSET_PRICE_KEY[col.type]]=fmt(x.amt);
+    x.pays=[{type:'asset',cat:col.type,firmType:job?job.net:'in',firmName:job?job.firm:MASTER.valfirms[0].nm,vals:vals,files:files}];
+  }else{
+    var n=numOf(e.id)%100000;
+    x.pays=[{type:'cash',amt:fmt(x.amt),bank:'BCEL',acctNo:'010-12-00-'+(48200000+n),acctName:e.nameEn||e.name,files:files}];
+  }
+  return x.pays;
+}
+// Compact enterprise header with "Show details" for the full registration record (no map).
+function entBrief(e){
+  var open=!!S.entOpen,num=function(v){return '<span class="num">'+v+'</span>'};
+  var pm=PROV_META[e.prov.lo]||PROV_META['ນະຄອນຫຼວງວຽງຈັນ'],lat=e.lat||pm.lat,lng=e.lng||pm.lng;
+  var sec=function(title,rows){return '<section class="rsec"><h4>'+title+'</h4><dl class="sl">'+
+    rows.map(function(r){return '<div><dt>'+r[0]+'</dt><dd>'+r[1]+'</dd></div>'}).join('')+'</dl></section>'};
+  var mapUrl='https://www.openstreetmap.org/?mlat='+lat+'&mlon='+lng+'#map=16/'+lat+'/'+lng;
+  var body=open
+    ?'<div class="rgrid rgrid2" style="margin-top:-18px">'+
+      sec(t('secIdentity'),[[t('regNo'),num(e.id)],[t('nameLoLbl'),e.name],[t('nameEnLbl'),e.nameEn||'-'],[t('repLbl'),e.rep||'-']])+
+      sec(t('secRegistration'),[[t('cRegD'),num(e.reg)],[t('regStatusLbl'),'<span class="pill p-ok">'+t('operating')+'</span>'],[t('entType'),L(e.type)],
+        ['ISIC',num(e.isic)],[t('acctNo'),num(e.acct)]])+
+      sec(t('secTaxFin'),[[t('taxrisNo'),num(e.taxris)],[t('taxRegDateLbl'),num(e.taxRegDate||e.reg)],[t('taxStatusLbl'),t('operating')],[t('vatStatusLbl'),t('vatRegistered')]])+
+      sec(t('secLocation'),[[t('cProv'),L(e.prov)],[t('districtLbl'),e.district?L(e.district):L(pm.district)],[t('villageLbl'),e.village?L(e.village):L(pm.village)],
+        [t('mapLbl'),'<a class="lnk" style="text-decoration:none" href="'+mapUrl+'" target="_blank" rel="noopener">'+lat.toFixed(4)+', '+lng.toFixed(4)+'</a>']])+'</div>'
+    :'<div class="pv"><div><span class="k">'+t('regNo')+'</span><span class="v">'+e.id+'</span></div>'+
+      '<div><span class="k">'+t('entNameLbl')+'</span><span class="v">'+(lang==='lo'?e.name:(e.nameEn||e.name))+'</span></div>'+
+      '<div><span class="k">'+t('acctNo')+'</span><span class="v">'+e.acct+'</span></div>'+
+      '<div><span class="k">'+t('regStatusLbl')+'</span><span class="pill p-ok">'+t('operating')+'</span></div></div>';
+  return '<div class="card"><div class="h"><h3>'+t('regCardTitle')+'</h3>'+
+    '<span style="margin-left:auto;font-size:11px;color:var(--muted)">'+t('mapSyncedAt')+' 09:15</span>'+tglBtn('data-tglent="1"',open)+'</div>'+
+    '<div class="c">'+body+'</div></div>';
+}
+
+// Swap block i to another payment type, pre-filled with what the other blocks leave outstanding.
+function payReplace(i,to){
+  var e=S.ents.filter(function(x){return x.id===S.sel})[0],pays=S.form.pays;
+  pays[i]=payNew(to,e.cap-e.paid-payTotal(pays.filter(function(x,k){return k!==i})));
+  S.form.err='';S.modal=null;render();
+}
 function vDeclare(){
   var e=S.ents.filter(function(x){return x.id===S.sel})[0],f=S.form,remain=e.cap-e.paid;
   var isOwner=S.role==='owner',canPartial=e.paid===0;
-  if(!canPartial&&f.payMode!=='full'){f.payMode='full';if(f.mode==='cash')f.amt=fmt(remain)}
-  var minInst=(canPartial&&f.payMode==='partial')?Math.round(e.cap*0.3):remain;
-  var acctLast4=e.acct.replace(/\D/g,'').slice(-4);
-  var inner=
-  '<div class="declrow">'+regDetailCard(e)+
-  '<div class="card"><div class="c">'+
-  /* ---- Section 1: payment transaction details ---- */
-  '<div class="fsec">'+
-   '<div class="fsh"><span class="n">1. '+t('dcSec1')+'</span></div>'+
-   '<div class="fsub">'+t('dcSec1Sub')+'</div>'+
-   '<div class="field"><label>'+t('dcPlan')+' *</label>'+
+  if(!canPartial&&f.payMode!=='full')f.payMode='full';
+  var split=canPartial&&f.payMode==='partial';
+  var minInst=split?Math.round(e.cap*0.3):remain;
+  var n=f.pays.length;
+  var sec1='<div class="fsh"><span class="n">1. '+t('dcSec1')+'</span></div>'+
+   '<div class="fsub" style="margin-bottom:16px">'+t('dcSec1Sub')+'</div>'+
+   '<div class="field" style="margin-bottom:16px"><label>'+t('dcPlan')+'</label>'+
    (canPartial
-     ?'<div class="fseg"><button type="button" class="'+(f.payMode==='full'?'on':'')+'" data-paymode="full">'+t('dcOnce')+'</button>'+
-      '<button type="button" class="'+(f.payMode==='partial'?'on':'')+'" data-paymode="partial">'+t('dcSplit')+'</button></div>'
-     :'<div class="hint">'+t('payFullOnly')+'</div>')+'</div>'+
-   '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">'+
-   '<div class="field" style="margin:0"><label>'+t('dcInst')+' *</label><select>'+
-     '<option'+((canPartial&&f.payMode==='partial')?'':' selected')+'>'+t('dcInstSingle')+'</option>'+
-     '<option'+((canPartial&&f.payMode==='partial')?' selected':'')+'>'+t('dcInst1')+'</option>'+
-     '<option>'+t('dcInst2')+'</option>'+'</select></div>'+
-   '<div class="field" style="margin:0"><label>'+t('dcRecvDate')+' *</label><input type="date" value="2026-06-08"></div>'+
-   '</div>'+
-   '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">'+
+     ?'<div class="fseg"><button type="button" class="'+(split?'':'on')+'" data-paymode="full">'+t('dcOnce')+'</button>'+
+      '<button type="button" class="'+(split?'on':'')+'" data-paymode="partial">'+t('dcSplit')+'</button></div>'
+     :'<div class="hint" style="margin-top:0">'+t('payFullOnly')+'</div>')+'</div>'+
+   '<div class="g3"><div class="field"><label>'+t('dcInst')+' *</label><select>'+
+     '<option'+(split?'':' selected')+'>'+t('dcInstSingle')+'</option>'+
+     '<option'+(split?' selected':'')+'>'+t('dcInst1')+'</option>'+
+     '<option>'+t('dcInst2')+'</option></select></div>'+
    '<div class="roinfo"><div class="k">'+t('dcMinInst')+'</div><div class="v num">'+fmt(minInst)+' LAK</div></div>'+
-   '<div class="roinfo"><div class="k">'+t('dcOfficer')+'</div><div class="v">'+who().n+'</div></div>'+
-   '</div>'+
-  '</div>'+
-  /* ---- Section 2: capital being paid ---- */
-  '<div class="fsec">'+
-   '<div class="fsh"><span class="n">2. '+t('dcSec2')+'</span>'+
-    '<div class="fseg" style="margin-left:auto">'+
-    '<button type="button" class="'+(f.mode==='cash'?'on':'')+'" data-mode="cash">💳 '+t('dcCashTransfer')+'</button>'+
-    '<button type="button" class="'+(f.mode==='asset'?'on':'')+'" data-mode="asset">◈ '+t('dcNonCash')+'</button>'+
-    '</div></div>'+
-   '<div class="fsub">'+t('dcSec2Sub')+'</div>'+
-   (f.mode==='cash'?
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">'+
-    '<div class="field" style="margin:0"><label>'+t('dcAmtPaid')+' (LAK) *</label>'+
-     '<input class="num" id="fAmt" value="'+f.amt+'"'+(f.payMode==='full'?' disabled':'')+'>'+
-     '<div class="hint'+(f.err?' err':'')+'">'+(f.err||(t('remainNote')+' '+fmt(remain)+' LAK'))+'</div></div>'+
-    '<div class="field" style="margin:0"><label>'+t('dcChannel')+' *</label><select>'+
-     '<option>'+t('dcChTransfer')+'</option><option>'+t('dcChQR')+'</option><option>'+t('dcChCounter')+'</option></select></div>'+
-    '<div class="field" style="margin:0"><label>'+t('dcRecvAcct')+' *</label><select><option>APB Capital Account · •••• '+acctLast4+'</option></select></div>'+
-    '<div class="field" style="margin:0"><label>'+t('dcPayer')+' *</label><input placeholder="'+t('dcPayerPh')+'"></div>'+
-    '<div class="field" style="margin:0"><label>'+t('dcTxnNo')+' *</label><input class="num" placeholder="'+t('dcTxnPh')+'"></div>'+
-    '<div class="field" style="margin:0"><label>'+t('dcEvidence')+' *</label><input type="file" id="fileEvidence">'+
-     (f.files.length?docList(f.files,{rm:'data-rmfile'}):'')+
-     (f.docErr?'<div class="hint err" style="margin-top:6px">'+f.docErr+'</div>':'')+'</div>'+
-    '</div>'
-   :
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">'+
-    '<div class="field" style="margin:0"><label>'+t('assetCategory')+'</label><select id="assetCat">'+
-    ['land','building','car','machine'].map(function(k){return '<option value="'+k+'"'+(f.assetCat===k?' selected':'')+'>'+t(k+'Type')+'</option>'}).join('')+'</select></div>'+
-    '</div>'+
-    '<div class="field" style="margin-top:14px"><label>'+t('firmNet')+'</label>'+
-    '<div style="display:flex;flex-direction:column;gap:8px">'+
-    '<div style="display:flex;align-items:center;gap:10px">'+
-    '<label style="display:flex;align-items:center;gap:5px;font-size:11.5px;cursor:pointer;white-space:nowrap;flex:0 0 auto">'+
-    '<input type="radio" name="firmType" data-firmtype="in"'+(f.firmType!=='out'?' checked':'')+'>'+t('inNet')+'</label>'+
-    (f.firmType!=='out'?'<select id="firmName" style="flex:1;min-width:180px">'+
-      MASTER.valfirms.filter(function(vf){return vf.net==='in'}).map(function(vf){return '<option value="'+vf.nm+'"'+(f.firmName===vf.nm?' selected':'')+'>'+vf.nm+'</option>'}).join('')+'</select>':'')+
-    '</div>'+
-    '<div style="display:flex;align-items:center;gap:10px">'+
-    '<label style="display:flex;align-items:center;gap:5px;font-size:11.5px;cursor:pointer;white-space:nowrap;flex:0 0 auto">'+
-    '<input type="radio" name="firmType" data-firmtype="out"'+(f.firmType==='out'?' checked':'')+'>'+t('outNetShort')+'</label>'+
-    (f.firmType==='out'?'<input list="outFirmList" id="firmName" style="flex:1;min-width:180px" placeholder="'+t('firmNameLbl')+'" value="'+esc(f.firmName||'')+'">'+
-      '<datalist id="outFirmList">'+MASTER.valfirms.filter(function(vf){return vf.net==='out'}).map(function(vf){return '<option value="'+vf.nm+'">'}).join('')+'</datalist>':'')+
-    '</div></div>'+
-    '</div>'+
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">'+
-    ASSET_FIELDS[f.assetCat].map(function(af){var k=af[0],lbl=L(af[1]),v=(f.assetVals&&f.assetVals[k])||'';
-      return '<div class="field" style="margin:0"><label>'+lbl+'</label><input class="'+(af[2]==='number'?'num':'')+'" data-assetfield="'+k+'" value="'+esc(v)+'"></div>'}).join('')+
-    '</div>'+
-    (f.err?'<div class="hint err" style="margin-top:8px">'+f.err+'</div>':'')+
-    '<div class="field" style="margin-top:14px"><label>'+t('fDocs')+'</label>'+
-    '<select id="docType" style="width:100%;margin-bottom:10px">'+docTypeOptions(f.mode).map(function(o){
-      return '<option value="'+o.k+'"'+(f.docType===o.k?' selected':'')+'>'+o.lbl+'</option>'}).join('')+'</select>'+
-    '<div class="drop" id="drop"><span class="dropIcon">⬆</span><b>'+t('dropT')+'</b></div>'+
-    (f.files.length?docList(f.files,{rm:'data-rmfile'}):'<div class="hint" style="text-align:center;padding:10px 0 0">'+t('noFiles')+'</div>')+
-    (f.docErr?'<div class="hint err" style="margin-top:8px">'+f.docErr+'</div>':'')+'</div>')+
-  '</div>'+
-  '<div class="audit"><b>'+t('auditTrail')+'</b> - '+who().n+' · 04/08/2026 09:47</div>'+
-  '<div class="acts" style="margin-top:16px"><button class="btn" id="submitDeclare">'+t('submitDeclare')+'</button>'+
-  '<button class="btn ghost" data-nav="'+(isOwner?'mycap':'ent')+'">'+t('cancel')+'</button></div></div></div>'+
-  '</div>';
+   '<div class="roinfo"><div class="k">'+t('dcOfficer')+'</div><div class="v">'+who().n+'</div></div></div>';
+  var sec2='<div class="fsh"><span class="n">2. '+t('dcSec2')+'</span></div>'+
+   '<div class="fsub" style="margin:4px 0 16px">'+t('dcSec2Sub2')+'</div>'+
+   f.pays.map(function(p,i){return payCardEdit(p,i,n)}).join('')+
+   '<button type="button" class="btn ghost" data-addpay="1" style="margin:'+(n?'16px':'0')+' 0 16px">'+luSvg('plus')+t('payN')+'</button>'+
+   paySummary(f.pays,remain)+
+   (f.err?'<div class="hint err" style="margin-top:10px">'+f.err+'</div>':'');
+  var inner='<div class="vstack">'+entBrief(e)+
+   '<div class="card"><div class="c" style="padding:16px">'+
+   '<div class="fsec">'+sec1+'</div><div class="fsec">'+sec2+'</div>'+
+   '<div class="pfoot"><button class="btn ghost" data-nav="'+(isOwner?'mycap':'detail')+'">'+t('cancel')+'</button>'+
+   '<button class="btn" id="submitDeclare">'+t('submitDeclare')+'</button></div></div></div></div>';
   return shell(t('declareTitle'),[e.name,isOwner?'mycap':'detail'],inner);
 }
 
@@ -2545,20 +2771,18 @@ function vQueue(){
 
 function vTask(){
   var x=S.tasks[S.taskI];if(!x)return vQueue();
-  var e=x.ent,isC=x.stage==='checker';
+  var e=x.ent,isC=x.stage==='checker',pays=taskPays(x);
   var cls=function(n){return isC?(n===1?'done':(n===2?'now':'')):(n<3?'done':'now')};
-  var files=x.files.length?docList(x.files):'<div class="empty doc"><b>'+t('noFiles')+'</b></div>';
-  var caseCard='<div class="card"><div class="h"><h3>'+t('reqDetail')+'</h3></div>'+
-  '<div class="c"><div class="kv">'+
-  '<div><span class="k">'+t('cRef')+'</span><span class="v num">'+x.ref+'</span></div>'+
-  '<div><span class="k">'+t('cEnt')+'</span><span class="v">'+e.name+'</span></div>'+
-  '<div><span class="k">'+t('cCap')+'</span><span class="v num">'+fmt(e.cap)+' LAK</span></div>'+
-  '<div><span class="k">'+t('cPaid')+'</span><span class="v num">'+fmt(e.paid)+' ('+Math.round(e.paid/e.cap*100)+'%)</span></div>'+
-  '<div><span class="k">'+t('amtNow')+'</span><span class="v num" style="color:var(--m);font-size:15px;font-weight:700">'+fmt(x.amt)+' LAK</span></div>'+
-  '<div><span class="k">'+t('cMode')+'</span><span class="v">'+modeLbl(x.mode)+'</span></div>'+
-  '</div></div></div>';
-  var evidCard='<div class="card"><div class="h"><h3>'+t('evidence')+'</h3></div><div class="c">'+files+
-  '<div class="audit">'+t('evidenceN')+'</div></div></div>';
+  var counter=x.ch?x.ch==='counter':/Maker/.test(((x.trail||[])[0]||{}).who||'');
+  var types=[];pays.forEach(function(p){if(types.indexOf(p.type)<0)types.push(p.type)});
+  var cell=function(k,v,big){return '<div><span class="k">'+k+'</span><span class="v'+(big?' big':'')+'">'+v+'</span></div>'};
+  var caseCard='<div class="card"><div class="h"><h3>'+t('reqDetail')+'</h3></div><div class="c"><div class="pv c6">'+
+   cell(t('cRef'),x.ref)+cell(t('cCap'),fmt(e.cap)+' LAK')+cell(t('cPaid'),fmt(e.paid)+' ('+Math.round(e.paid/e.cap*100)+'%)')+
+   cell(t('amtNow'),fmt(x.amt)+' LAK',1)+cell(t('cMode'),counter?t('chCounter'):t('chOnlineShort'))+
+   cell(t('payMethod'),types.map(ptLabel).join(', '))+'</div></div></div>';
+  var payCard='<div class="card"><div class="h"><h3>'+t('dcSec2')+'</h3></div><div class="c" style="padding-top:16px">'+
+   pays.map(payCardView).join('')+'<div style="margin-top:16px">'+paySummary(pays,e.cap-e.paid)+'</div>'+
+   '<div class="pnote" style="margin-top:12px">'+t('evidenceN')+'</div></div></div>';
   var decideCard='<div class="card decide">'+
   '<div class="h"><h3>'+t('decide')+'</h3></div>'+
   '<div class="c">'+
@@ -2568,13 +2792,8 @@ function vTask(){
   (isC?'<button class="btn" data-fwd="1">'+t('fwdApprover')+'</button>'
       :'<button class="btn" data-sign="1">'+t('signApprove')+'</button>')+
   '</div></div></div>';
-  var regCard=regDetailCard(e).replace('<div class="card" style="margin-bottom:14px">','<div class="card">');
-  var inner=
-  stepCircles([[cls(1),t('channelOnline').split(' (')[0]],[cls(2),t('stageChecker')],[cls(3),t('stageApprover')]])+
-  '<div class="worksplit" style="margin-top:16px">'+
-  regCard+
-  '<div class="sticky stack">'+caseCard+evidCard+decideCard+'</div>'+
-  '</div>';
+  var inner=stepCircles([[cls(1),counter?t('channelCounter').split(' (')[0]:t('channelOnline').split(' (')[0]],[cls(2),t('stageChecker')],[cls(3),t('stageApprover')]])+
+  '<div class="vstack">'+entBrief(e)+caseCard+payCard+decideCard+'</div>';
   return shell(x.ref,[isC?t('ckTitle'):t('apTitle'),'dash'],inner);
 }
 
@@ -2589,16 +2808,46 @@ function vValFirm(){
     heads:[[t('cRef')],[t('cEnt')+' / '+t('valAsset')],[t('regNo')],[t('valFirmType')],[t('valDeclared')+' (LAK)',1],[t('cStatus'),1]],
     row:function(p){var j=p[0],lbl=VAL_LBL[j.status];
       return '<tr data-valjobfirm="'+p[1]+'"><td style="padding-left:16px" class="num">'+j.id+'</td>'+
-       '<td><span class="co">'+entOf(j).name+'<small>'+L(j.asset)+'</small></span></td>'+
+       '<td><span class="co">'+entOf(j).name+'<small>'+L(j.asset)+(j.part?' · '+valPartLbl(j,1):'')+'</small></span></td>'+
        '<td class="num">'+j.ent+'</td><td><span class="pill '+(j.net==='in'?'p-ok':'p-idle')+'">'+(j.net==='in'?t('inNet'):t('outNet').split(' (')[0])+'</span></td>'+
        '<td class="r num">'+fmt(j.amt)+'</td>'+
        '<td class="r" style="padding-right:16px"><span class="pill '+lbl[1]+'">'+t(lbl[0])+'</span></td></tr>'}});
   return shell(t('valPortal'),'',card);
 }
 
+// "Asset 2 of 2" for a job that is one of several assets in the same declaration.
+function valPartLbl(j,short){
+  if(!j.part)return '';
+  return lang==='lo'?'ຊັບສິນທີ '+j.part[0]+' ຈາກ '+j.part[1]+(short?'':' ໃນການແຈ້ງນີ້')
+    :'Asset '+j.part[0]+' of '+j.part[1]+(short?'':' in this declaration');
+}
+// Valuation firm dashboard: confirmed share, then value, status and asset-type rows.
+function vValDash(){
+  var me=who().n,mine=[];S.valjobs.forEach(function(j,i){if(j.firm===me)mine.push([j,i])});
+  var sum=function(l){return l.reduce(function(a,p){return a+p[0].amt},0)};
+  var of=function(st){return mine.filter(function(p){return p[0].status===st})};
+  var tot=sum(mine),acc=of('accepted'),accV=sum(acc),pct=mine.length?Math.round(acc.length/mine.length*100):0;
+  var vp=tot?Math.round(accV/tot*100):0,doing=of('doing');
+  var st=function(tone,k,l){return metric(tone,t(k),fmt(l.length),fmt(sum(l))+' '+t('vdDeclared'))};
+  var byType=['land','building','car','machine'].map(function(ty){
+    var l=mine.filter(function(p){return p[0].type===ty});return metric('',t(ty+'Type'),fmt(l.length),fmt(sum(l))+' '+t('vdDeclared'))}).join('');
+  var first=doing[0],ent=first?S.ents.filter(function(e){return e.id===first[0].ent})[0]:null;
+  var card=sumCard({title:t('wsOverview'),
+   prog:{pct:pct,html:t('vdConfirmed')+' · <b class="num">'+acc.length+'</b> / <span class="num">'+mine.length+'</span> '+t('vdJobs')},
+   groups:[
+    {title:t('vdJobsVal'),metrics:metric('',t('valAll'),fmt(mine.length),t('vdAssigned'))+metric('',t('valDeclared'),fmt(tot),'LAK · '+t('vdAllJobs'))+
+      metric('ok',t('vdConfVal'),fmt(accV),'LAK · '+vp+'% '+t('vdOfDecl'))+metric('warn',t('vdNotConf'),fmt(tot-accV),'LAK · '+(100-vp)+'% '+t('vdOfDecl'))},
+    {title:t('vdByStatus'),metrics:st('warn','valDoing',doing)+st('','valWait',of('wait'))+
+      (of('outapprove').length?st('bad','valOut',of('outapprove')):'')+st('ok','stPaid',acc)},
+    {title:t('vdByType'),metrics:byType}],
+   notes:first?[{tone:'info',text:'<b>'+doing.length+' '+t('vdInProg')+'</b> · '+t('nxNext')+': <span class="num">'+first[0].id+'</span> · '+(ent?ent.name:first[0].ent),
+     act:'<button class="btn sm" data-nav="valfirm">'+luSvg('clipboardList')+t('vdOpen')+'</button>'}]:[]});
+  return shell(t('dash'),'',card);
+}
+
 function vValJobDetail(){
   var j=S.valjobs[S.valI];if(!j)return vValFirm();
-  var e=S.ents.filter(function(x){return x.id===j.ent})[0];
+  var e=S.ents.filter(function(x){return x.id===j.ent})[0],F=S.valForm;
   var lbl=VAL_LBL[j.status],canSubmit=j.status==='doing';
   var typeLbl={land:'landType',building:'buildingType',car:'carType',machine:'machineType'};
   var col=e&&e.collateral?e.collateral.filter(function(c){return L(c.label)===L(j.asset)})[0]:null;
@@ -2608,35 +2857,38 @@ function vValJobDetail(){
   var head='<div class="sumcard"><div class="sc-top"><div class="sc-h"><h3>'+t('reqDetail')+'</h3><span class="pill '+lbl[1]+'">'+t(lbl[0])+'</span></div></div>'+
    '<div class="sc-metrics">'+
    '<div class="sm"><div class="k">'+t('cEnt')+'</div><div class="v" style="font-size:14px">'+(e?e.name:j.ent)+'</div><div class="s num">'+j.ent+'</div></div>'+
-   '<div class="sm"><div class="k">'+t('valAsset')+'</div><div class="v" style="font-size:14px">'+L(j.asset)+'</div></div>'+
+   '<div class="sm"><div class="k">'+t('valAsset')+'</div><div class="v" style="font-size:14px">'+L(j.asset)+'</div>'+(j.part?'<div class="s num">'+valPartLbl(j)+'</div>':'')+'</div>'+
    '<div class="sm"><div class="k">'+t('valFirmType')+'</div><div class="v" style="font-size:14px">'+(j.net==='in'?t('inNet'):t('outNet').split(' (')[0])+'</div></div>'+
    '<div class="sm"><div class="k">'+t('valDeclared')+'</div><div class="v"><span class="num">'+fmt(j.amt)+'</span> <small>LAK</small></div></div>'+
    '</div></div>';
-  // 2. what is being valued - one card, two titled groups
-  var assetCard='<div class="card"><div class="h"><h3>'+t('valAssetCard')+'</h3></div><div class="c">'+
-   (col?'<section class="rsec"><h4>'+t('collateral')+'</h4>'+sl([[t('cType'),t(typeLbl[col.type]||'cType')],[t('cItem'),L(col.label)],
-     [t('colDetail'),L(col.detail)],[t('colVal'),num(fmt(col.value)+' LAK')]])+'</section>':'')+
-   (col&&col.fields?'<section class="rsec"><h4>'+t('submittedFields')+'</h4>'+sl((ASSET_FIELDS[col.type]||[]).filter(function(af){return col.fields[af[0]]})
-     .map(function(af){return [L(af[1]),num(col.fields[af[0]])]}))+'</section>':'')+
-   (!col?'<div class="empty"><b>-</b></div>':'')+'</div></div>';
-  // 3. act - documents already on file + the submit form, kept together on the right
+  // 2. what is being valued, and the documents that came with the declaration
+  var declDoc=col?'valuation-report-'+col.type+'.pdf':'';
+  var assetCard='<div class="card"><div class="h"><h3>'+t('valAssetCard')+'</h3></div><div class="c" style="padding-top:0">'+
+   (col?'<div class="rgrid rgrid2">'+
+     '<section class="rsec"><h4>'+t('collateral')+'</h4>'+sl([[t('cType'),t(typeLbl[col.type]||'cType')],[t('cItem'),L(col.label)],
+       [t('colDetail'),L(col.detail)],[t('colVal'),num(fmt(col.value)+' LAK')]])+'</section>'+
+     (col.fields?'<section class="rsec"><h4>'+t('submittedFields')+'</h4>'+sl((ASSET_FIELDS[col.type]||[]).filter(function(af){return col.fields[af[0]]})
+       .map(function(af){return [L(af[1]),num(col.fields[af[0]])]}))+'</section>':'')+'</div>'+
+     '<section class="rsec"><h4>'+t('declDocs')+'</h4><div class="pv" style="grid-template-columns:1fr;margin-top:8px"><div><span class="v">'+L(MASTER.doctype[3])+'</span></div></div>'+
+     docList([{k:'valReport',lbl:declDoc,name:fileSizeMock(declDoc)}],{ok:1})+'</section>'
+   :'<div class="empty"><b>-</b></div>')+'</div></div>';
+  // 3. act - the valuation result form (or what the firm already sent)
   var hasFiles=j.files&&j.files.length;
-  // inside the submit form the list needs its own label; as a stand-alone card the card title already says it
-  var onFile=hasFiles?'<div class="field"><label>'+t('docsOnFile')+'</label>'+docList(j.files)+'</div>':'';
-  var formCard=canSubmit?'<div class="card sticky"><div class="h"><h3>'+t('submitJob')+'</h3></div><div class="c">'+onFile+
-   '<div class="field"><label>'+t('valDeclared')+' (LAK)</label>'+
-   '<input class="big num" id="fjVal" value="'+(S.valForm.val!=null?S.valForm.val:j.amt)+'"></div>'+
-   (S.valForm.err?'<div class="hint err" style="margin-top:-8px;margin-bottom:10px">'+S.valForm.err+'</div>':'')+
-   '<div class="field"><label>'+t('fDocs')+'</label>'+
-   '<select id="valDocType" style="width:100%;margin-bottom:10px">'+valDocTypeOptions().map(function(o){
-     return '<option value="'+o.k+'"'+(S.valForm.docType===o.k?' selected':'')+'>'+o.lbl+'</option>'}).join('')+'</select>'+
-   '<div class="drop" id="fjDrop"><span class="dropIcon">⬆</span><b>'+t('dropT')+'</b></div>'+
-   (S.valForm.files.length?docList(S.valForm.files,{rm:'data-rmvalfile'}):'<div class="hint" style="text-align:center;padding:10px 0 0">'+t('noFiles')+'</div>')+
-   (S.valForm.docErr?'<div class="hint err" style="margin-top:8px">'+S.valForm.docErr+'</div>':'')+'</div>'+
-   '<button class="btn" style="width:100%;margin-top:6px;padding:11px" data-submitjob="'+S.valI+'">'+t('submitJob')+'</button>'+
+  var formCard=canSubmit?'<div class="card"><div class="h"><h3>'+t('submitJob')+'</h3></div><div class="c">'+
+   '<div class="g4" style="grid-template-columns:minmax(0,1fr) minmax(0,2fr);margin-bottom:14px">'+
+    '<div class="field"><label for="fjVal">'+t('valPrice')+'</label><input class="num" inputmode="numeric" id="fjVal" value="'+esc(F.val!=null?F.val:fmt(j.amt))+'">'+
+     (F.err?'<div class="hint err">'+F.err+'</div>':'')+'</div>'+
+    '<div class="field"><label for="fjRemark">'+t('valRemark')+'</label><input id="fjRemark" placeholder="'+esc(t('valRemarkPh'))+'" value="'+esc(F.remark||'')+'"></div></div>'+
+   '<div class="field" style="margin:0"><label for="valDocType">'+t('fDocs')+'</label>'+
+   '<div class="g4" style="grid-template-columns:minmax(0,1fr) minmax(0,2fr);margin-bottom:10px"><select id="valDocType">'+valDocTypeOptions().map(function(o){
+     return '<option value="'+o.k+'"'+(F.docType===o.k?' selected':'')+'>'+o.lbl+'</option>'}).join('')+'</select></div>'+
+   '<div class="drop" id="fjDrop"><span class="dropIcon">'+luSvg('upload')+'</span><b>'+t('dropT')+'</b></div>'+
+   (F.files.length?docList(F.files,{rm:'data-rmvalfile'}):'<div class="hint" style="text-align:center;padding:10px 0 0">'+t('noFiles')+'</div>')+
+   (F.docErr?'<div class="hint err" style="margin-top:12px">'+F.docErr+'</div>':'')+'</div>'+
+   '<div class="pfoot" style="padding-top:24px"><button class="btn" style="min-width:240px" data-submitjob="'+S.valI+'">'+t('submitJob')+'</button></div>'+
    '</div></div>'
-   :'<div class="card sticky"><div class="h"><h3>'+t('evidence')+'</h3></div><div class="c">'+(hasFiles?docList(j.files):'<div class="empty doc"><b>'+t('noFiles')+'</b></div>')+'</div></div>';
-  var inner=head+'<div class="worksplit">'+assetCard+formCard+'</div>';
+   :'<div class="card"><div class="h"><h3>'+t('evidence')+'</h3></div><div class="c">'+(hasFiles?docList(j.files):'<div class="empty doc"><b>'+t('noFiles')+'</b></div>')+'</div></div>';
+  var inner='<div class="vstack">'+head+assetCard+formCard+'</div>';
   return shell(j.id,[t('valPortal'),'valfirm'],inner,'',(e?e.name:j.ent));
 }
 
@@ -3028,6 +3280,12 @@ function vModal(){
     '<div class="acts"><button class="btn" style="flex:1" id="doSaveUser">'+t('save')+'</button>'+
     '<button class="btn ghost" data-close>'+t('cancel')+'</button></div></div></div>';
   }
+  if(m.type==='chgpay'){
+    return '<div class="veil" id="veil"><div class="modal" style="max-width:420px"><h3>'+t('chgTitle')+'</h3>'+
+    '<p>'+t('chgMsg')+'</p>'+
+    '<div class="acts"><button class="btn danger" data-dochgpay="1">'+t('chgDo')+'</button>'+
+    '<button class="btn ghost" data-close>'+t('chgKeep')+'</button></div></div></div>';
+  }
   if(m.type==='backreason'){
     return '<div class="veil" id="veil"><div class="modal"><h3>'+t('sendBack')+'</h3>'+
     '<div class="field" style="margin-top:12px;margin-bottom:8px"><label>'+t('reasonIntLbl')+'</label>'+
@@ -3077,6 +3335,7 @@ function render(){
   else if(S.view==='inspect')h=vQueue();
   else if(S.view==='approveQ')h=vQueue();
   else if(S.view==='task')h=vTask();
+  else if(S.view==='valdash')h=vValDash();
   else if(S.view==='valfirm')h=vValFirm();
   else if(S.view==='valjobdetail')h=vValJobDetail();
   else if(S.view==='valQueue')h=vValQueue();
@@ -3098,12 +3357,12 @@ function render(){
   render._key=S.view+':'+S.mobile;
 }
 // Dashboard sub-menu that opens first for a role.
-function firstTab(role){return role==='maker'?'ret':'queue'}
+function firstTab(role){return role==='maker'?'ret':role==='approver'?'overview':'queue'}
 function go(v){S.view=v;S.mobile=false;S.bell=false;S.umenu=false;S.navOpen=false;render()}
 function logout(){S.role=null;S.view='login';S.mobile=false;S.bell=false;S.umenu=false;S.modal=null;
   S.loginStep='cred';S.loginUser='';S.loginPass='';S.loginErr='';render()}
 function roleHome(role){
-  return role==='owner'||role==='newuser'?'dash':(role==='valfirm'?'valfirm':(role==='external'?'portal':
+  return role==='owner'||role==='newuser'?'dash':(role==='valfirm'?'valdash':(role==='external'?'portal':
     (role==='checker'?'dash':(role==='approver'?'dash':(role==='admin'?'dash':(role==='maker'?'dash':'ent'))))));
 }
 function switchRole(id){
@@ -3212,39 +3471,56 @@ function bind(){
   document.querySelectorAll('[data-tab]').forEach(function(b){b.onclick=function(){S.tab=b.dataset.tab;go('ent')}});
   document.querySelectorAll('[data-soon]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();toast(b.dataset.soon,t('notDemo'))}});
-  document.querySelectorAll('[data-mode]').forEach(function(b){b.onclick=function(){
-    S.form.mode=b.dataset.mode;
-    if(S.form.mode==='asset'){
-      if(!S.form.assetCat){S.form.assetCat='land';S.form.assetVals={}}
-      S.form.amt=(S.form.assetVals&&S.form.assetVals[ASSET_PRICE_KEY[S.form.assetCat]])||'';
-      if(!S.form.firmType){S.form.firmType='in';S.form.firmName=MASTER.valfirms.filter(function(vf){return vf.net==='in'})[0].nm}
-    }else{
-      var ce=S.ents.filter(function(x){return x.id===S.sel})[0];
-      if(ce)S.form.amt=S.form.payMode==='full'?fmt(ce.cap-ce.paid):'';
-    }
-    var okKeys=docTypeOptions(S.form.mode).map(function(o){return o.k});
-    S.form.files=S.form.files.filter(function(fl){return okKeys.indexOf(fl.k)>-1});
-    S.form.docType=okKeys[0];S.form.docErr='';S.form.err='';
-    render()}});
-  var dts=$('#docType');if(dts)dts.onchange=function(){S.form.docType=dts.value};
-  document.querySelectorAll('[data-rmfile]').forEach(function(b){b.onclick=function(ev){
-    ev.stopPropagation();S.form.files=S.form.files.filter(function(fl){return fl.k!==b.dataset.rmfile});
-    S.form.docErr=docsErrMsg(S.form);render()}});
-  var acs=$('#assetCat');if(acs)acs.onchange=function(){
-    S.form.assetCat=acs.value;S.form.assetVals={};S.form.amt='';S.form.err='';render()};
-  document.querySelectorAll('[data-assetfield]').forEach(function(inp){inp.oninput=function(){
-    if(!S.form.assetVals)S.form.assetVals={};S.form.assetVals[inp.dataset.assetfield]=inp.value;
-    if(inp.dataset.assetfield===ASSET_PRICE_KEY[S.form.assetCat]){S.form.amt=inp.value;S.form.err=''}}});
-  document.querySelectorAll('[data-firmtype]').forEach(function(b){b.onchange=function(){
-    S.form.firmType=b.dataset.firmtype;
-    S.form.firmName=S.form.firmType==='in'?MASTER.valfirms.filter(function(vf){return vf.net==='in'})[0].nm:'';
-    render()}});
-  var fnSel=$('#firmName');if(fnSel)fnSel[fnSel.tagName==='SELECT'?'onchange':'oninput']=function(){S.form.firmName=fnSel.value};
-  document.querySelectorAll('[data-paymode]').forEach(function(b){b.onclick=function(){
+  // Declare / Add payment: payment blocks (data-pf="index|field" where field may be 'lb.name' or 'vals.deedNo').
+  var curPays=function(){return S.view==='task'?taskPays(S.tasks[S.taskI]):(S.form?S.form.pays:[])};
+  var payGetSet=function(p,path,v){var k=path.split('.');if(k.length>1){p[k[0]]=p[k[0]]||{};p[k[0]][k[1]]=v}else p[path]=v};
+  document.querySelectorAll('[data-tglent]').forEach(function(b){b.onclick=function(){S.entOpen=!S.entOpen;render()}});
+  document.querySelectorAll('[data-tglpay]').forEach(function(b){b.onclick=function(){
+    var p=curPays()[Number(b.dataset.tglpay)];if(p){p.open=p.open===false;render()}}});
+  document.querySelectorAll('[data-addpay]').forEach(function(b){b.onclick=function(){
     var e=S.ents.filter(function(x){return x.id===S.sel})[0];
-    S.form.payMode=b.dataset.paymode;
-    if(S.form.payMode==='full')S.form.amt=fmt(e.cap-e.paid);
-    S.form.err='';render()}});
+    S.form.pays.push(payNew('cash',e.cap-e.paid-payTotal(S.form.pays)));S.form.err='';render()}});
+  document.querySelectorAll('[data-rmpay]').forEach(function(b){b.onclick=function(){
+    S.form.pays.splice(Number(b.dataset.rmpay),1);S.form.err='';render()}});
+  document.querySelectorAll('[data-pmethod]').forEach(function(sel){sel.onchange=function(){
+    var i=Number(sel.dataset.pmethod),p=S.form.pays[i];
+    // Switching type drops what was typed, so ask first once the block has data.
+    if(p.touched||p.files.length){S.modal={type:'chgpay',i:i,to:sel.value};return render()}
+    payReplace(i,sel.value)}});
+  document.querySelectorAll('[data-dochgpay]').forEach(function(b){b.onclick=function(){payReplace(S.modal.i,S.modal.to)}});
+  document.querySelectorAll('[data-pf]').forEach(function(el){
+    var parts=el.dataset.pf.split('|'),p=S.form&&S.form.pays[Number(parts[0])],path=parts[1];if(!p)return;
+    if(el.tagName==='SELECT'){el.onchange=function(){
+      if(path==='cat'){var price=payAmt(p);p.vals={};p.vals[ASSET_PRICE_KEY[el.value]]=price?fmt(price):''}
+      payGetSet(p,path,el.value);if(path!=='docType')p.touched=true;p.err='';render()};return}
+    el.oninput=function(){
+      payGetSet(p,path,el.value);p.touched=true;
+      // Amount fields feed the block header and the totals bar, so re-render and keep the caret.
+      if(path==='amt'||path==='lb.value'||path==='vals.'+ASSET_PRICE_KEY[p.cat]){
+        var pos=el.selectionStart,id=el.id;render();var n=document.getElementById(id);
+        if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(x){}}}};
+    // Money fields show thousands separators once the user leaves the field.
+    if(el.classList.contains('num')&&!/months/.test(path))el.onchange=function(){
+      var v=numOf(el.value);el.value=v?fmt(v):'';payGetSet(p,path,el.value)}});
+  document.querySelectorAll('[data-pfirm]').forEach(function(r){r.onchange=function(){
+    var parts=r.dataset.pfirm.split('|'),p=S.form.pays[Number(parts[0])];
+    p.firmType=parts[1];p.firmName=parts[1]==='in'?MASTER.valfirms.filter(function(vf){return vf.net==='in'})[0].nm:'';p.touched=true;render()}});
+  document.querySelectorAll('[data-pdrop]').forEach(function(el){
+    var p=S.form.pays[Number(el.dataset.pdrop)];
+    var add=function(name,size){var opts=payDocOpts(p),o=opts.filter(function(x){return x.k===p.docType})[0]||opts[0];
+      p.files=p.files.filter(function(x){return x.k!==o.k});p.files.push({k:o.k,lbl:o.lbl,name:name,size:size||fileSizeMock(name)});
+      p.touched=true;p.err='';render()};
+    el.onclick=function(){add(payDocMock(p,p.docType))};
+    el.ondragover=function(ev){ev.preventDefault();el.classList.add('drag')};
+    el.ondragleave=function(){el.classList.remove('drag')};
+    el.ondrop=function(ev){ev.preventDefault();el.classList.remove('drag');
+      var dt=ev.dataTransfer&&ev.dataTransfer.files;
+      if(dt&&dt.length)add(dt[0].name,fileSize(dt[0].size));else add(payDocMock(p,p.docType))}});
+  document.querySelectorAll('[data-rmpfile]').forEach(function(b){b.onclick=function(ev){
+    ev.stopPropagation();var parts=b.dataset.rmpfile.split('|'),p=S.form.pays[Number(parts[0])];
+    p.files=p.files.filter(function(x){return x.k!==parts[1]});render()}});
+  document.querySelectorAll('[data-paymode]').forEach(function(b){b.onclick=function(){
+    S.form.payMode=b.dataset.paymode;S.form.err='';render()}});
   document.querySelectorAll('[data-copy]').forEach(function(b){b.onclick=function(){S.certCopy=b.dataset.copy==='1';render()}});
   document.querySelectorAll('[data-cert]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();go('cert')}});
   document.querySelectorAll('[data-close]').forEach(function(b){b.onclick=function(){S.modal=null;render()}});
@@ -3265,9 +3541,9 @@ function bind(){
     clearCache();toast(t('clearCacheDone'),t('clearCacheDoneS'),true)}});
   document.querySelectorAll('[data-pay]').forEach(function(b){b.onclick=function(){
     var e=S.ents.filter(function(x){return x.id===S.sel})[0];
-    S.form={mode:'cash',payMode:'full',amt:fmt(e.cap-e.paid),files:[],docType:'doc0',err:''};go('declare')}});
+    S.form={payMode:'full',pays:[],err:''};S.entOpen=false;go('declare')}});
   document.querySelectorAll('[data-selfpay]').forEach(function(b){b.onclick=function(){
-    var e=ownerEnt();S.sel=e.id;S.form={mode:'cash',payMode:'full',amt:fmt(e.cap-e.paid),files:[],docType:'doc0',err:''};go('declare')}});
+    var e=ownerEnt();S.sel=e.id;S.form={payMode:'full',pays:[],err:''};S.entOpen=false;go('declare')}});
   document.querySelectorAll('[data-payinv]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();S.modal={type:'qr',inv:b.dataset.payinv};render()}});
   document.querySelectorAll('[data-viewrec]').forEach(function(b){b.onclick=function(ev){
@@ -3295,7 +3571,9 @@ function bind(){
     S.modal={type:'valjob',i:Number(r.dataset.valjob)};render()}});
   document.querySelectorAll('[data-valjobfirm]').forEach(function(r){r.onclick=function(){
     S.valI=Number(r.dataset.valjobfirm);S.valForm={val:null,files:[],err:'',docType:'valReport',docErr:''};go('valjobdetail')}});
-  var fjv=$('#fjVal');if(fjv)fjv.oninput=function(){S.valForm.val=fjv.value};
+  var fjv=$('#fjVal');if(fjv){fjv.oninput=function(){S.valForm.val=fjv.value};
+    fjv.onchange=function(){var v=numOf(fjv.value);fjv.value=v?fmt(v):'';S.valForm.val=fjv.value}}
+  var fjr=$('#fjRemark');if(fjr)fjr.oninput=function(){S.valForm.remark=fjr.value};
   if($('#fjDrop'))wireDropTyped($('#fjDrop'),S.valForm,valDocTypeOptions(),valDocMocks(S.valjobs[S.valI].id));
   var vdt=$('#valDocType');if(vdt)vdt.onchange=function(){S.valForm.docType=vdt.value};
   document.querySelectorAll('[data-rmvalfile]').forEach(function(b){b.onclick=function(ev){
@@ -3304,11 +3582,9 @@ function bind(){
   document.querySelectorAll('[data-submitjob]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();var j=S.valjobs[Number(b.dataset.submitjob)];if(!j)return;
     var v=Number(String(S.valForm.val!=null?S.valForm.val:j.amt).replace(/[^0-9]/g,''));
-    if(!v){S.valForm.err=t('errAmt');return render()}
-    var docErr=valDocsErrMsg(S.valForm);
-    if(docErr){S.valForm.docErr=docErr;return render()}
-    S.valForm.docErr='';
-    j.amt=v;j.files=S.valForm.files.slice();j.status='wait';toast(t('jobSubmitted'),t('jobSubmittedS'),true);
+    S.valForm.err=v?'':t('errAmt');S.valForm.docErr=v?valDocsErrMsg(S.valForm):'';
+    if(S.valForm.err||S.valForm.docErr)return render();
+    j.amt=v;j.remark=(S.valForm.remark||'').trim();j.files=S.valForm.files.slice();j.status='wait';toast(t('jobSubmitted'),t('jobSubmittedS'),true);
     render()}});
   document.querySelectorAll('[data-acceptjob]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();var j=S.valjobs[Number(b.dataset.acceptjob)];if(!j)return;
@@ -3333,42 +3609,34 @@ function bind(){
     S.adv={kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''};S.advDraft=null;render()}});
   document.querySelectorAll('[data-search]').forEach(function(b){b.onclick=function(){render()}});
 
-  var amt=$('#fAmt');if(amt)amt.oninput=function(){S.form.amt=amt.value};
-  var fev=$('#fileEvidence');if(fev)fev.onchange=function(){
-    if(fev.files&&fev.files.length){S.form.files=[{k:'doc0',lbl:t('dcEvidence'),name:fev.files[0].name}];S.form.docErr=''}
-    else S.form.files=[];
-    render()};
-  if($('#drop'))wireDropTyped($('#drop'),S.form,docTypeOptions(S.form.mode),DOC_MOCKS);
 
   var sp=$('#submitDeclare');
   if(sp)sp.onclick=function(){
-    var e=S.ents.filter(function(x){return x.id===S.sel})[0];
-    if(S.form.sending)return;
+    var e=S.ents.filter(function(x){return x.id===S.sel})[0],f=S.form;
+    if(f.sending)return;
     if(pendingOf(e.id)){toast(t('hasPending'),t('hasPendingS'));return go(S.role==='owner'?'mycap':'detail')}
-    var v=Number(String(S.form.amt).replace(/[^0-9]/g,''));
-    if(!v){S.form.err=t('errAmt');return render()}
-    if(v>e.cap-e.paid){S.form.err=t('errOver')+' - '+fmt(e.cap-e.paid);return render()}
-    if(S.form.mode==='asset'){
-      var reqK=ASSET_REQ[S.form.assetCat],reqV=S.form.assetVals&&S.form.assetVals[reqK];
-      if(!reqV||!reqV.trim()){S.form.err=t('errAssetField');return render()}
-    }
-    var docErr=docsErrMsg(S.form);
-    if(docErr){S.form.docErr=docErr;return render()}
-    S.form.docErr='';
-    S.form.sending=true;sp.disabled=true;
+    if(!f.pays.length){f.err=t('errNoPay');return render()}
+    var bad=false;f.pays.forEach(function(p){p.err=payErr(p);if(p.err){bad=true;p.open=true}});
+    var v=payTotal(f.pays),remain=e.cap-e.paid,minInst=(e.paid===0&&f.payMode==='partial')?Math.round(e.cap*0.3):remain;
+    f.err=v>remain?t('errOver')+' - '+fmt(remain):(v<minInst?t('errMinInst')+' - '+fmt(minInst)+' LAK':'');
+    if(bad||f.err)return render();
+    f.sending=true;sp.disabled=true;
+    var types=[];f.pays.forEach(function(p){if(types.indexOf(p.type)<0)types.push(p.type)});
+    var pays=JSON.parse(JSON.stringify(f.pays)).map(function(p){delete p.err;delete p.touched;p.open=true;return p});
+    var files=[];pays.forEach(function(p){p.files.forEach(function(x){files.push(x)})});
     var subWho=who().n,isOwner=S.role==='owner';
-    S.tasks.push({ref:'APR-2026-0'+(918+S.tasks.length),ent:e,amt:v,mode:S.form.mode,
-      by:subWho,at:'09:47',stage:'checker',files:S.form.files.slice(),
+    S.tasks.push({ref:'APR-2026-0'+(918+S.tasks.length),ent:e,amt:v,mode:types.join(','),pays:pays,ch:isOwner?'online':'counter',
+      by:subWho,at:'09:47',stage:'checker',files:files,
       trail:[{who:subWho+' ('+(isOwner?t('channelOnline').split(' (')[0]:t('channelCounter').split(' (')[0])+')',
         act:{lo:'ຍື່ນຄຳຮ້ອງແຈ້ງຊຳລະທຶນ',en:'Submitted a capital payment declaration'},at:'04/08/2026 09:47'}]});
     if(e.insts[1]&&e.insts[1].state!=='paid'){e.insts[1].state='review';
       e.insts[1].meta={lo:'ສົ່ງກວດສອບແລ້ວ 04/08/2026 09:47',en:'Sent for verification on 04/08/2026 09:47'}}
     e.hist.push({d:'04/08/2026',a:{lo:'ບັນທຶກການຊຳລະທຶນ (ລໍກວດສອບ)',en:'Capital payment recorded (pending verification)'},
-      m:S.form.mode,v:v,u:subWho,f:S.form.files.length,ch:'',st:'pending'});
+      m:types.join(','),v:v,u:subWho,f:files.length,ch:'',st:'pending'});
     toast(t('sentCheck'),t('sentCheckS'),true);go(isOwner?'mycap':'detail')};
 
   document.querySelectorAll('[data-task]').forEach(function(r){r.onclick=function(){
-    S.taskI=Number(r.dataset.task);S.backReasonInt='';S.backReasonExt='';go('task')}});
+    S.taskI=Number(r.dataset.task);S.backReasonInt='';S.backReasonExt='';S.entOpen=false;go('task')}});
   document.querySelectorAll('[data-sign]').forEach(function(b){b.onclick=function(){
     S.modal={type:'approve',i:S.taskI};render()}});
   document.querySelectorAll('[data-fwd]').forEach(function(b){b.onclick=function(){

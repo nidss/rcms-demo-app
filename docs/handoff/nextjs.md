@@ -212,19 +212,32 @@ export async function declarePayment(entId: string, formData: FormData) {
 
 ```ts
 // lib/rules.ts: schema เดียวใช้ทั้ง client และ server
-export const declareSchema = (ent: { cap: number; paid: number; insts: unknown[] }) =>
+const file = z.object({ k: z.string(), name: z.string() });
+const payment = z.discriminatedUnion('type', [
+  z.object({ type: z.literal('cash'), amt: z.coerce.number().positive('errAmt'),
+    bank: z.string().min(1, 'errPayFields'), acctNo: z.string().min(1, 'errPayFields'), acctName: z.string().min(1, 'errPayFields'),
+    files: z.array(file).min(1, 'errFile') }),
+  z.object({ type: z.literal('asset'), cat: z.enum(['land', 'building', 'car', 'machine']),
+    firmType: z.enum(['in', 'out']), firmName: z.string(), vals: z.record(z.string()),
+    files: z.array(file).refine(f => f.some(x => x.k === 'valReport'), 'errFile') }),
+  z.object({ type: z.literal('labour'), lb: z.object({ name: z.string().min(1, 'errPayFields'),
+    idNo: z.string().min(1, 'errPayFields'), skill: z.string().min(1, 'errPayFields'), value: z.coerce.number().positive('errAmt') }),
+    files: z.array(file).refine(f => f.some(x => x.k === 'labAgree'), 'errFile') }),
+]);
+// amountOf() = payAmt() ใน demo: cash.amt / asset.vals[ASSET_PRICE_KEY[cat]] / lb.value
+export const declareSchema = (ent: { cap: number; paid: number }) =>
   z.object({
-    amt: z.coerce.number().positive('errAmt'),
     payMode: z.enum(['full', 'partial']),
-    files: z.array(z.any()).min(1, 'errFile'),
-  }).refine(v => v.amt <= ent.cap - ent.paid, { message: 'errOver', path: ['amt'] })
-    .refine(v => v.payMode === 'full' || ent.paid === 0, { message: 'errPartial', path: ['payMode'] })
-    .refine(v => v.payMode === 'full' || v.amt >= Math.round(ent.cap * 0.3), { message: 'errMin30', path: ['amt'] });
+    payments: z.array(payment).min(1, 'errNoPay'),
+  }).refine(v => v.payMode === 'full' || ent.paid === 0, { message: 'errPartial', path: ['payMode'] })
+    .refine(v => total(v.payments) <= ent.cap - ent.paid, { message: 'errOver', path: ['payments'] })
+    .refine(v => total(v.payments) >= (v.payMode === 'partial' ? Math.round(ent.cap * 0.3) : ent.cap - ent.paid),
+      { message: 'errMinInst', path: ['payments'] });
 ```
 
-- message เป็น key ของ i18n: `errAmt`, `errOver`, `errFile` มีอยู่แล้วใน `D` ของ demo
-- `errPartial`, `errMin30` ยังไม่มี (demo ไม่ได้ตรวจกฎ 30% ตอนส่ง) ต้องเพิ่มข้อความทั้ง 2 ภาษา
-- เพิ่มกฎชำระเป็นทรัพย์สินและกฎคำร้องค้างตาม README ข้อ 5
+- message เป็น key ของ i18n: `errAmt`, `errOver`, `errFile`, `errNoPay`, `errMinInst`, `errPayFields` มีอยู่แล้วใน `D` ของ demo
+- `errPartial` ยังไม่มี (demo ซ่อนปุ่มแบ่งชำระแทน) ต้องเพิ่มข้อความทั้ง 2 ภาษา
+- ช่องบังคับของทรัพย์สิน (`ASSET_REQ`) และกฎคำร้องค้างดู README ข้อ 5
 
 ### 4.5 i18n (`next-intl`)
 

@@ -54,8 +54,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 | `lao.agri` | ผู้ประกอบการ (Business owner) | My Registered Capital | ทุนของฉัน |
 | `khamla.p` | เจ้าหน้าที่เคาน์เตอร์ APB (Maker) | Counter Workspace | Dashboard, Search Enterprises |
 | `sivilay.a` | เจ้าหน้าที่ตรวจสอบ (Checker) | Verification Workspace | Dashboard, Search Enterprises, Valuation Queue, Finance, Reports |
-| `head.moic` | หัวหน้าพะแนก (Approver + E-Sign) | Approval Workspace | Dashboard, Search Enterprises, Valuation Queue, Finance, Reports |
-| `lao.valuation` | บริษัทประเมิน (In-network firm) | My Valuation Jobs | งานประเมินของฉัน |
+| `head.moic` | หัวหน้าพะแนก (Approver + E-Sign) | Approval Workspace (Dashboard) | Approval Workspace, Search Enterprises, Valuation Queue, Finance, Reports |
+| `lao.valuation` | บริษัทประเมิน (In-network firm) | Dashboard | Dashboard, My Valuation Jobs |
 | `mof.gov` | หน่วยงานภายนอก (External agency) | External Portal | พอร์ทัลภายนอก |
 | `bounmy.m` | ผู้ดูแลระบบ (System administrator) | System Overview | Dashboard, Search Enterprises, Reports, System Settings |
 | `new.user` | ผู้ใช้ใหม่ (New user) | My Registered Capital (ว่าง) | ทุนของฉัน |
@@ -114,12 +114,22 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   Enterprise ค้นได้ทั้งชื่อลาว/อังกฤษ/เลขทะเบียน) กรอกแล้วกดปุ่ม Search หรือ Enter เพื่อค้นหา
   ปุ่ม Clear ล้างเงื่อนไข แล้วตามด้วยตาราง
   ที่มี pagination เลือกได้ 5/10/20/50 แถวต่อหน้า
-- **Approver (Approval Workspace)** Overview รวม pipeline ไว้ในการ์ดเดียว: แถบอัตราการชำระ
-  รวม + ตัวเลข 5 ช่องเรียงตามขั้นตอน (อยู่ขั้นตรวจสอบ, รออนุมัติ + มูลค่า, ลงนามวันนี้, ชำระครบ x/30,
-  เกินกำหนด) และแจ้งเตือนงานถัดไป (ปุ่ม Open to sign) ด้านล่างเป็นรายการจากเมนูย่อยใต้ Dashboard:
-  Awaiting approval (ค้นหา Reference, Enterprise, Channel, Verified by), Overdue / penalties
-  (Enterprise, Status) และ Recently signed (E-Sign) (Enterprise, Registration no.) แต่ละรายการมีปุ่ม
-  Search / Clear และ pagination
+- **Approver (Approval Workspace)** เมนูหลักชื่อ Approval Workspace มีเมนูย่อย 4 รายการ (เปิดที่
+  Dashboard ก่อน):
+  - **Dashboard** การ์ด Overview เดียว: แถบอัตราการชำระรวม แล้วตามด้วยตัวเลข 3 แถวที่มีหัวข้อ
+    - *Capital and enterprises*: ทุนที่ชำระแล้ว, ทุนคงเหลือ (พร้อม % ของทุนจดทะเบียน),
+      วิสาหกิจที่ชำระแล้ว x/30, ยังไม่ชำระ x/30
+    - *Enterprises by payment status*: Awaiting payment, Partly paid, Paid in full, Past deadline
+      (จำนวน + ยอดคงเหลือหรือยอดที่ชำระ)
+    - *Approval status*: อยู่ขั้นตรวจสอบ, รออนุมัติ, ลงนามวันนี้ (พร้อมมูลค่า), Overdue / penalties
+    - แถบแจ้งงานถัดไป ปุ่ม Open to sign พาไปเมนูย่อย Awaiting approval
+  - **Awaiting approval** (ค้นหา Reference, Enterprise, Channel, Verified by), **Overdue / penalties**
+    (Enterprise, Status) และ **Recently signed (E-Sign)** (Enterprise, Registration no.) แสดงเฉพาะ
+    ตาราง มีปุ่ม Search / Clear และ pagination
+- **บริษัทประเมิน (Dashboard)** การ์ด Overview: แถบ % งานที่ยืนยันแล้ว (x / 10 jobs) แล้วตามด้วย
+  3 แถว: *Jobs and declared value* (งานทั้งหมด, มูลค่าที่แจ้ง, มูลค่าที่ยืนยันแล้ว, ยังไม่ยืนยัน),
+  *Jobs by status* (In progress, Awaiting acceptance, Confirmed) และ *Jobs by asset type* (Land,
+  Building, Car, Machine) แถบล่างบอกงานถัดไป ปุ่ม Open jobs ไปหน้า My Valuation Jobs
 - **System administrator (System Overview)** แยกจากงานติดตามทุน มาเน้นงานดูแล
   ระบบแทน ได้แก่
   - **System health** (การ์ดสรุป): ผู้ใช้ทั้งหมด / ออนไลน์ / ถูกล็อก, สถานะการเชื่อมต่อ,
@@ -149,18 +159,45 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 - **Enterprise Registration Details** แบ่งเป็นกลุ่มมีหัวข้อ: Identity / Registration /
   Tax & finance / Location (+ แผนที่ Leaflet) ใช้รูปแบบ summary list คือ label ซ้ายกว้างคงที่
   แล้ว value อยู่ติดกัน (ไม่ดันไปชิดขอบขวา) เพื่อให้อ่านคู่ label/value ได้ในครั้งเดียว
-- หน้าตรวจทาน (Task) และรายละเอียดธุรกรรม ใช้ layout `worksplit`: ข้อมูลอ้างอิงซ้าย,
-  คำร้อง + เอกสาร + การตัดสินใจขวา (ติดหน้าจอเวลาเลื่อน); จอเล็กสลับให้ส่วนตัดสินใจขึ้นก่อน
+- รายละเอียดธุรกรรม ใช้ layout `worksplit`: ข้อมูลอ้างอิงซ้าย, คำร้อง + เอกสารขวา
+- หน้าตรวจทาน (Task ของ Checker / Approver) เต็มความกว้าง เรียงจากบนลงล่าง:
+  ขั้นตอน 3 วง → Enterprise Registration Details แบบย่อ (Registration no., Enterprise name,
+  Capital account, Status + ปุ่ม Show details เปิดดูข้อมูลเต็ม 4 กลุ่ม ไม่มีแผนที่ มีลิงก์พิกัดแทน)
+  → **Case detail** 6 ช่อง (Reference, ทุนจดทะเบียน, ชำระแล้ว %, ยอดที่ยื่น, Channel = APB Counter /
+  Online, Payment method) → **Capital being paid** การ์ดการชำระแบบอ่านอย่างเดียวทีละรายการ
+  (ย่อ/ขยายได้ด้วย Show / Hide details) + แถบยอดรวม → **Decision** (Return for correction /
+  Verify and forward หรือ Approve and sign digitally)
 
-### บันทึกการชำระทุน (Declare Capital Payment)
-- ฟอร์มกรอกข้อมูลจัดเรียงอยู่แถวเดียวกับ Enterprise Registration Details
-- รองรับ Single payment และแบบแบ่งชำระ 2 งวด (Instalment), แนบเอกสารหลักฐาน
+### บันทึกการชำระทุน (Declare Capital Payment / Add payment)
+ผู้ประกอบการ (Declare capital payment online) และ Maker (Add payment) ใช้หน้าเดียวกัน เต็มความกว้าง:
+
+- **Enterprise Registration Details แบบย่อ** ด้านบน (ปุ่ม Show details / Hide details)
+- **1. Payment transaction details**: Capital payment plan (เลือก Single / แบ่ง 2 งวดได้เฉพาะ
+  ยังไม่เคยชำระ), Instalment, Minimum for this instalment, Recording officer
+- **2. Capital being paid**: เริ่มว่าง กดปุ่ม **+ Payment** เพื่อเพิ่มการ์ดการชำระ ใส่ได้หลายใบ
+  ในงวดเดียว แต่ละใบมีหัว (ไอคอน + ประเภท, ป้าย Payment N, Remove เมื่อมีมากกว่า 1 ใบ,
+  ยอดเงิน, Show / Hide details) และเลือก **Payment method** ได้ 3 แบบ
+  - **Cash**: Amount paid, Bank code, From Account No, From Account Name, Payment evidence
+  - **Asset**: Asset category, Valuation firm (In-network / Out-of-network), Valuation firm name,
+    ช่องตามประเภททรัพย์สิน (`ASSET_FIELDS`), Supporting documents + ไฟล์
+  - **Labour capital**: Contributor name, ID / Passport No., Skill type, Role / position,
+    Contribution period (months), Agreed value, Supporting documents (Labour contribution agreement ฯลฯ)
+  - การ์ดใหม่เติมยอดที่ยังค้างให้อัตโนมัติ ยอดของการ์ด = Amount paid / Estimated price / Agreed value
+  - เปลี่ยน Payment method ของการ์ดที่กรอกข้อมูลแล้ว จะถามยืนยันก่อน (Change payment method?
+    ข้อมูลที่กรอกจะหาย)
+- **แถบยอดรวม**: ยอดแยกตามประเภทที่ใช้ (Cash / Asset (estimated) / Labour capital),
+  Total this instalment, Outstanding after
+- ปุ่ม Cancel / Submit for verification ชิดขวา คำร้องที่ส่งเก็บการ์ดทั้งหมดไว้ใน `task.pays`
+  และ `task.mode` เป็นรายการประเภทคั่นด้วยจุลภาค (เช่น `cash,asset`)
 
 ### ประเมินทรัพย์สิน (Valuation)
-- บริษัทประเมิน In-network เห็น My Valuation Jobs; หน้ารายละเอียดงานมีแถบสรุปงาน
-  (วิสาหกิจ, ทรัพย์สิน, ประเภทเครือข่าย, มูลค่าที่แจ้ง) → การ์ด "Asset under valuation"
-  (Collateral + Fields ที่ยื่นมา) ซ้าย → ฟอร์ม Submit result ขวา (เอกสารเดิมรวมอยู่ในฟอร์ม
-  ไม่มีกล่องว่างแยก)
+- บริษัทประเมิน In-network เห็น Dashboard และ My Valuation Jobs (10 งาน รวม VAL-2026-0392
+  รถ Toyota Hilux Revo ซึ่งเป็นทรัพย์สินชิ้นที่ 2 ของการแจ้งเดียวกับ VAL-2026-0341)
+- หน้ารายละเอียดงานเต็มความกว้าง เรียงบนลงล่าง: แถบสรุปงาน (วิสาหกิจ, ทรัพย์สิน
+  + "Asset 2 of 2 in this declaration" ถ้ามี, ประเภทเครือข่าย, มูลค่าที่แจ้ง) → การ์ด
+  "Asset under valuation" (Collateral items กับ Fields submitted อยู่คู่กัน + Documents submitted
+  at capital declaration) → การ์ด **Submit valuation result** (Valuation price, Remark,
+  Supporting documents + ไฟล์, ปุ่มส่งชิดขวา)
 - Checker/Approver มี Asset Valuation Queue พร้อม KPI, การ์ดค้นหา (Reference, Enterprise / ทรัพย์สิน,
   Valuation firm, Network type, Status แบบ dropdown + Search / Clear) และ pagination
 
@@ -230,9 +267,12 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
 
 ## Business rule ที่ฝังไว้จริง (ลองกดให้ error ดูได้)
 
-- งวดแรกต้องไม่ต่ำกว่า 30% ของทุนจดทะเบียน
-- ยอดที่บันทึกต้องไม่เกินยอดคงเหลือ
-- ต้องแนบเอกสารหลักฐานอย่างน้อย 1 ไฟล์
+- งวดแรกต้องไม่ต่ำกว่า 30% ของทุนจดทะเบียน (ยอดรวมทุกการ์ดต้องไม่ต่ำกว่า Minimum for this instalment)
+- ยอดรวมทุกการ์ดต้องไม่เกินยอดคงเหลือ
+- ต้องมีการ์ดการชำระอย่างน้อย 1 ใบ และแต่ละใบต้องกรอกช่องที่มี * ครบ
+- เอกสารที่ต้องมีต่อการ์ด: Cash ต้องมี Payment evidence, Asset ต้องมี Valuation report,
+  Labour capital ต้องมี Labour contribution agreement
+- บริษัทประเมินส่งผล: ต้องใส่ Valuation price ก่อน แล้วต้องแนบเอกสารอย่างน้อย 1 ไฟล์
 - ปุ่มออกใบรับรองกดไม่ได้จนกว่าทุนจะชำระครบ
 - ผู้อนุมัติจะไม่เห็นงานจนกว่าจะผ่านการตรวจทานก่อน
 - Create Account: ทุกช่องใน step 1 ต้องกรอก (รวม Role applied for), อีเมลต้องถูกรูปแบบ,
