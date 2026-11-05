@@ -53,9 +53,9 @@ src/
     maker/MakerWorkspace.tsx
     checker/CheckerWorkspace.tsx
     approver/ApproverWorkspace.tsx
-    enterprises/EnterpriseList.tsx, EnterpriseDetail.tsx, DeclarePayment.tsx, Certificate.tsx
+    enterprises/EnterpriseList.tsx, EnterpriseDetail.tsx, DeclarePayment.tsx (+ PaymentBlock.tsx, PaymentSummary.tsx), Certificate.tsx
     tasks/TaskReview.tsx
-    valuation/ValuationQueue.tsx, MyValuationJobs.tsx, ValuationJobDetail.tsx
+    valuation/ValuationQueue.tsx, ValuationDashboard.tsx, MyValuationJobs.tsx, ValuationJobDetail.tsx
     finance/FinancePage.tsx
     reports/ReportsPage.tsx
     settings/SettingsPage.tsx
