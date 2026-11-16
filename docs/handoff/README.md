@@ -132,7 +132,9 @@ interface Declaration {
   stage: 'draft' | 'appraise' | 'checker' | 'approve' | 'returned' | 'closed';   // คิดจาก st (DST_STAGE)
   appraised?: boolean;       // ประเมินครบแล้ว ยื่นใหม่หลังถูกตีกลับจึงไปที่ APPRAISED_COMPLETED เลย
   payMode?: 'full' | 'partial';
-  ret?: { by: 'appraiser' | 'checker' | 'approver'; reason: string | I18nText; u: string; d: string };
+  ret?: { by: 'appraiser' | 'checker' | 'approver'; reason: string | I18nText; internal?: string | I18nText; u: string; d: string };
+  lastRet?: Declaration['ret'];   // การตีกลับครั้งก่อน แสดงให้เจ้าหน้าที่ที่ตรวจใบรายการที่ยื่นใหม่
+  rejReq?: { reason: string; u: string; d: string };   // Checker ขอปฏิเสธ รอ Approver (stage = 'approve')
   rej?: { by: 'checker' | 'approver'; reason: string; u: string; d: string };
   files: DocFile[];          // ไฟล์ทุกรายการรวมกัน (ใช้นับจำนวน)
   docs?: DocFile[];          // เอกสารระดับคำร้อง (กลุ่ม CAPITAL_DECLARATION_DOCUMENT) seed เก่าไม่มี
@@ -235,8 +237,11 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 - **ลำดับงาน**
   - Owner / Maker ยื่น (`DRAFT` → `PENDING`, หรือ `APPRAISED_PENDING` ถ้ามีทรัพย์สิน)
   - Appraiser ส่งผลครบทุกงาน → `APPRAISED_COMPLETED` (`valDone()`) หรือตีกลับ → `RETURNED`
-  - Checker: Return → `RETURNED`, Reject → `REJECTED`, Approve → `APPROVED` ส่งต่อ Approver
-  - Approver: Return / Reject เหมือน Checker, Approve → `COMPLETED`
+  - Checker: Return → `RETURNED`, Reject → ขอปฏิเสธ (`rejReq`) รอ Approver, Approve → `APPROVED` ส่งต่อ Approver
+    - Checker ยกเลิกคำขอปฏิเสธได้จนกว่า Approver จะตัดสิน (`data-rejcancel`)
+    - Approver อนุมัติคำขอ → `REJECTED` (`data-rejapprove`) หรือไม่อนุมัติ → กลับคิว Checker (`data-rejdecline`)
+  - Approver: Return → `RETURNED`, Reject → `REJECTED` ทันที, Approve → `COMPLETED`
+  - Internal note ของการตีกลับ แสดงเฉพาะเจ้าหน้าที่ (`retNotes()`, `intNote()`, `isStaff()`)
     ทุนครบ 100% ต้อง E-Sign (MFA ซ้ำ) และออกใบรับรอง ยังไม่ครบไม่ต้อง E-Sign และไม่ออกใบรับรอง (`approve()`)
   - ยื่นใหม่หลังถูกตีกลับ กลับเข้าคิว Checker ตามสถานะเดิม (`PENDING` หรือ `APPRAISED_COMPLETED`)
   - Approver จะไม่เห็นงานจนกว่า Checker จะ Approve
@@ -358,7 +363,10 @@ DELETE /declarations/:ref          (ลบได้เฉพาะ DRAFT)
 POST   /declarations/:ref/submit   (DRAFT / RETURNED -> PENDING / APPRAISED_PENDING / APPRAISED_COMPLETED)
 POST   /declarations/:ref/verify   (checker: -> APPROVED)
 POST   /declarations/:ref/return   { reason, internal, external } (appraiser / checker / approver -> RETURNED)
-POST   /declarations/:ref/reject   { reason } (checker / approver -> REJECTED)
+POST   /declarations/:ref/reject   { reason } (approver -> REJECTED; checker -> คำขอปฏิเสธ รอ approver)
+POST   /declarations/:ref/reject/cancel    (checker ยกเลิกคำขอปฏิเสธ)
+POST   /declarations/:ref/reject/approve   (approver อนุมัติคำขอ -> REJECTED)
+POST   /declarations/:ref/reject/decline   (approver ไม่อนุมัติ -> กลับคิว checker)
 POST   /declarations/:ref/approve  { otp? } (approver -> COMPLETED; otp เมื่อทุนครบ 100% เพื่อ E-Sign)
 
 GET    /valuation-jobs             ?ref=&ent=&regNo=&firm=&net=&status=&page=&size=

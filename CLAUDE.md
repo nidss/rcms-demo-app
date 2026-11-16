@@ -99,7 +99,8 @@ The `<style>` block comes first (CSS tokens in `:root`, then `/* ---------- name
   - Declarations stay in `S.tasks` after they close. `LIVE_ST` / `liveTasks()` / `pendingOf()` are the ones under review; `openOf()` finds a draft or returned one, reopened in the Declare form with `S.form.edit` set to its index.
   - Reference IDs come from `capRef(n)` (`CAP-202608-000921`, counter `S.capSeq`). A draft has none.
   - A declaration with an asset becomes `APPRAISED_PENDING` and creates one valuation job per asset (`j.decl` = the reference). `valDone(j)` moves it to `APPRAISED_COMPLETED` once every job is in.
-  - `doReturn()` handles Return (appraiser / checker / approver); `data-doreject` handles Reject. `approve()` signs and issues the certificate only when the capital reaches 100%; otherwise the `apconfirm` modal approves without E-Sign.
+  - `doReturn()` handles Return (appraiser / checker / approver) and keeps both notes in `x.ret` (`reason` external, `internal`). Staff see both via `retNotes()` / `intNote()`; the owner sees the external note only (`isStaff()`).
+  - Reject: the Approver's is final (`rejectFinal()`). The Checker's only sets `x.rejReq` and parks the declaration in the Approver's queue (`x.stage='approve'`, `x.st` unchanged, `xPill()` shows it); the Checker can cancel it (`data-rejcancel`), the Approver approves (`data-rejapprove`) or declines it (`data-rejdecline`). `approve()` signs and issues the certificate only when the capital reaches 100%; otherwise the `apconfirm` modal approves without E-Sign.
   - History wording comes from `HIST_TXT`.
   - Invoice statuses are `PENDING` / `PAID` (`WAIVED` is defined in the sheet but has no action yet).
 - **Summary cards**: `sumCard({title, prog, metrics, notes})` with `metric(tone, label, value, sub)` is the shared overview pattern.

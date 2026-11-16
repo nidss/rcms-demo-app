@@ -552,6 +552,8 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .upchip .frm:hover{color:var(--bad);background:var(--badbg)}
 .upslot .hint.err{margin-top:4px}
 .uprule{margin:-2px 0 8px}
+.rnote{display:block;line-height:1.6}
+.rnote i{font-style:normal;color:var(--m);font-weight:600}
 .demoacc{margin-top:18px}
 .demoacc .dk{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:8px}
 .demoacc .chips .chipf{font-size:11.5px;padding:5px 10px}
@@ -713,7 +715,14 @@ lo:{
  draftNote:'ມີສະບັບຮ່າງທີ່ບັນທຶກໄວ້',draftOpen:'ແກ້ໄຂສະບັບຮ່າງຕໍ່',draftDel:'ລຶບສະບັບຮ່າງ',draftDeleted:'ລຶບສະບັບຮ່າງແລ້ວ',
  resubmit:'ແກ້ໄຂ ແລະ ຍື່ນໃໝ່',
  sentAppraise:'ສົ່ງໃຫ້ຜູ້ປະເມີນມູນຄ່າແລ້ວ',sentAppraiseS:'ຈະສົ່ງຕໍ່ໃຫ້ຜູ້ກວດສອບ ເມື່ອປະເມີນຊັບສິນຄົບທຸກລາຍການ',
- hstRejected:'ປະຕິເສດ',
+ hstRejected:'ປະຕິເສດ',hstRejReq:'ຂໍປະຕິເສດ',
+ noteInt:'ຄວາມເຫັນພາຍໃນ',noteExt:'ຄວາມເຫັນພາຍນອກ',prevReturn:'ເຄີຍຖືກຕີກັບ',
+ rejReq:'ຂໍປະຕິເສດ - ລໍຜູ້ອະນຸມັດ',rejectNoteC:'ການປະຕິເສດຂອງຜູ້ກວດສອບ ຕ້ອງໄດ້ຮັບການອະນຸມັດຈາກຫົວໜ້າກົມ (Approver) ກ່ອນ ຈຶ່ງຈະປິດໃບລາຍການ',
+ rejSent:'ສົ່ງຄຳຂໍປະຕິເສດໃຫ້ຜູ້ອະນຸມັດແລ້ວ',rejWaitNote:'ຄຳຂໍປະຕິເສດນີ້ ລໍຫົວໜ້າກົມ (Approver) ອະນຸມັດ · ຍົກເລີກໄດ້ຈົນກວ່າຈະມີການຕັດສິນ',
+ rejCancel:'ຍົກເລີກການປະຕິເສດ',rejCancelled:'ຍົກເລີກການປະຕິເສດແລ້ວ · ກັບເຂົ້າຄິວກວດສອບ',
+ rejApproveNote:'ຜູ້ກວດສອບຂໍປະຕິເສດໃບລາຍການນີ້ · ອະນຸມັດເພື່ອປິດໃບລາຍການ ຫຼື ບໍ່ອະນຸມັດເພື່ອສົ່ງກັບໃຫ້ຜູ້ກວດສອບ',
+ rejApprove:'ອະນຸມັດການປະຕິເສດ',rejDecline:'ບໍ່ອະນຸມັດການປະຕິເສດ',rejDeclined:'ບໍ່ອະນຸມັດການປະຕິເສດ · ສົ່ງກັບໃຫ້ຜູ້ກວດສອບ',
+ rejReqBy:'ຂໍໂດຍ',
  capSrc:'ແຫຼ່ງທຶນ',capDomestic:'ທຶນພາຍໃນ',capForeign:'ທຶນຕ່າງປະເທດ',dcSec3:'ເອກະສານປະກອບຄຳຮ້ອງ',dcSec3Sub:'ເອກະສານທີ່ຕ້ອງຍື່ນທຸກກໍລະນີ ບໍ່ວ່າຈະຊຳລະທຶນດ້ວຍຮູບແບບໃດ',
 suErrDoc:'ກະລຸນາອັບໂຫຼດເອກະສານທີ່ຈຳເປັນໃຫ້ຄົບ',
  suErrEnName:'ຊື່ພາສາອັງກິດໃຊ້ໄດ້ສະເພາະຕົວອັກສອນ A-Z',
@@ -928,7 +937,14 @@ en:{
  draftNote:'A draft is saved for this enterprise',draftOpen:'Continue draft',draftDel:'Delete draft',draftDeleted:'Draft deleted',
  resubmit:'Edit and resubmit',
  sentAppraise:'Sent for appraisal',sentAppraiseS:'It goes to the Checker once every asset is appraised',
- hstRejected:'Rejected',
+ hstRejected:'Rejected',hstRejReq:'Reject requested',
+ noteInt:'Internal note',noteExt:'External note',prevReturn:'Previously returned',
+ rejReq:'Reject requested - awaiting Approver',rejectNoteC:'A rejection by the Checker needs the approval of the department head (Approver) before the declaration is closed.',
+ rejSent:'Rejection sent to the Approver',rejWaitNote:'This rejection is waiting for the department head (Approver) · it can be cancelled until the Approver decides',
+ rejCancel:'Cancel rejection',rejCancelled:'Rejection cancelled · back in the verification queue',
+ rejApproveNote:'The Checker asks to reject this declaration · approve to close it, or decline to send it back to the Checker',
+ rejApprove:'Approve rejection',rejDecline:'Decline rejection',rejDeclined:'Rejection declined · sent back to the Checker',
+ rejReqBy:'Requested by',
  capSrc:'Source of capital',capDomestic:'Domestic capital',capForeign:'Foreign capital',dcSec3:'Application documents',dcSec3Sub:'Documents every declaration must include, whatever the payment method',
 suErrDoc:'Upload every required document',
  suErrEnName:'English name may use the letters A-Z only',
@@ -1123,7 +1139,7 @@ function lastUpd(e){var d=e.reg;e.hist.forEach(function(h){if(parseD(h.d)>parseD
 var ST={COMPLETED:['kCompleted','p-ok'],PARTIAL:['kPartial','p-warn'],PENDING:['kPending','p-idle'],INCREASE_PENDING:['kIncrease','p-idle'],OVERDUE:['kOverdue','p-bad']};
 function stName(s){return ST[s]?t(ST[s][0]).split(' - ')[1]||t(ST[s][0]):s}
 function pill(s){var x=ST[s]||['','p-idle'];return '<span class="pill '+x[1]+'">'+stName(s)+'</span>'}
-var HST={complete:['hstComplete','p-ok'],pending:['hstPending','p-warn'],returned:['hstReturned','p-bad'],rejected:['hstRejected','p-bad']};
+var HST={complete:['hstComplete','p-ok'],pending:['hstPending','p-warn'],returned:['hstReturned','p-bad'],rejected:['hstRejected','p-bad'],rejreq:['hstRejReq','p-warn']};
 function histPill(s){var x=HST[s]||HST.complete;return '<span class="pill '+x[1]+'">'+t(x[0])+'</span>'}
 // A declaration can mix payment types, so the mode is a comma list (e.g. 'cash,asset').
 function modeLbl(m){return String(m||'').split(',').map(function(k){return t(k==='cash'?'modeCash':k==='labour'?'modeLabour':'modeAsset')}).join(', ')}
@@ -1156,6 +1172,22 @@ var HIST_TXT={
   rej_checker:{lo:'ປະຕິເສດໂດຍຜູ້ກວດສອບ (Checker)',en:'Rejected by Checker'},
   rej_approver:{lo:'ປະຕິເສດໂດຍຜູ້ອະນຸມັດ (Approver)',en:'Rejected by Approver'}
 };
+// Reject requested by the Checker: waits in the Approver's queue until approved or declined, and the
+// Checker can cancel it meanwhile. x.st keeps its status; x.rejReq parks the declaration with the Approver.
+HIST_TXT.rejReq={lo:'ຜູ້ກວດສອບ (Checker) ຂໍປະຕິເສດ',en:'Rejection requested by Checker'};
+HIST_TXT.rejCancel={lo:'ຜູ້ກວດສອບ (Checker) ຍົກເລີກການຂໍປະຕິເສດ',en:'Rejection request cancelled by Checker'};
+HIST_TXT.rejDecline={lo:'ຜູ້ອະນຸມັດ (Approver) ບໍ່ອະນຸມັດການປະຕິເສດ',en:'Rejection request declined by Approver'};
+HIST_TXT.rejApprove={lo:'ຜູ້ອະນຸມັດ (Approver) ອະນຸມັດການປະຕິເສດ',en:'Rejection approved by Approver'};
+function xPill(x){return x.rejReq?'<span class="pill p-bad">'+t('rejReq')+'</span>':dstPill(x.st)}
+function isStaff(){return S.role!=='owner'&&S.role!=='newuser'}
+// Return notes: the owner sees the external note only; staff see the external and the internal note.
+function noteText(v){return v?(typeof v==='string'?esc(v):L(v)):''}
+function intNote(v){return v&&isStaff()?'<span class="rnote"><i>'+t('noteInt')+':</i> '+noteText(v)+'</span>':''}
+function retNotes(ext,internal){
+  var e=noteText(ext);
+  if(!isStaff())return e;
+  return '<span class="rnote"><i>'+t('noteExt')+':</i> '+(e||'-')+'</span>'+intNote(internal);
+}
 function histWith(o,txt){return {lo:o.lo+' - '+(typeof txt==='string'?txt:txt.lo),en:o.en+' - '+(typeof txt==='string'?txt:txt.en)}}
 function toast(a,b,ok){
   var d=document.createElement('div');d.className='toast'+(ok?' ok':'');
@@ -1556,11 +1588,12 @@ function seedReturned(){
   var e=S.ents.filter(function(x){return x.id==='ELN-2025-1006'})[0];
   if(!e)return;
   var why={lo:'ຫຼັກຖານການໂອນບໍ່ຊັດເຈນ',en:'transfer evidence unclear'};
-  e.hist.push({d:'03/08/2026',a:histWith(HIST_TXT.ret_checker,why),m:'cash',v:0,u:'ນ. ສີວິໄລ',f:'-',ch:'',st:'returned'});
+  var inside={lo:'ຍອດໃນໃບໂອນບໍ່ກົງກັບລາຍການເດີນບັນຊີ',en:'Amount on the transfer slip does not match the bank statement'};
+  e.hist.push({d:'03/08/2026',a:histWith(HIST_TXT.ret_checker,why),m:'cash',v:0,u:'ນ. ສີວິໄລ',f:'-',ch:'',internal:inside,st:'returned'});
   // The returned declaration itself, so the Maker can edit and resubmit it.
   var x={ref:capRef(905),ent:e,amt:3780000000,mode:'cash',by:'ນ. ຄຳລາ',at:'15:10',ch:'counter',
     files:[{k:'BANK_STATEMENT',name:'bank-statement-1006.pdf'}],
-    ret:{by:'checker',reason:why,u:'ນ. ສີວິໄລ',d:'03/08/2026'},
+    ret:{by:'checker',reason:why,internal:inside,u:'ນ. ສີວິໄລ',d:'03/08/2026'},
     trail:[{who:'ນ. ຄຳລາ (Maker)',act:HIST_TXT.inst2,at:'03/08/2026 15:10'},
            {who:'ນ. ສີວິໄລ (Checker)',act:HIST_TXT.ret_checker,at:'03/08/2026 16:40'}]};
   setSt(x,'RETURNED');S.tasks.push(x);
@@ -1957,7 +1990,7 @@ function vMakerDash(){
         return '<tr data-open="'+x.ent.id+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
          '<td><span class="co">'+x.ent.name+'</span></td><td class="num">'+x.ent.id+'</td>'+
          '<td class="r num">'+fmt(x.amt)+'</td>'+
-         '<td>'+dstPill(x.st)+'</td>'+
+         '<td>'+xPill(x)+'</td>'+
          '<td style="padding-right:16px;color:var(--muted);font-size:11px">'+x.by+'</td></tr>'}});
   }else if(tab==='due'){
     card=listCard({key:'mkDue',title:t('mkDue'),empty:t('mkNoDue'),all:makerDue(),
@@ -1980,7 +2013,7 @@ function vMakerDash(){
       heads:[[t('cEnt')],[t('regNo')],[t('ckReason')],[t('ckRetBy')],[t('cDate')],['']],
       row:function(e){var r=lastRet(e);
         return '<tr data-open="'+e.id+'"><td style="padding-left:16px"><span class="co">'+e.name+'</span></td><td class="num">'+e.id+'</td>'+
-         '<td style="color:var(--muted);font-size:11px">'+(r.a?L(r.a):'-')+'</td><td>'+(r.u||'-')+'</td><td class="num">'+(r.d||'-')+'</td>'+
+         '<td style="color:var(--muted);font-size:11px">'+(r.a?L(r.a):'-')+(r.internal?intNote(r.internal):'')+'</td><td>'+(r.u||'-')+'</td><td class="num">'+(r.d||'-')+'</td>'+
          '<td class="r" style="padding-right:16px"><button class="btn sm">'+t('mkFix')+' →</button></td></tr>'}});
   }
   return shell(t('mkTitle'),'',card,'',t('mkGreeting')+' <b>'+who().n+'</b>');
@@ -2100,11 +2133,12 @@ function vCheckerDash(){
   if(tab==='atAp'){
     card=listCard({key:'ckAtAp',title:t('ckAtApprover'),empty:t('ckNoApprover'),all:atAp,fields:taskFields,vals:taskVals,
       heads:[[t('cRef')],[t('cEnt')],[t('regNo')],[t('cMode')],[t('cAmt'),1],[t('cBy')],['']],
+      // A reject request opens the review page, where the Checker can cancel it.
       row:function(p){var x=p[0];
-        return '<tr data-open="'+x.ent.id+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
+        return '<tr '+(x.rejReq?'data-task="'+p[1]+'"':'data-open="'+x.ent.id+'"')+'><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
          '<td><span class="co">'+x.ent.name+'</span></td><td class="num">'+x.ent.id+'</td>'+
          '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td><td>'+x.by+'</td>'+
-         '<td style="padding-right:16px"><span class="pill p-rev">'+t('stageApprover')+'</span></td></tr>'}});
+         '<td style="padding-right:16px">'+(x.rejReq?xPill(x):'<span class="pill p-rev">'+t('stageApprover')+'</span>')+'</td></tr>'}});
   }else if(tab==='ret'){
     card=listCard({key:'ckRet',title:t('ckReturned'),empty:t('ckNoReturned'),all:retMine.slice().reverse(),
       fields:[['ent',t('cEnt')],['reg',t('regNo')]],
@@ -2112,7 +2146,7 @@ function vCheckerDash(){
       heads:[[t('cEnt')],[t('regNo')],[t('ckReason')],[t('cDate'),1]],
       row:function(o){
         return '<tr data-open="'+o.e.id+'"><td style="padding-left:16px"><span class="co">'+o.e.name+'</span></td><td class="num">'+o.e.id+'</td>'+
-         '<td style="color:var(--muted);font-size:11px">'+L(o.h.a)+'</td>'+
+         '<td style="color:var(--muted);font-size:11px">'+L(o.h.a)+(o.h.internal?intNote(o.h.internal):'')+'</td>'+
          '<td class="r num" style="padding-right:16px">'+o.h.d+'</td></tr>'}});
   }else{
     card=listCard({key:'ckQueue',title:t('ckQueue'),empty:t('ckNoQueue'),all:myQ,hot:1,fields:taskFields,vals:taskVals,
@@ -2120,7 +2154,7 @@ function vCheckerDash(){
       row:function(p){var x=p[0];
         return '<tr data-task="'+p[1]+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
          '<td><span class="co">'+x.ent.name+'</span>'+flags(x)+'</td><td class="num">'+x.ent.id+'</td>'+
-         '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td><td>'+dstPill(x.st)+'</td>'+
+         '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td><td>'+xPill(x)+'</td>'+
          '<td>'+x.by+'</td><td class="num">'+x.at+'</td>'+
          '<td class="r" style="padding-right:16px"><button class="btn sm">'+t('ckOpen')+' →</button></td></tr>'}});
   }
@@ -2209,9 +2243,9 @@ function vApproverDash(){
       heads:[[t('cRef')],[t('cEnt')],[t('regNo')],[t('cMode')],[t('cAmt'),1],[t('apVerifiedBy')],['']],
       row:function(p){var x=p[0];
         return '<tr data-task="'+p[1]+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
-         '<td><span class="co">'+x.ent.name+'</span></td><td class="num">'+x.ent.id+'</td>'+
+         '<td><span class="co">'+x.ent.name+'</span>'+(x.rejReq?' '+xPill(x):'')+'</td><td class="num">'+x.ent.id+'</td>'+
          '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td><td>'+verifier(x)+'</td>'+
-         '<td class="r" style="padding-right:16px"><button class="btn sm">'+t('apSign')+' →</button></td></tr>'}});
+         '<td class="r" style="padding-right:16px"><button class="btn sm">'+t(x.rejReq?'ckOpen':'apSign')+' →</button></td></tr>'}});
   }
   return shell(t('apTitle'),'',card,'',t('mkGreeting')+' <b>'+me+'</b>');
 }
@@ -2475,7 +2509,9 @@ function openNote(x){
   if(!x)return null;
   if(x.st==='DRAFT')return {tone:'info',text:'<b>'+t('draftNote')+'</b> · '+dstPill('DRAFT')+' · <span class="num">'+fmt(x.amt)+'</span> LAK',
     act:'<button class="btn sm ghost" data-deldraft="'+S.tasks.indexOf(x)+'">'+t('draftDel')+'</button>'};
-  return {tone:'bad',text:'<b>'+dstName('RETURNED')+'</b> - <span class="num">'+x.ref+'</span> · '+L(HIST_TXT['ret_'+((x.ret&&x.ret.by)||'checker')])+' · '+retReason(x)};
+  var r=x.ret||{};
+  return {tone:'bad',text:'<b>'+dstName('RETURNED')+'</b> - <span class="num">'+x.ref+'</span> · '+L(HIST_TXT['ret_'+(r.by||'checker')])+
+    (isStaff()?retNotes(r.reason,r.internal):' · '+retReason(x))};
 }
 function capSummary(e,acts,notes){
   var remain=e.cap-e.paid,pct=Math.round(e.paid/e.cap*100),days=daysLeft(e.due),over=days<0&&remain>0;
@@ -2622,7 +2658,7 @@ function historySection(e){
   var hist=e.hist.length?hpg.items.map(function(h){var idx=e.hist.indexOf(h);
     var clickable=!!h.v;
     return '<tr'+(clickable?' data-histrow="'+e.id+'|'+idx+'"':'')+'><td style="padding-left:16px" class="num">'+h.d+'</td><td>'+L(h.a)+
-    (h.internal?'<div style="font-size:10px;color:var(--muted);margin-top:2px"><i style="font-style:normal;color:var(--m)">'+t('reasonIntLbl')+':</i> '+esc(h.internal)+'</div>':'')+'</td>'+
+    (h.internal&&isStaff()?'<div style="font-size:10px;color:var(--muted);margin-top:2px"><i style="font-style:normal;color:var(--m)">'+t('noteInt')+':</i> '+noteText(h.internal)+'</div>':'')+'</td>'+
     '<td>'+(h.m?modeLbl(h.m):'-')+'</td>'+
     '<td class="r num">'+(h.v?fmt(h.v):'-')+'</td><td>'+histPill(h.st)+'</td><td>'+h.u+'</td>'+
     '<td class="r" style="padding-right:16px">'+(h.v&&e.status==='COMPLETED'?'<span style="color:var(--m);cursor:pointer" data-cert="1">'+t('dlPdf')+'</span>':h.f)+'</td></tr>'}).join('')
@@ -2968,10 +3004,10 @@ function vTask(){
   var steps=[counter?t('channelCounter').split(' (')[0]:t('channelOnline').split(' (')[0]];
   if(x.appraised||String(x.mode).indexOf('asset')>=0)steps.push(t('stageAppraiser'));
   steps.push(t('stageChecker'));steps.push(t('stageApprover'));
-  var cur=isC?steps.length-2:steps.length-1,full=e.paid+x.amt>=e.cap;
+  var cur=isC?steps.length-2:steps.length-1,full=e.paid+x.amt>=e.cap,rq=x.rejReq,asChecker=S.role==='checker';
   var types=[];pays.forEach(function(p){if(types.indexOf(p.type)<0)types.push(p.type)});
   var cell=function(k,v,big){return '<div><span class="k">'+k+'</span><span class="v'+(big?' big':'')+'">'+v+'</span></div>'};
-  var caseCard='<div class="card"><div class="h"><h3>'+t('reqDetail')+'</h3>'+dstPill(x.st)+'</div><div class="c"><div class="pv c6">'+
+  var caseCard='<div class="card"><div class="h"><h3>'+t('reqDetail')+'</h3>'+xPill(x)+'</div><div class="c"><div class="pv c6">'+
    cell(t('cRef'),x.ref)+cell(t('cCap'),fmt(e.cap)+' LAK')+cell(t('cPaid'),fmt(e.paid)+' ('+Math.round(e.paid/e.cap*100)+'%)')+
    cell(t('amtNow'),fmt(x.amt)+' LAK',1)+cell(t('cMode'),counter?t('chCounter'):t('chOnlineShort'))+
    cell(t('payMethod'),types.map(ptLabel).join(', '))+'</div></div></div>';
@@ -2984,7 +3020,18 @@ function vTask(){
   var payCard='<div class="card"><div class="h"><h3>'+t('dcSec2')+'</h3></div><div class="c" style="padding-top:16px">'+
    pays.map(payCardView).join('')+'<div style="margin-top:16px">'+paySummary(pays,e.cap-e.paid)+'</div>'+
    '<div class="pnote" style="margin-top:12px">'+t('evidenceN')+'</div></div></div>';
-  var decideCard='<div class="card decide">'+
+  // Notes of an earlier return, for the staff reviewing the resubmission.
+  var lr=x.lastRet,prevCard=lr?'<div class="sc-note warn" style="border-radius:10px;margin:0"><span class="ni">'+luSvg('triangleAlert')+'</span>'+
+   '<div class="nt"><b>'+t('prevReturn')+'</b> · '+L(HIST_TXT['ret_'+(lr.by||'checker')])+' · '+(lr.u||'')+' '+(lr.d||'')+retNotes(lr.reason,lr.internal)+'</div></div>':'';
+  // Reject requested by the Checker: the Approver approves or declines it; the Checker can only cancel it.
+  var rqCard=rq?'<div class="card decide"><div class="h"><h3>'+t('decide')+'</h3>'+xPill(x)+'</div><div class="c">'+
+   '<div style="font-size:12px;color:var(--ink2);line-height:1.7">'+t(asChecker?'rejWaitNote':'rejApproveNote')+'</div>'+
+   '<div style="font-size:12px;color:var(--ink2);line-height:1.7;margin-top:6px"><b>'+t('rejectReason')+':</b> '+esc(rq.reason)+
+    ' · '+t('rejReqBy')+' '+rq.u+' '+rq.d+'</div>'+
+   '<div class="acts" style="padding-top:14px">'+(asChecker?'<button class="btn ghost" data-rejcancel="1">'+t('rejCancel')+'</button>'
+     :'<button class="btn ghost" data-rejdecline="1">'+t('rejDecline')+'</button><button class="btn danger" data-rejapprove="1">'+t('rejApprove')+'</button>')+
+   '</div></div></div>':'';
+  var decideCard=rq?rqCard:'<div class="card decide">'+
   '<div class="h"><h3>'+t('decide')+'</h3></div>'+
   '<div class="c">'+
   '<div style="font-size:12px;color:var(--ink2);line-height:1.7">'+(isC?t('checkerNote'):t('approverNote'))+'</div>'+
@@ -2995,8 +3042,8 @@ function vTask(){
       :'<button class="btn" data-sign="1">'+t(full?'signApprove':'apConfirm')+'</button>')+
   '</div></div></div>';
   var inner=stepCircles(steps.map(function(l,k){return [k<cur?'done':k===cur?'now':'',l]}))+
-  '<div class="vstack">'+entBrief(e)+caseCard+payCard+appCard+decideCard+'</div>';
-  return shell(x.ref,[isC?t('ckTitle'):t('apTitle'),'dash'],inner);
+  '<div class="vstack">'+entBrief(e)+prevCard+caseCard+payCard+appCard+decideCard+'</div>';
+  return shell(x.ref,[asChecker?t('ckTitle'):t('apTitle'),'dash'],inner);
 }
 
 function vValFirm(){
@@ -3498,7 +3545,7 @@ function vModal(){
     '<button class="btn ghost" data-close>'+t('cancel')+'</button></div></div></div>';
   }
   if(m.type==='reject'){
-    return '<div class="veil" id="veil"><div class="modal"><h3>'+t('rejectTitle')+'</h3><p>'+t('rejectNote')+'</p>'+
+    return '<div class="veil" id="veil"><div class="modal"><h3>'+t('rejectTitle')+'</h3><p>'+t(S.role==='checker'?'rejectNoteC':'rejectNote')+'</p>'+
     '<div class="field" style="margin-bottom:8px"><label for="rejTxt">'+t('rejectReason')+' *</label>'+
     '<textarea id="rejTxt" rows="3">'+esc(m.txt||'')+'</textarea></div>'+
     (m.err?'<div class="hint err">'+m.err+'</div>':'')+
@@ -3622,10 +3669,18 @@ function approve(i){
   S.modal={type:'done',name:e.name,status:stName(e.status),full:full};
   render();toast(t(full?'apvDone':'partDoneT'),t('statusTo')+' '+stName(e.status),true);
 }
+// Close a declaration as REJECTED (by the Approver, or a Checker's request the Approver approved).
+function rejectFinal(x,by,why,u){
+  var e=x.ent;
+  setSt(x,'REJECTED');x.rej={by:by,reason:why,u:u,d:'04/08/2026'};
+  x.trail.push({who:u,act:HIST_TXT['rej_'+by],at:'04/08/2026 10:06'});
+  if(e.insts[1]&&e.insts[1].state!=='paid'){e.insts[1].state='due';e.insts[1].meta={lo:'ຖືກປະຕິເສດ 04/08/2026',en:'Rejected on 04/08/2026'}}
+  e.hist.push({d:'04/08/2026',a:histWith(HIST_TXT['rej_'+by],why),m:x.mode,v:0,u:u,f:'-',ch:'',st:'rejected'});
+}
 // Return a declaration to the Owner / Maker (by checker, approver or appraiser).
 function doReturn(x,by,ext,intNote){
   var e=x.ent;
-  setSt(x,'RETURNED');x.ret={by:by,reason:ext,u:who().n,d:'04/08/2026'};
+  setSt(x,'RETURNED');x.ret={by:by,reason:ext,internal:intNote,u:who().n,d:'04/08/2026'};
   x.trail.push({who:who().n,act:HIST_TXT['ret_'+by],at:'04/08/2026 10:04'});
   if(e.insts[1]&&e.insts[1].state!=='paid'){e.insts[1].state='due';e.insts[1].meta={lo:'ຖືກຕີກັບໃຫ້ແກ້ໄຂ 04/08/2026',en:'Returned for correction on 04/08/2026'}}
   e.hist.push({d:'04/08/2026',a:histWith(HIST_TXT['ret_'+by],ext),m:'',v:0,u:who().n,f:'-',ch:'',internal:intNote,st:'returned'});
@@ -3888,7 +3943,7 @@ function bind(){
     var act=v>=remain?HIST_TXT.full:(e.paid===0?HIST_TXT.inst1:HIST_TXT.inst2);
     x.trail.push({who:x.by+' ('+(isOwner?t('channelOnline').split(' (')[0]:t('channelCounter').split(' (')[0])+')',
       act:wasRet?HIST_TXT.resub:act,at:'04/08/2026 09:47'});
-    setSt(x,st);delete x.ret;
+    setSt(x,st);if(x.ret)x.lastRet=x.ret;delete x.ret;
     if(!old)S.tasks.push(x);
     if(st==='APPRAISED_PENDING'){
       var assets=x.pays.filter(function(p){return p.type==='asset'});
@@ -3933,11 +3988,34 @@ function bind(){
   document.querySelectorAll('[data-doreject]').forEach(function(b){b.onclick=function(){
     var why=(S.modal.txt||'').trim();if(!why){S.modal.err=t('errRequired');return render()}
     var x=S.tasks[S.taskI],e=x.ent,by=x.stage==='checker'?'checker':'approver';
-    setSt(x,'REJECTED');x.rej={by:by,reason:why,u:who().n,d:'04/08/2026'};
-    x.trail.push({who:who().n,act:HIST_TXT['rej_'+by],at:'04/08/2026 10:06'});
-    if(e.insts[1]&&e.insts[1].state!=='paid'){e.insts[1].state='due';e.insts[1].meta={lo:'ຖືກປະຕິເສດ 04/08/2026',en:'Rejected on 04/08/2026'}}
-    e.hist.push({d:'04/08/2026',a:histWith(HIST_TXT['rej_'+by],why),m:x.mode,v:0,u:who().n,f:'-',ch:'',st:'rejected'});
+    if(by==='checker'){
+      // The Checker only requests the rejection; it waits for the Approver.
+      x.rejReq={reason:why,u:who().n,d:'04/08/2026'};x.stage='approve';
+      x.trail.push({who:who().n+' (Checker)',act:HIST_TXT.rejReq,at:'04/08/2026 10:06'});
+      e.hist.push({d:'04/08/2026',a:histWith(HIST_TXT.rejReq,why),m:x.mode,v:0,u:who().n,f:'-',ch:'',st:'rejreq'});
+      S.modal=null;toast(t('rejSent'),x.ref,true);return go('dash');
+    }
+    rejectFinal(x,by,why,who().n);
     S.modal=null;toast(t('rejectDone'),x.ref);go('dash')}});
+  document.querySelectorAll('[data-rejcancel]').forEach(function(b){b.onclick=function(){
+    var x=S.tasks[S.taskI];if(!x||!x.rejReq)return;
+    delete x.rejReq;setSt(x,x.st);
+    x.trail.push({who:who().n+' (Checker)',act:HIST_TXT.rejCancel,at:'04/08/2026 10:20'});
+    x.ent.hist.push({d:'04/08/2026',a:HIST_TXT.rejCancel,m:x.mode,v:0,u:who().n,f:'-',ch:'',st:'pending'});
+    toast(t('rejCancelled'),x.ref,true);go('dash')}});
+  document.querySelectorAll('[data-rejdecline]').forEach(function(b){b.onclick=function(){
+    var x=S.tasks[S.taskI];if(!x||!x.rejReq)return;
+    delete x.rejReq;setSt(x,x.st);
+    x.trail.push({who:who().n+' (Approver)',act:HIST_TXT.rejDecline,at:'04/08/2026 10:25'});
+    x.ent.hist.push({d:'04/08/2026',a:HIST_TXT.rejDecline,m:x.mode,v:0,u:who().n,f:'-',ch:'',st:'pending'});
+    toast(t('rejDeclined'),x.ref,true);go('dash')}});
+  document.querySelectorAll('[data-rejapprove]').forEach(function(b){b.onclick=function(){
+    var x=S.tasks[S.taskI];if(!x||!x.rejReq)return;
+    var rq=x.rejReq;delete x.rejReq;
+    x.trail.push({who:who().n+' (Approver)',act:HIST_TXT.rejApprove,at:'04/08/2026 10:25'});
+    x.ent.hist.push({d:'04/08/2026',a:HIST_TXT.rejApprove,m:x.mode,v:0,u:who().n,f:'-',ch:'',st:'complete'});
+    rejectFinal(x,'checker',rq.reason,rq.u);
+    toast(t('rejectDone'),x.ref);go('dash')}});
   document.querySelectorAll('[data-valreturn]').forEach(function(b){b.onclick=function(){
     S.backReasonInt='';S.backReasonExt='';S.modal={type:'backreason',err:'',src:'val',j:Number(b.dataset.valreturn)};render()}});
   document.querySelectorAll('[data-fwd]').forEach(function(b){b.onclick=function(){
