@@ -226,6 +226,10 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
   ```
   - backend ต้องกรองข้อมูลตามขอบเขตนี้เอง (ไม่ส่งข้อมูลนอกขอบเขตมาให้ frontend) และ frontend ใช้แค่สร้าง dropdown
   - demo ใช้ขอบเขตกับ Dashboard กลางเท่านั้น ถ้าต้องกรองคิวงานด้วยให้ใช้ `inScope()` เดียวกัน
+- **กราฟของ Dashboard กลาง** demo เขียนเป็น HTML/CSS เอง ตอนย้ายไป React / Next.js ใช้ library ได้ (เช่น Recharts)
+  แต่ต้องเก็บกติกาเดิม: palette เดิม, แท่งบาง (<= 24px) มุมมน 4px ฝั่งปลาย, เส้น grid บาง ไม่เป็นเส้นประ,
+  ตัวเลขที่ปลายแท่ง, tooltip ทั้ง hover และ focus, และทุกกราฟต้องสลับเป็นตารางได้
+  ข้อมูลรายเดือนควรมาจาก API (`GET /dashboard/summary` คืน series 12 เดือน) แทนการคำนวณจากประวัติแบบ demo
 
 ## 5. Business rule ที่ต้องทำให้ครบ
 

@@ -118,15 +118,24 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
     - Checker / Approver เห็นได้หลายเมือง แต่เฉพาะแขวงที่ตัวเองสังกัด (แขวงล็อกไว้ เลือกได้แค่เมืองในขอบเขต)
       demo: Checker = นครหลวงเวียงจันทน์ 4 เมือง, Approver = นครหลวงเวียงจันทน์ 7 เมือง
     - แถบบนสุดบอกขอบเขตและแหล่งที่มา (Sent by the access management system)
-  - **การ์ด Capital monitoring overview**: แถบ % ทุนที่ยืนยันแล้ว แล้วตามด้วย 4 แถว
-    - *Capital (LAK)*: Total Registered Capital, Confirmed Capital, Capital Under Review, Outstanding Capital
-    - *Enterprises by payment status*: Pending Payment, Pending Increase Payment, Partially Paid, Completed, Overdue
-    - *Declarations in progress*: รอประเมิน, รอ Checker, รอ Approver, ถูกตีกลับ, คำขอปฏิเสธ, อนุมัติวันนี้
-    - *Deadlines and penalties*: เกินกำหนด, ครบกำหนดใน 30 วัน, ค่าปรับค้าง
-    - แถบแจ้งเตือน: งานรอตัวเอง (ปุ่มไปคิว) และวิสาหกิจเกินกำหนด + ค่าปรับ
-  - **ตารางแยกตามแขวง** (Super Admin ที่ยังไม่เลือกแขวง) หรือ **ตามเมือง** เรียงตามทุนคงเหลือมากสุด
-    คอลัมน์: จำนวนวิสาหกิจ, ทุนจดทะเบียน, % ยืนยันแล้ว, ทุนคงเหลือ, รอพิจารณา, เกินกำหนด, ครบกำหนดใน 30 วัน
-    กดแถวเพื่อเจาะลงระดับถัดไป (แขวง → เมือง → เมืองเดียว)
+  - **การ์ดหลัก**: ตัวเลขเด่น % ทุนจดทะเบียนที่ยืนยันแล้ว + แถบแบ่งส่วน (Confirmed / Under Review /
+    Not yet submitted) พร้อม legend แล้วตามด้วย stat tile 6 ช่อง: Total Registered Capital, Confirmed Capital,
+    Capital Under Review, Outstanding Capital, Overdue, Unpaid penalties (ตัวเลขย่อ เช่น 12B, ตัวเต็มอยู่ใน tooltip)
+    และแถบแจ้งเตือน: งานรอตัวเอง (ปุ่มไปคิว) และวิสาหกิจเกินกำหนด + ค่าปรับ
+  - **กราฟ** (ทุกกราฟมีปุ่ม Table สลับเป็นตาราง และมี tooltip ตอนชี้หรือ focus ด้วยคีย์บอร์ด)
+    - *Capital confirmed per month*: กราฟแท่งแนวตั้ง 12 เดือนล่าสุด (ก.ย. 2025 - ส.ค. 2026)
+      จากการชำระที่ยืนยันแล้วในประวัติ ป้ายตัวเลขเฉพาะเดือนที่สูงสุด
+    - *Enterprises by payment status*: แท่งแนวนอนจำนวนวิสาหกิจต่อสถานะ + ยอดคงเหลือ
+    - *Declarations in progress*: แท่งตามขั้น (Appraiser / Checker / Approver) แล้วแยกส่วนที่กลับไปหาผู้ยื่น
+      (ถูกตีกลับ, คำขอปฏิเสธ) + จำนวนที่อนุมัติวันนี้
+    - *Time to deadline*: วิสาหกิจที่ยังชำระไม่ครบ แบ่งเป็น เกินกำหนด (สีแดง + ไอคอน), 0-30, 31-90, 91-180,
+      > 180 วัน (ใกล้กำหนดสีเข้มกว่า)
+    - *By province / By district*: แท่งซ้อนต่อแขวงหรือเมือง (ความยาว = ทุนจดทะเบียน แบ่งเป็น Confirmed /
+      Under Review / Not yet submitted) 8 อันดับที่ทุนคงเหลือสูงสุด กดแถวเพื่อเจาะลงระดับถัดไป
+      ปุ่ม Table แสดงตารางเต็ม (จำนวนวิสาหกิจ, ทุนจดทะเบียน, % ยืนยันแล้ว, ทุนคงเหลือ, รอพิจารณา, เกินกำหนด,
+      ครบกำหนดใน 30 วัน) แบบมี pagination
+  - **สีกราฟ** ใช้ palette ที่ผ่านการตรวจ colorblind (ฟ้า #2a78d6 / ส้ม #eb6834 และไล่โทนฟ้าสำหรับลำดับ)
+    สีแดงใช้เฉพาะสถานะเกินกำหนด และมีไอคอน + ข้อความกำกับเสมอ
   - **Enterprises needing attention**: วิสาหกิจเกินกำหนดก่อน แล้วเรียงตามวันครบกำหนดที่ใกล้สุด กดเพื่อเปิดหน้าวิสาหกิจ
   - ขอบเขตใช้กับ Dashboard นี้เท่านั้น คิวงานของ Checker / Approver ยังเห็นทุกรายการเหมือนเดิม
 - **Checker (Verification Workspace)** เมนูย่อยใต้ Dashboard: Dashboard (Dashboard กลาง), Verification
