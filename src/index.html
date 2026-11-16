@@ -554,6 +554,10 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .uprule{margin:-2px 0 8px}
 .rnote{display:block;line-height:1.6}
 .cdbar{margin-bottom:16px}
+.qscope{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);background:var(--m-lite);border:1px solid var(--m-line);
+  border-radius:10px;padding:8px 14px;margin-bottom:14px}
+.qscope svg{width:16px;height:16px;flex:none;color:var(--m)}
+.qscope b{font-weight:600;color:var(--m-dark)}
 /* ---------- central dashboard charts (dataviz: thin marks, hairline grid, value at the tip) ---------- */
 .cdx{margin-bottom:16px}
 .cdx .h{gap:10px;align-items:flex-start;flex-wrap:nowrap}
@@ -813,7 +817,7 @@ lo:{
  cdPenUnpaid:'ຄ່າປັບທີ່ຍັງບໍ່ຊຳລະ',cdRejReq:'ຄຳຂໍປະຕິເສດ',cdApprovedToday:'ອະນຸມັດມື້ນີ້',cdByProv:'ຕາມແຂວງ',cdByDist:'ຕາມເມືອງ',
  cdEnts:'ວິສາຫະກິດ',cdPaidPct:'ຢືນຢັນແລ້ວ',cdInReview:'ລໍພິຈາລະນາ',cdAttention:'ວິສາຫະກິດທີ່ຕ້ອງຕິດຕາມ',
  cdAttnSub:'ເກີນກຳນົດກ່ອນ ແລ້ວຮຽງຕາມວັນຄົບກຳນົດ',cdDrill:'ກົດແຖວເພື່ອເບິ່ງລະດັບຕໍ່ໄປ',cdNoEnt:'ບໍ່ມີວິສາຫະກິດໃນຂອບເຂດນີ້',
- cdClear:'ລ້າງຕົວກອງ',cdNotSub:'ຍັງບໍ່ໄດ້ຍື່ນ',cdHeroK:'ທຶນຈົດທະບຽນທີ່ຢືນຢັນແລ້ວ',cdComp:'ທຶນຈົດທະບຽນຕາມສະຖານະ',
+ cdClear:'ລ້າງຕົວກອງ',qScope:'ສະແດງສະເພາະວຽກພາຍໃນຂອບເຂດສິດຂອງທ່ານ',cdNotSub:'ຍັງບໍ່ໄດ້ຍື່ນ',cdHeroK:'ທຶນຈົດທະບຽນທີ່ຢືນຢັນແລ້ວ',cdComp:'ທຶນຈົດທະບຽນຕາມສະຖານະ',
  cdTrend:'ທຶນທີ່ຢືນຢັນແລ້ວ ລາຍເດືອນ',cdTrendSub:'12 ເດືອນຫຼ້າສຸດ · ກີບ',cdStatusSub:'ຈຳນວນວິສາຫະກິດ',cdPipeSub:'ຈຳນວນໃບລາຍການ · ຍອດເງິນ',
  cdBackSub:'ກັບຄືນຫາຜູ້ຍື່ນ',cdAging:'ໄລຍະເວລາຮອດກຳນົດ',cdAgingSub:'ວິສາຫະກິດທີ່ຍັງຊຳລະບໍ່ຄົບ',
  cdTop8:'8 ອັນດັບທີ່ມີທຶນຄົງເຫຼືອສູງສຸດ · ທັງໝົດຢູ່ໃນຕາຕະລາງ',cdTable:'ຕາຕະລາງ',cdChart:'ກຣາຟ',cdMonth:'ເດືອນ',cdDays:'ວັນ',
@@ -1046,7 +1050,7 @@ en:{
  cdPenUnpaid:'Unpaid penalties',cdRejReq:'Reject requests',cdApprovedToday:'Approved today',cdByProv:'By province',cdByDist:'By district',
  cdEnts:'Enterprises',cdPaidPct:'Confirmed',cdInReview:'Under review',cdAttention:'Enterprises needing attention',
  cdAttnSub:'Overdue first, then by the nearest deadline',cdDrill:'Click a row to open the next level',cdNoEnt:'No enterprises in this scope',
- cdClear:'Clear filter',cdNotSub:'Not yet submitted',cdHeroK:'Registered capital confirmed',cdComp:'Registered capital by state',
+ cdClear:'Clear filter',qScope:'Showing only work within your access scope',cdNotSub:'Not yet submitted',cdHeroK:'Registered capital confirmed',cdComp:'Registered capital by state',
  cdTrend:'Capital confirmed per month',cdTrendSub:'Last 12 months · LAK',cdStatusSub:'Number of enterprises',cdPipeSub:'Number of declarations · amount',
  cdBackSub:'Back with the submitter',cdAging:'Time to deadline',cdAgingSub:'Enterprises not fully paid',
  cdTop8:'Top 8 by outstanding capital · every row in the table view',cdTable:'Table',cdChart:'Chart',cdMonth:'Month',cdDays:'days',
@@ -1707,18 +1711,38 @@ function seedTasks(){
 }
 // Mock a case the Checker bounced back so the Maker has rework waiting.
 function seedReturned(){
-  var e=S.ents.filter(function(x){return x.id==='ELN-2025-1006'})[0];
-  if(!e)return;
   var why={lo:'ຫຼັກຖານການໂອນບໍ່ຊັດເຈນ',en:'transfer evidence unclear'};
+  var old=S.ents.filter(function(x){return x.id==='ELN-2025-1006'})[0];
+  if(old)old.hist.push({d:'03/08/2026',a:histWith(HIST_TXT.ret_checker,why),m:'cash',v:0,u:'ນ. ສີວິໄລ',f:'-',ch:'',st:'returned'});
+  // The returned declaration the Maker can edit and resubmit. It sits on a Vientiane Capital enterprise
+  // (Chanthabuly) so the demo Checker, whose scope is Vientiane Capital, sees the resubmission.
+  var e=S.ents.filter(function(x){return x.id==='ELN-2025-1126'})[0];
+  if(!e)return;
   var inside={lo:'ຍອດໃນໃບໂອນບໍ່ກົງກັບລາຍການເດີນບັນຊີ',en:'Amount on the transfer slip does not match the bank statement'};
   e.hist.push({d:'03/08/2026',a:histWith(HIST_TXT.ret_checker,why),m:'cash',v:0,u:'ນ. ສີວິໄລ',f:'-',ch:'',internal:inside,st:'returned'});
-  // The returned declaration itself, so the Maker can edit and resubmit it.
-  var x={ref:capRef(905),ent:e,amt:3780000000,mode:'cash',by:'ນ. ຄຳລາ',at:'15:10',ch:'counter',
-    files:[{k:'BANK_STATEMENT',name:'bank-statement-1006.pdf'}],
+  var x={ref:capRef(905),ent:e,amt:e.cap-e.paid,mode:'cash',by:'ນ. ຄຳລາ',at:'15:10',ch:'counter',
+    files:[{k:'BANK_STATEMENT',name:'bank-statement-1126.pdf'}],
     ret:{by:'checker',reason:why,internal:inside,u:'ນ. ສີວິໄລ',d:'03/08/2026'},
     trail:[{who:'ນ. ຄຳລາ (Maker)',act:HIST_TXT.inst2,at:'03/08/2026 15:10'},
            {who:'ນ. ສີວິໄລ (Checker)',act:HIST_TXT.ret_checker,at:'03/08/2026 16:40'}]};
   setSt(x,'RETURNED');S.tasks.push(x);
+}
+// Declarations on the extra Vientiane Capital enterprises, so the scoped Checker and Approver queues
+// have work: [enterprise, ref no., amount (0 = what is left), status].
+function seedExtraTasks(){
+  [['ELN-2025-1128',906,0,'PENDING'],['ELN-2025-1130',907,0,'PENDING'],
+   ['ELN-2025-1129',908,420000000,'APPROVED'],['ELN-2025-1133',909,0,'APPROVED']].forEach(function(r,i){
+    var e=S.ents.filter(function(x){return x.id===r[0]})[0];if(!e)return;
+    var amt=r[2]||e.cap-e.paid,at=['10:05','10:40','11:15','11:50'][i];
+    var trail=[{who:'ນ. ຄຳລາ (Maker)',act:amt>=e.cap-e.paid?(e.paid?HIST_TXT.inst2:HIST_TXT.full):HIST_TXT.inst1,at:'04/08/2026 '+at}];
+    if(r[3]==='APPROVED')trail.push({who:'ນ. ສີວິໄລ (Checker)',act:{lo:'ກວດສອບແລ້ວ ສົ່ງຕໍ່ຜູ້ອະນຸມັດ',en:'Verified and sent to the approver'},at:'04/08/2026 13:'+(10+i*7)});
+    var x={ref:capRef(r[1]),ent:e,amt:amt,mode:'cash',by:'ນ. ຄຳລາ',at:at,ch:'counter',
+      files:[{k:'BANK_STATEMENT',name:'bank-statement-'+e.id.slice(-4)+'.pdf'}],trail:trail};
+    setSt(x,r[3]);S.tasks.push(x);
+    var due=e.insts.filter(function(n){return n.state!=='paid'})[0];
+    if(due){due.state='review';due.meta={lo:'ສົ່ງກວດສອບແລ້ວ',en:'Sent for verification'}}
+    e.hist.push({d:'04/08/2026',a:trail[0].act,m:'cash',v:amt,u:'ນ. ຄຳລາ',f:'1',ch:'chCounter',st:'pending'});
+  });
 }
 // Mock a couple of cases the Approver signed today, so the E-Sign KPI and the
 // recent-signature audit card open populated.
@@ -1855,8 +1879,21 @@ var ACCESS_SCOPE={
 };
 function myScope(){return ACCESS_SCOPE[S.role]||null}
 function inScope(e,sc){return !!sc&&(sc.all||(e.prov.lo===sc.prov&&sc.districts.indexOf(entDistrict(e).lo)>=0))}
-// Extra enterprises in Vientiane Capital (districts spread for the dashboard). No declaration is open on
-// them. Row: [name, nameEn, rep, district index, ISIC, capital, paid, status, registered, due].
+// Work queues of a scoped role (Checker / Approver) only hold enterprises inside its scope; roles without
+// a scope (Maker, Owner, valuation firm) are not filtered.
+function queueOk(e){var sc=myScope();return !sc||inScope(e,sc)}
+// "Province · district, district" for a scope, in the current language.
+function scopeLabel(sc){
+  if(sc.all)return t('superAdmin')+' · '+t('cdScopeAll');
+  var p=MOCK_PROV.filter(function(x){return x[0]===sc.prov})[0];
+  return (p?(lang==='lo'?p[0]:p[1]):sc.prov)+' · '+sc.districts.map(function(dl){
+    var d=(DISTRICTS[sc.prov]||[]).filter(function(x){return x[0]===dl})[0];return d?(lang==='lo'?d[0]:d[1]):dl}).join(', ');
+}
+// Scope strip above a scoped role's work lists.
+function scopeStrip(){var sc=myScope();if(!sc||sc.all)return '';
+  return '<div class="qscope">'+luSvg('shieldCheck')+'<span><b>'+t('qScope')+'</b> · '+scopeLabel(sc)+'</span></div>'}
+// Extra enterprises in Vientiane Capital (districts spread for the dashboard and the scoped queues).
+// seedReturned() / seedExtraTasks() open declarations on a few of them. Row: [name, nameEn, rep, district index, ISIC, capital, paid, status, registered, due].
 var EXTRA_ENTS=[
  ['ຈັນທະບູລີ ເທຣດດິ້ງ','Chanthabuly Trading','ທ. ສົມພອນ ແກ້ວມະນີ',0,'4690',900000000,900000000,'COMPLETED','10/02/2025','10/02/2026'],
  ['ນ້ຳພຸ ຄາເຟ່','Nam Phou Cafe','ນ. ອາລີ ສີສຸພັນ',0,'5630',240000000,72000000,'PARTIAL','12/11/2025','12/11/2026'],
@@ -1945,11 +1982,11 @@ function reset(){
      capSeq:921,valSeq:460,cd:{prov:'',dist:''},valjobs:JSON.parse(JSON.stringify(VALJOBS)),users:JSON.parse(JSON.stringify(USERS_SEED)),
      backReasonInt:'',backReasonExt:'',loginStep:'cred',loginUser:'',loginPass:'',loginErr:'',tx:null,valI:0,valForm:{val:null,files:[],err:'',docErr:''},
      advDraft:null,adv:{kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''}};
-  S.tasks=seedTasks();seedReturned();seedApproved();
+  S.tasks=seedTasks();seedReturned();seedExtraTasks();seedApproved();
   render();
 }
 function clearCache(){
-  S.ents=seedEnts();S.invs=seedInv();S.tasks=seedTasks();seedReturned();seedApproved();S.taskI=0;S.form=null;S.modal=null;S.notif=[];
+  S.ents=seedEnts();S.invs=seedInv();S.tasks=seedTasks();seedReturned();seedExtraTasks();seedApproved();S.taskI=0;S.form=null;S.modal=null;S.notif=[];
   S.read=false;S.bell=false;S.umenu=false;S.certCopy=false;
   S.valjobs=JSON.parse(JSON.stringify(VALJOBS));S.users=JSON.parse(JSON.stringify(USERS_SEED));S.capSeq=921;S.valSeq=460;S.cd={prov:'',dist:''};
   S.backReasonInt='';S.backReasonExt='';S.tx=null;S.valI=0;S.valForm={val:null,files:[],err:'',docErr:''};
@@ -1960,8 +1997,8 @@ function clearCache(){
 
 /* ================= app shell ================= */
 function menus(){
-  var Tc=S.tasks.filter(function(x){return x.stage==='checker'}).length;
-  var Ta=S.tasks.filter(function(x){return x.stage==='approve'}).length;
+  var Tc=S.tasks.filter(function(x){return x.stage==='checker'&&queueOk(x.ent)}).length;
+  var Ta=S.tasks.filter(function(x){return x.stage==='approve'&&queueOk(x.ent)}).length;
   var I=luSvg;
   if(S.role==='owner'||S.role==='newuser')return [['mMonitor'],['dash',I('wallet'),'myCap']];
   if(S.role==='maker')return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',
@@ -2211,7 +2248,7 @@ function vMakerDash(){
 // Cases the signed-in Checker sent back to the Maker (newest audit entries last).
 function checkerReturned(){
   var me=who().n,out=[];
-  S.ents.forEach(function(e){e.hist.forEach(function(h){if(h.st==='returned'&&h.u===me)out.push({e:e,h:h})})});
+  S.ents.forEach(function(e){if(queueOk(e))e.hist.forEach(function(h){if(h.st==='returned'&&h.u===me)out.push({e:e,h:h})})});
   return out;
 }
 
@@ -2302,7 +2339,7 @@ function colActive(key){var f=S.colf[key]||{};return Object.keys(f).some(functio
 function vCheckerDash(){
   var me=who().n;
   var myQ=[],atAp=[];
-  S.tasks.forEach(function(x,i){if(x.stage==='checker')myQ.push([x,i]);else if(x.stage==='approve')atAp.push([x,i])});
+  S.tasks.forEach(function(x,i){if(!queueOk(x.ent))return;if(x.stage==='checker')myQ.push([x,i]);else if(x.stage==='approve')atAp.push([x,i])});
   var retMine=checkerReturned();
 
   function flags(x){
@@ -2347,7 +2384,7 @@ function vCheckerDash(){
          '<td>'+x.by+'</td><td class="num">'+x.at+'</td>'+
          '<td class="r" style="padding-right:16px"><button class="btn sm">'+t('ckOpen')+' →</button></td></tr>'}});
   }
-  return shell(t('ckTitle'),'',card,'',t('mkGreeting')+' <b>'+me+'</b>');
+  return shell(t('ckTitle'),'',scopeStrip()+card,'',t('mkGreeting')+' <b>'+me+'</b>');
 }
 
 // Approver lists, shared by the dashboard and the sidebar sub-menu counts.
@@ -2358,15 +2395,15 @@ function approverSigned(){
   return out;
 }
 function approverRisk(){
-  var overdue=S.ents.filter(function(e){return e.status==='OVERDUE'});
+  var overdue=S.ents.filter(function(e){return e.status==='OVERDUE'&&queueOk(e)});
   return overdue.concat(S.ents.filter(function(e){
-    return overdue.indexOf(e)<0&&S.invs.some(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='PENDING'})}));
+    return queueOk(e)&&overdue.indexOf(e)<0&&S.invs.some(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='PENDING'})}));
 }
 
 function vApproverDash(){
   var me=who().n;
   var myQ=[];
-  S.tasks.forEach(function(x,i){if(x.stage==='approve')myQ.push([x,i])});
+  S.tasks.forEach(function(x,i){if(x.stage==='approve'&&queueOk(x.ent))myQ.push([x,i])});
   var signedAll=approverSigned();
   var riskList=approverRisk();
 
@@ -2404,7 +2441,7 @@ function vApproverDash(){
          '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td><td>'+verifier(x)+'</td>'+
          '<td class="r" style="padding-right:16px"><button class="btn sm">'+t(x.rejReq?'ckOpen':'apSign')+' →</button></td></tr>'}});
   }
-  return shell(t('apTitle'),'',card,'',t('mkGreeting')+' <b>'+me+'</b>');
+  return shell(t('apTitle'),'',scopeStrip()+card,'',t('mkGreeting')+' <b>'+me+'</b>');
 }
 
 function vStaffDash(){
@@ -2543,9 +2580,7 @@ function vCentralDash(){
   var dists=(prov?(DISTRICTS[prov]||[]):[]).filter(function(d){return sc.all||sc.districts.indexOf(d[0])>=0});
   var sel=function(attr,all,opts,cur,dis){return '<select '+attr+(dis?' disabled':'')+'><option value="">'+all+'</option>'+
     opts.map(function(o){return '<option value="'+esc(o[0])+'"'+(o[0]===cur?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'};
-  var scopeTxt=sc.all?t('superAdmin')+' · '+t('cdScopeAll')
-    :L(MOCK_PROV.filter(function(p){return p[0]===sc.prov}).map(function(p){return {lo:p[0],en:p[1]}})[0]||{lo:sc.prov,en:sc.prov})+' · '+
-     sc.districts.map(function(dl){var d=(DISTRICTS[sc.prov]||[]).filter(function(x){return x[0]===dl})[0];return d?(LO?d[0]:d[1]):dl}).join(', ');
+  var scopeTxt=scopeLabel(sc);
   var bar='<div class="card cdbar"><div class="c">'+
    '<div class="cdscope">'+luSvg('shieldCheck')+'<div><b>'+t('cdScope')+':</b> '+scopeTxt+'<small>'+t('cdScopeSrc')+'</small></div></div>'+
    '<div class="cdflt">'+
@@ -3330,7 +3365,7 @@ function vDeclare(){
 
 function vQueue(){
   var stage=S.role==='checker'?'checker':'approve',isC=stage==='checker';
-  var mine=[];S.tasks.forEach(function(x,i){if(x.stage===stage)mine.push([x,i])});
+  var mine=[];S.tasks.forEach(function(x,i){if(x.stage===stage&&queueOk(x.ent))mine.push([x,i])});
   var rows=mine.map(function(p){var x=p[0];
     return '<tr data-task="'+p[1]+'"><td style="padding-left:16px" class="num">'+x.ref+'</td>'+
     '<td><span class="co">'+x.ent.name+'<small>'+x.ent.id+'</small></span></td>'+
@@ -3493,21 +3528,22 @@ function vValJobDetail(){
 }
 
 function vValQueue(){
-  var counts={doing:0,wait:0,outapprove:0,accepted:0};
-  S.valjobs.forEach(function(j){counts[j.status]++});
-  var LO=lang==='lo';
-  var outJobs=S.valjobs.filter(function(j){return j.status==='outapprove'});
   function entOf(j){return S.ents.filter(function(y){return y.id===j.ent})[0]}
+  var jobs=S.valjobs.filter(function(j){var e=entOf(j);return !e||queueOk(e)});
+  var counts={doing:0,wait:0,outapprove:0,accepted:0};
+  jobs.forEach(function(j){counts[j.status]++});
+  var LO=lang==='lo';
+  var outJobs=jobs.filter(function(j){return j.status==='outapprove'});
   var kpis=sumCard({title:t('wsOverview'),
-   metrics:metric('',t('valAll'),fmt(S.valjobs.length),LO?'ໃນຄິວປະເມີນ':'In the valuation queue')+
+   metrics:metric('',t('valAll'),fmt(jobs.length),LO?'ໃນຄິວປະເມີນ':'In the valuation queue')+
     metric('warn',t('valDoing'),fmt(counts.doing),LO?'ບໍລິສັດກຳລັງເຮັດ':'Firms working on it')+
     metric('',t('valWait'),fmt(counts.wait),LO?'ລໍຢືນຢັນຜົນ':'Awaiting acceptance')+
     metric('bad',t('valOut'),fmt(counts.outapprove),LO?'ຕ້ອງອະນຸມັດກ່ອນ':'Approve the firm first'),
    notes:outJobs.map(function(j){var ent=entOf(j);
      return {tone:'warn',text:'<b class="num">'+j.id+'</b> · '+(ent?ent.name:j.ent)+' · '+j.firm+' ('+t('outNet').split(' (')[0]+')',
        act:'<button class="btn sm" data-valjob="'+S.valjobs.indexOf(j)+'">'+t('valOut')+'</button>'}})});
-  var firms=[];S.valjobs.forEach(function(j){if(firms.indexOf(j.firm)<0)firms.push(j.firm)});
-  var card=listCard({key:'valQueue',title:t('valTitle'),empty:t('noMatch'),all:S.valjobs.map(function(j,i){return [j,i]}),
+  var firms=[];jobs.forEach(function(j){if(firms.indexOf(j.firm)<0)firms.push(j.firm)});
+  var card=listCard({key:'valQueue',title:t('valTitle'),empty:t('noMatch'),all:jobs.map(function(j){return [j,S.valjobs.indexOf(j)]}),
     fields:[['ref',t('cRef')],['ent',t('cEnt')],['reg',t('regNo')],['firm',t('valFirm'),firms.sort().map(function(f){return [f,f]})],
       ['net',t('valFirmType'),[['in',t('inNet')],['out',t('outNet').split(' (')[0]]]],
       ['st',t('cStatus'),Object.keys(VAL_LBL).map(function(k){return [k,t(VAL_LBL[k][0])]})]],
@@ -3520,7 +3556,7 @@ function vValQueue(){
        '<td>'+(j.net==='in'?'<span class="pill p-ok">'+t('inNet')+'</span>':'<span class="pill p-warn">'+t('outNet').split(' (')[0]+'</span>')+'</td>'+
        '<td class="r num">'+fmt(j.amt)+'</td><td class="r" style="padding-right:16px"><span class="pill '+lbl[1]+'">'+t(lbl[0])+'</span></td></tr>'},
     foot:'<div class="audit" style="margin:14px 16px 16px">'+t('valRule')+'</div>'});
-  return shell(t('valTitle'),'',kpis+card);
+  return shell(t('valTitle'),'',scopeStrip()+kpis+card);
 }
 
 function vFin(){

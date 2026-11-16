@@ -137,7 +137,12 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   - **สีกราฟ** ใช้ palette ที่ผ่านการตรวจ colorblind (ฟ้า #2a78d6 / ส้ม #eb6834 และไล่โทนฟ้าสำหรับลำดับ)
     สีแดงใช้เฉพาะสถานะเกินกำหนด และมีไอคอน + ข้อความกำกับเสมอ
   - **Enterprises needing attention**: วิสาหกิจเกินกำหนดก่อน แล้วเรียงตามวันครบกำหนดที่ใกล้สุด กดเพื่อเปิดหน้าวิสาหกิจ
-  - ขอบเขตใช้กับ Dashboard นี้เท่านั้น คิวงานของ Checker / Approver ยังเห็นทุกรายการเหมือนเดิม
+  - ขอบเขตเดียวกันนี้กรองคิวงานของ Checker / Approver ด้วย: Verification queue, Awaiting approval,
+    Returned by me, Overdue / penalties, Valuation Queue และตัวเลขบนเมนูด้านข้าง แต่ละหน้ามีแถบบอกว่า
+    "แสดงเฉพาะงานในขอบเขตสิทธิ์" + แขวง / เมือง ส่วน Maker, Owner และบริษัทประเมินไม่ถูกกรอง
+    (demo: ใบรายการที่ Maker ยื่นให้วิสาหกิจนอกนครหลวงเวียงจันทน์ จะไปอยู่ในคิวของ Checker แขวงนั้น ซึ่ง demo ไม่มีบัญชี)
+  - ข้อมูล demo ในขอบเขต: ใบรายการที่ถูกตีกลับรอแก้อยู่ที่ ELN-2025-1126 (จันทะบูลี) และมีใบรายการรอตรวจ
+    ที่ ELN-2025-1128, 1130 และรออนุมัติที่ ELN-2025-1129 (งวดแรก ไม่ต้อง E-Sign), 1133 (ครบ 100% ต้อง E-Sign)
 - **Checker (Verification Workspace)** เมนูย่อยใต้ Dashboard: Dashboard (Dashboard กลาง), Verification
   queue, Awaiting approval, Returned by me หน้าแสดงการ์ดค้นหาแบบเดียวกับหน้า Finance &
   Penalties (Reference, Enterprise, Channel แบบ dropdown, Submit by; Returned by me มีแค่
