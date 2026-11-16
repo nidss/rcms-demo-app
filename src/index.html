@@ -528,8 +528,16 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .suname{border:0;padding:0;margin:0 0 4px;min-width:0}
 .suname legend{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:8px}
 .suname .g3{display:grid;grid-template-columns:92px 1fr 1fr;gap:10px}
-.sudoc .drop{padding:12px;flex-direction:row;justify-content:center;gap:8px}
-.sudoc .filelist{margin-top:0}
+.upgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px;align-items:start}
+.upgrid.one{grid-template-columns:1fr}
+.upslot{margin:0;min-width:0}
+.upslot label{display:flex;align-items:baseline;gap:6px}
+.upslot label .upopt{color:var(--muted);font-weight:400}
+.upslot label .upcnt{margin-left:auto;color:var(--muted);font-weight:400;font-size:11px;white-space:nowrap}
+.upslot .drop,.pblk .upslot .drop{padding:12px;flex-direction:row;justify-content:center;gap:8px}
+.upslot .filelist{margin:0 0 8px}
+.uprule{margin:-2px 0 12px}
+@media(max-width:900px){.upgrid{grid-template-columns:1fr}}
 .demoacc{margin-top:18px}
 .demoacc .dk{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:8px}
 .demoacc .chips .chipf{font-size:11.5px;padding:5px 10px}
@@ -677,8 +685,10 @@ lo:{
  suIdDocHint:'ອັບໂຫຼດເອກະສານເພື່ອຢືນຢັນຕົວຕົນ ແລະ ການເປັນພະນັກງານຂອງທ່ານ',suRoleLbl:'ບົດບາດ',
  suDocHint:'ອັບໂຫຼດເອກະສານເພື່ອຢືນຢັນວິສາຫະກິດທີ່ທ່ານຕ້ອງການສ້າງບັນຊີ',suEntSec:'ຂໍ້ມູນວິສາຫະກິດ',suRegNo:'ເລກທະບຽນວິສາຫະກິດ',
  suEtype:'ປະເພດວິສາຫະກິດ',suEtypePick:'- ເລືອກປະເພດວິສາຫະກິດ -',suDocsSec:'ເອກະສານທີ່ຕ້ອງອັບໂຫຼດ',suPickFirst:'ເລືອກປະເພດວິສາຫະກິດກ່ອນ ເພື່ອເບິ່ງເອກະສານທີ່ຕ້ອງໃຊ້',
- suDropT:'ກົດເພື່ອເລືອກໄຟລ໌ ຫຼື ລາກມາວາງ',suFileRule:'PDF, JPG, PNG ບໍ່ເກີນ 10 MB ຕໍ່ໄຟລ໌',suOptional:'(ຖ້າມີ)',
- suErrType:'ຮັບສະເພາະໄຟລ໌ PDF, JPG ຫຼື PNG',suErrSize:'ໄຟລ໌ໃຫຍ່ເກີນ 10 MB',suErrDoc:'ກະລຸນາອັບໂຫຼດເອກະສານທີ່ຈຳເປັນໃຫ້ຄົບ',
+ suDropT:'ກົດເພື່ອເລືອກໄຟລ໌ ຫຼື ລາກມາວາງ',suFileRule:'PDF, JPG, PNG - ບໍ່ເກີນ 5 ໄຟລ໌ຕໍ່ເອກະສານ, 15 MB ຕໍ່ໄຟລ໌',suOptional:'(ຖ້າມີ)',
+ suErrType:'ຮັບສະເພາະໄຟລ໌ PDF, JPG ຫຼື PNG',suErrSize:'ໄຟລ໌ໃຫຍ່ເກີນ 15 MB',upErrMax:'ແນບໄດ້ບໍ່ເກີນ 5 ໄຟລ໌ຕໍ່ເອກະສານ',upErrReq:'ຕ້ອງແນບເອກະສານນີ້',upMore:'ເພີ່ມໄຟລ໌',
+ capSrc:'ແຫຼ່ງທຶນ',capDomestic:'ທຶນພາຍໃນ',capForeign:'ທຶນຕ່າງປະເທດ',dcSec3:'ເອກະສານປະກອບຄຳຮ້ອງ',dcSec3Sub:'ເອກະສານທີ່ຕ້ອງຍື່ນທຸກກໍລະນີ ບໍ່ວ່າຈະຊຳລະທຶນດ້ວຍຮູບແບບໃດ',
+suErrDoc:'ກະລຸນາອັບໂຫຼດເອກະສານທີ່ຈຳເປັນໃຫ້ຄົບ',
  suErrEnName:'ຊື່ພາສາອັງກິດໃຊ້ໄດ້ສະເພາະຕົວອັກສອນ A-Z',
  suDoneMsg:'ເມື່ອເອກະສານຜ່ານການກວດສອບ ລະບົບຈະສົ່ງລະຫັດຜ່ານຊົ່ວຄາວໄປທີ່',suDoneHint:'ເມື່ອໄດ້ຮັບລະຫັດຜ່ານແລ້ວ ໃຫ້ໃຊ້ອີເມວນີ້ເຂົ້າສູ່ລະບົບ ຈາກນັ້ນລະບົບຈະໃຫ້ຕັ້ງລະຫັດຜ່ານໃໝ່',
  suToSignIn:'ໄປໜ້າເຂົ້າສູ່ລະບົບ',errEmail:'ຮູບແບບອີເມວບໍ່ຖືກຕ້ອງ',errIdNo:'ເລກບັດ / ໜັງສືຜ່ານແດນ ຕ້ອງມີຢ່າງໜ້ອຍ 6 ຕົວ',
@@ -877,8 +887,10 @@ en:{
  suIdDocHint:'Upload documents that verify your identity and employment.',suRoleLbl:'Role',
  suDocHint:'Upload documents that verify the enterprise this account is for.',suEntSec:'Enterprise details',suRegNo:'Enterprise registration number',
  suEtype:'Enterprise type',suEtypePick:'- Select enterprise type -',suDocsSec:'Documents to upload',suPickFirst:'Select an enterprise type to see the documents it needs',
- suDropT:'Click to choose a file, or drag it here',suFileRule:'PDF, JPG, PNG up to 10 MB per file',suOptional:'(optional)',
- suErrType:'Only PDF, JPG or PNG files are accepted',suErrSize:'File is larger than 10 MB',suErrDoc:'Upload every required document',
+ suDropT:'Click to choose a file, or drag it here',suFileRule:'PDF, JPG, PNG - up to 5 files per document, 15 MB per file',suOptional:'(optional)',
+ suErrType:'Only PDF, JPG or PNG files are accepted',suErrSize:'File is larger than 15 MB',upErrMax:'Up to 5 files per document',upErrReq:'This document is required',upMore:'Add another file',
+ capSrc:'Source of capital',capDomestic:'Domestic capital',capForeign:'Foreign capital',dcSec3:'Application documents',dcSec3Sub:'Documents every declaration must include, whatever the payment method',
+suErrDoc:'Upload every required document',
  suErrEnName:'English name may use the letters A-Z only',
  suDoneMsg:'Once your documents are approved, a temporary password will be sent to',suDoneHint:'When you receive it, log in with this email and that password; you will then set a new password.',
  suToSignIn:'Go to log in',errEmail:'Invalid email address',errIdNo:'Citizen ID / Passport Number must have at least 6 characters',
@@ -1195,31 +1207,74 @@ var ACCTS=[
  {id:'newuser',user:'new.user',nm:'ທ້າວ ສົມສັກ ພົມມະວົງ',rl:{lo:'ຜູ້ໃຊ້ໃໝ່ · New user',en:'New user'},av:'ສພ',tempPw:true}
 ];
 var TITLES={mr:{lo:'ທ້າວ',en:'Mr.'},mrs:{lo:'ນາງ',en:'Mrs.'},ms:{lo:'ນາງສາວ',en:'Ms.'}};
-// Create Account step 3: enterprise types and the documents each one must upload (opt:1 = optional).
+// Document master, from the Doc_Type sheet: one upload slot per entry, grouped by where it is asked for.
+// req: 1 = required, 0 = optional, 'foreign' = required only when the capital comes from abroad.
+// Every document takes up to DOC_MAX_FILES files of DOC_MAX_BYTES each.
+var DOC_MAX_FILES=5,DOC_MAX_BYTES=15*1024*1024;
+var DOC_GROUPS={
+  // Create Account (Owner)
+  DOCUMENT_TYPE:[
+    {k:'ENTERPRISE_REG_CERT',req:1,lo:'ສຳເນົາ ຊຸດທະບຽນວິສາຫະກິດ',en:'Copy of Enterprise Registration Documents'},
+    {k:'POWER_OF_ATTORNEY',req:1,lo:'ໃບມອບສິດ ພ້ອມດ້ວຍ ສຳເນົາບັດປະຈຳຕົວ ຫຼື ປຶ້ມສຳມະໂນຄົວ ແລະ ສຳເນົາໜັງສືຜ່ານແດນ',en:'Power of Attorney with a Copy of the Identity Card, Family Registration Book, or Passport'},
+    {k:'SHARE_CERTIFICATE',req:0,lo:'ສຳເນົາ ໃບຮຸ້ນ',en:'Copy of Share Certificate'}],
+  // Capital declaration, whatever the payment method. The sheet leaves group_code / param_code blank
+  // for this one, so both codes here are placeholders.
+  CAPITAL_DECLARATION_DOCUMENT:[
+    {k:'CAPITAL_CONTRIBUTION_APPLICATION',req:1,lo:'ຄຳຮ້ອງ ແຈ້ງກ່ຽວກັບການປະກອບທຶນຈົດທະບຽນວິສາຫະກິດ',en:'Registered Capital Contribution Notification Application'}],
+  CAPITAL_CASH_DOCUMENT:[
+    {k:'BANK_STATEMENT',req:1,lo:'ສຳເນົາ ເອກະສານຢັ້ງຢືນຖານະການເງິນຂອງວິສາຫະກິດຈາກທະນາຄານທຸລະກິດ',en:'Bank Statement'},
+    {k:'BOL_CAPITAL_IMPORT_CONFIRMATION',req:'foreign',lo:'ສຳເນົາ ໜັງສືຢັ້ງຢືນການນຳເຂົ້າທຶນຈາກຕ່າງປະເທດ ຈາກທະນາຄານແຫ່ງ ສປປ ລາວ',en:'Certificate of Capital Importation'},
+    {k:'BOL_LETTER',req:'foreign',lo:'ສຳເນົາ ໜັງສືຈາກທະນາຄານແຫ່ງ ສປປ ລາວ',en:'Copy of a Letter from the Bank of the Lao PDR'},
+    {k:'OTHER',req:0,lo:'ອື່ນໆ',en:'Other'}],
+  CAPITAL_VEHICLE_DOCUMENT:[
+    {k:'VEHICLE_REGISTRATION',req:1,lo:'ສຳເນົາ ໃບທະບຽນຍານພາຫະນະ',en:'Vehicle Registration Certificate'},
+    {k:'OWNERSHIP_TRANSFER',req:1,lo:'ໃບໂອນມອບກຳມະສິດ ຈາກກົມຂົນສົ່ງ',en:'Ownership Transfer Document from the Department of Transport'},
+    {k:'VALUATION_REPORT',req:0,lo:'ໃບປະເມີນລາຄາ',en:'Valuation Report'},
+    {k:'ENCUMBRANCE_FREE_CERTIFICATE',req:0,lo:'ໃບຢັ້ງຢືນປອດພັນທະ',en:'Certificate of No Encumbrance'},
+    {k:'OTHER',req:0,lo:'ອື່ນໆ',en:'Other'}],
+  CAPITAL_BUILDING_DOCUMENT:[
+    {k:'OWNERSHIP_TRANSFER',req:1,lo:'ໃບໂອນມອບກຳມະສິດ',en:'Ownership Transfer Document'},
+    {k:'VALUATION_REPORT',req:0,lo:'ໃບປະເມີນລາຄາ',en:'Valuation Report'},
+    {k:'TITLE_DEED',req:0,lo:'ໃບຕາດິນ ຫຼື ເອກະສານສິດນຳໃຊ້ທີ່ດິນ ບ່ອນຕັ້ງສິ່ງປຸກສ້າງ',en:'Land Title Document for the Building Site'},
+    {k:'CONSTRUCTION_PERMIT',req:0,lo:'ໃບອະນຸຍາດປຸກສ້າງ',en:'Permit to Construct a Building Structure'},
+    {k:'OTHER',req:0,lo:'ອື່ນໆ',en:'Other'}],
+  CAPITAL_LAND_DOCUMENT:[
+    {k:'TITLE_DEED',req:1,lo:'ໃບຕາດິນ',en:'Land Title Deed (Front/Back) / Land-Use Permit'},
+    {k:'CADASTRAL_MAP',req:0,lo:'ແຜນທີລະວາງ',en:'Cadastral Map'},
+    {k:'OWNERSHIP_TRANSFER',req:0,lo:'ໃບໂອນມອບກຳມະສິດ',en:'Ownership Transfer Document'},
+    {k:'ENCUMBRANCE_FREE_CERTIFICATE',req:1,lo:'ໃບຢັ້ງຢືນບໍ່ມີພັນທະຈຳນອງ / ປອດພັນທະ',en:'Mortgage-Free Certificate'},
+    {k:'OTHER',req:0,lo:'ອື່ນໆ',en:'Other'}],
+  CAPITAL_LABOUR_DOCUMENT:[
+    {k:'PARTNERSHIP_AGREEMENT',req:1,lo:'ສັນຍາຈັດຕັ້ງຮຸ້ນສ່ວນ',en:'Partnership Establishment Agreement'},
+    {k:'OTHER',req:0,lo:'ອື່ນໆ',en:'Other'}],
+  // Not in the sheet: the demo also offers "Machinery" as an asset category, so it borrows the building list.
+  CAPITAL_MACHINE_DOCUMENT:[
+    {k:'OWNERSHIP_TRANSFER',req:1,lo:'ໃບໂອນມອບກຳມະສິດ',en:'Ownership Transfer Document'},
+    {k:'VALUATION_REPORT',req:0,lo:'ໃບປະເມີນລາຄາ',en:'Valuation Report'},
+    {k:'OTHER',req:0,lo:'ອື່ນໆ',en:'Other'}]
+};
+// Slot definitions of one group in the current language: [{k,lbl,req}].
+function docDefs(group,foreign){
+  return DOC_GROUPS[group].map(function(d){return {k:d.k,lbl:L(d),req:d.req===1||(d.req==='foreign'&&!!foreign)}});
+}
+// Every document type as one flat list, for the admin master-data page.
+function docMaster(){
+  var out=[];Object.keys(DOC_GROUPS).forEach(function(g){DOC_GROUPS[g].forEach(function(d){out.push({g:g,k:d.k,lo:d.lo,en:d.en})})});
+  return out;
+}
+function filesOf(o,k){return (o.files||[]).filter(function(f){return f.k===k})}
+// Create Account step 3, roles other than Owner (identity documents are not in the Doc_Type sheet).
 var SU_DOC={
-  regCert:{lo:'ໃບທະບຽນວິສາຫະກິດ',en:'Enterprise registration certificate'},
-  ownerId:{lo:'ບັດປະຈຳຕົວ ຫຼື ໜັງສືຜ່ານແດນຂອງເຈົ້າຂອງ',en:"Owner's ID card or passport"},
-  partnerAgree:{lo:'ສັນຍາຫຸ້ນສ່ວນ',en:'Partnership agreement'},
-  partnerIds:{lo:'ບັດປະຈຳຕົວ ຫຼື ໜັງສືຜ່ານແດນຂອງຜູ້ເປັນຫຸ້ນສ່ວນ',en:"Partners' ID cards or passports"},
-  articles:{lo:'ກົດລະບຽບບໍລິສັດ',en:'Articles of association'},
-  shareholders:{lo:'ບັນຊີລາຍຊື່ຜູ້ຖືຮຸ້ນ',en:'Shareholder register'},
-  authLetter:{lo:'ໜັງສືມອບສິດ',en:'Letter of authorization'},
-  estDecision:{lo:'ຂໍ້ຕົກລົງສ້າງຕັ້ງວິສາຫະກິດ',en:'Establishment decision'},
-  jvAgree:{lo:'ສັນຍາຮ່ວມທຶນ',en:'Joint venture agreement'},
-  appointLetter:{lo:'ໜັງສືແຕ່ງຕັ້ງຜູ້ຕາງໜ້າ',en:'Appointment letter of the representative'},
   idCard:{lo:'ບັດປະຈຳຕົວ',en:'Citizen ID card'},
   passport:{lo:'ໜັງສືຜ່ານແດນ',en:'Passport'},
-  staffCard:{lo:'ບັດພະນັກງານ',en:'Employee ID card'},
-  coopCert:{lo:'ໃບທະບຽນສະຫະກອນ',en:'Cooperative registration certificate'},
-  coopCharter:{lo:'ກົດລະບຽບສະຫະກອນ',en:'Cooperative charter'},
-  memberList:{lo:'ບັນຊີລາຍຊື່ສະມາຊິກ',en:'Member list'}
+  staffCard:{lo:'ບັດພະນັກງານ',en:'Employee ID card'}
 };
 var SU_ETYPES=[
-  {k:'sole',lo:'ວິສາຫະກິດສ່ວນບຸກຄົນ',en:'Sole proprietorship',docs:[['regCert'],['ownerId']]},
-  {k:'partnership',lo:'ຫຸ້ນສ່ວນ',en:'Partnership',docs:[['regCert'],['partnerAgree'],['partnerIds']]},
-  {k:'company',lo:'ບໍລິສັດ',en:'Company',docs:[['regCert'],['articles'],['shareholders'],['authLetter',1]]},
-  {k:'statejv',lo:'ວິສາຫະກິດລັດ / ວິສາຫະກິດຮ່ວມທຶນ',en:'State / Joint venture',docs:[['regCert'],['estDecision'],['appointLetter'],['jvAgree',1]]},
-  {k:'coop',lo:'ສະຫະກອນ',en:'Cooperative',docs:[['coopCert'],['coopCharter'],['memberList']]}
+  {k:'sole',lo:'ວິສາຫະກິດສ່ວນບຸກຄົນ',en:'Sole proprietorship'},
+  {k:'partnership',lo:'ຫຸ້ນສ່ວນ',en:'Partnership'},
+  {k:'company',lo:'ບໍລິສັດ',en:'Company'},
+  {k:'statejv',lo:'ວິສາຫະກິດລັດ / ວິສາຫະກິດຮ່ວມທຶນ',en:'State / Joint venture'},
+  {k:'coop',lo:'ສະຫະກອນ',en:'Cooperative'}
 ];
 // Create Account step 1: the role the applicant asks for.
 var SU_ROLES=[
@@ -1231,19 +1286,18 @@ var SU_ROLES=[
   {k:'bankMaker',lo:'ທະນາຄານ - ຜູ້ບັນທຶກ (Maker)',en:'Bank Maker'},
   {k:'bankChecker',lo:'ທະນາຄານ - ຜູ້ກວດສອບ (Checker)',en:'Bank Checker'}
 ];
-var SU_MAX_BYTES=10*1024*1024;
 function suEtype(k){return SU_ETYPES.filter(function(x){return x.k===k})[0]}
 function suRole(k){return SU_ROLES.filter(function(x){return x.k===k})[0]}
-// Step 3 documents: an Owner uploads the documents of the chosen enterprise type (null until
-// a type is picked); every other role uploads the ID from step 1 plus an employee ID card.
+// Step 3 document slots: an Owner uploads the DOCUMENT_TYPE group; every other role uploads
+// the ID from step 1 plus an employee ID card.
 function suDocsFor(su){
-  if(su.role==='owner'){var et=suEtype(su.etype);return et?et.docs:null}
-  return [[su.idType==='pp'?'passport':'idCard'],['staffCard']];
+  if(su.role==='owner')return docDefs('DOCUMENT_TYPE');
+  return [su.idType==='pp'?'passport':'idCard','staffCard'].map(function(k){return {k:k,lbl:L(SU_DOC[k]),req:true}});
 }
-// Returns an error message, or '' when the file is a PDF/JPG/PNG of at most 10 MB.
+// Returns an error message, or '' when the file is a PDF/JPG/PNG of at most 15 MB.
 function suFileErr(f){
   if(!/\.(pdf|jpe?g|png)$/i.test(f.name||''))return t('suErrType');
-  if(f.size>SU_MAX_BYTES)return t('suErrSize');
+  if(f.size>DOC_MAX_BYTES)return t('suErrSize');
   return '';
 }
 function fileSize(b){return b>=1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB'}
@@ -1403,7 +1457,7 @@ function seedMockTasks(){
     var trail=[{who:'ນ. ຄຳລາ (Maker)',act:{lo:'ຍື່ນຄຳຮ້ອງແຈ້ງຊຳລະທຶນ',en:'Submitted a capital payment declaration'},at:(q?'04/08/2026 ':'03/08/2026 ')+at}];
     if(!q)trail.push({who:'ນ. ສີວິໄລ (Checker)',act:{lo:'ກວດສອບແລ້ວ ສົ່ງຕໍ່ຜູ້ອະນຸມັດ',en:'Verified and sent to the approver'},at:'03/08/2026 16:'+('0'+(i*2)).slice(-2)});
     return {ref:'APR-2026-0'+(850+i),ent:e,amt:amt,mode:'cash',by:'ນ. ຄຳລາ',at:at,stage:q?'checker':'approve',
-      files:[{k:'doc0',lbl:'ໃບນຳຝາກ',name:'deposit-'+e.id.slice(-4)+'.pdf'}],trail:trail};
+      files:[{k:'BANK_STATEMENT',name:'bank-statement-'+e.id.slice(-4)+'.pdf'}],trail:trail};
   });
 }
 
@@ -1421,10 +1475,10 @@ function seedTasks(){
   function E(id){return S.ents.filter(function(x){return x.id===id})[0]}
   return [
    {ref:'APR-2026-0912',ent:E('ELN-2025-1002'),amt:135000000,mode:'cash',by:'ນ. ຄຳລາ',at:'08:52',stage:'checker',
-    files:[{k:'doc0',lbl:'ໃບນຳຝາກ',name:'deposit-1002.pdf'}],
+    files:[{k:'BANK_STATEMENT',name:'bank-statement-1002.pdf'}],
     trail:[{who:'ນ. ຄຳລາ (Maker)',act:{lo:'ຍື່ນຄຳຮ້ອງແຈ້ງຊຳລະທຶນ',en:'Submitted a capital payment declaration'},at:'04/08/2026 08:52'}]},
    {ref:'APR-2026-0915',ent:E('ELN-2025-1003'),amt:1540000000,mode:'asset',by:'ນ. ຄຳລາ',at:'09:20',stage:'approve',
-    files:[{k:'valReport',lbl:'ບົດລາຍງານປະເມີນ',name:'valuation-1003.pdf'}],
+    files:[{k:'VALUATION_REPORT',name:'valuation-1003.pdf'}],
     trail:[{who:'ນ. ຄຳລາ (Maker)',act:{lo:'ຍື່ນຄຳຮ້ອງແຈ້ງຊຳລະທຶນ',en:'Submitted a capital payment declaration'},at:'04/08/2026 09:20'},
            {who:'ນ. ສີວິໄລ (Checker)',act:{lo:'ກວດສອບແລ້ວ ສົ່ງຕໍ່ຜູ້ອະນຸມັດ',en:'Verified and sent to the approver'},at:'04/08/2026 09:35'}]}
   ].concat(seedMockTasks());
@@ -1586,7 +1640,7 @@ function reset(){
      ents:seedEnts(),invs:seedInv(),tasks:[],taskI:0,form:null,modal:null,notif:[],
      read:false,bell:false,umenu:false,setTab:'fee',finTab:'fee',dashTab:'queue',pg:{},colf:{},colDraft:{},certCopy:false,
      valjobs:JSON.parse(JSON.stringify(VALJOBS)),users:JSON.parse(JSON.stringify(USERS_SEED)),
-     backReasonInt:'',backReasonExt:'',loginStep:'cred',loginUser:'',loginPass:'',loginErr:'',tx:null,valI:0,valForm:{val:null,files:[],err:'',docType:'valReport',docErr:''},
+     backReasonInt:'',backReasonExt:'',loginStep:'cred',loginUser:'',loginPass:'',loginErr:'',tx:null,valI:0,valForm:{val:null,files:[],err:'',docErr:''},
      advDraft:null,adv:{kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''}};
   S.tasks=seedTasks();seedReturned();seedApproved();
   render();
@@ -1595,7 +1649,7 @@ function clearCache(){
   S.ents=seedEnts();S.invs=seedInv();S.tasks=seedTasks();seedReturned();seedApproved();S.taskI=0;S.form=null;S.modal=null;S.notif=[];
   S.read=false;S.bell=false;S.umenu=false;S.certCopy=false;
   S.valjobs=JSON.parse(JSON.stringify(VALJOBS));S.users=JSON.parse(JSON.stringify(USERS_SEED));
-  S.backReasonInt='';S.backReasonExt='';S.tx=null;S.valI=0;S.valForm={val:null,files:[],err:'',docType:'valReport',docErr:''};
+  S.backReasonInt='';S.backReasonExt='';S.tx=null;S.valI=0;S.valForm={val:null,files:[],err:'',docErr:''};
   S.adv={kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''};S.advDraft=null;
   if(S.view==='declare')S.view=S.sel?'detail':'dash';
   render();
@@ -1729,15 +1783,8 @@ function vLogin(){
     '<span class="hint" style="margin:0">'+t('suOtpSpam')+'</span><span class="lnk" data-suresend="1">'+t('suResend')+'</span></div>'+
    '<button class="btn" style="width:100%;padding:12px;margin-top:16px;font-size:13.5px" id="doSuOtp" disabled>'+t('loginNext')+'</button>'+
    '<div class="lnk" style="margin-top:14px;display:inline-block" data-sugo="1">'+t('loginBack')+'</div>';
-  var isOwner=su.role==='owner',et=isOwner?suEtype(su.etype):null,docList3=suDocsFor(su),docs=su.docs||{},docErr=su.docErr||{};
-  var docField=function(d){var k=d[0],f=docs[k],lbl=L(SU_DOC[k]);
-    return '<div class="field sudoc"><label>'+lbl+(d[1]?' <span style="color:var(--muted)">'+t('suOptional')+'</span>':' *')+'</label>'+
-     (f?'<div class="filelist"><div class="filerow up"><span class="fic">'+luSvg('circleCheck')+'</span>'+
-        '<div class="fmeta"><b>'+esc(f.name)+'</b><span>'+fileSize(f.size)+'</span></div>'+
-        '<span class="frm" data-surm="'+k+'" title="'+t('cancel')+'">✕</span></div></div>'
-       :'<div class="drop" data-sudrop="'+k+'" role="button" tabindex="0"><span class="dropIcon">⬆</span><b>'+t('suDropT')+'</b></div>')+
-     '<input type="file" hidden accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" data-sufile="'+k+'">'+
-     (docErr[k]?'<div class="hint err">'+docErr[k]+'</div>':'')+'</div>'};
+  var isOwner=su.role==='owner',et=isOwner?suEtype(su.etype):null,docList3=suDocsFor(su);
+  var docField=function(d){return upSlot('su|'+d.k,d,filesOf(su,d.k),(su.upErr||{})[d.k],true)};
   var su3=
    '<h2>'+t(isOwner?'suDocTitle':'suIdDocTitle')+'</h2><p>'+t(isOwner?'suDocHint':'suIdDocHint')+'</p>'+stepBar+
    '<div class="sc-note ok" style="border-radius:10px;margin:0 0 16px;padding:9px 14px"><span class="ni">'+luSvg('circleCheck')+'</span>'+
@@ -1748,8 +1795,8 @@ function vLogin(){
     '<option value="">'+t('suEtypePick')+'</option>'+
     SU_ETYPES.map(function(x){return '<option value="'+x.k+'"'+(su.etype===x.k?' selected':'')+'>'+L(x)+'</option>'}).join('')+'</select></div></fieldset>':'')+
    '<fieldset class="suname"><legend>'+t('suDocsSec')+'</legend>'+
-    '<div class="hint" style="margin:-4px 0 12px">'+t('suFileRule')+'</div>'+
-    (docList3?docList3.map(docField).join(''):'<div class="hint" style="padding:6px 0 12px">'+t('suPickFirst')+'</div>')+'</fieldset>'+
+    '<div class="hint uprule">'+t('suFileRule')+'</div>'+
+    '<div class="upgrid one" style="margin-bottom:14px">'+docList3.map(docField).join('')+'</div></fieldset>'+
    errLine+
    '<button class="btn" style="width:100%;padding:12px;margin-top:6px;font-size:13.5px" id="doSuCreate">'+t('signUp')+'</button>'+
    '<div class="lnk" style="margin-top:14px;display:inline-block" data-backcred="1">'+t('suBack')+'</div>';
@@ -2148,7 +2195,7 @@ function vAdminDash(){
   // system-config status
   var glCount=0;S.ents.forEach(function(e){e.hist.forEach(function(h){if((h.m==='cash'||h.m==='asset')&&h.v)glCount++})});
   var feeCount=FEES.byType.length+FEES.byCapital.length;
-  var masterRecs=MASTER.isic.length+MASTER.prov.length+MASTER.etype.length+MASTER.doctype.length+MASTER.valfirms.length;
+  var masterRecs=MASTER.isic.length+MASTER.prov.length+MASTER.etype.length+docMaster().length+MASTER.valfirms.length;
 
   var inner=
    sumCard({title:t('sysHealth'),
@@ -2411,8 +2458,54 @@ function mountRegMap(){
   }).addTo(regMapInst);
   Leaflet.marker([lat,lng]).addTo(regMapInst);
 }
+// One upload slot per document type: label, the files attached so far (up to DOC_MAX_FILES), then a drop zone.
+// key routes the handlers in bind() (see upOwner()); real = open the OS file picker instead of adding a mock file.
+// d.plain drops the "(optional)" tag, for groups ruled by "at least one of these".
+function upSlot(key,d,files,err,real){
+  var full=files.length>=DOC_MAX_FILES;
+  return '<div class="field upslot"><label><span>'+d.lbl+(d.req?' *':(d.plain?'':' <span class="upopt">'+t('suOptional')+'</span>'))+'</span>'+
+    '<span class="upcnt num">'+files.length+'/'+DOC_MAX_FILES+'</span></label>'+
+   (files.length?'<div class="filelist">'+files.map(function(f,j){
+      return '<div class="filerow up"><span class="fic">'+luSvg('circleCheck')+'</span>'+
+       '<div class="fmeta"><b>'+esc(f.name)+'</b><span>'+esc(f.size||fileSizeMock(f.name))+'</span></div>'+
+       '<span class="frm" data-uprm="'+key+'|'+j+'" title="'+t('cancel')+'">✕</span></div>'}).join('')+'</div>':'')+
+   (full?'':'<div class="drop" data-updrop="'+key+'" role="button" tabindex="0"><span class="dropIcon">'+luSvg('upload')+'</span><b>'+t(files.length?'upMore':'suDropT')+'</b></div>')+
+   (real?'<input type="file" hidden multiple accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png">':'')+
+   (err?'<div class="hint err">'+esc(err)+'</div>':'')+'</div>';
+}
+// Where a slot key points: the object that owns .files / .upErr, the document code, and the mock
+// file a plain click attaches. Keys: su|CODE, pay|index|CODE, decl|CODE, val|CODE.
+function upOwner(key){
+  var a=key.split('|');
+  if(a[0]==='su')return {o:S.signup,k:a[1],real:true};
+  if(a[0]==='pay'){var p=S.form.pays[Number(a[1])];return {o:p,k:a[2],mock:payDocMock(p,a[2]),after:function(){p.touched=true;p.err=''}}}
+  if(a[0]==='decl')return {o:S.form,k:a[1],mock:'capital-contribution-application.pdf',after:function(){S.form.err=''}};
+  return {o:S.valForm,k:a[1],mock:valDocMocks(S.valjobs[S.valI].id)[a[1]],after:function(){S.valForm.docErr=''}};
+}
+// Attach one file to a slot: a real File (type and size are checked) or, with no file, the slot's mock.
+// Returns the error message when the file is refused, else ''.
+function upAdd(key,file){
+  var x=upOwner(key),o=x.o;o.files=o.files||[];o.upErr=o.upErr||{};
+  var n=filesOf(o,x.k).length,name,size;
+  if(n>=DOC_MAX_FILES)return o.upErr[x.k]=t('upErrMax');
+  if(file){
+    var err=suFileErr(file);
+    if(err)return o.upErr[x.k]=err+' ('+file.name+')';
+    name=file.name;size=fileSize(file.size);
+  }else{
+    name=x.mock||'document.pdf';if(n)name=name.replace(/(\.\w+)$/,'-'+(n+1)+'$1');size=fileSizeMock(name);
+  }
+  o.files.push({k:x.k,name:name,size:size});o.upErr[x.k]='';
+  if(x.after)x.after();
+  return '';
+}
+function upRemove(key,j){
+  var x=upOwner(key),o=x.o,hit=filesOf(o,x.k)[j];
+  o.files=(o.files||[]).filter(function(f){return f!==hit});
+  if(o.upErr)o.upErr[x.k]='';
+}
 function valDocTypeOptions(){
-  return [{k:'valReport',lbl:L(MASTER.doctype[3])},{k:'assetPhoto',lbl:t('docAssetPhoto')},{k:'siteInspect',lbl:t('docSiteInspect')}];
+  return [{k:'valReport',lbl:L(MASTER.doctype[3]),plain:1},{k:'assetPhoto',lbl:t('docAssetPhoto'),plain:1},{k:'siteInspect',lbl:t('docSiteInspect'),plain:1}];
 }
 function valDocMocks(jobId){
   return {valReport:'valuation-report-'+jobId+'.pdf',assetPhoto:'asset-photos.pdf',siteInspect:'site-inspection.jpg'};
@@ -2420,22 +2513,6 @@ function valDocMocks(jobId){
 function valDocsErrMsg(f){
   if(!f.files.length)return t('errFile')+' - '+t('anyOneLbl')+': '+valDocTypeOptions().map(function(o){return o.lbl}).join(' / ');
   return '';
-}
-function wireDropTyped(el,f,opts,mocks){
-  if(!el)return;
-  var push=function(name){
-    var o=opts.filter(function(x){return x.k===f.docType})[0]||opts[0];
-    f.files=f.files.filter(function(x){return x.k!==o.k});
-    f.files.push({k:o.k,lbl:o.lbl,name:name});
-    f.docErr='';
-    render();
-  };
-  el.onclick=function(){push(mocks[f.docType]||'document.pdf')};
-  el.ondragover=function(ev){ev.preventDefault();el.classList.add('drag')};
-  el.ondragleave=function(){el.classList.remove('drag')};
-  el.ondrop=function(ev){ev.preventDefault();el.classList.remove('drag');
-    var dt=ev.dataTransfer&&ev.dataTransfer.files;
-    push(dt&&dt.length?dt[0].name:(mocks[f.docType]||'document.pdf'))};
 }
 function stepCircles(steps){
   return '<div class="card" style="margin-bottom:16px"><div class="c"><div class="stepc">'+steps.map(function(s,i){
@@ -2529,8 +2606,8 @@ var PAY_ICON={cash:'creditCard',asset:'package',labour:'users'};
 var PAY_BANKS=[['APB','dcChTransfer'],['BCEL'],['LDB'],['JDB'],['STB']];
 var PAY_SKILLS=['skTech','skMgmt','skProf','skLabour'];
 // Mock file sizes so an attached file shows the same size on every screen.
-var FILE_SIZES={'bank-slip.pdf':'312 KB','valuation-report-land.pdf':'1.2 MB','valuation-report-car.pdf':'980 KB',
-  'labour-contribution-agreement.pdf':'860 KB'};
+var FILE_SIZES={'bank-statement.pdf':'312 KB','valuation-report-land.pdf':'1.2 MB','valuation-report-car.pdf':'980 KB',
+  'partnership-agreement.pdf':'860 KB'};
 function fileSizeMock(name){
   if(FILE_SIZES[name])return FILE_SIZES[name];
   var h=0;String(name).split('').forEach(function(c){h=(h*31+c.charCodeAt(0))%9973});
@@ -2538,14 +2615,24 @@ function fileSizeMock(name){
 }
 function numOf(v){return Number(String(v==null?'':v).replace(/[^0-9]/g,''))||0}
 function ptLabel(type){return t(type==='cash'?'modeCash':type==='labour'?'modeLabour':'ptAsset')}
-function payDocOpts(p){
-  if(p.type==='cash')return [{k:'doc0',lbl:t('dcEvidence')}];
-  if(p.type==='labour')return [{k:'labAgree',lbl:t('docLabourAgree')},{k:'labId',lbl:t('docLabourId')},{k:'labCv',lbl:t('docLabourCv')}];
-  return [{k:'valReport',lbl:L(MASTER.doctype[3])},{k:'assetPhoto',lbl:t('docAssetPhoto')}];
+// Document group of a payment block: by payment type, and by category for assets.
+function payDocGroup(p){
+  if(p.type==='cash')return 'CAPITAL_CASH_DOCUMENT';
+  if(p.type==='labour')return 'CAPITAL_LABOUR_DOCUMENT';
+  return {land:'CAPITAL_LAND_DOCUMENT',building:'CAPITAL_BUILDING_DOCUMENT',car:'CAPITAL_VEHICLE_DOCUMENT'}[p.cat]||'CAPITAL_MACHINE_DOCUMENT';
 }
+function payDocOpts(p){return docDefs(payDocGroup(p),p.src==='foreign')}
+function payDocLbl(p,f){
+  var o=payDocOpts(p).filter(function(x){return x.k===f.k})[0];
+  return o?o.lbl:docLabel(f.name);
+}
+var PAY_DOC_MOCK={BANK_STATEMENT:'bank-statement.pdf',BOL_CAPITAL_IMPORT_CONFIRMATION:'bol-capital-import-confirmation.pdf',BOL_LETTER:'bol-letter.pdf',
+  VEHICLE_REGISTRATION:'vehicle-registration.pdf',OWNERSHIP_TRANSFER:'ownership-transfer.pdf',ENCUMBRANCE_FREE_CERTIFICATE:'encumbrance-free-certificate.pdf',
+  TITLE_DEED:'title-deed.pdf',CADASTRAL_MAP:'cadastral-map.pdf',CONSTRUCTION_PERMIT:'construction-permit.pdf',
+  PARTNERSHIP_AGREEMENT:'partnership-agreement.pdf',OTHER:'other-document.pdf'};
 function payDocMock(p,k){
-  return {doc0:'bank-slip.pdf',valReport:'valuation-report-'+(p.cat||'asset')+'.pdf',assetPhoto:'asset-photos.jpg',
-    labAgree:'labour-contribution-agreement.pdf',labId:'id-passport-copy.pdf',labCv:'cv-qualification.pdf'}[k]||'document.pdf';
+  if(k==='VALUATION_REPORT')return 'valuation-report-'+(p.cat||'asset')+'.pdf';
+  return PAY_DOC_MOCK[k]||'document.pdf';
 }
 // The amount a block contributes: cash paid, the asset's estimated price, or the agreed labour value.
 function payAmt(p){
@@ -2557,10 +2644,10 @@ function payTotal(pays){return pays.reduce(function(a,p){return a+payAmt(p)},0)}
 // A new block is pre-filled with whatever is still outstanding after the other blocks.
 function payNew(type,left){
   var v=left>0?fmt(left):'',p={type:type,open:true,touched:false,err:'',files:[]};
-  if(type==='cash'){p.amt=v;p.bank='APB';p.acctNo='';p.acctName='';p.docType='doc0'}
-  else if(type==='labour'){p.lb={name:'',idNo:'',skill:'skTech',role:'',months:'',value:v};p.docType='labAgree'}
+  if(type==='cash'){p.amt=v;p.src='domestic';p.bank='APB';p.acctNo='';p.acctName=''}
+  else if(type==='labour'){p.lb={name:'',idNo:'',skill:'skTech',role:'',months:'',value:v}}
   else{p.cat='land';p.firmType='in';p.firmName=MASTER.valfirms.filter(function(vf){return vf.net==='in'})[0].nm;
-    p.vals={};p.vals[ASSET_PRICE_KEY.land]=v;p.docType='valReport'}
+    p.vals={};p.vals[ASSET_PRICE_KEY.land]=v}
   return p;
 }
 function payErr(p){
@@ -2568,17 +2655,17 @@ function payErr(p){
   if(p.type==='cash'){
     if(!payAmt(p))return t('errAmt');
     if(blank(p.bank)||blank(p.acctNo)||blank(p.acctName))return t('errPayFields');
-    if(!p.files.length)return t('errFile')+' - '+t('dcEvidence');
   }else if(p.type==='labour'){
     var lb=p.lb||{};
     if(blank(lb.name)||blank(lb.idNo)||blank(lb.skill))return t('errPayFields');
     if(!payAmt(p))return t('errAmt');
-    if(!p.files.some(function(x){return x.k==='labAgree'}))return t('errFile')+' - '+t('reqLbl')+': '+t('docLabourAgree');
   }else{
     if(blank((p.vals||{})[ASSET_REQ[p.cat]]))return t('errAssetField');
     if(!payAmt(p))return t('errAmt');
-    if(!p.files.some(function(x){return x.k==='valReport'}))return t('errFile')+' - '+t('reqLbl')+': '+L(MASTER.doctype[3]);
   }
+  // Every required document of the block's group needs at least one file.
+  var miss=payDocOpts(p).filter(function(o){return o.req&&!filesOf(p,o.k).length});
+  if(miss.length)return t('errFile')+' - '+t('reqLbl')+': '+miss.map(function(o){return o.lbl}).join(', ');
   return '';
 }
 // Totals bar under the blocks: one cell per payment type used, then the total and what is left.
@@ -2599,8 +2686,13 @@ function payHead(p,i,n,editable){
     (editable&&n>1?'<button type="button" class="lnkbtn prm" data-rmpay="'+i+'">'+t('payRemove')+'</button>':'')+'</div>'+
     '<div class="pr"><span class="pamt">'+fmt(payAmt(p))+' LAK</span>'+tglBtn('data-tglpay="'+i+'"',p.open!==false)+'</div></div>';
 }
-function payFiles(p,opt){
-  return p.files.length?docList(p.files.map(function(f){return {k:f.k,lbl:f.name,name:f.size||fileSizeMock(f.name)}}),opt):'';
+// Read-only file rows of a block: document type on top, file name and size under it.
+function payFiles(p){
+  return p.files.length?docList(p.files.map(function(f){return {lbl:payDocLbl(p,f),name:esc(f.name)+' - '+(f.size||fileSizeMock(f.name))}}),{ok:1}):'';
+}
+// Upload slots of one document group, two per row.
+function upGrid(prefix,defs,o){
+  return '<div class="upgrid">'+defs.map(function(d){return upSlot(prefix+d.k,d,filesOf(o,d.k),(o.upErr||{})[d.k])}).join('')+'</div>';
 }
 // One editable payment block on Declare / Add payment.
 function payCardEdit(p,i,n){
@@ -2611,16 +2703,15 @@ function payCardEdit(p,i,n){
   var sel=function(path,lbl,opts,cur){
     return '<div class="field"><label for="'+id(path)+'">'+lbl+'</label><select id="'+id(path)+'" data-pf="'+i+'|'+path+'">'+
       opts.map(function(o){return '<option value="'+esc(o[0])+'"'+(o[0]===cur?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select></div>'};
-  var drop='<div class="drop" data-pdrop="'+i+'"><span class="dropIcon">'+luSvg('upload')+'</span><b>'+t('dropT')+'</b></div>';
-  var docSel=function(){return '<div class="g4">'+sel('docType',t('fDocs')+' *',payDocOpts(p).map(function(o){return [o.k,o.lbl]}),p.docType)+'</div>'+drop+
-    (p.files.length?payFiles(p,{rm:'data-rmpfile'}).replace(/data-rmpfile="/g,'data-rmpfile="'+i+'|'):'<div class="hint" style="text-align:center;padding:4px 0 0">'+t('noFiles')+'</div>')};
+  // One upload slot per document of the block's group (payDocGroup()), instead of a type dropdown.
+  var docSel=function(){return '<div class="field" style="margin:0"><label>'+t('fDocs')+'</label><div class="hint uprule">'+t('suFileRule')+'</div>'+
+    upGrid('pay|'+i+'|',payDocOpts(p),p)+'</div>'};
   var body='';
   if(p.type==='cash'){
     body='<div class="g4">'+inp('amt',t('dcAmtPaid')+' (LAK) *',p.amt,{num:1})+
+      sel('src',t('capSrc')+' *',[['domestic',t('capDomestic')],['foreign',t('capForeign')]],p.src||'domestic')+
       sel('bank',t('bankCode')+' *',PAY_BANKS.map(function(b){return [b[0],b[1]?t(b[1]):b[0]]}),p.bank)+
-      inp('acctNo',t('fromAcctNo')+' *',p.acctNo,{ph:t('fromAcctNoPh')})+inp('acctName',t('fromAcctName')+' *',p.acctName,{ph:t('fromAcctNamePh')})+'</div>'+
-      '<div class="field"><label>'+t('dcEvidence')+' *</label>'+drop+
-      (p.files.length?payFiles(p,{rm:'data-rmpfile'}).replace(/data-rmpfile="/g,'data-rmpfile="'+i+'|'):'')+'</div>';
+      inp('acctNo',t('fromAcctNo')+' *',p.acctNo,{ph:t('fromAcctNoPh')})+inp('acctName',t('fromAcctName')+' *',p.acctName,{ph:t('fromAcctNamePh')})+'</div>'+docSel();
   }else if(p.type==='labour'){
     var lb=p.lb||{};
     body='<div class="g4">'+inp('lb.name',t('lbName')+' *',lb.name)+inp('lb.idNo',t('lbId')+' *',lb.idNo)+
@@ -2642,32 +2733,28 @@ function payCardEdit(p,i,n){
     body:'')+
     (p.err?'<div class="hint err">'+p.err+'</div>':'')+'</div>';
 }
-// Document type of a block's first file, in the current language (seeded files carry a Lao label).
-function docKind(p){
-  var opts=payDocOpts(p),k=p.files[0]&&p.files[0].k,o=opts.filter(function(x){return x.k===k})[0]||opts[0];
-  return o.lbl;
-}
 // Read-only payment block on the Checker / Approver review pages.
 function payCardView(p,i){
   var cell=function(k,v){return '<div><span class="k">'+k+'</span><span class="v">'+(v==null||v===''?'-':esc(v))+'</span></div>'};
-  var docs=function(lbl,val){return '<div><div class="pv" style="grid-template-columns:1fr">'+cell(lbl,val)+'</div>'+payFiles(p,{ok:1})+'</div>'};
+  var docs=function(){return '<div><div class="pv" style="grid-template-columns:1fr"><div><span class="k">'+t('fDocs')+'</span></div></div>'+
+    (payFiles(p)||'<div class="hint">'+t('noFiles')+'</div>')+'</div>'};
   var body='';
   if(p.type==='cash'){
     var bk=PAY_BANKS.filter(function(b){return b[0]===p.bank})[0];
-    body='<div class="pv">'+cell(t('dcAmtPaid')+' (LAK)',fmt(payAmt(p)))+cell(t('bankCode'),bk&&bk[1]?t(bk[1]):p.bank)+
-      cell(t('fromAcctNo'),p.acctNo)+cell(t('fromAcctName'),p.acctName)+'</div>'+
-      '<div><div class="pv" style="grid-template-columns:1fr"><div><span class="k">'+t('dcEvidence')+'</span></div></div>'+payFiles(p,{ok:1})+'</div>';
+    body='<div class="pv">'+cell(t('dcAmtPaid')+' (LAK)',fmt(payAmt(p)))+cell(t('capSrc'),t(p.src==='foreign'?'capForeign':'capDomestic'))+
+      cell(t('bankCode'),bk&&bk[1]?t(bk[1]):p.bank)+
+      cell(t('fromAcctNo'),p.acctNo)+cell(t('fromAcctName'),p.acctName)+'</div>'+docs();
   }else if(p.type==='labour'){
     var lb=p.lb||{};
     body='<div class="pv">'+cell(t('lbName'),lb.name)+cell(t('lbId'),lb.idNo)+cell(t('lbSkill'),lb.skill?t(lb.skill):'')+cell(t('lbRole'),lb.role)+
       cell(t('lbMonths'),lb.months)+cell(t('lbValue'),fmt(payAmt(p)))+'</div>'+
-      docs(t('fDocs'),docKind(p));
+      docs();
   }else{
     body='<div class="pv">'+cell(t('assetCategory'),t(p.cat+'Type'))+cell(t('firmNet'),p.firmType==='out'?t('outNetShort'):t('inNet'))+
       cell(t('firmNameLbl'),p.firmName)+
       ASSET_FIELDS[p.cat].filter(function(af){return (p.vals||{})[af[0]]}).map(function(af){
         return cell(L(af[1]).replace(/ \*$/,''),p.vals[af[0]])}).join('')+'</div>'+
-      docs(t('fDocs'),docKind(p));
+      docs();
   }
   return '<div class="pblk">'+payHead(p,i,0,false)+(p.open!==false?body:'')+'</div>';
 }
@@ -2675,7 +2762,7 @@ function payCardView(p,i){
 // so their block is built once from the enterprise (bank details, collateral, valuation firm).
 function taskPays(x){
   if(x.pays)return x.pays;
-  var e=x.ent,files=(x.files||[]).map(function(f){return {k:f.k,lbl:f.lbl,name:f.name,size:fileSizeMock(f.name)}});
+  var e=x.ent,files=(x.files||[]).map(function(f){return {k:f.k,name:f.name,size:fileSizeMock(f.name)}});
   if(x.mode==='asset'){
     var col=(e.collateral||[])[0]||{type:'land',fields:{}},job=VALJOBS.filter(function(j){return j.ent===e.id})[0];
     var vals={};Object.keys(col.fields||{}).forEach(function(k){vals[k]=col.fields[k]});
@@ -2683,7 +2770,7 @@ function taskPays(x){
     x.pays=[{type:'asset',cat:col.type,firmType:job?job.net:'in',firmName:job?job.firm:MASTER.valfirms[0].nm,vals:vals,files:files}];
   }else{
     var n=numOf(e.id)%100000;
-    x.pays=[{type:'cash',amt:fmt(x.amt),bank:'BCEL',acctNo:'010-12-00-'+(48200000+n),acctName:e.nameEn||e.name,files:files}];
+    x.pays=[{type:'cash',src:'domestic',amt:fmt(x.amt),bank:'BCEL',acctNo:'010-12-00-'+(48200000+n),acctName:e.nameEn||e.name,files:files}];
   }
   return x.pays;
 }
@@ -2743,9 +2830,12 @@ function vDeclare(){
    '<button type="button" class="btn ghost" data-addpay="1" style="margin:'+(n?'16px':'0')+' 0 16px">'+luSvg('plus')+t('payN')+'</button>'+
    paySummary(f.pays,remain)+
    (f.err?'<div class="hint err" style="margin-top:10px">'+f.err+'</div>':'');
+  var sec3='<div class="fsh"><span class="n">3. '+t('dcSec3')+'</span></div>'+
+   '<div class="fsub" style="margin:4px 0 16px">'+t('dcSec3Sub')+' · '+t('suFileRule')+'</div>'+
+   upGrid('decl|',docDefs('CAPITAL_DECLARATION_DOCUMENT'),f);
   var inner='<div class="vstack">'+entBrief(e)+
    '<div class="card"><div class="c" style="padding:16px">'+
-   '<div class="fsec">'+sec1+'</div><div class="fsec">'+sec2+'</div>'+
+   '<div class="fsec">'+sec1+'</div><div class="fsec">'+sec2+'</div><div class="fsec">'+sec3+'</div>'+
    '<div class="pfoot"><button class="btn ghost" data-nav="'+(isOwner?'mycap':'detail')+'">'+t('cancel')+'</button>'+
    '<button class="btn" id="submitDeclare">'+t('submitDeclare')+'</button></div></div></div></div>';
   return shell(t('declareTitle'),[e.name,isOwner?'mycap':'detail'],inner);
@@ -2780,6 +2870,12 @@ function vTask(){
    cell(t('cRef'),x.ref)+cell(t('cCap'),fmt(e.cap)+' LAK')+cell(t('cPaid'),fmt(e.paid)+' ('+Math.round(e.paid/e.cap*100)+'%)')+
    cell(t('amtNow'),fmt(x.amt)+' LAK',1)+cell(t('cMode'),counter?t('chCounter'):t('chOnlineShort'))+
    cell(t('payMethod'),types.map(ptLabel).join(', '))+'</div></div></div>';
+  // Seeded declarations carry no application file, so the review page shows a mock one.
+  var appDocs=x.docs||[{k:'CAPITAL_CONTRIBUTION_APPLICATION',name:'capital-contribution-application-'+e.id.slice(-4)+'.pdf'}];
+  var appDefs=docDefs('CAPITAL_DECLARATION_DOCUMENT');
+  var appCard='<div class="card"><div class="h"><h3>'+t('dcSec3')+'</h3></div><div class="c">'+
+   docList(appDocs.map(function(f){var d=appDefs.filter(function(o){return o.k===f.k})[0];
+     return {lbl:d?d.lbl:docLabel(f.name),name:esc(f.name)+' - '+(f.size||fileSizeMock(f.name))}}),{ok:1})+'</div></div>';
   var payCard='<div class="card"><div class="h"><h3>'+t('dcSec2')+'</h3></div><div class="c" style="padding-top:16px">'+
    pays.map(payCardView).join('')+'<div style="margin-top:16px">'+paySummary(pays,e.cap-e.paid)+'</div>'+
    '<div class="pnote" style="margin-top:12px">'+t('evidenceN')+'</div></div></div>';
@@ -2793,7 +2889,7 @@ function vTask(){
       :'<button class="btn" data-sign="1">'+t('signApprove')+'</button>')+
   '</div></div></div>';
   var inner=stepCircles([[cls(1),counter?t('channelCounter').split(' (')[0]:t('channelOnline').split(' (')[0]],[cls(2),t('stageChecker')],[cls(3),t('stageApprover')]])+
-  '<div class="vstack">'+entBrief(e)+caseCard+payCard+decideCard+'</div>';
+  '<div class="vstack">'+entBrief(e)+caseCard+payCard+appCard+decideCard+'</div>';
   return shell(x.ref,[isC?t('ckTitle'):t('apTitle'),'dash'],inner);
 }
 
@@ -2879,11 +2975,9 @@ function vValJobDetail(){
     '<div class="field"><label for="fjVal">'+t('valPrice')+'</label><input class="num" inputmode="numeric" id="fjVal" value="'+esc(F.val!=null?F.val:fmt(j.amt))+'">'+
      (F.err?'<div class="hint err">'+F.err+'</div>':'')+'</div>'+
     '<div class="field"><label for="fjRemark">'+t('valRemark')+'</label><input id="fjRemark" placeholder="'+esc(t('valRemarkPh'))+'" value="'+esc(F.remark||'')+'"></div></div>'+
-   '<div class="field" style="margin:0"><label for="valDocType">'+t('fDocs')+'</label>'+
-   '<div class="g4" style="grid-template-columns:minmax(0,1fr) minmax(0,2fr);margin-bottom:10px"><select id="valDocType">'+valDocTypeOptions().map(function(o){
-     return '<option value="'+o.k+'"'+(F.docType===o.k?' selected':'')+'>'+o.lbl+'</option>'}).join('')+'</select></div>'+
-   '<div class="drop" id="fjDrop"><span class="dropIcon">'+luSvg('upload')+'</span><b>'+t('dropT')+'</b></div>'+
-   (F.files.length?docList(F.files,{rm:'data-rmvalfile'}):'<div class="hint" style="text-align:center;padding:10px 0 0">'+t('noFiles')+'</div>')+
+   '<div class="field" style="margin:0"><label>'+t('fDocs')+' *</label>'+
+   '<div class="hint uprule">'+t('anyOneLbl')+' · '+t('suFileRule')+'</div>'+
+   upGrid('val|',valDocTypeOptions(),F)+
    (F.docErr?'<div class="hint err" style="margin-top:12px">'+F.docErr+'</div>':'')+'</div>'+
    '<div class="pfoot" style="padding-top:24px"><button class="btn" style="min-width:240px" data-submitjob="'+S.valI+'">'+t('submitJob')+'</button></div>'+
    '</div></div>'
@@ -3033,7 +3127,7 @@ function vSet(){
       pagedCard('mProv',t('cProv'),null,MASTER.prov,one,5)+
       pagedCard('mEtype',t('entType'),null,MASTER.etype,function(x){return one(L(x))},5)+'</div>'+
      '<div class="grid3" style="align-items:stretch">'+
-      pagedCard('mDoc',t('cDoc'),null,MASTER.doctype,function(x){return one(L(x))},5)+
+      pagedCard('mDoc',t('cDoc'),null,docMaster(),function(x){return one('<span class="co">'+L(x)+'<small>'+x.g+' / '+x.k+'</small></span>')},5)+
       pagedCard('mFirm',t('valFirm'),null,MASTER.valfirms,function(x){return '<tr><td style="padding-left:16px"><span class="co">'+x.nm+'</span></td>'+
         '<td class="r" style="padding-right:16px">'+(x.net==='in'?'<span class="pill p-ok">'+t('inNet')+'</span>':'<span class="pill p-warn">'+t('outNet').split(' (')[0]+'</span>')+'</td></tr>'},5)+'</div>';
   } else if(tab==='gl'){
@@ -3492,7 +3586,9 @@ function bind(){
     var parts=el.dataset.pf.split('|'),p=S.form&&S.form.pays[Number(parts[0])],path=parts[1];if(!p)return;
     if(el.tagName==='SELECT'){el.onchange=function(){
       if(path==='cat'){var price=payAmt(p);p.vals={};p.vals[ASSET_PRICE_KEY[el.value]]=price?fmt(price):''}
-      payGetSet(p,path,el.value);if(path!=='docType')p.touched=true;p.err='';render()};return}
+      // Each asset category has its own document list, so a new category starts with no files.
+      if(path==='cat'){p.files=[];p.upErr={}}
+      payGetSet(p,path,el.value);p.touched=true;p.err='';render()};return}
     el.oninput=function(){
       payGetSet(p,path,el.value);p.touched=true;
       // Amount fields feed the block header and the totals bar, so re-render and keep the caret.
@@ -3505,20 +3601,27 @@ function bind(){
   document.querySelectorAll('[data-pfirm]').forEach(function(r){r.onchange=function(){
     var parts=r.dataset.pfirm.split('|'),p=S.form.pays[Number(parts[0])];
     p.firmType=parts[1];p.firmName=parts[1]==='in'?MASTER.valfirms.filter(function(vf){return vf.net==='in'})[0].nm:'';p.touched=true;render()}});
-  document.querySelectorAll('[data-pdrop]').forEach(function(el){
-    var p=S.form.pays[Number(el.dataset.pdrop)];
-    var add=function(name,size){var opts=payDocOpts(p),o=opts.filter(function(x){return x.k===p.docType})[0]||opts[0];
-      p.files=p.files.filter(function(x){return x.k!==o.k});p.files.push({k:o.k,lbl:o.lbl,name:name,size:size||fileSizeMock(name)});
-      p.touched=true;p.err='';render()};
-    el.onclick=function(){add(payDocMock(p,p.docType))};
+  // Upload slots (upSlot()): signup opens the real file picker; the other forms attach a mock file
+  // on click so the demo runs without files at hand. Dropped files are always the real ones.
+  document.querySelectorAll('[data-updrop]').forEach(function(el){
+    var key=el.dataset.updrop,inp=el.parentNode.querySelector('input[type=file]');
+    var take=function(list){
+      // Several files at once: keep the message of a refused file even when later ones are accepted.
+      if(list&&list.length){var bad='';for(var n=0;n<list.length;n++)bad=upAdd(key,list[n])||bad;
+        if(bad){var x=upOwner(key);x.o.upErr[x.k]=bad}}
+      else if(!inp)upAdd(key,null);
+      else return;
+      render()};
+    var pick=function(){if(inp)inp.click();else take(null)};
+    el.onclick=pick;
+    el.onkeydown=function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();pick()}};
     el.ondragover=function(ev){ev.preventDefault();el.classList.add('drag')};
     el.ondragleave=function(){el.classList.remove('drag')};
-    el.ondrop=function(ev){ev.preventDefault();el.classList.remove('drag');
-      var dt=ev.dataTransfer&&ev.dataTransfer.files;
-      if(dt&&dt.length)add(dt[0].name,fileSize(dt[0].size));else add(payDocMock(p,p.docType))}});
-  document.querySelectorAll('[data-rmpfile]').forEach(function(b){b.onclick=function(ev){
-    ev.stopPropagation();var parts=b.dataset.rmpfile.split('|'),p=S.form.pays[Number(parts[0])];
-    p.files=p.files.filter(function(x){return x.k!==parts[1]});render()}});
+    el.ondrop=function(ev){ev.preventDefault();el.classList.remove('drag');take(ev.dataTransfer&&ev.dataTransfer.files)};
+    if(inp)inp.onchange=function(){take(inp.files)}});
+  document.querySelectorAll('[data-uprm]').forEach(function(b){b.onclick=function(ev){
+    ev.stopPropagation();var at=b.dataset.uprm.lastIndexOf('|');
+    upRemove(b.dataset.uprm.slice(0,at),Number(b.dataset.uprm.slice(at+1)));render()}});
   document.querySelectorAll('[data-paymode]').forEach(function(b){b.onclick=function(){
     S.form.payMode=b.dataset.paymode;S.form.err='';render()}});
   document.querySelectorAll('[data-copy]').forEach(function(b){b.onclick=function(){S.certCopy=b.dataset.copy==='1';render()}});
@@ -3541,9 +3644,9 @@ function bind(){
     clearCache();toast(t('clearCacheDone'),t('clearCacheDoneS'),true)}});
   document.querySelectorAll('[data-pay]').forEach(function(b){b.onclick=function(){
     var e=S.ents.filter(function(x){return x.id===S.sel})[0];
-    S.form={payMode:'full',pays:[],err:''};S.entOpen=false;go('declare')}});
+    S.form={payMode:'full',pays:[],err:'',files:[],upErr:{}};S.entOpen=false;go('declare')}});
   document.querySelectorAll('[data-selfpay]').forEach(function(b){b.onclick=function(){
-    var e=ownerEnt();S.sel=e.id;S.form={payMode:'full',pays:[],err:''};S.entOpen=false;go('declare')}});
+    var e=ownerEnt();S.sel=e.id;S.form={payMode:'full',pays:[],err:'',files:[],upErr:{}};S.entOpen=false;go('declare')}});
   document.querySelectorAll('[data-payinv]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();S.modal={type:'qr',inv:b.dataset.payinv};render()}});
   document.querySelectorAll('[data-viewrec]').forEach(function(b){b.onclick=function(ev){
@@ -3570,21 +3673,16 @@ function bind(){
   document.querySelectorAll('[data-valjob]').forEach(function(r){r.onclick=function(){
     S.modal={type:'valjob',i:Number(r.dataset.valjob)};render()}});
   document.querySelectorAll('[data-valjobfirm]').forEach(function(r){r.onclick=function(){
-    S.valI=Number(r.dataset.valjobfirm);S.valForm={val:null,files:[],err:'',docType:'valReport',docErr:''};go('valjobdetail')}});
+    S.valI=Number(r.dataset.valjobfirm);S.valForm={val:null,files:[],err:'',docErr:''};go('valjobdetail')}});
   var fjv=$('#fjVal');if(fjv){fjv.oninput=function(){S.valForm.val=fjv.value};
     fjv.onchange=function(){var v=numOf(fjv.value);fjv.value=v?fmt(v):'';S.valForm.val=fjv.value}}
   var fjr=$('#fjRemark');if(fjr)fjr.oninput=function(){S.valForm.remark=fjr.value};
-  if($('#fjDrop'))wireDropTyped($('#fjDrop'),S.valForm,valDocTypeOptions(),valDocMocks(S.valjobs[S.valI].id));
-  var vdt=$('#valDocType');if(vdt)vdt.onchange=function(){S.valForm.docType=vdt.value};
-  document.querySelectorAll('[data-rmvalfile]').forEach(function(b){b.onclick=function(ev){
-    ev.stopPropagation();S.valForm.files=S.valForm.files.filter(function(fl){return fl.k!==b.dataset.rmvalfile});
-    S.valForm.docErr=valDocsErrMsg(S.valForm);render()}});
   document.querySelectorAll('[data-submitjob]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();var j=S.valjobs[Number(b.dataset.submitjob)];if(!j)return;
     var v=Number(String(S.valForm.val!=null?S.valForm.val:j.amt).replace(/[^0-9]/g,''));
     S.valForm.err=v?'':t('errAmt');S.valForm.docErr=v?valDocsErrMsg(S.valForm):'';
     if(S.valForm.err||S.valForm.docErr)return render();
-    j.amt=v;j.remark=(S.valForm.remark||'').trim();j.files=S.valForm.files.slice();j.status='wait';toast(t('jobSubmitted'),t('jobSubmittedS'),true);
+    j.amt=v;j.remark=(S.valForm.remark||'').trim();j.files=S.valForm.files.map(function(fl){var o=valDocTypeOptions().filter(function(x){return x.k===fl.k})[0];return {k:fl.k,lbl:o?o.lbl:'',name:fl.name}});j.status='wait';toast(t('jobSubmitted'),t('jobSubmittedS'),true);
     render()}});
   document.querySelectorAll('[data-acceptjob]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();var j=S.valjobs[Number(b.dataset.acceptjob)];if(!j)return;
@@ -3617,16 +3715,18 @@ function bind(){
     if(pendingOf(e.id)){toast(t('hasPending'),t('hasPendingS'));return go(S.role==='owner'?'mycap':'detail')}
     if(!f.pays.length){f.err=t('errNoPay');return render()}
     var bad=false;f.pays.forEach(function(p){p.err=payErr(p);if(p.err){bad=true;p.open=true}});
+    docDefs('CAPITAL_DECLARATION_DOCUMENT').forEach(function(d){
+      if(d.req&&!filesOf(f,d.k).length){f.upErr[d.k]=t('upErrReq');bad=true}});
     var v=payTotal(f.pays),remain=e.cap-e.paid,minInst=(e.paid===0&&f.payMode==='partial')?Math.round(e.cap*0.3):remain;
     f.err=v>remain?t('errOver')+' - '+fmt(remain):(v<minInst?t('errMinInst')+' - '+fmt(minInst)+' LAK':'');
     if(bad||f.err)return render();
     f.sending=true;sp.disabled=true;
     var types=[];f.pays.forEach(function(p){if(types.indexOf(p.type)<0)types.push(p.type)});
-    var pays=JSON.parse(JSON.stringify(f.pays)).map(function(p){delete p.err;delete p.touched;p.open=true;return p});
-    var files=[];pays.forEach(function(p){p.files.forEach(function(x){files.push(x)})});
+    var pays=JSON.parse(JSON.stringify(f.pays)).map(function(p){delete p.err;delete p.touched;delete p.upErr;p.open=true;return p});
+    var docs=JSON.parse(JSON.stringify(f.files)),files=docs.slice();pays.forEach(function(p){p.files.forEach(function(x){files.push(x)})});
     var subWho=who().n,isOwner=S.role==='owner';
     S.tasks.push({ref:'APR-2026-0'+(918+S.tasks.length),ent:e,amt:v,mode:types.join(','),pays:pays,ch:isOwner?'online':'counter',
-      by:subWho,at:'09:47',stage:'checker',files:files,
+      by:subWho,at:'09:47',stage:'checker',files:files,docs:docs,
       trail:[{who:subWho+' ('+(isOwner?t('channelOnline').split(' (')[0]:t('channelCounter').split(' (')[0])+')',
         act:{lo:'ຍື່ນຄຳຮ້ອງແຈ້ງຊຳລະທຶນ',en:'Submitted a capital payment declaration'},at:'04/08/2026 09:47'}]});
     if(e.insts[1]&&e.insts[1].state!=='paid'){e.insts[1].state='review';
@@ -3684,7 +3784,7 @@ function bind(){
     ev.stopPropagation();if(S.loginStep==='signupDone'){S.loginUser=S.signup.email.trim();S.loginPass=''}
     S.loginStep='cred';render()}});
   document.querySelectorAll('[data-signup]').forEach(function(b){b.onclick=function(ev){
-    ev.stopPropagation();S.signup={step:1,idType:'cid',titleLo:'mr',titleEn:'mr',docs:{},docErr:{}};S.loginStep='signup';S.loginErr='';render()}});
+    ev.stopPropagation();S.signup={step:1,idType:'cid',titleLo:'mr',titleEn:'mr',files:[],upErr:{}};S.loginStep='signup';S.loginErr='';render()}});
   document.querySelectorAll('[data-su]').forEach(function(el){
     el[el.tagName==='SELECT'?'onchange':'oninput']=function(){S.signup[el.dataset.su]=el.value}});
   document.querySelectorAll('[data-suidt]').forEach(function(b){b.onclick=function(){
@@ -3704,33 +3804,13 @@ function bind(){
   document.querySelectorAll('[data-sugo]').forEach(function(b){b.onclick=function(){
     S.signup.step=Number(b.dataset.sugo);S.signup.err='';render()}});
   var dso=$('#doSuOtp');if(dso)dso.onclick=function(){S.signup.step=3;S.signup.err='';render();toast(t('suEmailOk'),suv('email'),true)};
-  var sue=$('#suEtype');if(sue)sue.onchange=function(){
-    // Documents differ per enterprise type, so a new type starts from an empty upload list.
-    S.signup.etype=sue.value;S.signup.docs={};S.signup.docErr={};S.signup.err='';render()};
-  var suTake=function(k,file){
-    if(!file)return;
-    var su=S.signup,err=suFileErr(file);
-    if(err){su.docErr[k]=err+' ('+file.name+')';delete su.docs[k]}
-    else{su.docErr[k]='';su.docs[k]={name:file.name,size:file.size}}
-    su.err='';render()};
-  document.querySelectorAll('[data-sufile]').forEach(function(inp){inp.onchange=function(){
-    suTake(inp.dataset.sufile,inp.files&&inp.files[0])}});
-  document.querySelectorAll('[data-sudrop]').forEach(function(el){
-    var k=el.dataset.sudrop,pick=function(){var inp=document.querySelector('[data-sufile="'+k+'"]');if(inp)inp.click()};
-    el.onclick=pick;
-    el.onkeydown=function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();pick()}};
-    el.ondragover=function(ev){ev.preventDefault();el.classList.add('drag')};
-    el.ondragleave=function(){el.classList.remove('drag')};
-    el.ondrop=function(ev){ev.preventDefault();el.classList.remove('drag');
-      var dt=ev.dataTransfer&&ev.dataTransfer.files;suTake(k,dt&&dt[0])}});
-  document.querySelectorAll('[data-surm]').forEach(function(b){b.onclick=function(){
-    delete S.signup.docs[b.dataset.surm];render()}});
+  var sue=$('#suEtype');if(sue)sue.onchange=function(){S.signup.etype=sue.value;S.signup.err='';render()};
   var dsc2=$('#doSuCreate');
   if(dsc2)dsc2.onclick=function(){
     var su=S.signup,need=suDocsFor(su);
-    if(su.role==='owner'&&(!suv('regNo')||!need)){su.err=t('errRequired');return render()}
-    var missing=need.filter(function(d){return !d[1]&&!su.docs[d[0]]});
-    if(missing.length){su.err=t('suErrDoc')+': '+missing.map(function(d){return L(SU_DOC[d[0]])}).join(', ');return render()}
+    if(su.role==='owner'&&(!suv('regNo')||!su.etype)){su.err=t('errRequired');return render()}
+    var missing=need.filter(function(d){return d.req&&!filesOf(su,d.k).length});
+    if(missing.length){su.err=t('suErrDoc')+': '+missing.map(function(d){return d.lbl}).join(', ');return render()}
     // The demo "New user" account becomes the person who just registered.
     var a=ACCTS.filter(function(x){return x.id==='newuser'})[0],p=lang==='lo'?'Lo':'En';
     a.user=suv('email');a.nm=TITLES[su['title'+p]||'mr'][lang]+' '+suv('first'+p)+' '+suv('last'+p);a.tempPw=true;

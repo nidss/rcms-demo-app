@@ -213,16 +213,23 @@ export async function declarePayment(entId: string, formData: FormData) {
 ```ts
 // lib/rules.ts: schema เดียวใช้ทั้ง client และ server
 const file = z.object({ k: z.string(), name: z.string() });
+// ทุกเอกสารที่ req ในกลุ่มต้องมีอย่างน้อย 1 ไฟล์ และแต่ละเอกสารไม่เกิน 5 ไฟล์ (docDefs() / payDocGroup() ใน demo)
+const hasDocs = (group: string, foreign = false) => (f: { k: string }[]) =>
+  docDefs(group, foreign).every(d => { const n = f.filter(x => x.k === d.k).length; return n <= 5 && (!d.req || n > 0); });
+const ASSET_GROUP = { land: 'CAPITAL_LAND_DOCUMENT', building: 'CAPITAL_BUILDING_DOCUMENT',
+  car: 'CAPITAL_VEHICLE_DOCUMENT', machine: 'CAPITAL_MACHINE_DOCUMENT' } as const;
 const payment = z.discriminatedUnion('type', [
-  z.object({ type: z.literal('cash'), amt: z.coerce.number().positive('errAmt'),
+  z.object({ type: z.literal('cash'), src: z.enum(['domestic', 'foreign']), amt: z.coerce.number().positive('errAmt'),
     bank: z.string().min(1, 'errPayFields'), acctNo: z.string().min(1, 'errPayFields'), acctName: z.string().min(1, 'errPayFields'),
-    files: z.array(file).min(1, 'errFile') }),
+    files: z.array(file) })
+    .refine(p => hasDocs('CAPITAL_CASH_DOCUMENT', p.src === 'foreign')(p.files), 'errFile'),
   z.object({ type: z.literal('asset'), cat: z.enum(['land', 'building', 'car', 'machine']),
     firmType: z.enum(['in', 'out']), firmName: z.string(), vals: z.record(z.string()),
-    files: z.array(file).refine(f => f.some(x => x.k === 'valReport'), 'errFile') }),
+    files: z.array(file) })
+    .refine(p => hasDocs(ASSET_GROUP[p.cat])(p.files), 'errFile'),
   z.object({ type: z.literal('labour'), lb: z.object({ name: z.string().min(1, 'errPayFields'),
     idNo: z.string().min(1, 'errPayFields'), skill: z.string().min(1, 'errPayFields'), value: z.coerce.number().positive('errAmt') }),
-    files: z.array(file).refine(f => f.some(x => x.k === 'labAgree'), 'errFile') }),
+    files: z.array(file).refine(hasDocs('CAPITAL_LABOUR_DOCUMENT'), 'errFile') }),
 ]);
 // amountOf() = payAmt() ใน demo: cash.amt / asset.vals[ASSET_PRICE_KEY[cat]] / lb.value
 export const declareSchema = (ent: { cap: number; paid: number }) =>
