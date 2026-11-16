@@ -2559,7 +2559,8 @@ function vCentralDash(){
   // Chart colours: categorical slots 1-2 and an ordinal blue ramp, validated against the white card
   // (dataviz validator); critical is the status colour for overdue. REST is the unfilled remainder.
   var C1='#2a78d6',C2='#eb6834',CRIT='#d03b3b',REST='#dfe2ec',RAMP=['#104281','#256abf','#5598e7','#86b6ef'];
-  var tipA=function(v,l){return ' data-tip="'+esc(v)+'" data-tipl="'+esc(l)+'" tabindex="0"'};
+  // data-cdtip, not data-tip: the older SVG charts' dark tooltip (#tip) listens on every [data-tip].
+  var tipA=function(v,l){return ' data-cdtip="'+esc(v)+'" data-cdtipl="'+esc(l)+'" tabindex="0"'};
   var nLive=decl.filter(function(x){return LIVE_ST.indexOf(x.st)>=0}).length;
   // A chart card: title, subtitle, and a Chart / Table switch (the table is the chart's accessible twin).
   var card=function(id,title,sub,body,table,extra){var asT=!!S.cdTbl[id];
@@ -4120,11 +4121,11 @@ function bind(){
   if(!tipEl){tipEl=document.createElement('div');tipEl.id='cdtip';tipEl.setAttribute('role','tooltip');document.body.appendChild(tipEl)}
   tipEl.style.display='none';
   var tipShow=function(el,x,y){
-    tipEl.textContent='';var b=document.createElement('b');b.textContent=el.dataset.tip;var sp=document.createElement('span');sp.textContent=el.dataset.tipl;
+    tipEl.textContent='';var b=document.createElement('b');b.textContent=el.dataset.cdtip;var sp=document.createElement('span');sp.textContent=el.dataset.cdtipl;
     tipEl.appendChild(b);tipEl.appendChild(sp);tipEl.style.display='block';
     var w=tipEl.offsetWidth,h=tipEl.offsetHeight,vw=window.innerWidth;
     tipEl.style.left=Math.max(8,Math.min(vw-w-8,x-w/2))+'px';tipEl.style.top=Math.max(8,y-h-12)+'px'};
-  document.querySelectorAll('[data-tip]').forEach(function(el){
+  document.querySelectorAll('[data-cdtip]').forEach(function(el){
     el.onmousemove=function(ev){tipShow(el,ev.clientX,ev.clientY)};
     el.onmouseleave=function(){tipEl.style.display='none'};
     el.onfocus=function(){var r=el.getBoundingClientRect();tipShow(el,r.left+r.width/2,r.top)};
