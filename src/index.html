@@ -528,16 +528,30 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .suname{border:0;padding:0;margin:0 0 4px;min-width:0}
 .suname legend{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:8px}
 .suname .g3{display:grid;grid-template-columns:92px 1fr 1fr;gap:10px}
-.upgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px;align-items:start}
-.upgrid.one{grid-template-columns:1fr}
-.upslot{margin:0;min-width:0}
-.upslot label{display:flex;align-items:baseline;gap:6px}
-.upslot label .upopt{color:var(--muted);font-weight:400}
-.upslot label .upcnt{margin-left:auto;color:var(--muted);font-weight:400;font-size:11px;white-space:nowrap}
-.upslot .drop,.pblk .upslot .drop{padding:12px;flex-direction:row;justify-content:center;gap:8px}
-.upslot .filelist{margin:0 0 8px}
-.uprule{margin:-2px 0 12px}
-@media(max-width:900px){.upgrid{grid-template-columns:1fr}}
+.uplist{border:1px solid var(--line);border-radius:10px;background:var(--white)}
+.upslot{padding:8px 12px;border-top:1px solid var(--line);min-width:0;transition:background .12s}
+.upslot:first-child{border-top:0;border-radius:10px 10px 0 0}
+.upslot:last-child{border-radius:0 0 10px 10px}
+.upslot:only-child{border-radius:10px}
+.upslot.drag{background:var(--m-lite)}
+.uphead{display:flex;align-items:center;gap:10px;min-height:28px}
+.uplbl{flex:1;min-width:0;font-size:12px;font-weight:600;color:var(--ink2);line-height:1.4}
+.uplbl .upopt{color:var(--muted);font-weight:400}
+.upcnt{color:var(--muted);font-size:11px;white-space:nowrap}
+.upbtn{display:inline-flex;align-items:center;gap:5px;flex:none;font:inherit;font-size:11.5px;font-weight:600;color:var(--m);
+  background:var(--soft);border:1px dashed #CDD1E1;border-radius:7px;padding:4px 10px;cursor:pointer;white-space:nowrap}
+.upbtn:hover{border-color:var(--m);background:var(--m-lite)}
+.upbtn svg{width:14px;height:14px}
+.upfiles{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.upchip{display:inline-flex;align-items:center;gap:6px;max-width:100%;padding:3px 3px 3px 8px;border:1px solid var(--line);
+  border-radius:7px;background:var(--soft);font-size:11.5px;color:var(--ink)}
+.upchip svg{width:13px;height:13px;flex:none;color:var(--ok)}
+.upchip .nm{overflow-wrap:anywhere}
+.upchip small{color:var(--muted);font-size:10.5px;white-space:nowrap}
+.upchip .frm{cursor:pointer;color:var(--muted);font-size:11px;padding:1px 5px;border-radius:5px;flex:none}
+.upchip .frm:hover{color:var(--bad);background:var(--badbg)}
+.upslot .hint.err{margin-top:4px}
+.uprule{margin:-2px 0 8px}
 .demoacc{margin-top:18px}
 .demoacc .dk{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:8px}
 .demoacc .chips .chipf{font-size:11.5px;padding:5px 10px}
@@ -686,7 +700,7 @@ lo:{
  suDocHint:'ອັບໂຫຼດເອກະສານເພື່ອຢືນຢັນວິສາຫະກິດທີ່ທ່ານຕ້ອງການສ້າງບັນຊີ',suEntSec:'ຂໍ້ມູນວິສາຫະກິດ',suRegNo:'ເລກທະບຽນວິສາຫະກິດ',
  suEtype:'ປະເພດວິສາຫະກິດ',suEtypePick:'- ເລືອກປະເພດວິສາຫະກິດ -',suDocsSec:'ເອກະສານທີ່ຕ້ອງອັບໂຫຼດ',suPickFirst:'ເລືອກປະເພດວິສາຫະກິດກ່ອນ ເພື່ອເບິ່ງເອກະສານທີ່ຕ້ອງໃຊ້',
  suDropT:'ກົດເພື່ອເລືອກໄຟລ໌ ຫຼື ລາກມາວາງ',suFileRule:'PDF, JPG, PNG - ບໍ່ເກີນ 5 ໄຟລ໌ຕໍ່ເອກະສານ, 15 MB ຕໍ່ໄຟລ໌',suOptional:'(ຖ້າມີ)',
- suErrType:'ຮັບສະເພາະໄຟລ໌ PDF, JPG ຫຼື PNG',suErrSize:'ໄຟລ໌ໃຫຍ່ເກີນ 15 MB',upErrMax:'ແນບໄດ້ບໍ່ເກີນ 5 ໄຟລ໌ຕໍ່ເອກະສານ',upErrReq:'ຕ້ອງແນບເອກະສານນີ້',upMore:'ເພີ່ມໄຟລ໌',
+ suErrType:'ຮັບສະເພາະໄຟລ໌ PDF, JPG ຫຼື PNG',suErrSize:'ໄຟລ໌ໃຫຍ່ເກີນ 15 MB',upErrMax:'ແນບໄດ້ບໍ່ເກີນ 5 ໄຟລ໌ຕໍ່ເອກະສານ',upErrReq:'ຕ້ອງແນບເອກະສານນີ້',upAttach:'ແນບໄຟລ໌',
  capSrc:'ແຫຼ່ງທຶນ',capDomestic:'ທຶນພາຍໃນ',capForeign:'ທຶນຕ່າງປະເທດ',dcSec3:'ເອກະສານປະກອບຄຳຮ້ອງ',dcSec3Sub:'ເອກະສານທີ່ຕ້ອງຍື່ນທຸກກໍລະນີ ບໍ່ວ່າຈະຊຳລະທຶນດ້ວຍຮູບແບບໃດ',
 suErrDoc:'ກະລຸນາອັບໂຫຼດເອກະສານທີ່ຈຳເປັນໃຫ້ຄົບ',
  suErrEnName:'ຊື່ພາສາອັງກິດໃຊ້ໄດ້ສະເພາະຕົວອັກສອນ A-Z',
@@ -888,7 +902,7 @@ en:{
  suDocHint:'Upload documents that verify the enterprise this account is for.',suEntSec:'Enterprise details',suRegNo:'Enterprise registration number',
  suEtype:'Enterprise type',suEtypePick:'- Select enterprise type -',suDocsSec:'Documents to upload',suPickFirst:'Select an enterprise type to see the documents it needs',
  suDropT:'Click to choose a file, or drag it here',suFileRule:'PDF, JPG, PNG - up to 5 files per document, 15 MB per file',suOptional:'(optional)',
- suErrType:'Only PDF, JPG or PNG files are accepted',suErrSize:'File is larger than 15 MB',upErrMax:'Up to 5 files per document',upErrReq:'This document is required',upMore:'Add another file',
+ suErrType:'Only PDF, JPG or PNG files are accepted',suErrSize:'File is larger than 15 MB',upErrMax:'Up to 5 files per document',upErrReq:'This document is required',upAttach:'Attach',
  capSrc:'Source of capital',capDomestic:'Domestic capital',capForeign:'Foreign capital',dcSec3:'Application documents',dcSec3Sub:'Documents every declaration must include, whatever the payment method',
 suErrDoc:'Upload every required document',
  suErrEnName:'English name may use the letters A-Z only',
@@ -1796,7 +1810,7 @@ function vLogin(){
     SU_ETYPES.map(function(x){return '<option value="'+x.k+'"'+(su.etype===x.k?' selected':'')+'>'+L(x)+'</option>'}).join('')+'</select></div></fieldset>':'')+
    '<fieldset class="suname"><legend>'+t('suDocsSec')+'</legend>'+
     '<div class="hint uprule">'+t('suFileRule')+'</div>'+
-    '<div class="upgrid one" style="margin-bottom:14px">'+docList3.map(docField).join('')+'</div></fieldset>'+
+    '<div class="uplist" style="margin-bottom:14px">'+docList3.map(docField).join('')+'</div></fieldset>'+
    errLine+
    '<button class="btn" style="width:100%;padding:12px;margin-top:6px;font-size:13.5px" id="doSuCreate">'+t('signUp')+'</button>'+
    '<div class="lnk" style="margin-top:14px;display:inline-block" data-backcred="1">'+t('suBack')+'</div>';
@@ -2458,18 +2472,20 @@ function mountRegMap(){
   }).addTo(regMapInst);
   Leaflet.marker([lat,lng]).addTo(regMapInst);
 }
-// One upload slot per document type: label, the files attached so far (up to DOC_MAX_FILES), then a drop zone.
+// One upload slot per document type, as one compact row: label, file count and an Attach button, then the
+// attached files (up to DOC_MAX_FILES) as chips that wrap onto the next line. The whole row takes dropped files.
 // key routes the handlers in bind() (see upOwner()); real = open the OS file picker instead of adding a mock file.
 // d.plain drops the "(optional)" tag, for groups ruled by "at least one of these".
 function upSlot(key,d,files,err,real){
   var full=files.length>=DOC_MAX_FILES;
-  return '<div class="field upslot"><label><span>'+d.lbl+(d.req?' *':(d.plain?'':' <span class="upopt">'+t('suOptional')+'</span>'))+'</span>'+
-    '<span class="upcnt num">'+files.length+'/'+DOC_MAX_FILES+'</span></label>'+
-   (files.length?'<div class="filelist">'+files.map(function(f,j){
-      return '<div class="filerow up"><span class="fic">'+luSvg('circleCheck')+'</span>'+
-       '<div class="fmeta"><b>'+esc(f.name)+'</b><span>'+esc(f.size||fileSizeMock(f.name))+'</span></div>'+
-       '<span class="frm" data-uprm="'+key+'|'+j+'" title="'+t('cancel')+'">✕</span></div>'}).join('')+'</div>':'')+
-   (full?'':'<div class="drop" data-updrop="'+key+'" role="button" tabindex="0"><span class="dropIcon">'+luSvg('upload')+'</span><b>'+t(files.length?'upMore':'suDropT')+'</b></div>')+
+  return '<div class="upslot" data-upzone="'+key+'"><div class="uphead">'+
+    '<span class="uplbl">'+d.lbl+(d.req?' *':(d.plain?'':' <span class="upopt">'+t('suOptional')+'</span>'))+'</span>'+
+    '<span class="upcnt num">'+files.length+'/'+DOC_MAX_FILES+'</span>'+
+    (full?'':'<button type="button" class="upbtn" data-updrop="'+key+'" title="'+esc(t('suDropT'))+'">'+luSvg('upload')+t('upAttach')+'</button>')+'</div>'+
+   (files.length?'<div class="upfiles">'+files.map(function(f,j){
+      return '<span class="upchip">'+luSvg('circleCheck')+'<span class="nm">'+esc(f.name)+'</span>'+
+       '<small>'+esc(f.size||fileSizeMock(f.name))+'</small>'+
+       '<span class="frm" data-uprm="'+key+'|'+j+'" title="'+t('cancel')+'">✕</span></span>'}).join('')+'</div>':'')+
    (real?'<input type="file" hidden multiple accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png">':'')+
    (err?'<div class="hint err">'+esc(err)+'</div>':'')+'</div>';
 }
@@ -2690,9 +2706,9 @@ function payHead(p,i,n,editable){
 function payFiles(p){
   return p.files.length?docList(p.files.map(function(f){return {lbl:payDocLbl(p,f),name:esc(f.name)+' - '+(f.size||fileSizeMock(f.name))}}),{ok:1}):'';
 }
-// Upload slots of one document group, two per row.
-function upGrid(prefix,defs,o){
-  return '<div class="upgrid">'+defs.map(function(d){return upSlot(prefix+d.k,d,filesOf(o,d.k),(o.upErr||{})[d.k])}).join('')+'</div>';
+// Upload slots of one document group, stacked top to bottom in one bordered list.
+function upList(prefix,defs,o){
+  return '<div class="uplist">'+defs.map(function(d){return upSlot(prefix+d.k,d,filesOf(o,d.k),(o.upErr||{})[d.k])}).join('')+'</div>';
 }
 // One editable payment block on Declare / Add payment.
 function payCardEdit(p,i,n){
@@ -2705,7 +2721,7 @@ function payCardEdit(p,i,n){
       opts.map(function(o){return '<option value="'+esc(o[0])+'"'+(o[0]===cur?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select></div>'};
   // One upload slot per document of the block's group (payDocGroup()), instead of a type dropdown.
   var docSel=function(){return '<div class="field" style="margin:0"><label>'+t('fDocs')+'</label><div class="hint uprule">'+t('suFileRule')+'</div>'+
-    upGrid('pay|'+i+'|',payDocOpts(p),p)+'</div>'};
+    upList('pay|'+i+'|',payDocOpts(p),p)+'</div>'};
   var body='';
   if(p.type==='cash'){
     body='<div class="g4">'+inp('amt',t('dcAmtPaid')+' (LAK) *',p.amt,{num:1})+
@@ -2832,7 +2848,7 @@ function vDeclare(){
    (f.err?'<div class="hint err" style="margin-top:10px">'+f.err+'</div>':'');
   var sec3='<div class="fsh"><span class="n">3. '+t('dcSec3')+'</span></div>'+
    '<div class="fsub" style="margin:4px 0 16px">'+t('dcSec3Sub')+' · '+t('suFileRule')+'</div>'+
-   upGrid('decl|',docDefs('CAPITAL_DECLARATION_DOCUMENT'),f);
+   upList('decl|',docDefs('CAPITAL_DECLARATION_DOCUMENT'),f);
   var inner='<div class="vstack">'+entBrief(e)+
    '<div class="card"><div class="c" style="padding:16px">'+
    '<div class="fsec">'+sec1+'</div><div class="fsec">'+sec2+'</div><div class="fsec">'+sec3+'</div>'+
@@ -2977,7 +2993,7 @@ function vValJobDetail(){
     '<div class="field"><label for="fjRemark">'+t('valRemark')+'</label><input id="fjRemark" placeholder="'+esc(t('valRemarkPh'))+'" value="'+esc(F.remark||'')+'"></div></div>'+
    '<div class="field" style="margin:0"><label>'+t('fDocs')+' *</label>'+
    '<div class="hint uprule">'+t('anyOneLbl')+' · '+t('suFileRule')+'</div>'+
-   upGrid('val|',valDocTypeOptions(),F)+
+   upList('val|',valDocTypeOptions(),F)+
    (F.docErr?'<div class="hint err" style="margin-top:12px">'+F.docErr+'</div>':'')+'</div>'+
    '<div class="pfoot" style="padding-top:24px"><button class="btn" style="min-width:240px" data-submitjob="'+S.valI+'">'+t('submitJob')+'</button></div>'+
    '</div></div>'
@@ -3603,8 +3619,8 @@ function bind(){
     p.firmType=parts[1];p.firmName=parts[1]==='in'?MASTER.valfirms.filter(function(vf){return vf.net==='in'})[0].nm:'';p.touched=true;render()}});
   // Upload slots (upSlot()): signup opens the real file picker; the other forms attach a mock file
   // on click so the demo runs without files at hand. Dropped files are always the real ones.
-  document.querySelectorAll('[data-updrop]').forEach(function(el){
-    var key=el.dataset.updrop,inp=el.parentNode.querySelector('input[type=file]');
+  document.querySelectorAll('[data-upzone]').forEach(function(el){
+    var key=el.dataset.upzone,inp=el.querySelector('input[type=file]'),btn=el.querySelector('[data-updrop]');
     var take=function(list){
       // Several files at once: keep the message of a refused file even when later ones are accepted.
       if(list&&list.length){var bad='';for(var n=0;n<list.length;n++)bad=upAdd(key,list[n])||bad;
@@ -3612,11 +3628,9 @@ function bind(){
       else if(!inp)upAdd(key,null);
       else return;
       render()};
-    var pick=function(){if(inp)inp.click();else take(null)};
-    el.onclick=pick;
-    el.onkeydown=function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();pick()}};
+    if(btn)btn.onclick=function(){if(inp)inp.click();else take(null)};
     el.ondragover=function(ev){ev.preventDefault();el.classList.add('drag')};
-    el.ondragleave=function(){el.classList.remove('drag')};
+    el.ondragleave=function(ev){if(!el.contains(ev.relatedTarget))el.classList.remove('drag')};
     el.ondrop=function(ev){ev.preventDefault();el.classList.remove('drag');take(ev.dataTransfer&&ev.dataTransfer.files)};
     if(inp)inp.onchange=function(){take(inp.files)}});
   document.querySelectorAll('[data-uprm]').forEach(function(b){b.onclick=function(ev){

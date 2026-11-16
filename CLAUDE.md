@@ -90,9 +90,9 @@ The `<style>` block comes first (CSS tokens in `:root`, then `/* ---------- name
   - Tables show Enterprise and Registration no. as separate columns, and the search splits them into separate fields too.
 - **Document uploads** (one slot per document type, never a type dropdown plus one drop zone)
   - `DOC_GROUPS` is the document master from the `Doc_Type` sheet: group code → `{k, req, lo, en}`. `req` is `1`, `0` or `'foreign'` (required only when a cash payment's `src` is `foreign`). `docDefs(group, foreign)` resolves it to `[{k, lbl, req}]`.
-  - `upSlot(key, def, files, err, real)` renders a slot; `upGrid(prefix, defs, owner)` lays slots out two per row. Each slot takes up to `DOC_MAX_FILES` (5) files of `DOC_MAX_BYTES` (15 MB).
+  - `upSlot(key, def, files, err, real)` renders a slot as one compact row (label, `n/5` count, Attach button), with the attached files as wrapping chips that show the full file name. `upList(prefix, defs, owner)` stacks a group's slots top to bottom in one bordered list. Each slot takes up to `DOC_MAX_FILES` (5) files of `DOC_MAX_BYTES` (15 MB).
   - Files live in a flat `owner.files` array of `{k, name, size}`; `filesOf(owner, k)` filters one slot. Errors per slot are in `owner.upErr[k]`.
-  - Slot keys route the `data-updrop` / `data-uprm` handlers through `upOwner(key)`: `su|CODE` (signup), `pay|i|CODE` (payment block, group from `payDocGroup(p)`), `decl|CODE` (declaration-level documents in `S.form`), `val|CODE` (valuation firm result).
+  - Slot keys route the `data-upzone` (the row, takes dropped files) / `data-updrop` (Attach button) / `data-uprm` handlers through `upOwner(key)`: `su|CODE` (signup), `pay|i|CODE` (payment block, group from `payDocGroup(p)`), `decl|CODE` (declaration-level documents in `S.form`), `val|CODE` (valuation firm result).
   - Signup opens the real file picker. The other forms attach a mock file on click (so the demo runs without files) and take real files on drop.
 - **Summary cards**: `sumCard({title, prog, metrics, notes})` with `metric(tone, label, value, sub)` is the shared overview pattern.
 - **Mock data**
