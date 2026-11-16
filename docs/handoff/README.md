@@ -69,6 +69,7 @@ interface Enterprise {
   rep: string;           // ผู้แทน
   type: I18nText;        // ประเภทวิสาหกิจ
   prov: I18nText;        // แขวง (ค่าที่ใช้กรองคือ prov.lo)
+  district?: I18nText;   // เมือง (ไม่มี = demo คิดจาก PROV_META / DISTRICTS ด้วย entDistrict())
   village?: I18nText;
   lat?: number; lng?: number;
   isic: string;
@@ -196,9 +197,10 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 | `/my-capital` | `vOwnerList` | owner, newuser |
 | `/my-capital/:id` | `vOwnerDash` | owner |
 | `/workspace/:tab` | `vMakerDash` (`ret`, `queue`, `due`) | maker |
+| `/dashboard?prov=&dist=` | `vCentralDash` (tab `overview`) | admin (Super Admin), checker, approver |
 | `/workspace/:tab` | `vCheckerDash` (`queue`, `atAp`, `ret`) | checker |
-| `/workspace/:tab` | `vApproverDash` (`overview`, `queue`, `risk`, `signed`) | approver |
-| `/overview` | `vAdminDash` | admin |
+| `/workspace/:tab` | `vApproverDash` (`queue`, `risk`, `signed`) | approver |
+| `/system` | `vAdminDash` (tab `sys`) | admin |
 | `/enterprises` | `vList` | maker, checker, approver, admin |
 | `/enterprises/:id` | `vDetail` | maker, checker, approver, admin |
 | `/enterprises/:id/declare` | `vDeclare` | maker, owner |
@@ -217,6 +219,13 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 - หน้าแรกหลัง login ดูได้จาก `roleHome()` และ `firstTab()`
 - ระบบจริงต้องกัน route ตาม role ทั้งฝั่ง frontend และ backend
 - ห้ามพึ่งแค่การซ่อนเมนู
+- **ขอบเขตข้อมูลของ Dashboard กลาง** มาจากระบบบริหารสิทธิ์อีกระบบ (demo: `ACCESS_SCOPE`)
+  ```ts
+  type AccessScope = { all: true }                        // Super Admin: ทุกแขวง ทุกเมือง
+    | { all?: false; prov: string; districts: string[] }; // Checker / Approver: แขวงเดียว หลายเมือง
+  ```
+  - backend ต้องกรองข้อมูลตามขอบเขตนี้เอง (ไม่ส่งข้อมูลนอกขอบเขตมาให้ frontend) และ frontend ใช้แค่สร้าง dropdown
+  - demo ใช้ขอบเขตกับ Dashboard กลางเท่านั้น ถ้าต้องกรองคิวงานด้วยให้ใช้ `inScope()` เดียวกัน
 
 ## 5. Business rule ที่ต้องทำให้ครบ
 
@@ -338,6 +347,10 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 ## 9. API ที่ frontend ต้องการ (ร่าง)
 
 ```
+GET    /me/scope                   -> AccessScope (มาจากระบบบริหารสิทธิ์)
+GET    /dashboard/summary          ?prov=&dist=  -> KPI ของ Dashboard กลาง (กรองตามขอบเขตที่ฝั่ง server)
+GET    /dashboard/breakdown        ?prov=&dist=  -> แถวตามแขวง หรือตามเมือง
+GET    /dashboard/attention        ?prov=&dist=&page=&size=
 POST   /auth/login                 { user, password } -> { challengeId }
 POST   /auth/otp                   { challengeId, otp } -> session (+ mustChangePassword)
 POST   /auth/password              { newPassword }
