@@ -52,7 +52,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 | ชื่อผู้ใช้ (demo) | บทบาท | หน้าแรก | เมนูที่เห็น |
 |---|---|---|---|
 | `lao.agri` | ผู้ประกอบการ (Business owner) | My Registered Capital | ทุนของฉัน |
-| `khamla.p` | เจ้าหน้าที่เคาน์เตอร์ APB (Maker) | Counter Workspace | Dashboard, Search Enterprises |
+| `khamla.p` | เจ้าหน้าที่เคาน์เตอร์ APB (Maker) | Counter Workspace (Dashboard กลาง) | Dashboard, Search Enterprises |
 | `sivilay.a` | เจ้าหน้าที่ตรวจสอบ (Checker) | Verification Workspace (Dashboard กลาง) | Dashboard, Search Enterprises, Valuation Queue, Finance, Reports |
 | `head.moic` | หัวหน้าพะแนก (Approver + E-Sign) | Approval Workspace (Dashboard) | Approval Workspace, Search Enterprises, Valuation Queue, Finance, Reports |
 | `lao.valuation` | บริษัทประเมิน (In-network firm) | Dashboard | Dashboard, My Valuation Jobs |
@@ -105,18 +105,20 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   (Enterprise, Registration no., Status) + ตารางวิสาหกิจ กดแถวเพื่อเข้า **Capital Details** ของ
   วิสาหกิจนั้น (ลิงก์ย้อนกลับไปหน้ารายการ; แจ้งชำระ, ใบรับรอง, รายละเอียดรายการ กลับมาที่หน้านี้)
   ถ้าผู้ประกอบการมีวิสาหกิจเดียวจะเปิด Capital Details ทันที
-- **Maker (Counter Workspace)** ไม่มี Overview เลือกรายการจากเมนูย่อยใต้ Dashboard (เปิดที่ Returned
-  ก่อน): **Returned** ใบรายการสถานะ `RETURNED` (ค้นหา Enterprise, Registration no., Returned by; ปุ่ม Fix
+- **Maker (Counter Workspace)** เมนูย่อยใต้ Dashboard (เปิดที่ Dashboard กลางก่อน): **Dashboard**, **Returned** ใบรายการสถานะ `RETURNED` (ค้นหา Enterprise, Registration no., Returned by; ปุ่ม Fix
   เข้าหน้าวิสาหกิจ แล้วกด Edit and resubmit), **Awaiting result** ใบรายการที่อยู่ระหว่างพิจารณา
   (Reference, Enterprise, Status แบบ dropdown, Submit by)
   และ **Due / Overdue** วิสาหกิจใกล้ครบ/เกินกำหนด (Enterprise, Status) ทุกรายการมีปุ่ม Search /
   Clear และ pagination
-- **Dashboard กลาง** (`vCentralDash()`) ใช้ร่วมกันของ Super Admin, Checker และ Approver
+- **Dashboard กลาง** (`vCentralDash()`) ใช้ร่วมกันของ Super Admin, Maker, Checker และ Approver
   (เมนูย่อยแรกใต้ Dashboard และเป็นหน้าแรกหลัง login) ดู KPI ระดับแขวงและเมือง
   - **ขอบเขตสิทธิ์** (`ACCESS_SCOPE`): ระบบจริงรับมาจากระบบบริหารสิทธิ์อีกระบบ demo เก็บสำเนา payload ไว้ต่อ role
     - Super Admin (`bounmy.m`) เห็นทุกแขวงทุกเมือง เลือกแขวงได้ แล้วเลือกเมืองในแขวงนั้น
     - Checker / Approver เห็นได้หลายเมือง แต่เฉพาะแขวงที่ตัวเองสังกัด (แขวงล็อกไว้ เลือกได้แค่เมืองในขอบเขต)
       demo: Checker = นครหลวงเวียงจันทน์ 4 เมือง, Approver = นครหลวงเวียงจันทน์ 7 เมือง
+    - Maker เห็นเฉพาะแขวงที่สังกัดเหมือนกัน (demo: นครหลวงเวียงจันทน์ 4 เมือง) แต่ขอบเขตใช้กับ Dashboard เท่านั้น
+      คิวงานของ Maker ไม่ถูกกรอง เพราะเคาน์เตอร์รับเรื่องของวิสาหกิจได้ทุกแขวง
+    - Dashboard ของ Maker มีแถบแจ้งใบรายการที่ถูกตีกลับ พร้อมปุ่ม Fix ไปเมนูย่อย Returned
     - แถบบนสุดบอกขอบเขตและแหล่งที่มา (Sent by the access management system)
   - **การ์ดหลัก**: ตัวเลขเด่น % ทุนจดทะเบียนที่ยืนยันแล้ว + แถบแบ่งส่วน (Confirmed / Under Review /
     Not yet submitted) พร้อม legend แล้วตามด้วย stat tile 6 ช่อง: Total Registered Capital, Confirmed Capital,
