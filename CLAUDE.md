@@ -77,8 +77,8 @@ The `<style>` block comes first (CSS tokens in `:root`, then `/* ---------- name
   - Create Account keeps its form in `S.signup`, with `S.signup.step` 1-3:
     1. Applicant details: email, Citizen ID or Passport (`idType` `cid`/`pp`), Role applied for (`SU_ROLES`), Lao and English names.
     2. Verify email: OTP via `otpWire()`.
-    3. Documents, chosen by `suDocsFor(su)`. Owner gets Enterprise details plus the documents for the type (`SU_ETYPES` / `SU_DOC`). Other roles upload ID/Passport plus an employee ID card.
-  - Uploads are real `<input type="file">` (`data-sufile`, drop zone `data-sudrop`). `suFileErr()` allows PDF/JPG/PNG up to 10 MB.
+    3. Documents, chosen by `suDocsFor(su)`. Owner gets Enterprise details (`SU_ETYPES`) plus the `DOCUMENT_TYPE` document group. Other roles upload ID/Passport plus an employee ID card (`SU_DOC`).
+  - Uploads are real `<input type="file" multiple>` inside the shared upload slots (see "Document uploads"). `suFileErr()` allows PDF/JPG/PNG up to 15 MB.
   - Submitting shows a "pending document review" page. The demo skips the review: the `newuser` account becomes the applicant and can log in at once.
   - English UI says "Log in" / "Log out" and "Create Account", never "Sign in" / "Sign up".
 - **Lists, search and paging** (use these instead of hand-rolled tables)
@@ -88,6 +88,12 @@ The `<style>` block comes first (CSS tokens in `:root`, then `/* ---------- name
   - `paginate(key, list, sig, n0)` keeps page state in `S.pg[key]` and resets to page 1 when `sig` changes. Use it alone for tables without search.
   - `optsOf(list, getter)` builds dropdown options from values present in the data (Submit by / Verified by / Returned by).
   - Tables show Enterprise and Registration no. as separate columns, and the search splits them into separate fields too.
+- **Document uploads** (one slot per document type, never a type dropdown plus one drop zone)
+  - `DOC_GROUPS` is the document master from the `Doc_Type` sheet: group code → `{k, req, lo, en}`. `req` is `1`, `0` or `'foreign'` (required only when a cash payment's `src` is `foreign`). `docDefs(group, foreign)` resolves it to `[{k, lbl, req}]`.
+  - `upSlot(key, def, files, err, real)` renders a slot; `upGrid(prefix, defs, owner)` lays slots out two per row. Each slot takes up to `DOC_MAX_FILES` (5) files of `DOC_MAX_BYTES` (15 MB).
+  - Files live in a flat `owner.files` array of `{k, name, size}`; `filesOf(owner, k)` filters one slot. Errors per slot are in `owner.upErr[k]`.
+  - Slot keys route the `data-updrop` / `data-uprm` handlers through `upOwner(key)`: `su|CODE` (signup), `pay|i|CODE` (payment block, group from `payDocGroup(p)`), `decl|CODE` (declaration-level documents in `S.form`), `val|CODE` (valuation firm result).
+  - Signup opens the real file picker. The other forms attach a mock file on click (so the demo runs without files) and take real files on drop.
 - **Summary cards**: `sumCard({title, prog, metrics, notes})` with `metric(tone, label, value, sub)` is the shared overview pattern.
 - **Mock data**
   - Enterprises: `seedEnts()` (6 hand-written demo enterprises ELN-2025-1001..1006, used by the Owner/Maker walkthroughs) plus `seedMockEnts()` from `MOCK_ENTS` (24 more, ELN-2025-1101..1124, so lists page).

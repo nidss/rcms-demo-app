@@ -79,11 +79,13 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
      ใส่ OTP 6 หลัก (demo ใส่เลขอะไรก็ได้) กด Next, มีลิงก์ Resend code และ Back กลับไปแก้อีเมล
   3. **Documents**: เนื้อหาเปลี่ยนตาม Role ที่เลือกใน step 1 (`suDocsFor()`)
      - **Owner**: Enterprise details คือ Enterprise registration number และ Enterprise type (Sole proprietorship,
-       Partnership, Company, State / Joint venture, Cooperative) เลือกประเภทแล้วจะขึ้นช่องอัปโหลดเอกสารตามประเภทนั้น
-       (`SU_ETYPES` / `SU_DOC`)
+       Partnership, Company, State / Joint venture, Cooperative) แล้วอัปโหลดเอกสารกลุ่ม `DOCUMENT_TYPE`
+       แยกช่องละเอกสาร: Copy of Enterprise Registration Documents (จำเป็น), Power of Attorney (จำเป็น),
+       Copy of Share Certificate (ไม่บังคับ) - ชุดเอกสารเดียวกันทุกประเภทวิสาหกิจ
      - **Role อื่น**: ไม่มี Enterprise details ให้อัปโหลดบัตรประชาชน (หรือพาสปอร์ต ถ้า step 1 เลือก Passport)
        และบัตรพนักงาน
-     - รับเฉพาะ PDF, JPG, PNG ไม่เกิน 10 MB ต่อไฟล์ (ตรวจจากไฟล์จริง ทั้งกดเลือกและลากวาง)
+     - รับเฉพาะ PDF, JPG, PNG ไม่เกิน 15 MB ต่อไฟล์ และไม่เกิน 5 ไฟล์ต่อเอกสาร (ตรวจจากไฟล์จริง ทั้งกดเลือกและลากวาง
+       เลือกทีละหลายไฟล์ได้)
        ต้องอัปโหลดเอกสารที่จำเป็นให้ครบก่อนกด Create Account
 - หลังกด Create Account ขึ้นหน้า **Application submitted** แจ้งว่าเอกสารรอตรวจสอบ (Owner แสดงเลขทะเบียน + ประเภทวิสาหกิจ, Role อื่นแสดง Role)
   และเมื่อเอกสารผ่านจะส่งรหัสผ่านชั่วคราวไปที่อีเมล → กลับหน้า login (กรอกอีเมลให้) → (demo: ข้ามขั้นรอตรวจ) ใส่รหัสผ่าน
@@ -270,14 +272,28 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
 - งวดแรกต้องไม่ต่ำกว่า 30% ของทุนจดทะเบียน (ยอดรวมทุกการ์ดต้องไม่ต่ำกว่า Minimum for this instalment)
 - ยอดรวมทุกการ์ดต้องไม่เกินยอดคงเหลือ
 - ต้องมีการ์ดการชำระอย่างน้อย 1 ใบ และแต่ละใบต้องกรอกช่องที่มี * ครบ
-- เอกสารที่ต้องมีต่อการ์ด: Cash ต้องมี Payment evidence, Asset ต้องมี Valuation report,
-  Labour capital ต้องมี Labour contribution agreement
+- การอัปโหลดเอกสารแยกช่องละ 1 ประเภทเอกสาร (`upSlot()`) ตาม master `DOC_GROUPS` (จาก sheet Doc_Type)
+  ไม่มี dropdown เลือกประเภทเอกสารแล้ว แต่ละช่องแนบได้สูงสุด 5 ไฟล์ ไฟล์ละไม่เกิน 15 MB (PDF / JPG / PNG)
+  ช่องที่มี * ต้องมีอย่างน้อย 1 ไฟล์ก่อนกด Submit
+  - ทุกคำร้อง (ข้อ 3. Application documents): Registered Capital Contribution Notification Application *
+  - Cash (`CAPITAL_CASH_DOCUMENT`): Bank Statement *, Certificate of Capital Importation และ Letter from the Bank of the Lao PDR
+    (จำเป็นเมื่อ Source of capital = Foreign capital เท่านั้น), Other
+  - Asset - Land (`CAPITAL_LAND_DOCUMENT`): Land Title Deed *, Mortgage-Free Certificate *, Cadastral Map,
+    Ownership Transfer Document, Other
+  - Asset - Building (`CAPITAL_BUILDING_DOCUMENT`): Ownership Transfer Document *, Valuation Report,
+    Land Title Document for the Building Site, Permit to Construct, Other
+  - Asset - Car (`CAPITAL_VEHICLE_DOCUMENT`): Vehicle Registration Certificate *, Ownership Transfer Document from the
+    Department of Transport *, Valuation Report, Certificate of No Encumbrance, Other
+  - Asset - Machinery: ไม่มีใน sheet demo ใช้ Ownership Transfer Document *, Valuation Report, Other ไปก่อน
+  - Labour capital (`CAPITAL_LABOUR_DOCUMENT`): Partnership Establishment Agreement *, Other
+  - เปลี่ยน Asset category แล้วไฟล์ที่แนบไว้ในการ์ดนั้นจะถูกล้าง เพราะรายการเอกสารต่างกัน
 - บริษัทประเมินส่งผล: ต้องใส่ Valuation price ก่อน แล้วต้องแนบเอกสารอย่างน้อย 1 ไฟล์
+  (ช่องแยก: Valuation report, Asset photos, Site inspection form)
 - ปุ่มออกใบรับรองกดไม่ได้จนกว่าทุนจะชำระครบ
 - ผู้อนุมัติจะไม่เห็นงานจนกว่าจะผ่านการตรวจทานก่อน
 - Create Account: ทุกช่องใน step 1 ต้องกรอก (รวม Role applied for), อีเมลต้องถูกรูปแบบ,
   เลขบัตรอย่างน้อย 6 ตัว, ชื่ออังกฤษใช้ได้แค่ A-Z, ปุ่ม Next ของ OTP กดได้เมื่อครบ 6 หลัก,
-  ไฟล์ต้องเป็น PDF / JPG / PNG ไม่เกิน 10 MB และต้องอัปโหลดเอกสารที่จำเป็นให้ครบ
+  ไฟล์ต้องเป็น PDF / JPG / PNG ไม่เกิน 15 MB (สูงสุด 5 ไฟล์ต่อเอกสาร) และต้องอัปโหลดเอกสารที่จำเป็นให้ครบ
 
 ---
 

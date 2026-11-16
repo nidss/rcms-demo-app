@@ -127,14 +127,24 @@ interface Declaration {
   by: string; at: string;
   stage: 'checker' | 'approve';
   files: DocFile[];          // ไฟล์ทุกรายการรวมกัน (ใช้นับจำนวน)
+  docs?: DocFile[];          // เอกสารระดับคำร้อง (กลุ่ม CAPITAL_DECLARATION_DOCUMENT) seed เก่าไม่มี
   trail: { who: string; act: I18nText; at: string }[];
 }
 
-interface DocFile { k: string; lbl: string; name: string; size?: string }
+// k = param_code ของเอกสารในกลุ่มของมัน (ดู DOC_GROUPS) หนึ่ง k มีได้หลายไฟล์ (สูงสุด 5, ไฟล์ละ 15 MB)
+// ชื่อเอกสารไม่เก็บในไฟล์แล้ว ให้ lookup จาก DOC_GROUPS ตามภาษาปัจจุบัน
+interface DocFile { k: string; name: string; size?: string }
+
+// master เอกสาร (จาก sheet Doc_Type): group_code -> รายการเอกสาร
+// req: 1 = จำเป็น, 0 = ไม่บังคับ, 'foreign' = จำเป็นเฉพาะทุนต่างประเทศ
+// กลุ่ม: DOCUMENT_TYPE (ขอ user), CAPITAL_DECLARATION_DOCUMENT (placeholder - sheet ยังเว้น code ไว้),
+// CAPITAL_CASH_DOCUMENT, CAPITAL_VEHICLE_DOCUMENT, CAPITAL_BUILDING_DOCUMENT, CAPITAL_LAND_DOCUMENT,
+// CAPITAL_LABOUR_DOCUMENT, CAPITAL_MACHINE_DOCUMENT (ไม่มีใน sheet demo เพิ่มเอง)
+type DocGroups = Record<string, { k: string; req: 0 | 1 | 'foreign'; lo: string; en: string }[]>;
 
 // หนึ่งรายการใน "Capital being paid" (การ์ดหนึ่งใบ)
 type Payment =
-  | { type: 'cash'; amt: string; bank: string; acctNo: string; acctName: string; files: DocFile[] }
+  | { type: 'cash'; src: 'domestic' | 'foreign'; amt: string; bank: string; acctNo: string; acctName: string; files: DocFile[] }
   | { type: 'asset'; cat: 'land' | 'building' | 'car' | 'machine'; firmType: 'in' | 'out'; firmName: string;
       vals: Record<string, string>;   // key ตาม ASSET_FIELDS[cat], ยอด = vals[ASSET_PRICE_KEY[cat]]
       files: DocFile[] }
@@ -335,7 +345,7 @@ POST   /declarations/:ref/approve  { otp } (approver: E-Sign)
 
 GET    /valuation-jobs             ?ref=&ent=&regNo=&firm=&net=&status=&page=&size=
 GET    /valuation-jobs/:id
-POST   /valuation-jobs/:id/result  multipart: value, remark, files[], docType
+POST   /valuation-jobs/:id/result  multipart: value, remark, files[] (แต่ละไฟล์ส่ง param_code ของเอกสารคู่กัน)
 
 GET    /invoices                   ?kind=fee|penalty&...
 GET    /receipts
