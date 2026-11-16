@@ -94,10 +94,19 @@ The `<style>` block comes first (CSS tokens in `:root`, then `/* ---------- name
   - Files live in a flat `owner.files` array of `{k, name, size}`; `filesOf(owner, k)` filters one slot. Errors per slot are in `owner.upErr[k]`.
   - Slot keys route the `data-upzone` (the row, takes dropped files) / `data-updrop` (Attach button) / `data-uprm` handlers through `upOwner(key)`: `su|CODE` (signup), `pay|i|CODE` (payment block, group from `payDocGroup(p)`), `decl|CODE` (declaration-level documents in `S.form`), `val|CODE` (valuation firm result).
   - Signup opens the real file picker. The other forms attach a mock file on click (so the demo runs without files) and take real files on drop.
+- **Declaration status** (the Status sheet and the user-journey flow)
+  - `x.st` is one of `DST`: DRAFT, PENDING, APPRAISED_PENDING, APPRAISED_COMPLETED, APPROVED, RETURNED, COMPLETED, REJECTED. Always change it with `setSt(x, st)`, which also sets `x.stage` (`DST_STAGE`: draft / appraise / checker / approve / returned / closed). Queues filter on `x.stage`.
+  - Declarations stay in `S.tasks` after they close. `LIVE_ST` / `liveTasks()` / `pendingOf()` are the ones under review; `openOf()` finds a draft or returned one, reopened in the Declare form with `S.form.edit` set to its index.
+  - Reference IDs come from `capRef(n)` (`CAP-202608-000921`, counter `S.capSeq`). A draft has none.
+  - A declaration with an asset becomes `APPRAISED_PENDING` and creates one valuation job per asset (`j.decl` = the reference). `valDone(j)` moves it to `APPRAISED_COMPLETED` once every job is in.
+  - `doReturn()` handles Return (appraiser / checker / approver) and keeps both notes in `x.ret` (`reason` external, `internal`). Staff see both via `retNotes()` / `intNote()`; the owner sees the external note only (`isStaff()`).
+  - Reject: the Approver's is final (`rejectFinal()`). The Checker's only sets `x.rejReq` and parks the declaration in the Approver's queue (`x.stage='approve'`, `x.st` unchanged, `xPill()` shows it); the Checker can cancel it (`data-rejcancel`), the Approver approves (`data-rejapprove`) or declines it (`data-rejdecline`). `approve()` signs and issues the certificate only when the capital reaches 100%; otherwise the `apconfirm` modal approves without E-Sign.
+  - History wording comes from `HIST_TXT`.
+  - Invoice statuses are `PENDING` / `PAID` (`WAIVED` is defined in the sheet but has no action yet).
 - **Summary cards**: `sumCard({title, prog, metrics, notes})` with `metric(tone, label, value, sub)` is the shared overview pattern.
 - **Mock data**
   - Enterprises: `seedEnts()` (6 hand-written demo enterprises ELN-2025-1001..1006, used by the Owner/Maker walkthroughs) plus `seedMockEnts()` from `MOCK_ENTS` (24 more, ELN-2025-1101..1124, so lists page).
-  - Pending declarations: `seedTasks()` plus `seedMockTasks()`. `stage` is `checker` or `approve`.
+  - Declarations: `seedTasks()` plus `seedMockTasks()`, plus one `RETURNED` declaration on ELN-2025-1006 from `seedReturned()`.
   - Valuation jobs: `VALJOBS` plus `MOCK_VAL`, with `mockCollateral()` on the enterprise.
   - The owner's enterprises: `OWNER_ENTS`.
   - "Today" is fixed at 04/08/2026 (`daysLeft()`).
