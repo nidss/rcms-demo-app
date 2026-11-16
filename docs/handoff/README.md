@@ -56,7 +56,10 @@ for (const lng of ['lo', 'en']) writeFileSync(`locales/${lng}.json`, JSON.string
 
 ```ts
 type I18nText = { lo: string; en: string };
-type EntStatus = 'PENDING' | 'PARTIAL' | 'COMPLETED' | 'OVERDUE';
+type EntStatus = 'PENDING' | 'INCREASE_PENDING' | 'PARTIAL' | 'COMPLETED' | 'OVERDUE';
+// สถานะใบรายการชำระทุน (sheet Status workflow, tab Status)
+type DeclStatus = 'DRAFT' | 'PENDING' | 'APPRAISED_PENDING' | 'APPRAISED_COMPLETED' | 'APPROVED'
+  | 'RETURNED' | 'COMPLETED' | 'REJECTED';
 type Role = 'owner' | 'maker' | 'checker' | 'approver' | 'valfirm' | 'external' | 'admin';
 
 interface Enterprise {
@@ -113,19 +116,24 @@ interface HistoryEntry {
   u: string;                 // ผู้ดำเนินการ
   f: string;                 // จำนวนไฟล์
   ch: string;                // ช่องทาง เช่น chCounter
-  st: 'complete' | 'pending' | 'returned';
+  st: 'complete' | 'pending' | 'returned' | 'rejected';
 }
 
 // คำร้องแจ้งชำระทุนที่ Maker หรือผู้ประกอบการยื่น (หนึ่งงวด มีการชำระได้หลายรายการ)
 interface Declaration {
-  ref: string;               // APR-2026-0912
+  ref?: string;              // CAP-YYYYMM-{running 6 หลัก} เช่น CAP-202608-000912 ฉบับร่างยังไม่มี
   entId: string;             // demo เก็บทั้ง object (ent) แต่ API ควรส่ง id
   amt: number;               // ยอดรวมทุกรายการใน pays
   mode: string;              // ประเภทที่ใช้ คั่นด้วยจุลภาค เช่น 'cash,asset,labour'
   pays: Payment[];           // seed เก่าไม่มี demo สร้างให้ตอนเปิดดู (taskPays())
   ch?: 'counter' | 'online'; // ช่องทางยื่น (ไม่มี = ดูจาก trail)
   by: string; at: string;
-  stage: 'checker' | 'approve';
+  st: DeclStatus;
+  stage: 'draft' | 'appraise' | 'checker' | 'approve' | 'returned' | 'closed';   // คิดจาก st (DST_STAGE)
+  appraised?: boolean;       // ประเมินครบแล้ว ยื่นใหม่หลังถูกตีกลับจึงไปที่ APPRAISED_COMPLETED เลย
+  payMode?: 'full' | 'partial';
+  ret?: { by: 'appraiser' | 'checker' | 'approver'; reason: string | I18nText; u: string; d: string };
+  rej?: { by: 'checker' | 'approver'; reason: string; u: string; d: string };
   files: DocFile[];          // ไฟล์ทุกรายการรวมกัน (ใช้นับจำนวน)
   docs?: DocFile[];          // เอกสารระดับคำร้อง (กลุ่ม CAPITAL_DECLARATION_DOCUMENT) seed เก่าไม่มี
   trail: { who: string; act: I18nText; at: string }[];
@@ -167,7 +175,7 @@ interface Invoice {
   id: string; ent: string;
   kind: 'fee' | 'penalty';
   title: I18nText; amt: number; due: string;
-  status: 'PAID' | 'UNPAID';
+  status: 'PENDING' | 'PAID' | 'WAIVED';   // WAIVED: role ที่ยกเว้นได้ยังรอ CF (demo ยังไม่มีปุ่ม)
   paidAt: string | null; receipt: string | null; channel: string;
 }
 
@@ -222,10 +230,16 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
     - Asset: ช่องบังคับของประเภททรัพย์สิน (`ASSET_REQ`, `errAssetField`), Estimated price และ Valuation report
     - Labour capital: Contributor name, ID / Passport No., Skill type, Agreed value และ Labour contribution agreement
   - เปลี่ยนประเภทของการ์ดที่กรอกแล้วต้องยืนยันก่อน (modal `chgpay`) เพราะข้อมูลในการ์ดจะถูกล้าง
-  - วิสาหกิจที่มีคำร้องค้างอยู่ ยื่นซ้ำไม่ได้ (`pendingOf()`, `hasPending`)
+  - วิสาหกิจที่มีใบรายการระหว่างพิจารณา (`LIVE_ST`) ยื่นซ้ำไม่ได้ (`pendingOf()`, `hasPending`)
+  - ฉบับร่างหรือใบรายการที่ถูกตีกลับ เปิดแก้ต่อจากหน้าวิสาหกิจ (`openOf()`, `data-editdecl`) แทนการสร้างใหม่
 - **ลำดับงาน**
-  - Maker ยื่น → Checker ตรวจ (ส่งต่อ หรือตีกลับพร้อมเหตุผล) → Approver อนุมัติ + E-Sign (ต้อง MFA ซ้ำ)
-  - Approver จะไม่เห็นงานจนกว่า Checker จะส่งต่อ
+  - Owner / Maker ยื่น (`DRAFT` → `PENDING`, หรือ `APPRAISED_PENDING` ถ้ามีทรัพย์สิน)
+  - Appraiser ส่งผลครบทุกงาน → `APPRAISED_COMPLETED` (`valDone()`) หรือตีกลับ → `RETURNED`
+  - Checker: Return → `RETURNED`, Reject → `REJECTED`, Approve → `APPROVED` ส่งต่อ Approver
+  - Approver: Return / Reject เหมือน Checker, Approve → `COMPLETED`
+    ทุนครบ 100% ต้อง E-Sign (MFA ซ้ำ) และออกใบรับรอง ยังไม่ครบไม่ต้อง E-Sign และไม่ออกใบรับรอง (`approve()`)
+  - ยื่นใหม่หลังถูกตีกลับ กลับเข้าคิว Checker ตามสถานะเดิม (`PENDING` หรือ `APPRAISED_COMPLETED`)
+  - Approver จะไม่เห็นงานจนกว่า Checker จะ Approve
 - **สถานะวิสาหกิจ**
   - ชำระครบแล้วเป็น `COMPLETED` ถ้ายังไม่ครบเป็น `PARTIAL` (ดู `approve()`)
   - เกินวันครบกำหนดเป็น `OVERDUE` และมีค่าปรับ (ดู `penOf()`)
@@ -337,11 +351,15 @@ GET    /enterprises/:id
 GET    /me/enterprises             (owner)
 POST   /enterprises/:id/declarations   { plan, payments: Payment[] } + ไฟล์ของแต่ละรายการ (multipart)
 
-GET    /declarations               ?stage=checker|approve&ref=&ent=&regNo=&channel=&by=&page=&size=
+GET    /declarations               ?status=PENDING,APPRAISED_COMPLETED&ref=&ent=&regNo=&channel=&by=&page=&size=
 GET    /declarations/:ref
-POST   /declarations/:ref/verify   (checker: ส่งต่อ)
-POST   /declarations/:ref/return   { reason, internal, external }
-POST   /declarations/:ref/approve  { otp } (approver: E-Sign)
+PUT    /declarations/:ref          (แก้ฉบับร่าง หรือใบรายการที่ถูกตีกลับ)
+DELETE /declarations/:ref          (ลบได้เฉพาะ DRAFT)
+POST   /declarations/:ref/submit   (DRAFT / RETURNED -> PENDING / APPRAISED_PENDING / APPRAISED_COMPLETED)
+POST   /declarations/:ref/verify   (checker: -> APPROVED)
+POST   /declarations/:ref/return   { reason, internal, external } (appraiser / checker / approver -> RETURNED)
+POST   /declarations/:ref/reject   { reason } (checker / approver -> REJECTED)
+POST   /declarations/:ref/approve  { otp? } (approver -> COMPLETED; otp เมื่อทุนครบ 100% เพื่อ E-Sign)
 
 GET    /valuation-jobs             ?ref=&ent=&regNo=&firm=&net=&status=&page=&size=
 GET    /valuation-jobs/:id

@@ -106,8 +106,9 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   วิสาหกิจนั้น (ลิงก์ย้อนกลับไปหน้ารายการ; แจ้งชำระ, ใบรับรอง, รายละเอียดรายการ กลับมาที่หน้านี้)
   ถ้าผู้ประกอบการมีวิสาหกิจเดียวจะเปิด Capital Details ทันที
 - **Maker (Counter Workspace)** ไม่มี Overview เลือกรายการจากเมนูย่อยใต้ Dashboard (เปิดที่ Returned
-  ก่อน): **Returned** งานที่ถูกตีกลับ (ค้นหา Enterprise, Registration no., Returned by; ปุ่ม Fix เข้าไปแก้),
-  **Awaiting result** รายการที่ยื่นไปแล้ว (Reference, Enterprise, Stage แบบ dropdown, Submit by)
+  ก่อน): **Returned** ใบรายการสถานะ `RETURNED` (ค้นหา Enterprise, Registration no., Returned by; ปุ่ม Fix
+  เข้าหน้าวิสาหกิจ แล้วกด Edit and resubmit), **Awaiting result** ใบรายการที่อยู่ระหว่างพิจารณา
+  (Reference, Enterprise, Status แบบ dropdown, Submit by)
   และ **Due / Overdue** วิสาหกิจใกล้ครบ/เกินกำหนด (Enterprise, Status) ทุกรายการมีปุ่ม Search /
   Clear และ pagination
 - **Checker (Verification Workspace)** เลือกรายการจากเมนูย่อยใต้ Dashboard: Verification
@@ -155,20 +156,24 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 อ่านจากบนลงล่างตามลำดับที่ใช้งานจริง: ตัวเลขทุน → สิ่งที่ต้องทำ → ข้อมูลอ้างอิง → ประวัติ
 
 - **Capital Details (summary card)** แทน action bar + การ์ดโดนัทเดิมที่แสดงตัวเลขซ้ำกัน:
-  สถานะ, แถบ % ที่ชำระ, ตัวเลข 5 ช่อง (ทุนจดทะเบียน / ชำระแล้ว / คงเหลือ / ค่าปรับ /
-  วันครบกำหนด + จำนวนวัน), ปุ่มหลักมุมขวาบน และแถบแจ้งเตือนท้ายการ์ดที่มีปุ่มแก้ไขอยู่ข้างข้อความ
-  (เช่น ใบแจ้งหนี้ค้าง + Pay by QR, งานที่รออนุมัติอยู่)
+  สถานะ, แถบ % ที่ชำระ, ตัวเลขตามหัวข้อ Capital Summary ใน sheet Status: Total Registered Capital /
+  Confirmed Capital / Capital Under Review (ยอดของใบรายการสถานะ PENDING, APPRAISED_PENDING,
+  APPRAISED_COMPLETED, APPROVED) / Outstanding Capital (ทุนทั้งหมด - ทุนที่ยืนยันแล้ว) + ค่าปรับ +
+  วันครบกำหนด, ปุ่มหลักมุมขวาบน และแถบแจ้งเตือนท้ายการ์ดที่มีปุ่มแก้ไขอยู่ข้างข้อความ
+  (เช่น ใบแจ้งหนี้ค้าง + Pay by QR, งานที่รออนุมัติอยู่, ฉบับร่าง + Delete draft, ใบรายการที่ถูกตีกลับ + เหตุผล)
+  ถ้ามีฉบับร่างหรือใบรายการที่ถูกตีกลับ ปุ่มหลักจะเป็น Continue draft / Edit and resubmit แทนการแจ้งชำระใหม่
 - **Enterprise Registration Details** แบ่งเป็นกลุ่มมีหัวข้อ: Identity / Registration /
   Tax & finance / Location (+ แผนที่ Leaflet) ใช้รูปแบบ summary list คือ label ซ้ายกว้างคงที่
   แล้ว value อยู่ติดกัน (ไม่ดันไปชิดขอบขวา) เพื่อให้อ่านคู่ label/value ได้ในครั้งเดียว
 - รายละเอียดธุรกรรม ใช้ layout `worksplit`: ข้อมูลอ้างอิงซ้าย, คำร้อง + เอกสารขวา
 - หน้าตรวจทาน (Task ของ Checker / Approver) เต็มความกว้าง เรียงจากบนลงล่าง:
-  ขั้นตอน 3 วง → Enterprise Registration Details แบบย่อ (Registration no., Enterprise name,
+  ขั้นตอน (ช่องทางยื่น → Appraisal ถ้ามีทรัพย์สิน → Checker → Approver) → Enterprise Registration Details แบบย่อ (Registration no., Enterprise name,
   Capital account, Status + ปุ่ม Show details เปิดดูข้อมูลเต็ม 4 กลุ่ม ไม่มีแผนที่ มีลิงก์พิกัดแทน)
-  → **Case detail** 6 ช่อง (Reference, ทุนจดทะเบียน, ชำระแล้ว %, ยอดที่ยื่น, Channel = APB Counter /
+  → **Case detail** 6 ช่อง + สถานะใบรายการ (Reference, ทุนจดทะเบียน, ชำระแล้ว %, ยอดที่ยื่น, Channel = APB Counter /
   Online, Payment method) → **Capital being paid** การ์ดการชำระแบบอ่านอย่างเดียวทีละรายการ
-  (ย่อ/ขยายได้ด้วย Show / Hide details) + แถบยอดรวม → **Decision** (Return for correction /
-  Verify and forward หรือ Approve and sign digitally)
+  (ย่อ/ขยายได้ด้วย Show / Hide details) + แถบยอดรวม → **Application documents** → **Decision**
+  (Return for correction / Reject / Approve and forward to the approver ของ Checker;
+  Approver เป็น Approve and sign digitally เมื่อทุนครบ 100% หรือ Approve เมื่อยังไม่ครบ)
 
 ### บันทึกการชำระทุน (Declare Capital Payment / Add payment)
 ผู้ประกอบการ (Declare capital payment online) และ Maker (Add payment) ใช้หน้าเดียวกัน เต็มความกว้าง:
@@ -204,8 +209,25 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   Valuation firm, Network type, Status แบบ dropdown + Search / Clear) และ pagination
 
 ### ตรวจทาน → อนุมัติ → ใบรับรอง
-- Reviewer ตรวจแล้วส่งต่อหรือตีกลับ, Approver อนุมัติ + ลงลายเซ็นดิจิทัล (ต้อง MFA
-  ซ้ำ), ออกใบรับรองการฝากทุน (Print Preview + ฉบับจริง/สำเนาพร้อม watermark)
+ตาม flow (User Journey - Role lanes) และ tab Status ของ sheet Status workflow
+
+- **สถานะใบรายการชำระทุน** (`DST`, `setSt()`): `DRAFT` → `PENDING` (Cash / Labour) หรือ `APPRAISED_PENDING`
+  (มีทรัพย์สิน) → `APPRAISED_COMPLETED` → `APPROVED` (Checker ผ่าน) → `COMPLETED` (Approver อนุมัติ)
+  และ `RETURNED` / `REJECTED`
+- **Reference ID** `CAP-YYYYMM-{running 6 หลัก}` เช่น CAP-202608-000921 ฉบับร่างยังไม่มีเลข
+- **ฉบับร่าง**: ฟอร์มแจ้งชำระมีปุ่ม Save draft (แก้ / ลบได้) กลับมาแก้ต่อจากหน้าวิสาหกิจ
+- **ทรัพย์สิน**: ยื่นแล้วสร้างงานประเมินให้บริษัทประเมิน 1 งานต่อทรัพย์สิน 1 รายการ
+  ส่งผลครบทุกงานแล้วใบรายการจึงเป็น `APPRAISED_COMPLETED` และเข้าคิว Checker
+- **Return** (Appraiser / Checker / Approver ต้องใส่เหตุผล): ใบรายการเป็น `RETURNED` กลับไปที่ Owner / Maker
+  แก้แล้วยื่นใหม่ เข้าคิว Checker ตามสถานะเดิม (`PENDING` หรือ `APPRAISED_COMPLETED` ถ้าประเมินแล้ว)
+  ถ้า Appraiser เป็นคนตีกลับ งานประเมินเดิมปิด และยื่นใหม่จะได้งานประเมินใหม่
+- **Reject** (Checker / Approver ต้องใส่เหตุผล): ใบรายการเป็น `REJECTED` ปิดถาวร ยื่นใหม่ไม่ได้
+  (ต้องแจ้งชำระเป็นใบรายการใหม่)
+- **Approve ของ Approver**: ทุนครบ 100% → ลงลายเซ็นดิจิทัล (ต้อง MFA ซ้ำ) + ออกใบรับรองการฝากทุน
+  (Print Preview + ฉบับจริง/สำเนาพร้อม watermark) ถ้ายังไม่ครบ → อนุมัติงวดนั้นเป็น `COMPLETED`
+  โดยไม่ต้อง E-Sign และไม่ออกใบรับรอง
+- ข้อความประวัติใช้ตาม sheet เช่น Returned for revision by Checker, Rejected by Approver,
+  Full Capital Payment Submitted, First / Second Capital Payment Installment Submitted
 
 ### Finance
 - 3 แท็บภายในเมนูเดียว: **Fees / Penalties / E-Receipts**
@@ -293,7 +315,8 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
 - บริษัทประเมินส่งผล: ต้องใส่ Valuation price ก่อน แล้วต้องแนบเอกสารอย่างน้อย 1 ไฟล์
   (ช่องแยก: Valuation report, Asset photos, Site inspection form)
 - ปุ่มออกใบรับรองกดไม่ได้จนกว่าทุนจะชำระครบ
-- ผู้อนุมัติจะไม่เห็นงานจนกว่าจะผ่านการตรวจทานก่อน
+- ผู้อนุมัติจะไม่เห็นงานจนกว่าจะผ่านการตรวจทานก่อน และ Checker จะไม่เห็นใบรายการที่มีทรัพย์สินจนกว่าจะประเมินครบ
+- Reject ต้องใส่เหตุผล และใบรายการที่ถูก Reject ยื่นใหม่ไม่ได้
 - Create Account: ทุกช่องใน step 1 ต้องกรอก (รวม Role applied for), อีเมลต้องถูกรูปแบบ,
   เลขบัตรอย่างน้อย 6 ตัว, ชื่ออังกฤษใช้ได้แค่ A-Z, ปุ่ม Next ของ OTP กดได้เมื่อครบ 6 หลัก,
   ไฟล์ต้องเป็น PDF / JPG / PNG ไม่เกิน 15 MB (สูงสุด 5 ไฟล์ต่อเอกสาร) และต้องอัปโหลดเอกสารที่จำเป็นให้ครบ
@@ -329,7 +352,7 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
 - ช่อง dropdown ในการ์ดค้นหาจับคู่ค่าแบบตรงทั้งคำ (เช่นเลือก "Vientiane Province" ไม่ปน
   "Vientiane Capital") ส่วนช่องข้อความค้นหาจากบางส่วนของคำ
 - ชื่อสถานะบนหน้าจอใช้ภาษาลาว/ไทยเป็นหลัก และมีรหัสระบบ
-  (PENDING / PARTIAL / COMPLETED / OVERDUE) กำกับไว้เพื่อเทียบกับเอกสาร requirement
+  (PENDING / INCREASE_PENDING / PARTIAL / COMPLETED / OVERDUE) กำกับไว้เพื่อเทียบกับเอกสาร requirement
 - โค้ดทั้งหมดอยู่ในไฟล์เดียว (`src/index.html`) แบ่งส่วนด้วยคอมเมนต์:
   dictionary 2 ภาษา, ข้อมูล mock, helper (โดนัท / KPI / ไอคอน), ฟังก์ชัน view
   ต่อหน้าจอ (`vDash`, `vSet`, `vFin` ...), และตัว `render()` / `bind()` ที่วาดใหม่ทุกครั้ง
