@@ -2888,8 +2888,7 @@ function vTask(){
   (isC?'<button class="btn" data-fwd="1">'+t('fwdApprover')+'</button>'
       :'<button class="btn" data-sign="1">'+t('signApprove')+'</button>')+
   '</div></div></div>';
-  // The Checker's page has no step indicator; the Approver still sees the three steps.
-  var inner=(isC?'':stepCircles([[cls(1),counter?t('channelCounter').split(' (')[0]:t('channelOnline').split(' (')[0]],[cls(2),t('stageChecker')],[cls(3),t('stageApprover')]]))+
+  var inner=stepCircles([[cls(1),counter?t('channelCounter').split(' (')[0]:t('channelOnline').split(' (')[0]],[cls(2),t('stageChecker')],[cls(3),t('stageApprover')]])+
   '<div class="vstack">'+entBrief(e)+caseCard+payCard+appCard+decideCard+'</div>';
   return shell(x.ref,[isC?t('ckTitle'):t('apTitle'),'dash'],inner);
 }
