@@ -553,6 +553,17 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .upslot .hint.err{margin-top:4px}
 .uprule{margin:-2px 0 8px}
 .rnote{display:block;line-height:1.6}
+.cdbar{margin-bottom:16px}
+.cdbar .c{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+.cdscope{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--ink2);flex:1 1 320px;min-width:0}
+.cdscope svg{width:18px;height:18px;flex:none;color:var(--m);margin-top:1px}
+.cdscope small{display:block;color:var(--muted);font-size:10.5px;margin-top:2px}
+.cdflt{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.cdflt .field{margin:0;min-width:180px}
+.cdpct{display:flex;align-items:center;gap:8px}
+.cdpct .bar{flex:1;height:6px}
+.cdpct span{font-size:11px;color:var(--muted);min-width:34px;text-align:right}
+@media(max-width:640px){.cdflt .field{min-width:0;flex:1 1 140px}}
 .rnote i{font-style:normal;color:var(--m);font-weight:600}
 .demoacc{margin-top:18px}
 .demoacc .dk{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:8px}
@@ -638,11 +649,12 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
   .sumcard{display:flex;flex-direction:column}
   .sc-top{display:contents}
   .sc-h{padding:14px 16px 0;order:0}
-  .sc-prog{order:1} .sc-metrics{order:2} .sc-note{order:3}
+  .sc-prog{order:1} .sc-metrics,.sc-grp{order:2} .sc-note{order:3}
   .sc-top>.acts{order:4;margin:0;padding:12px 16px 16px;border-top:1px solid var(--line);flex-direction:column}
   .sc-top>.acts .btn{width:100%}
   .sc-prog{padding:14px 16px 4px}
   .sc-metrics{grid-template-columns:1fr 1fr}
+  .sc-metrics .v{font-size:16px}
   .sc-metrics .sm{padding:12px 16px;border-left:0;border-top:1px solid var(--line)}
   .sc-metrics .sm:nth-child(even){border-left:1px solid var(--line)}
   .sc-metrics .sm:nth-child(-n+2){border-top:0}
@@ -715,7 +727,14 @@ lo:{
  draftNote:'ມີສະບັບຮ່າງທີ່ບັນທຶກໄວ້',draftOpen:'ແກ້ໄຂສະບັບຮ່າງຕໍ່',draftDel:'ລຶບສະບັບຮ່າງ',draftDeleted:'ລຶບສະບັບຮ່າງແລ້ວ',
  resubmit:'ແກ້ໄຂ ແລະ ຍື່ນໃໝ່',
  sentAppraise:'ສົ່ງໃຫ້ຜູ້ປະເມີນມູນຄ່າແລ້ວ',sentAppraiseS:'ຈະສົ່ງຕໍ່ໃຫ້ຜູ້ກວດສອບ ເມື່ອປະເມີນຊັບສິນຄົບທຸກລາຍການ',
- hstRejected:'ປະຕິເສດ',hstRejReq:'ຂໍປະຕິເສດ',
+ hstRejected:'ປະຕິເສດ',
+ cdTitle:'ພາບລວມການຕິດຕາມທຶນ',cdScope:'ຂອບເຂດສິດເບິ່ງຂໍ້ມູນ',cdScopeAll:'ທຸກແຂວງ ແລະ ທຸກເມືອງ',
+ cdScopeSrc:'ສົ່ງມາຈາກລະບົບບໍລິຫານສິດ · ອັບເດດ 04/08/2026 06:00',cdAllProv:'ທຸກແຂວງ',cdAllDist:'ທຸກເມືອງໃນຂອບເຂດ',
+ cdCapital:'ທຶນ (ກີບ)',cdWork:'ໃບລາຍການທີ່ກຳລັງດຳເນີນການ',cdRisk:'ກຳນົດເວລາ ແລະ ຄ່າປັບ',cdDueSoon:'ຄົບກຳນົດພາຍໃນ 30 ວັນ',
+ cdPenUnpaid:'ຄ່າປັບທີ່ຍັງບໍ່ຊຳລະ',cdRejReq:'ຄຳຂໍປະຕິເສດ',cdApprovedToday:'ອະນຸມັດມື້ນີ້',cdByProv:'ຕາມແຂວງ',cdByDist:'ຕາມເມືອງ',
+ cdEnts:'ວິສາຫະກິດ',cdPaidPct:'ຢືນຢັນແລ້ວ',cdInReview:'ລໍພິຈາລະນາ',cdAttention:'ວິສາຫະກິດທີ່ຕ້ອງຕິດຕາມ',
+ cdAttnSub:'ເກີນກຳນົດກ່ອນ ແລ້ວຮຽງຕາມວັນຄົບກຳນົດ',cdDrill:'ກົດແຖວເພື່ອເບິ່ງລະດັບຕໍ່ໄປ',cdNoEnt:'ບໍ່ມີວິສາຫະກິດໃນຂອບເຂດນີ້',
+ cdClear:'ລ້າງຕົວກອງ',cdEntUnit:'ວິສາຫະກິດ',cdDeclUnit:'ໃບລາຍການ',cdSys:'ສະຖານະລະບົບ',superAdmin:'Super Admin',hstRejReq:'ຂໍປະຕິເສດ',
  noteInt:'ຄວາມເຫັນພາຍໃນ',noteExt:'ຄວາມເຫັນພາຍນອກ',prevReturn:'ເຄີຍຖືກຕີກັບ',
  rejReq:'ຂໍປະຕິເສດ - ລໍຜູ້ອະນຸມັດ',rejectNoteC:'ການປະຕິເສດຂອງຜູ້ກວດສອບ ຕ້ອງໄດ້ຮັບການອະນຸມັດຈາກຫົວໜ້າກົມ (Approver) ກ່ອນ ຈຶ່ງຈະປິດໃບລາຍການ',
  rejSent:'ສົ່ງຄຳຂໍປະຕິເສດໃຫ້ຜູ້ອະນຸມັດແລ້ວ',rejWaitNote:'ຄຳຂໍປະຕິເສດນີ້ ລໍຫົວໜ້າກົມ (Approver) ອະນຸມັດ · ຍົກເລີກໄດ້ຈົນກວ່າຈະມີການຕັດສິນ',
@@ -937,7 +956,14 @@ en:{
  draftNote:'A draft is saved for this enterprise',draftOpen:'Continue draft',draftDel:'Delete draft',draftDeleted:'Draft deleted',
  resubmit:'Edit and resubmit',
  sentAppraise:'Sent for appraisal',sentAppraiseS:'It goes to the Checker once every asset is appraised',
- hstRejected:'Rejected',hstRejReq:'Reject requested',
+ hstRejected:'Rejected',
+ cdTitle:'Capital monitoring overview',cdScope:'Data access scope',cdScopeAll:'All provinces and districts',
+ cdScopeSrc:'Sent by the access management system · synced 04/08/2026 06:00',cdAllProv:'All provinces',cdAllDist:'All districts in scope',
+ cdCapital:'Capital (LAK)',cdWork:'Declarations in progress',cdRisk:'Deadlines and penalties',cdDueSoon:'Due within 30 days',
+ cdPenUnpaid:'Unpaid penalties',cdRejReq:'Reject requests',cdApprovedToday:'Approved today',cdByProv:'By province',cdByDist:'By district',
+ cdEnts:'Enterprises',cdPaidPct:'Confirmed',cdInReview:'Under review',cdAttention:'Enterprises needing attention',
+ cdAttnSub:'Overdue first, then by the nearest deadline',cdDrill:'Click a row to open the next level',cdNoEnt:'No enterprises in this scope',
+ cdClear:'Clear filter',cdEntUnit:'enterprises',cdDeclUnit:'declarations',cdSys:'System health',superAdmin:'Super Admin',hstRejReq:'Reject requested',
  noteInt:'Internal note',noteExt:'External note',prevReturn:'Previously returned',
  rejReq:'Reject requested - awaiting Approver',rejectNoteC:'A rejection by the Checker needs the approval of the department head (Approver) before the declaration is closed.',
  rejSent:'Rejection sent to the Approver',rejWaitNote:'This rejection is waiting for the department head (Approver) · it can be cancelled until the Approver decides',
@@ -1222,6 +1248,7 @@ function donutLegend(segs){
 var KPI_ICON={INCREASE_PENDING:'◷',PENDING:'◷',PARTIAL:'◐',COMPLETED:'✓',OVERDUE:'⚠'};
 // Lucide icons (https://lucide.dev/icons) - inner markup, inlined for offline use.
 var LU={
+ shieldCheck:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
  plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',
  chevronDown:'<path d="m6 9 6 6 6-6"/>',
  creditCard:'<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>',
@@ -1301,7 +1328,7 @@ var ACCTS=[
  {id:'checker',user:'sivilay.a',nm:'ນ. ສີວິໄລ',rl:{lo:'ເຈົ້າໜ້າທີ່ກວດສອບ · Checker',en:'Inspection officer · Checker'},av:'ສວ'},
  {id:'approver',user:'head.moic',nm:'ຫົວໜ້າພະແນກ',rl:{lo:'ຜູ້ອະນຸມັດ · Approver + E-Sign',en:'Division head · Approver + E-Sign'},av:'ຫພ'},
  {id:'external',user:'mof.gov',nm:'ກະຊວງການເງິນ',rl:{lo:'ໜ່ວຍງານພາຍນອກ · External Agency',en:'External agency'},av:'MOF'},
- {id:'admin',user:'bounmy.m',nm:'ທ. ບຸນມີ',rl:{lo:'ຜູ້ດູແລລະບົບ · System Admin',en:'System administrator'},av:'ບມ'},
+ {id:'admin',user:'bounmy.m',nm:'ທ. ບຸນມີ',rl:{lo:'ຜູ້ດູແລລະບົບສູງສຸດ · Super Admin',en:'Super Admin'},av:'ບມ'},
  // Signs in with a temporary (emailed) password and must set their own after the OTP step. Sign-up
  // on the login page rewrites this account with the details entered (user = the email).
  {id:'newuser',user:'new.user',nm:'ທ້າວ ສົມສັກ ພົມມະວົງ',rl:{lo:'ຜູ້ໃຊ້ໃໝ່ · New user',en:'New user'},av:'ສພ',tempPw:true}
@@ -1454,7 +1481,7 @@ function seedEnts(){return[
   insts:[{no:1,amt:1620000000,state:'paid',meta:{lo:'ຢືນຢັນແລ້ວ 28/11/2025',en:'Confirmed 28/11/2025'}},
          {no:2,amt:3780000000,state:'due',meta:{lo:'ລໍປະເມີນເຄື່ອງຈັກ · In-network Firm',en:'Machinery appraisal pending · in-network firm'}}],
   hist:[{d:'28/11/2025',a:{lo:'ຊຳລະທຶນງວດທີ 1',en:'Capital instalment 1 received'},m:'cash',v:1620000000,u:'ນ. ສີວິໄລ',f:'4',ch:'chCounter',st:'complete'}]}
-].concat(seedMockEnts());}
+].concat(seedMockEnts()).concat(seedExtraEnts());}
 
 // Extra enterprises that only carry a pending declaration, so the Checker / Approver lists
 // are long enough to page through. The first MOCK_QUEUE sit in the Checker queue, the rest
@@ -1545,7 +1572,7 @@ function seedMockEnts(){
       insts:partial
        ?[{no:1,amt:inst1,state:'paid',meta:{lo:'ຢືນຢັນແລ້ວ '+day+'/'+mon+'/2025',en:'Confirmed '+day+'/'+mon+'/2025'}},{no:2,amt:cap-inst1,state:'review',meta:sent}]
        :[{no:1,amt:inst1,state:'review',meta:sent},{no:2,amt:cap-inst1,state:'wait',meta:{lo:'ລໍຊຳລະງວດທີ 1 ກ່ອນ',en:'Waiting on instalment 1'}}],
-      hist:hist,collateral:MOCK_VAL.filter(function(v){return v[0]===i}).map(mockCollateral)};
+      hist:hist,mock:1,collateral:MOCK_VAL.filter(function(v){return v[0]===i}).map(mockCollateral)};
   });
 }
 // Pending declarations for the mock enterprises (see MOCK_ENTS).
@@ -1565,7 +1592,11 @@ function seedInv(){return[
  {id:'INV-2026-1180',ent:'ELN-2025-1001',kind:'fee',title:{lo:'ຄ່າທຳນຽມຂຶ້ນທະບຽນ',en:'Registration fee'},
   amt:850000,due:'25/08/2026',status:'PAID',paidAt:'12/08/2025',receipt:'RCP-2025-0417',channel:'chCounter'},
  {id:'INV-2026-1191',ent:'ELN-2025-1001',kind:'penalty',title:{lo:'ຄ່າປັບປະກອບທຶນລ່າຊ້າ',en:'Late capital contribution penalty'},
-  amt:2400000,due:'25/08/2026',status:'PENDING',paidAt:null,receipt:null,channel:''}
+  amt:2400000,due:'25/08/2026',status:'PENDING',paidAt:null,receipt:null,channel:''},
+ {id:'INV-2026-1204',ent:'ELN-2025-1127',kind:'penalty',title:{lo:'ຄ່າປັບປະກອບທຶນລ່າຊ້າ',en:'Late capital contribution penalty'},
+  amt:1800000,due:'31/08/2026',status:'PENDING',paidAt:null,receipt:null,channel:''},
+ {id:'INV-2026-1211',ent:'ELN-2025-1135',kind:'penalty',title:{lo:'ຄ່າປັບປະກອບທຶນລ່າຊ້າ',en:'Late capital contribution penalty'},
+  amt:3200000,due:'31/08/2026',status:'PENDING',paidAt:null,receipt:null,channel:''}
 ];}
 
 // Mock queue: two submissions the Maker keyed in, one waiting on the Checker
@@ -1629,12 +1660,12 @@ var USERS_SEED=[
  {nm:'ນ. ສີວິໄລ',org:'APB',role:'Checker',active:1,pwd:'12',online:1},
  {nm:'ນ. ຄຳລາ',org:'APB',role:'Maker',active:1,pwd:'8',online:1},
  {nm:'ຫົວໜ້າພະແນກ',org:'MOIC',role:'Approver + E-Sign',active:1,pwd:'3',online:1},
- {nm:'ທ. ບຸນມີ',org:'MOIC',role:'System Admin',active:1,pwd:'45',online:1},
+ {nm:'ທ. ບຸນມີ',org:'MOIC',role:'Super Admin',active:1,pwd:'45',online:1},
  {nm:'Lao Valuation Co., Ltd.',org:'VAL',role:'In-network firm',active:1,pwd:'78',online:0},
  {nm:'ນ. ຄຳພອນ',org:'APB',role:'Checker',active:0,pwd:'92',online:0}
 ];
 
-var ROLE_OPT={APB:['Maker','Checker'],MOIC:['Approver + E-Sign','System Admin'],VAL:['In-network firm']};
+var ROLE_OPT={APB:['Maker','Checker'],MOIC:['Approver + E-Sign','Super Admin'],VAL:['In-network firm']};
 
 /* System-admin dashboard mock data (integration health + audit trail) */
 var API_ENDPOINTS=[
@@ -1701,6 +1732,73 @@ var PROV_META={
  'ຄຳມ່ວນ':{lat:17.4085,lng:104.8078,district:{lo:'ທ່າແຂກ',en:'Thakhek'},village:{lo:'ບ້ານທ່າແຂກ',en:'Ban Thakhek'}}
 };
 
+// Districts (ເມືອງ) per province, keyed by the Lao province name. Hand-written enterprises use the
+// PROV_META district (it matches their map pin); mock ones get a district from their id.
+var DISTRICTS={
+ 'ນະຄອນຫຼວງວຽງຈັນ':[['ຈັນທະບູລີ','Chanthabuly'],['ສີໂຄດຕະບອງ','Sikhottabong'],['ໄຊເສດຖາ','Xaysetha'],['ສີສັດຕະນາກ','Sisattanak'],
+   ['ນາຊາຍທອງ','Naxaithong'],['ໄຊທານີ','Xaythany'],['ຫາດຊາຍຟອງ','Hadxayfong'],['ສັງທອງ','Sangthong'],['ປາກງື່ມ','Parkngum']],
+ 'ສະຫວັນນະເຂດ':[['ໄກສອນ ພົມວິຫານ','Kaysone Phomvihane'],['ອຸທຸມພອນ','Outhoumphone'],['ຈຳພອນ','Champhone'],['ສອງຄອນ','Songkhone']],
+ 'ຈຳປາສັກ':[['ປາກເຊ','Pakse'],['ຈຳປາສັກ','Champasak'],['ໂພນທອງ','Phonthong']],
+ 'ຫຼວງພະບາງ':[['ຫຼວງພະບາງ','Luang Prabang'],['ຈອມເພັດ','Chomphet']],
+ 'ຄຳມ່ວນ':[['ທ່າແຂກ','Thakhek'],['ໜອງບົກ','Nongbok']],
+ 'ແຂວງວຽງຈັນ':[['ໂພນໂຮງ','Phonhong'],['ວັງວຽງ','Vangvieng']],
+ 'ໄຊສົມບູນ':[['ອະນຸວົງ','Anouvong']],'ອຸດົມໄຊ':[['ໄຊ','Xay']],'ບໍ່ແກ້ວ':[['ຫ້ວຍຊາຍ','Houayxay']],'ສາລະວັນ':[['ສາລະວັນ','Salavan']],
+ 'ຫົວພັນ':[['ຊຳເໜືອ','Xamneua']],'ເຊກອງ':[['ລະມາມ','Lamam']],'ອັດຕະປື':[['ສາມັກຄີໄຊ','Samakkhixay']],'ຊຽງຂວາງ':[['ແປກ','Paek']],
+ 'ບໍລິຄຳໄຊ':[['ປາກຊັນ','Paksan']],'ຜົ້ງສາລີ':[['ຜົ້ງສາລີ','Phongsaly']],'ຫຼວງນ້ຳທາ':[['ນ້ຳທາ','Namtha']],'ໄຊຍະບູລີ':[['ໄຊຍະບູລີ','Xayabury']]
+};
+function entDistrict(e){
+  if(e.district)return e.district;
+  var pm=PROV_META[e.prov.lo],l=DISTRICTS[e.prov.lo]||[];
+  if(!e.mock&&pm)return pm.district;
+  if(!l.length)return pm?pm.district:{lo:'-',en:'-'};
+  var h=0;String(e.id).split('').forEach(function(c){h=(h*31+c.charCodeAt(0))%997});
+  return {lo:l[h%l.length][0],en:l[h%l.length][1]};
+}
+// Who may see which province / districts on the dashboard. In production this comes from the access
+// management system; the demo keeps a copy of that payload per demo role.
+// all = every province and district (Super Admin); otherwise one province and a list of its districts.
+var ACCESS_SCOPE={
+  admin:{all:true},
+  checker:{prov:'ນະຄອນຫຼວງວຽງຈັນ',districts:['ຈັນທະບູລີ','ສີສັດຕະນາກ','ໄຊເສດຖາ','ສີໂຄດຕະບອງ']},
+  approver:{prov:'ນະຄອນຫຼວງວຽງຈັນ',districts:['ຈັນທະບູລີ','ສີສັດຕະນາກ','ໄຊເສດຖາ','ສີໂຄດຕະບອງ','ນາຊາຍທອງ','ໄຊທານີ','ຫາດຊາຍຟອງ']}
+};
+function myScope(){return ACCESS_SCOPE[S.role]||null}
+function inScope(e,sc){return !!sc&&(sc.all||(e.prov.lo===sc.prov&&sc.districts.indexOf(entDistrict(e).lo)>=0))}
+// Extra enterprises in Vientiane Capital (districts spread for the dashboard). No declaration is open on
+// them. Row: [name, nameEn, rep, district index, ISIC, capital, paid, status, registered, due].
+var EXTRA_ENTS=[
+ ['ຈັນທະບູລີ ເທຣດດິ້ງ','Chanthabuly Trading','ທ. ສົມພອນ ແກ້ວມະນີ',0,'4690',900000000,900000000,'COMPLETED','10/02/2025','10/02/2026'],
+ ['ນ້ຳພຸ ຄາເຟ່','Nam Phou Cafe','ນ. ອາລີ ສີສຸພັນ',0,'5630',240000000,72000000,'PARTIAL','12/11/2025','12/11/2026'],
+ ['ຕະຫຼາດເຊົ້າ ແຟຊັ່ນ','Talat Sao Fashion','ນ. ພອນທິບ ວົງໄຊ',0,'4771',380000000,0,'OVERDUE','20/06/2025','20/06/2026'],
+ ['ສີໂຄດ ກໍ່ສ້າງ','Sikhot Construction','ທ. ບຸນຊູ ພົມມະລາດ',1,'4100',2600000000,780000000,'PARTIAL','05/10/2025','05/10/2026'],
+ ['ວັດໄຕ ໂລຈິສຕິກ','Wattay Logistics','ທ. ແສງເພັດ ອິນທະລາດ',1,'5229',1400000000,0,'PENDING','22/08/2025','22/08/2026'],
+ ['ໄຊເສດຖາ ອຸດສາຫະກຳ','Xaysetha Industrial','ທ. ຄຳແພງ ສີວົງ',2,'2599',3200000000,3200000000,'INCREASE_PENDING','15/03/2025','15/03/2026'],
+ ['ໂພນທັນ ການແພດ','Phonthan Clinic','ດຣ. ມະລິວັນ ພິມມະສອນ',2,'8620',650000000,0,'OVERDUE','01/07/2025','01/07/2026'],
+ ['ສີສັດຕະນາກ ດີຈີຕອລ','Sisattanak Digital','ນ. ວັນນະພອນ ແສງສີ',3,'6201',500000000,500000000,'COMPLETED','18/01/2025','18/01/2026'],
+ ['ທ່າເດື່ອ ພະລັງງານ','Thadeua Energy','ທ. ວິລະພົນ ສຸວັນນະ',3,'3510',4800000000,1440000000,'PARTIAL','28/09/2025','28/09/2026'],
+ ['ນາຊາຍທອງ ກະສິກຳ','Naxaithong Farms','ທ. ບົວລີ ຄຳມະນີ',4,'0113',420000000,0,'PENDING','02/12/2025','02/12/2026'],
+ ['ໄຊທານີ ຊີເມັນ','Xaythany Cement','ທ. ສຸກສະຫວັນ ດາລາ',5,'2394',5200000000,0,'OVERDUE','25/07/2025','25/07/2026'],
+ ['ຫາດຊາຍຟອງ ອາຫານ','Hadxayfong Foods','ນ. ສົມຈິດ ໄຊຍະວົງ',6,'1079',310000000,310000000,'COMPLETED','11/04/2025','11/04/2026'],
+ ['ສັງທອງ ປະມົງ','Sangthong Fisheries','ທ. ດວງຈັນ ພົມມະຈັນ',7,'0322',180000000,0,'PENDING','30/08/2025','30/08/2026'],
+ ['ປາກງື່ມ ຊົນລະປະທານ','Parkngum Irrigation','ທ. ໄພວັນ ສີຫາລາດ',8,'4220',1150000000,345000000,'PARTIAL','14/10/2025','14/10/2026']
+];
+function seedExtraEnts(){
+  var VC=DISTRICTS['ນະຄອນຫຼວງວຽງຈັນ'];
+  return EXTRA_ENTS.map(function(m,i){
+    var cap=m[5],paid=m[6],st=m[7],d=VC[m[3]],hist=[];
+    // INCREASE_PENDING: the old capital is paid in full, then eBRS reported a capital increase.
+    if(st==='INCREASE_PENDING')cap=Math.round(cap*1.5);
+    if(paid)hist.push({d:m[8].replace(/2025$/,'2025'),a:{lo:'ຊຳລະທຶນງວດທີ 1',en:'Capital instalment 1 received'},m:'cash',v:paid,u:'ນ. ສີວິໄລ',f:'2',ch:'chCounter',st:'complete'});
+    var left=cap-paid;
+    return {id:'ELN-2025-'+(1125+i),name:m[0],nameEn:m[1],rep:m[2],mock:1,district:{lo:d[0],en:d[1]},
+      type:{lo:MOCK_TYPES[i%3][0],en:MOCK_TYPES[i%3][1]},prov:{lo:'ນະຄອນຫຼວງວຽງຈັນ',en:'Vientiane Capital'},isic:m[4],
+      reg:m[8],due:m[9],cap:cap,paid:paid,status:st,acct:'APB 0'+(20+i)+'-1-'+(51200+i*211)+'-'+(i%9+1),taxris:String(209300000+i*6151),
+      insts:[{no:1,amt:paid||Math.round(cap*0.3),state:paid?'paid':'due',meta:{lo:paid?'ຢືນຢັນແລ້ວ':'ລໍຊຳລະ',en:paid?'Confirmed':'Awaiting payment'}},
+             {no:2,amt:left,state:left?(paid?'due':'wait'):'paid',meta:{lo:left?'ລໍຊຳລະ':'ຢືນຢັນແລ້ວ',en:left?'Awaiting payment':'Confirmed'}}],
+      hist:hist,collateral:[]};
+  });
+}
+
 /* TOR §5.1/5.2 real fee schedule - decree 002/ປປທ 17/06/2021 */
 var FEES={
  byType:[[{lo:'ວິສາຫະກິດສ່ວນບຸກຄົນ',en:'Sole proprietorship'},40000],[{lo:'ບໍລິສັດຈຳກັດຜູ້ດຽວ',en:'Single-member limited company'},80000],
@@ -1753,7 +1851,7 @@ function reset(){
   S={role:null,pick:null,view:'login',mobile:false,sel:null,tab:'ALL',mini:false,
      ents:seedEnts(),invs:seedInv(),tasks:[],taskI:0,form:null,modal:null,notif:[],
      read:false,bell:false,umenu:false,setTab:'fee',finTab:'fee',dashTab:'queue',pg:{},colf:{},colDraft:{},certCopy:false,
-     capSeq:921,valSeq:460,valjobs:JSON.parse(JSON.stringify(VALJOBS)),users:JSON.parse(JSON.stringify(USERS_SEED)),
+     capSeq:921,valSeq:460,cd:{prov:'',dist:''},valjobs:JSON.parse(JSON.stringify(VALJOBS)),users:JSON.parse(JSON.stringify(USERS_SEED)),
      backReasonInt:'',backReasonExt:'',loginStep:'cred',loginUser:'',loginPass:'',loginErr:'',tx:null,valI:0,valForm:{val:null,files:[],err:'',docErr:''},
      advDraft:null,adv:{kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''}};
   S.tasks=seedTasks();seedReturned();seedApproved();
@@ -1762,7 +1860,7 @@ function reset(){
 function clearCache(){
   S.ents=seedEnts();S.invs=seedInv();S.tasks=seedTasks();seedReturned();seedApproved();S.taskI=0;S.form=null;S.modal=null;S.notif=[];
   S.read=false;S.bell=false;S.umenu=false;S.certCopy=false;
-  S.valjobs=JSON.parse(JSON.stringify(VALJOBS));S.users=JSON.parse(JSON.stringify(USERS_SEED));S.capSeq=921;S.valSeq=460;
+  S.valjobs=JSON.parse(JSON.stringify(VALJOBS));S.users=JSON.parse(JSON.stringify(USERS_SEED));S.capSeq=921;S.valSeq=460;S.cd={prov:'',dist:''};
   S.backReasonInt='';S.backReasonExt='';S.tx=null;S.valI=0;S.valForm={val:null,files:[],err:'',docErr:''};
   S.adv={kw:'',regNo:'',etype:'',nameLo:'',nameEn:'',prov:'',isic:'',regFrom:'',regTo:'',updFrom:'',updTo:''};S.advDraft=null;
   if(S.view==='declare')S.view=S.sel?'detail':'dash';
@@ -1781,13 +1879,13 @@ function menus(){
   if(S.role==='external')return [['mMonitor'],['portal',I('globe'),'portal']];
   if(S.role==='checker'){
     var Tr=checkerReturned().length;
-    return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',[['queue','ckMQueue',Tc],['atAp','ckMAtAp',Ta,1],['ret','ckMRet',Tr,1]]],
+    return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',[['overview','dash'],['queue','ckMQueue',Tc],['atAp','ckMAtAp',Ta,1],['ret','ckMRet',Tr,1]]],
     ['ent',I('search'),'ent'],['valQueue',I('clipboardCheck'),'valQueue'],['mOther'],['fin',I('banknote'),'fin'],['rep',I('chartColumn'),'rep']];
   }
   if(S.role==='approver')return [['mMonitor'],['dash',I('layoutDashboard'),'apMenu','',
     [['overview','dash'],['queue','ckMAtAp',Ta],['risk','apRisk',approverRisk().length,1],['signed','apRecent',approverSigned().length,1]]],
     ['ent',I('search'),'ent'],['valQueue',I('clipboardCheck'),'valQueue'],['mOther'],['fin',I('banknote'),'fin'],['rep',I('chartColumn'),'rep']];
-  return [['mMonitor'],['dash',I('layoutDashboard'),'dash'],['ent',I('search'),'ent'],['mOther'],['rep',I('chartColumn'),'rep'],['set',I('settings'),'set']];
+  return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',[['overview','dash'],['sys','cdSys']]],['ent',I('search'),'ent'],['mOther'],['rep',I('chartColumn'),'rep'],['set',I('settings'),'set']];
 }
 function bellPanel(){
   var ns=notifs(),un=S.read?0:ns.length;
@@ -1957,10 +2055,10 @@ function daysLeft(dueStr){
 function vDash(){
   if(S.role==='newuser')return vOwnerList();
   if(S.role==='owner')return ownerEnts().length>1?vOwnerList():vOwnerDash();
-  if(S.role==='admin')return vAdminDash();
+  if(S.role==='admin')return S.dashTab==='sys'?vAdminDash():vCentralDash();
   if(S.role==='maker')return vMakerDash();
-  if(S.role==='checker')return vCheckerDash();
-  if(S.role==='approver')return vApproverDash();
+  if(S.role==='checker')return S.dashTab==='overview'?vCentralDash():vCheckerDash();
+  if(S.role==='approver')return S.dashTab==='overview'?vCentralDash():vApproverDash();
   return vStaffDash();
 }
 
@@ -2175,43 +2273,11 @@ function approverRisk(){
 }
 
 function vApproverDash(){
-  var me=who().n,TODAY='04/08/2026';
-  var myQ=[],atChk=0;
-  S.tasks.forEach(function(x,i){if(x.stage==='approve')myQ.push([x,i]);else if(x.stage==='checker')atChk++});
-  var qVal=myQ.reduce(function(a,p){return a+p[0].amt},0);
-  var signedAll=approverSigned(),signedToday=signedAll.filter(function(o){return o.h.d===TODAY}).length;
+  var me=who().n;
+  var myQ=[];
+  S.tasks.forEach(function(x,i){if(x.stage==='approve')myQ.push([x,i])});
+  var signedAll=approverSigned();
   var riskList=approverRisk();
-  var totCap=0,totPaid=0;S.ents.forEach(function(e){totCap+=e.cap;totPaid+=e.paid});
-  var paidRate=totCap?Math.round(totPaid/totCap*100):0;
-
-  // Dashboard sub-tab: the paid-rate bar, then three titled rows - capital, enterprises by
-  // payment status, and the approval pipeline - with the next item to sign underneath.
-  var first=myQ[0],chkVal=0;S.tasks.forEach(function(x){if(x.stage==='checker')chkVal+=x.amt});
-  var paidEnts=S.ents.filter(function(e){return e.paid>0}).length,N=S.ents.length;
-  var byStatus=function(st){var l=S.ents.filter(function(e){return e.status===st});
-    return {n:l.length,left:l.reduce(function(a,e){return a+e.cap-e.paid},0),paid:l.reduce(function(a,e){return a+e.paid},0)}};
-  var stP=byStatus('PENDING'),stPa=byStatus('PARTIAL'),stC=byStatus('COMPLETED'),stO=byStatus('OVERDUE');
-  var signedVal=signedAll.filter(function(o){return o.h.d===TODAY}).reduce(function(a,o){return a+(o.h.v||0)},0);
-  var cap1=function(x){return x.charAt(0).toUpperCase()+x.slice(1)};
-  var overview=sumCard({title:t('wsOverview'),
-   prog:{pct:paidRate,html:t('heroPaidPct')+' · <b class="num">'+fmt(totPaid)+'</b> / <span class="num">'+fmt(totCap)+'</span> LAK'},
-   groups:[
-    {title:t('ovCapEnt'),metrics:metric('ok',t('ovPaidCap'),fmt(totPaid),'LAK · '+paidRate+'% '+t('ovOfReg'))+
-      metric('warn',t('ovOutCap'),fmt(totCap-totPaid),'LAK · '+(100-paidRate)+'% '+t('ovOfReg'))+
-      metric('ok',t('ovEntPaid'),fmt(paidEnts)+' / '+fmt(N),t('ovMadeOne'))+
-      metric('',t('ovEntNot'),fmt(N-paidEnts)+' / '+fmt(N),t('ovNoPay'))},
-    {title:t('ovByStatus'),metrics:metric('',cap1(stName('PENDING')),fmt(stP.n),fmt(stP.left)+' '+t('ovOutstanding'))+
-      metric('warn',cap1(stName('PARTIAL')),fmt(stPa.n),fmt(stPa.left)+' '+t('ovOutstanding'))+
-      metric('ok',cap1(stName('COMPLETED')),fmt(stC.n),fmt(stC.paid)+' '+t('ovPaidLbl'))+
-      metric('bad',cap1(stName('OVERDUE')),fmt(stO.n),fmt(stO.left)+' '+t('ovOutstanding'))},
-    {title:t('ovApproval'),metrics:metric('',t('apStgCheck'),fmt(atChk),fmt(chkVal)+' LAK · '+t('ovWithChecker'))+
-      metric('warn',t('apKQueue'),fmt(myQ.length),fmt(qVal)+' LAK')+
-      metric('ok',t('apKSigned'),fmt(signedToday),fmt(signedVal)+' LAK · '+t('ovDigSigned'))+
-      metric('bad',t('apRisk'),fmt(riskList.length),t('ovRiskS'))}],
-   notes:[first?{tone:'info',text:'<b>'+myQ.length+' '+t('nxAp')+'</b> · '+t('nxNext')+': <span class="num">'+first[0].ref+'</span> · '+first[0].ent.name,
-      act:'<button class="btn sm" data-subtab="dash:queue">'+luSvg('signature')+t('nxStartAp')+'</button>'}
-     :{tone:'ok',text:'<b>'+t('nxClear')+'</b> · '+t('nxClearS')}]});
-  if(S.dashTab==='overview')return shell(t('apTitle'),'',overview,'',t('mkGreeting')+' <b>'+me+'</b>');
 
   function verifier(x){var chk=(x.trail||[]).filter(function(t2){return /Checker/.test(t2.who)}).slice(-1)[0];return chk?chk.who.replace(/ \(.*/,''):x.by}
   function penOf(e){return S.invs.filter(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='PENDING'}).reduce(function(a,iv){return a+iv.amt},0)}
@@ -2355,6 +2421,118 @@ function vAdminDash(){
   return shell(t('adminDashTitle'),'',inner);
 }
 
+// Central dashboard (Super Admin, Checker, Approver): KPIs at province and district level, limited to
+// the viewer's access scope (ACCESS_SCOPE). Super Admin picks any province; the others are fixed to
+// their province and pick among their districts. S.cd = {prov, dist} holds the filter.
+function vCentralDash(){
+  var sc=myScope()||{all:true},f=S.cd,TODAY='04/08/2026',LO=lang==='lo';
+  var prov=sc.all?f.prov:sc.prov,dist=f.dist;
+  var scoped=S.ents.filter(function(e){return inScope(e,sc)});
+  var ents=scoped.filter(function(e){return (!prov||e.prov.lo===prov)&&(!dist||entDistrict(e).lo===dist)});
+  var ids={};ents.forEach(function(e){ids[e.id]=1});
+  var decl=S.tasks.filter(function(x){return ids[x.ent.id]});
+  var sum=function(l,g){return l.reduce(function(a,x){return a+g(x)},0)};
+  var penOf=function(e){return sum(S.invs.filter(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='PENDING'}),function(iv){return iv.amt})};
+  var reviewOf=function(l){return sum(decl.filter(function(x){return LIVE_ST.indexOf(x.st)>=0&&l.indexOf(x.ent)>=0}),function(x){return x.amt})};
+  var dueSoon=function(e){var d=daysLeft(e.due);return e.status!=='COMPLETED'&&e.status!=='OVERDUE'&&d>=0&&d<=30};
+  var cap=sum(ents,function(e){return e.cap}),paid=sum(ents,function(e){return e.paid}),review=reviewOf(ents);
+  var pct=cap?Math.round(paid/cap*100):0;
+  var by=function(st){return ents.filter(function(e){return e.status===st})};
+  var left=function(l){return sum(l,function(e){return e.cap-e.paid})};
+  var nDecl=function(fn){var l=decl.filter(fn);return [l.length,sum(l,function(x){return x.amt})]};
+  var apr=nDecl(function(x){return x.stage==='appraise'}),chk=nDecl(function(x){return x.stage==='checker'}),
+      apv=nDecl(function(x){return x.stage==='approve'&&!x.rejReq}),ret=nDecl(function(x){return x.st==='RETURNED'}),
+      rq=nDecl(function(x){return !!x.rejReq});
+  var apvToday=[];ents.forEach(function(e){e.hist.forEach(function(h){if(h.d===TODAY&&h.st==='complete'&&/Approved|approved/.test(h.a.en||''))apvToday.push(h)})});
+  var over=by('OVERDUE'),soon=ents.filter(dueSoon),penAmt=sum(ents,penOf),penN=ents.filter(function(e){return penOf(e)>0}).length;
+  var unit=function(n,k){return fmt(n)+' '+t(k)};
+
+  // Filter bar: province (Super Admin only) and district (within scope).
+  var provOpts=sc.all?provinceOptions():[];
+  var dists=(prov?(DISTRICTS[prov]||[]):[]).filter(function(d){return sc.all||sc.districts.indexOf(d[0])>=0});
+  var sel=function(attr,all,opts,cur,dis){return '<select '+attr+(dis?' disabled':'')+'><option value="">'+all+'</option>'+
+    opts.map(function(o){return '<option value="'+esc(o[0])+'"'+(o[0]===cur?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'};
+  var scopeTxt=sc.all?t('superAdmin')+' · '+t('cdScopeAll')
+    :L(MOCK_PROV.filter(function(p){return p[0]===sc.prov}).map(function(p){return {lo:p[0],en:p[1]}})[0]||{lo:sc.prov,en:sc.prov})+' · '+
+     sc.districts.map(function(dl){var d=(DISTRICTS[sc.prov]||[]).filter(function(x){return x[0]===dl})[0];return d?(LO?d[0]:d[1]):dl}).join(', ');
+  var bar='<div class="card cdbar"><div class="c">'+
+   '<div class="cdscope">'+luSvg('shieldCheck')+'<div><b>'+t('cdScope')+':</b> '+scopeTxt+'<small>'+t('cdScopeSrc')+'</small></div></div>'+
+   '<div class="cdflt">'+
+    '<div class="field"><label for="cdProv">'+t('cProv')+'</label>'+sel('id="cdProv" data-cdprov="1"',sc.all?t('cdAllProv'):'',provOpts.length?provOpts:[[sc.prov,scopeTxt.split(' · ')[0]]],prov,!sc.all)+'</div>'+
+    '<div class="field"><label for="cdDist">'+t('districtLbl')+'</label>'+sel('id="cdDist" data-cddist="1"',t('cdAllDist'),dists.map(function(d){return [d[0],LO?d[0]:d[1]]}),dist,!prov)+'</div>'+
+    ((sc.all&&f.prov)||f.dist?'<button class="btn ghost sm" data-cdclear="1">'+luSvg('brushCleaning')+t('cdClear')+'</button>':'')+
+   '</div></div></div>';
+
+  var role=S.role,next=role==='checker'?chk:role==='approver'?apv:null;
+  var notes=[];
+  if(role==='checker'&&chk[0])notes.push({tone:'info',text:'<b>'+fmt(chk[0])+' '+t('nxCk')+'</b> · <span class="num">'+fmt(chk[1])+'</span> LAK',
+    act:'<button class="btn sm" data-subtab="dash:queue">'+t('nxStartCk')+'</button>'});
+  if(role==='approver'&&(apv[0]||rq[0]))notes.push({tone:'info',text:'<b>'+fmt(apv[0])+' '+t('nxAp')+'</b>'+(rq[0]?' · '+fmt(rq[0])+' '+t('cdRejReq'):''),
+    act:'<button class="btn sm" data-subtab="dash:queue">'+t('nxStartAp')+'</button>'});
+  if(over.length)notes.push({tone:'bad',text:'<b>'+fmt(over.length)+' '+stName('OVERDUE')+'</b> · <span class="num">'+fmt(left(over))+'</span> LAK'+(penAmt?' · '+t('cdPenUnpaid')+' <span class="num">'+fmt(penAmt)+'</span> LAK':'')});
+  var kpis=sumCard({title:t('cdTitle'),
+   prog:{pct:pct,html:t('csConfirmed')+' <b class="num">'+fmt(paid)+'</b> / <span class="num">'+fmt(cap)+'</span> LAK · '+unit(ents.length,'cdEntUnit')},
+   groups:[
+    {title:t('cdCapital'),metrics:metric('',t('csTotal'),fmt(cap),unit(ents.length,'cdEntUnit'))+
+      metric('ok',t('csConfirmed'),fmt(paid),pct+'% '+t('ovOfReg'))+
+      metric('warn',t('csReview'),fmt(review),unit(decl.filter(function(x){return LIVE_ST.indexOf(x.st)>=0}).length,'cdDeclUnit'))+
+      metric(cap-paid?'warn':'ok',t('csOutstanding'),fmt(cap-paid),(100-pct)+'% '+t('ovOfReg'))},
+    {title:t('ovByStatus'),metrics:['PENDING','INCREASE_PENDING','PARTIAL','COMPLETED','OVERDUE'].map(function(st){
+      var l=by(st),tone=st==='COMPLETED'?'ok':st==='OVERDUE'?'bad':st==='PARTIAL'?'warn':'';
+      return metric(tone,stName(st),fmt(l.length),st==='COMPLETED'?fmt(sum(l,function(e){return e.paid}))+' LAK':fmt(left(l))+' '+t('ovOutstanding'))}).join('')},
+    {title:t('cdWork'),metrics:metric('',t('stageAppraiser'),fmt(apr[0]),fmt(apr[1])+' LAK')+
+      metric(chk[0]?'warn':'',t('stageChecker'),fmt(chk[0]),fmt(chk[1])+' LAK')+
+      metric(apv[0]?'warn':'',t('stageApprover'),fmt(apv[0]),fmt(apv[1])+' LAK')+
+      metric(ret[0]?'bad':'',dstName('RETURNED'),fmt(ret[0]),fmt(ret[1])+' LAK')+
+      metric(rq[0]?'bad':'',t('cdRejReq'),fmt(rq[0]),fmt(rq[1])+' LAK')+
+      metric('ok',t('cdApprovedToday'),fmt(apvToday.length),TODAY)},
+    {title:t('cdRisk'),metrics:metric(over.length?'bad':'',stName('OVERDUE'),fmt(over.length),fmt(left(over))+' '+t('ovOutstanding'))+
+      metric(soon.length?'warn':'',t('cdDueSoon'),fmt(soon.length),fmt(left(soon))+' '+t('ovOutstanding'))+
+      metric(penAmt?'bad':'',t('cdPenUnpaid'),fmt(penAmt),unit(penN,'cdEntUnit'))}],
+   notes:notes});
+
+  // Breakdown: by province (Super Admin, no province picked) or by district; a row drills down one level.
+  var byProv=sc.all&&!prov,groups={},order=[];
+  ents.forEach(function(e){var k=byProv?e.prov.lo:entDistrict(e).lo;
+    if(!groups[k]){groups[k]={k:k,lbl:byProv?L(e.prov):L(entDistrict(e)),l:[]};order.push(k)}groups[k].l.push(e)});
+  var rowsAll=order.map(function(k){return groups[k]}).sort(function(a,b){return left(b.l)-left(a.l)});
+  var gp=paginate('cdGrp',rowsAll,(prov||'')+'|'+(dist||'')+'|'+byProv,10);
+  var grpRows=gp.items.map(function(g){
+    var c=sum(g.l,function(e){return e.cap}),p=sum(g.l,function(e){return e.paid}),pc=c?Math.round(p/c*100):0;
+    var ov=g.l.filter(function(e){return e.status==='OVERDUE'}).length,ds=g.l.filter(dueSoon).length;
+    var inRev=decl.filter(function(x){return LIVE_ST.indexOf(x.st)>=0&&g.l.indexOf(x.ent)>=0}).length;
+    var drill=byProv?'data-cdrow="prov|'+esc(g.k)+'"':(!dist?'data-cdrow="dist|'+esc(g.k)+'"':'');
+    return '<tr '+drill+'><td style="padding-left:16px"><span class="co">'+g.lbl+'</span></td>'+
+     '<td class="r num">'+fmt(g.l.length)+'</td><td class="r num">'+fmt(c)+'</td>'+
+     '<td style="min-width:150px"><div class="cdpct"><div class="bar"><i style="width:'+pc+'%"></i></div><span class="num">'+pc+'%</span></div></td>'+
+     '<td class="r num">'+fmt(c-p)+'</td><td class="r num">'+fmt(inRev)+'</td>'+
+     '<td class="r num" style="color:'+(ov?'var(--bad)':'var(--muted)')+'">'+fmt(ov)+'</td>'+
+     '<td class="r num" style="padding-right:16px;color:'+(ds?'var(--warn)':'var(--muted)')+'">'+fmt(ds)+'</td></tr>'}).join('');
+  var grpCard='<div class="card" style="margin-top:16px"><div class="h"><h3>'+t(byProv?'cdByProv':'cdByDist')+'</h3>'+
+   (dist?'':'<span class="hs">'+t('cdDrill')+'</span>')+'</div><div class="c" style="padding:12px 0 0">'+
+   (grpRows?'<table><thead><tr><th style="padding-left:16px">'+t(byProv?'cProv':'districtLbl')+'</th><th class="r">'+t('cdEnts')+'</th>'+
+    '<th class="r">'+t('csTotal')+'</th><th>'+t('cdPaidPct')+'</th><th class="r">'+t('csOutstanding')+'</th><th class="r">'+t('cdInReview')+'</th>'+
+    '<th class="r">'+stName('OVERDUE')+'</th><th class="r" style="padding-right:16px">'+t('cdDueSoon')+'</th></tr></thead><tbody>'+grpRows+'</tbody></table>'+gp.bar
+    :'<div class="empty"><b>'+t('cdNoEnt')+'</b></div>')+'</div></div>';
+
+  // Enterprises needing attention: overdue, then the nearest deadlines.
+  var attn=ents.filter(function(e){return e.status==='OVERDUE'||dueSoon(e)}).sort(function(a,b){return daysLeft(a.due)-daysLeft(b.due)});
+  var ap=paginate('cdAttn',attn,(prov||'')+'|'+(dist||''),5);
+  var attnCard=attn.length?'<div class="card" style="margin-top:16px"><div class="h"><h3>'+t('cdAttention')+'</h3><span class="hs">'+t('cdAttnSub')+'</span>'+
+   '<span class="cnt" style="margin-left:auto">'+attn.length+'</span></div><div class="c" style="padding:12px 0 0">'+
+   '<table><thead><tr><th style="padding-left:16px">'+t('cEnt')+'</th><th>'+t('regNo')+'</th><th>'+t('districtLbl')+'</th><th>'+t('cDue')+'</th>'+
+   '<th class="r">'+t('csOutstanding')+'</th><th class="r">'+t('penaltyAmt')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+
+   ap.items.map(function(e){var d=daysLeft(e.due),pen=penOf(e);
+     return '<tr data-open="'+e.id+'"><td style="padding-left:16px"><span class="co">'+e.name+'</span></td><td class="num">'+e.id+'</td>'+
+      '<td>'+L(entDistrict(e))+'</td>'+
+      '<td class="num" style="color:'+(d<0?'var(--bad)':'var(--ink2)')+'">'+e.due+' <small style="color:var(--muted)">('+(d<0?t('mkOverBy')+' '+Math.abs(d):d)+' '+(LO?'ວັນ':'days')+')</small></td>'+
+      '<td class="r num">'+fmt(e.cap-e.paid)+'</td><td class="r num" style="color:'+(pen?'var(--bad)':'var(--muted)')+'">'+(pen?fmt(pen):'-')+'</td>'+
+      '<td class="r" style="padding-right:16px">'+pill(e.status)+'</td></tr>'}).join('')+'</tbody></table>'+ap.bar+'</div></div>':'';
+
+  var title=role==='checker'?t('ckTitle'):role==='approver'?t('apTitle'):t('adminDashTitle');
+  return shell(title,'',bar+kpis+grpCard+attnCard,'',t('mkGreeting')+' <b>'+who().n+'</b>');
+}
+
 function vOwnerList(){
   var mine=ownerEnts(),LO=lang==='lo';
   var totCap=0,totPaid=0;mine.forEach(function(e){totCap+=e.cap;totPaid+=e.paid});
@@ -2496,7 +2674,7 @@ function sumCard(o){
      '<div class="bar'+(o.prog.over?' over':'')+'"><i style="width:'+o.prog.pct+'%"></i></div></div>':'')+
    (o.metrics?'<div class="sc-metrics">'+o.metrics+'</div>':'')+
    // Optional titled metric rows (dashboards with several groups of figures).
-   (o.groups||[]).map(function(g){return '<div class="sc-gh">'+g.title+'</div><div class="sc-metrics">'+g.metrics+'</div>'}).join('')+
+   (o.groups||[]).map(function(g){return '<div class="sc-grp"><div class="sc-gh">'+g.title+'</div><div class="sc-metrics">'+g.metrics+'</div></div>'}).join('')+
    (o.notes||[]).filter(Boolean).map(function(n){
      return '<div class="sc-note '+n.tone+'"><span class="ni">'+luSvg(NOTE_ICON[n.tone]||'triangleAlert')+'</span>'+
       '<div class="nt">'+n.text+'</div>'+(n.act?'<div class="acts">'+n.act+'</div>':'')+'</div>'}).join('')+
@@ -2552,7 +2730,7 @@ function docList(files,opt){
 function regDetailCard(e){
   var pm=PROV_META[e.prov.lo]||PROV_META['ນະຄອນຫຼວງວຽງຈັນ'];
   var lat=e.lat||pm.lat,lng=e.lng||pm.lng;
-  var district=e.district?L(e.district):L(pm.district),village=e.village?L(e.village):L(pm.village);
+  var district=L(entDistrict(e)),village=e.village?L(e.village):L(pm.village);
   var entInvs=S.invs.filter(function(x){return x.ent===e.id});
   var unpaidInvs=entInvs.filter(function(x){return x.status==='PENDING'});
   var unpaidAmt=unpaidInvs.reduce(function(a,x){return a+x.amt},0);
@@ -2921,7 +3099,7 @@ function entBrief(e){
       sec(t('secRegistration'),[[t('cRegD'),num(e.reg)],[t('regStatusLbl'),'<span class="pill p-ok">'+t('operating')+'</span>'],[t('entType'),L(e.type)],
         ['ISIC',num(e.isic)],[t('acctNo'),num(e.acct)]])+
       sec(t('secTaxFin'),[[t('taxrisNo'),num(e.taxris)],[t('taxRegDateLbl'),num(e.taxRegDate||e.reg)],[t('taxStatusLbl'),t('operating')],[t('vatStatusLbl'),t('vatRegistered')]])+
-      sec(t('secLocation'),[[t('cProv'),L(e.prov)],[t('districtLbl'),e.district?L(e.district):L(pm.district)],[t('villageLbl'),e.village?L(e.village):L(pm.village)],
+      sec(t('secLocation'),[[t('cProv'),L(e.prov)],[t('districtLbl'),L(entDistrict(e))],[t('villageLbl'),e.village?L(e.village):L(pm.village)],
         [t('mapLbl'),'<a class="lnk" style="text-decoration:none" href="'+mapUrl+'" target="_blank" rel="noopener">'+lat.toFixed(4)+', '+lng.toFixed(4)+'</a>']])+'</div>'
     :'<div class="pv"><div><span class="k">'+t('regNo')+'</span><span class="v">'+e.id+'</span></div>'+
       '<div><span class="k">'+t('entNameLbl')+'</span><span class="v">'+(lang==='lo'?e.name:(e.nameEn||e.name))+'</span></div>'+
@@ -3623,7 +3801,7 @@ function render(){
   render._key=S.view+':'+S.mobile;
 }
 // Dashboard sub-menu that opens first for a role.
-function firstTab(role){return role==='maker'?'ret':role==='approver'?'overview':'queue'}
+function firstTab(role){return role==='maker'?'ret':(role==='approver'||role==='checker'||role==='admin')?'overview':'queue'}
 function go(v){S.view=v;S.mobile=false;S.bell=false;S.umenu=false;S.navOpen=false;render()}
 function logout(){S.role=null;S.view='login';S.mobile=false;S.bell=false;S.umenu=false;S.modal=null;
   S.loginStep='cred';S.loginUser='';S.loginPass='';S.loginErr='';render()}
@@ -3633,7 +3811,7 @@ function roleHome(role){
 }
 function switchRole(id){
   if(id===S.role){S.umenu=false;return render()}
-  S.role=id;S.view=roleHome(id);S.dashTab=firstTab(id);S.mobile=false;S.read=false;S.bell=false;S.umenu=false;S.modal=null;S.sel=null;
+  S.role=id;S.view=roleHome(id);S.dashTab=firstTab(id);S.cd={prov:'',dist:''};S.mobile=false;S.read=false;S.bell=false;S.umenu=false;S.modal=null;S.sel=null;
   render();toast(t('roleSwitched'),who().n+' · '+who().r,true);
 }
 
@@ -3758,6 +3936,12 @@ function bind(){
   document.querySelectorAll('[data-subtab]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();var p=b.dataset.subtab.split(':');
     if(p[0]==='fin'){S.finTab=p[1];go('fin')}else if(p[0]==='dash'){S.dashTab=p[1];go('dash')}else{S.setTab=p[1];go('set')}}});
+  // Central dashboard filter: province (Super Admin) and district; table rows drill down one level.
+  var cdp=$('#cdProv');if(cdp)cdp.onchange=function(){S.cd={prov:cdp.value,dist:''};render()};
+  var cdd=$('#cdDist');if(cdd)cdd.onchange=function(){S.cd.dist=cdd.value;render()};
+  document.querySelectorAll('[data-cdrow]').forEach(function(r){r.onclick=function(){
+    var p=r.dataset.cdrow.split('|');if(p[0]==='prov')S.cd={prov:p[1],dist:''};else S.cd.dist=p[1];render()}});
+  document.querySelectorAll('[data-cdclear]').forEach(function(b){b.onclick=function(){S.cd={prov:'',dist:''};render()}});
   document.querySelectorAll('[data-pg]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();var p=b.dataset.pg.split(':');S.pg[p[0]].p=+p[1];render()}});
   document.querySelectorAll('[data-pgsize]').forEach(function(el){el.onchange=function(){
@@ -4044,7 +4228,7 @@ function bind(){
   var o1=$('#otp');if(o1)otpWire(o1,function(f){$('#doLogin').disabled=!f});
   var dl=$('#doLogin');
   if(dl)dl.onclick=function(){
-    S.role=S.pick;S.dashTab=firstTab(S.role);S.mobile=false;S.read=false;S.view=roleHome(S.role);
+    S.role=S.pick;S.dashTab=firstTab(S.role);S.cd={prov:'',dist:''};S.mobile=false;S.read=false;S.view=roleHome(S.role);
     var acct=ACCTS.filter(function(x){return x.id===S.role})[0];
     if(acct&&acct.tempPw)S.modal={type:'forgot',step:'new',first:true};
     render()};

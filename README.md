@@ -53,11 +53,11 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 |---|---|---|---|
 | `lao.agri` | ผู้ประกอบการ (Business owner) | My Registered Capital | ทุนของฉัน |
 | `khamla.p` | เจ้าหน้าที่เคาน์เตอร์ APB (Maker) | Counter Workspace | Dashboard, Search Enterprises |
-| `sivilay.a` | เจ้าหน้าที่ตรวจสอบ (Checker) | Verification Workspace | Dashboard, Search Enterprises, Valuation Queue, Finance, Reports |
+| `sivilay.a` | เจ้าหน้าที่ตรวจสอบ (Checker) | Verification Workspace (Dashboard กลาง) | Dashboard, Search Enterprises, Valuation Queue, Finance, Reports |
 | `head.moic` | หัวหน้าพะแนก (Approver + E-Sign) | Approval Workspace (Dashboard) | Approval Workspace, Search Enterprises, Valuation Queue, Finance, Reports |
 | `lao.valuation` | บริษัทประเมิน (In-network firm) | Dashboard | Dashboard, My Valuation Jobs |
 | `mof.gov` | หน่วยงานภายนอก (External agency) | External Portal | พอร์ทัลภายนอก |
-| `bounmy.m` | ผู้ดูแลระบบ (System administrator) | System Overview | Dashboard, Search Enterprises, Reports, System Settings |
+| `bounmy.m` | ผู้ดูแลระบบสูงสุด (Super Admin) | System Overview (Dashboard กลาง) | Dashboard, Search Enterprises, Reports, System Settings |
 | `new.user` | ผู้ใช้ใหม่ (New user) | My Registered Capital (ว่าง) | ทุนของฉัน |
 
 ---
@@ -111,7 +111,25 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   (Reference, Enterprise, Status แบบ dropdown, Submit by)
   และ **Due / Overdue** วิสาหกิจใกล้ครบ/เกินกำหนด (Enterprise, Status) ทุกรายการมีปุ่ม Search /
   Clear และ pagination
-- **Checker (Verification Workspace)** เลือกรายการจากเมนูย่อยใต้ Dashboard: Verification
+- **Dashboard กลาง** (`vCentralDash()`) ใช้ร่วมกันของ Super Admin, Checker และ Approver
+  (เมนูย่อยแรกใต้ Dashboard และเป็นหน้าแรกหลัง login) ดู KPI ระดับแขวงและเมือง
+  - **ขอบเขตสิทธิ์** (`ACCESS_SCOPE`): ระบบจริงรับมาจากระบบบริหารสิทธิ์อีกระบบ demo เก็บสำเนา payload ไว้ต่อ role
+    - Super Admin (`bounmy.m`) เห็นทุกแขวงทุกเมือง เลือกแขวงได้ แล้วเลือกเมืองในแขวงนั้น
+    - Checker / Approver เห็นได้หลายเมือง แต่เฉพาะแขวงที่ตัวเองสังกัด (แขวงล็อกไว้ เลือกได้แค่เมืองในขอบเขต)
+      demo: Checker = นครหลวงเวียงจันทน์ 4 เมือง, Approver = นครหลวงเวียงจันทน์ 7 เมือง
+    - แถบบนสุดบอกขอบเขตและแหล่งที่มา (Sent by the access management system)
+  - **การ์ด Capital monitoring overview**: แถบ % ทุนที่ยืนยันแล้ว แล้วตามด้วย 4 แถว
+    - *Capital (LAK)*: Total Registered Capital, Confirmed Capital, Capital Under Review, Outstanding Capital
+    - *Enterprises by payment status*: Pending Payment, Pending Increase Payment, Partially Paid, Completed, Overdue
+    - *Declarations in progress*: รอประเมิน, รอ Checker, รอ Approver, ถูกตีกลับ, คำขอปฏิเสธ, อนุมัติวันนี้
+    - *Deadlines and penalties*: เกินกำหนด, ครบกำหนดใน 30 วัน, ค่าปรับค้าง
+    - แถบแจ้งเตือน: งานรอตัวเอง (ปุ่มไปคิว) และวิสาหกิจเกินกำหนด + ค่าปรับ
+  - **ตารางแยกตามแขวง** (Super Admin ที่ยังไม่เลือกแขวง) หรือ **ตามเมือง** เรียงตามทุนคงเหลือมากสุด
+    คอลัมน์: จำนวนวิสาหกิจ, ทุนจดทะเบียน, % ยืนยันแล้ว, ทุนคงเหลือ, รอพิจารณา, เกินกำหนด, ครบกำหนดใน 30 วัน
+    กดแถวเพื่อเจาะลงระดับถัดไป (แขวง → เมือง → เมืองเดียว)
+  - **Enterprises needing attention**: วิสาหกิจเกินกำหนดก่อน แล้วเรียงตามวันครบกำหนดที่ใกล้สุด กดเพื่อเปิดหน้าวิสาหกิจ
+  - ขอบเขตใช้กับ Dashboard นี้เท่านั้น คิวงานของ Checker / Approver ยังเห็นทุกรายการเหมือนเดิม
+- **Checker (Verification Workspace)** เมนูย่อยใต้ Dashboard: Dashboard (Dashboard กลาง), Verification
   queue, Awaiting approval, Returned by me หน้าแสดงการ์ดค้นหาแบบเดียวกับหน้า Finance &
   Penalties (Reference, Enterprise, Channel แบบ dropdown, Submit by; Returned by me มีแค่
   Enterprise ค้นได้ทั้งชื่อลาว/อังกฤษ/เลขทะเบียน) กรอกแล้วกดปุ่ม Search หรือ Enter เพื่อค้นหา
@@ -119,13 +137,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   ที่มี pagination เลือกได้ 5/10/20/50 แถวต่อหน้า
 - **Approver (Approval Workspace)** เมนูหลักชื่อ Approval Workspace มีเมนูย่อย 4 รายการ (เปิดที่
   Dashboard ก่อน):
-  - **Dashboard** การ์ด Overview เดียว: แถบอัตราการชำระรวม แล้วตามด้วยตัวเลข 3 แถวที่มีหัวข้อ
-    - *Capital and enterprises*: ทุนที่ชำระแล้ว, ทุนคงเหลือ (พร้อม % ของทุนจดทะเบียน),
-      วิสาหกิจที่ชำระแล้ว x/30, ยังไม่ชำระ x/30
-    - *Enterprises by payment status*: Awaiting payment, Partly paid, Paid in full, Past deadline
-      (จำนวน + ยอดคงเหลือหรือยอดที่ชำระ)
-    - *Approval status*: อยู่ขั้นตรวจสอบ, รออนุมัติ, ลงนามวันนี้ (พร้อมมูลค่า), Overdue / penalties
-    - แถบแจ้งงานถัดไป ปุ่ม Open to sign พาไปเมนูย่อย Awaiting approval
+  - **Dashboard** คือ Dashboard กลาง (ดูด้านบน) แถบแจ้งงานถัดไปมีปุ่ม Open to sign พาไปเมนูย่อย Awaiting approval
   - **Awaiting approval** (ค้นหา Reference, Enterprise, Channel, Verified by), **Overdue / penalties**
     (Enterprise, Status) และ **Recently signed (E-Sign)** (Enterprise, Registration no.) แสดงเฉพาะ
     ตาราง มีปุ่ม Search / Clear และ pagination
@@ -133,7 +145,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   3 แถว: *Jobs and declared value* (งานทั้งหมด, มูลค่าที่แจ้ง, มูลค่าที่ยืนยันแล้ว, ยังไม่ยืนยัน),
   *Jobs by status* (In progress, Awaiting acceptance, Confirmed) และ *Jobs by asset type* (Land,
   Building, Car, Machine) แถบล่างบอกงานถัดไป ปุ่ม Open jobs ไปหน้า My Valuation Jobs
-- **System administrator (System Overview)** แยกจากงานติดตามทุน มาเน้นงานดูแล
+- **Super Admin (System Overview)** เมนูย่อยใต้ Dashboard: Dashboard (Dashboard กลาง เห็นทุกแขวงทุกเมือง) และ
+  **System health** (หน้าเดิมของผู้ดูแลระบบ) ซึ่งแยกจากงานติดตามทุน มาเน้นงานดูแล
   ระบบแทน ได้แก่
   - **System health** (การ์ดสรุป): ผู้ใช้ทั้งหมด / ออนไลน์ / ถูกล็อก, สถานะการเชื่อมต่อ,
     จำนวน API ที่ล้มเหลว + แจ้งเตือน endpoint ที่ช้า (ปุ่ม API Log) และบัญชีที่ถูกล็อก (ปุ่ม Users)

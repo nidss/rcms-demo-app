@@ -71,7 +71,7 @@ The `<style>` block comes first (CSS tokens in `:root`, then `/* ---------- name
     - `menus()` builds the sidebar. Entries with a 5th element are sub-menus, selected via `S.dashTab` or `S.finTab` / `S.setTab`.
     - `roleHome()` picks the home view.
     - `firstTab()` picks the default sub-menu.
-    - `vDash()` dispatches to the per-role dashboard (`vMakerDash`, `vCheckerDash`, `vApproverDash`, `vAdminDash`, `vOwnerList` / `vOwnerDash`).
+    - `vDash()` dispatches to the per-role dashboard (`vMakerDash`, `vCheckerDash`, `vApproverDash`, `vAdminDash`, `vOwnerList` / `vOwnerDash`). The `overview` sub-tab of admin (Super Admin), checker and approver is the shared central dashboard `vCentralDash()`; admin's system health moved to the `sys` sub-tab.
 - **Login and Create Account** (`vLogin()`, steps in `S.loginStep`: `cred` → `otp`, or `signup` → `signupDone`)
   - Login runs credentials, then OTP. Accounts with `tempPw` then get the forced set-password modal (`S.modal={type:'forgot',step:'new',first:true}`).
   - Create Account keeps its form in `S.signup`, with `S.signup.step` 1-3:
@@ -103,9 +103,13 @@ The `<style>` block comes first (CSS tokens in `:root`, then `/* ---------- name
   - Reject: the Approver's is final (`rejectFinal()`). The Checker's only sets `x.rejReq` and parks the declaration in the Approver's queue (`x.stage='approve'`, `x.st` unchanged, `xPill()` shows it); the Checker can cancel it (`data-rejcancel`), the Approver approves (`data-rejapprove`) or declines it (`data-rejdecline`). `approve()` signs and issues the certificate only when the capital reaches 100%; otherwise the `apconfirm` modal approves without E-Sign.
   - History wording comes from `HIST_TXT`.
   - Invoice statuses are `PENDING` / `PAID` (`WAIVED` is defined in the sheet but has no action yet).
+- **Central dashboard and access scope** (`vCentralDash()`)
+  - KPIs at province and district level, filtered by `S.cd = {prov, dist}` (reset on login / role switch). Table rows drill down (province → district).
+  - `ACCESS_SCOPE[role]` stands in for the payload of the external access management system: `{all:true}` for the Super Admin (admin), or `{prov, districts:[...]}` for Checker / Approver (one province, several districts). `myScope()` / `inScope(e, scope)` apply it. The scope limits the dashboard only, not the queues.
+  - Districts: `DISTRICTS[provLo]`; `entDistrict(e)` returns `e.district`, else the `PROV_META` district for hand-written enterprises, else one picked from the id for mock ones (`e.mock`). `EXTRA_ENTS` / `seedExtraEnts()` add 14 Vientiane Capital enterprises (ELN-2025-1125..1138) spread over its districts, with no open declaration.
 - **Summary cards**: `sumCard({title, prog, metrics, notes})` with `metric(tone, label, value, sub)` is the shared overview pattern.
 - **Mock data**
-  - Enterprises: `seedEnts()` (6 hand-written demo enterprises ELN-2025-1001..1006, used by the Owner/Maker walkthroughs) plus `seedMockEnts()` from `MOCK_ENTS` (24 more, ELN-2025-1101..1124, so lists page).
+  - Enterprises: `seedEnts()` (6 hand-written demo enterprises ELN-2025-1001..1006, used by the Owner/Maker walkthroughs) plus `seedMockEnts()` from `MOCK_ENTS` (24 more, ELN-2025-1101..1124, so lists page) plus `seedExtraEnts()` (ELN-2025-1125..1138, Vientiane Capital, for the dashboard).
   - Declarations: `seedTasks()` plus `seedMockTasks()`, plus one `RETURNED` declaration on ELN-2025-1006 from `seedReturned()`.
   - Valuation jobs: `VALJOBS` plus `MOCK_VAL`, with `mockCollateral()` on the enterprise.
   - The owner's enterprises: `OWNER_ENTS`.
