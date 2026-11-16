@@ -163,7 +163,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   แล้ว value อยู่ติดกัน (ไม่ดันไปชิดขอบขวา) เพื่อให้อ่านคู่ label/value ได้ในครั้งเดียว
 - รายละเอียดธุรกรรม ใช้ layout `worksplit`: ข้อมูลอ้างอิงซ้าย, คำร้อง + เอกสารขวา
 - หน้าตรวจทาน (Task ของ Checker / Approver) เต็มความกว้าง เรียงจากบนลงล่าง:
-  ขั้นตอน 3 วง → Enterprise Registration Details แบบย่อ (Registration no., Enterprise name,
+  ขั้นตอน 3 วง (เฉพาะ Approver, หน้าของ Checker ไม่มี) → Enterprise Registration Details แบบย่อ (Registration no., Enterprise name,
   Capital account, Status + ปุ่ม Show details เปิดดูข้อมูลเต็ม 4 กลุ่ม ไม่มีแผนที่ มีลิงก์พิกัดแทน)
   → **Case detail** 6 ช่อง (Reference, ทุนจดทะเบียน, ชำระแล้ว %, ยอดที่ยื่น, Channel = APB Counter /
   Online, Payment method) → **Capital being paid** การ์ดการชำระแบบอ่านอย่างเดียวทีละรายการ
