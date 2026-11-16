@@ -1874,14 +1874,15 @@ function entDistrict(e){
 // all = every province and district (Super Admin); otherwise one province and a list of its districts.
 var ACCESS_SCOPE={
   admin:{all:true},
+  maker:{prov:'ນະຄອນຫຼວງວຽງຈັນ',districts:['ຈັນທະບູລີ','ສີສັດຕະນາກ','ໄຊເສດຖາ','ສີໂຄດຕະບອງ']},
   checker:{prov:'ນະຄອນຫຼວງວຽງຈັນ',districts:['ຈັນທະບູລີ','ສີສັດຕະນາກ','ໄຊເສດຖາ','ສີໂຄດຕະບອງ']},
   approver:{prov:'ນະຄອນຫຼວງວຽງຈັນ',districts:['ຈັນທະບູລີ','ສີສັດຕະນາກ','ໄຊເສດຖາ','ສີໂຄດຕະບອງ','ນາຊາຍທອງ','ໄຊທານີ','ຫາດຊາຍຟອງ']}
 };
 function myScope(){return ACCESS_SCOPE[S.role]||null}
 function inScope(e,sc){return !!sc&&(sc.all||(e.prov.lo===sc.prov&&sc.districts.indexOf(entDistrict(e).lo)>=0))}
-// Work queues of a scoped role (Checker / Approver) only hold enterprises inside its scope; roles without
-// a scope (Maker, Owner, valuation firm) are not filtered.
-function queueOk(e){var sc=myScope();return !sc||inScope(e,sc)}
+// Work queues of the Checker and Approver only hold enterprises inside their scope. The Maker's scope
+// limits the dashboard only (the counter takes any enterprise); Owner and valuation firm have none.
+function queueOk(e){var sc=(S.role==='checker'||S.role==='approver')?myScope():null;return !sc||inScope(e,sc)}
 // "Province · district, district" for a scope, in the current language.
 function scopeLabel(sc){
   if(sc.all)return t('superAdmin')+' · '+t('cdScopeAll');
@@ -2002,7 +2003,7 @@ function menus(){
   var I=luSvg;
   if(S.role==='owner'||S.role==='newuser')return [['mMonitor'],['dash',I('wallet'),'myCap']];
   if(S.role==='maker')return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',
-    [['ret','mkMRet',makerReturned().length],['queue','mkMWait',liveTasks().length,1],['due','mkMDue',makerDue().length,1]]],['ent',I('search'),'ent']];
+    [['overview','dash'],['ret','mkMRet',makerReturned().length],['queue','mkMWait',liveTasks().length,1],['due','mkMDue',makerDue().length,1]]],['ent',I('search'),'ent']];
   if(S.role==='valfirm')return [['mMonitor'],['valdash',I('layoutDashboard'),'dash'],['valfirm',I('clipboardList'),'valPortal']];
   if(S.role==='external')return [['mMonitor'],['portal',I('globe'),'portal']];
   if(S.role==='checker'){
@@ -2184,7 +2185,7 @@ function vDash(){
   if(S.role==='newuser')return vOwnerList();
   if(S.role==='owner')return ownerEnts().length>1?vOwnerList():vOwnerDash();
   if(S.role==='admin')return S.dashTab==='sys'?vAdminDash():vCentralDash();
-  if(S.role==='maker')return vMakerDash();
+  if(S.role==='maker')return S.dashTab==='overview'?vCentralDash():vMakerDash();
   if(S.role==='checker')return S.dashTab==='overview'?vCentralDash():vCheckerDash();
   if(S.role==='approver')return S.dashTab==='overview'?vCentralDash():vApproverDash();
   return vStaffDash();
@@ -2630,6 +2631,9 @@ function vCentralDash(){
     act:'<button class="btn sm" data-subtab="dash:queue">'+t('nxStartCk')+'</button>'});
   if(role==='approver'&&(apv[0]||rq[0]))notes.push({tone:'info',text:'<b>'+fmt(apv[0])+' '+t('nxAp')+'</b>'+(rq[0]?' · '+fmt(rq[0])+' '+t('cdRejReq'):''),
     act:'<button class="btn sm" data-subtab="dash:queue">'+t('nxStartAp')+'</button>'});
+  // Maker: declarations back from review wait at the counter.
+  if(role==='maker'&&ret[0])notes.push({tone:'bad',text:'<b>'+fmt(ret[0])+' '+t('mkReturned')+'</b> · <span class="num">'+fmt(ret[1])+'</span> LAK',
+    act:'<button class="btn sm" data-subtab="dash:ret">'+t('mkFix')+'</button>'});
   if(over.length)notes.push({tone:'bad',text:'<b>'+fmt(over.length)+' '+stName('OVERDUE')+'</b> · <span class="num">'+fmt(left(over))+'</span> LAK'+(penAmt?' · '+t('cdPenUnpaid')+' <span class="num">'+fmt(penAmt)+'</span> LAK':'')});
   var heroCard='<div class="card cdx cdx-hero"><div class="c"><div class="cdx-hh">'+
     '<div class="cdx-hfig"><div class="cdx-hk">'+t('cdHeroK')+'</div><div class="cdx-hv">'+pct+'<span>%</span></div>'+
@@ -2735,7 +2739,7 @@ function vCentralDash(){
       '<td class="r num">'+fmt(e.cap-e.paid)+'</td><td class="r num" style="color:'+(pen?'var(--bad)':'var(--muted)')+'">'+(pen?fmt(pen):'-')+'</td>'+
       '<td class="r" style="padding-right:16px">'+pill(e.status)+'</td></tr>'}).join('')+'</tbody></table>'+ap.bar+'</div></div>':'';
 
-  var title=role==='checker'?t('ckTitle'):role==='approver'?t('apTitle'):t('adminDashTitle');
+  var title=role==='maker'?t('mkTitle'):role==='checker'?t('ckTitle'):role==='approver'?t('apTitle'):t('adminDashTitle');
   return shell(title,'',bar+heroCard+'<div class="cdx-grid">'+trendCard+statusCard+'</div>'+
     '<div class="cdx-grid">'+pipeCard+agingCard+'</div>'+grpCard+attnCard,'',t('mkGreeting')+' <b>'+who().n+'</b>');
 }
@@ -4009,7 +4013,7 @@ function render(){
   render._key=S.view+':'+S.mobile;
 }
 // Dashboard sub-menu that opens first for a role.
-function firstTab(role){return role==='maker'?'ret':(role==='approver'||role==='checker'||role==='admin')?'overview':'queue'}
+function firstTab(role){return (role==='maker'||role==='approver'||role==='checker'||role==='admin')?'overview':'queue'}
 function go(v){S.view=v;S.mobile=false;S.bell=false;S.umenu=false;S.navOpen=false;render()}
 function logout(){S.role=null;S.view='login';S.mobile=false;S.bell=false;S.umenu=false;S.modal=null;
   S.loginStep='cred';S.loginUser='';S.loginPass='';S.loginErr='';render()}

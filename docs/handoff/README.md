@@ -197,7 +197,7 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
 | `/my-capital` | `vOwnerList` | owner, newuser |
 | `/my-capital/:id` | `vOwnerDash` | owner |
 | `/workspace/:tab` | `vMakerDash` (`ret`, `queue`, `due`) | maker |
-| `/dashboard?prov=&dist=` | `vCentralDash` (tab `overview`) | admin (Super Admin), checker, approver |
+| `/dashboard?prov=&dist=` | `vCentralDash` (tab `overview`) | admin (Super Admin), maker, checker, approver |
 | `/workspace/:tab` | `vCheckerDash` (`queue`, `atAp`, `ret`) | checker |
 | `/workspace/:tab` | `vApproverDash` (`queue`, `risk`, `signed`) | approver |
 | `/system` | `vAdminDash` (tab `sys`) | admin |
