@@ -225,7 +225,8 @@ interface StaffUser { nm: string; org: string; role: string; active: 0 | 1; pwd:
     | { all?: false; prov: string; districts: string[] }; // Checker / Approver: แขวงเดียว หลายเมือง
   ```
   - backend ต้องกรองข้อมูลตามขอบเขตนี้เอง (ไม่ส่งข้อมูลนอกขอบเขตมาให้ frontend) และ frontend ใช้แค่สร้าง dropdown
-  - demo ใช้ขอบเขตกับ Dashboard กลางเท่านั้น ถ้าต้องกรองคิวงานด้วยให้ใช้ `inScope()` เดียวกัน
+  - demo ใช้ขอบเขตกับ Dashboard กลางและคิวงานของ Checker / Approver (`queueOk()` = `inScope()` กับขอบเขตของคนที่ login)
+    ระบบจริงต้องกรองที่ API ของคิวงานด้วย (`GET /declarations`, `GET /valuation-jobs`) ไม่ใช่แค่ซ่อนใน frontend
 - **กราฟของ Dashboard กลาง** demo เขียนเป็น HTML/CSS เอง ตอนย้ายไป React / Next.js ใช้ library ได้ (เช่น Recharts)
   แต่ต้องเก็บกติกาเดิม: palette เดิม, แท่งบาง (<= 24px) มุมมน 4px ฝั่งปลาย, เส้น grid บาง ไม่เป็นเส้นประ,
   ตัวเลขที่ปลายแท่ง, tooltip ทั้ง hover และ focus, และทุกกราฟต้องสลับเป็นตารางได้
