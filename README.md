@@ -116,7 +116,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   - **ขอบเขตสิทธิ์** (`ACCESS_SCOPE`): ระบบจริงรับมาจากระบบบริหารสิทธิ์อีกระบบ demo เก็บสำเนา payload ไว้ต่อ role
     - Super Admin (`bounmy.m`) เห็นทุกแขวงทุกเมือง เลือกแขวงได้ แล้วเลือกเมืองในแขวงนั้น
     - Checker / Approver เห็นได้หลายเมือง แต่เฉพาะแขวงที่ตัวเองสังกัด (แขวงล็อกไว้ เลือกได้แค่เมืองในขอบเขต)
-      demo: Checker = นครหลวงเวียงจันทน์ 4 เมือง, Approver = นครหลวงเวียงจันทน์ 7 เมือง
+      demo: Checker = นครหลวงเวียงจันทน์ 5 เมือง, Approver = นครหลวงเวียงจันทน์ 7 เมือง
     - Maker เห็นเฉพาะแขวงที่สังกัดเหมือนกัน (demo: นครหลวงเวียงจันทน์ 4 เมือง) แต่ขอบเขตใช้กับ Dashboard เท่านั้น
       คิวงานของ Maker ไม่ถูกกรอง เพราะเคาน์เตอร์รับเรื่องของวิสาหกิจได้ทุกแขวง
     - Dashboard ของ Maker มีแถบแจ้งใบรายการที่ถูกตีกลับ พร้อมปุ่ม Fix ไปเมนูย่อย Returned
@@ -224,8 +224,12 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   - แล้วกดปุ่ม **+ Add capital** เพื่อเพิ่มการ์ดการชำระ ใส่ได้หลายใบในงวดเดียว แต่ละใบมีหัว (ไอคอน + ประเภท,
     ป้าย Payment N, Remove เมื่อมีมากกว่า 1 ใบ, ยอดเงิน, Show / Hide details) และเลือก **Payment method** ได้ 3 แบบ
   - **Cash**: Amount paid, Bank code, From Account No, From Account Name, Payment evidence
-  - **Asset**: Asset category, Valuation firm (In-network / Out-of-network), Valuation firm name,
-    ช่องตามประเภททรัพย์สิน (`ASSET_FIELDS`), Supporting documents + ไฟล์
+  - **Asset**: แถวแรก 4 ช่องเรียงกัน: Payment method, Asset category, **Valuation firm** (dropdown: MOIC (Checker) /
+    In-network / Out-of-network) และช่องที่ 4 เปลี่ยนตามที่เลือก
+    - MOIC (Checker): ไม่มีชื่อบริษัท ขึ้นข้อความ "MOIC Checker reviews the declared value - no appraisal document
+      needed." ไม่ต้องผ่านบริษัทประเมิน (ยื่นแล้วเป็น `PENDING` เข้าคิว Checker เลย) และไม่มีช่อง Valuation Report
+    - In-network: เลือกชื่อบริษัทจาก dropdown, Out-of-network: พิมพ์ชื่อบริษัทเอง ทั้งสองแบบต้องผ่าน Appraiser ก่อน
+    - ถัดมาเป็นหัวข้อ **Asset details** (ช่องตามประเภททรัพย์สิน `ASSET_FIELDS`) แล้วตามด้วย Supporting documents
   - **Labour capital**: Contributor name, ID / Passport No., Skill type, Role / position,
     Contribution period (months), Agreed value, Supporting documents (Labour contribution agreement ฯลฯ)
   - การ์ดใหม่เติมยอดที่ยังค้างให้อัตโนมัติ ยอดของการ์ด = Amount paid / Estimated price / Agreed value
