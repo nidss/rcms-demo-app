@@ -368,9 +368,9 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .fseg button.on{background:var(--m);color:#fff;font-weight:600;box-shadow:0 1px 3px rgba(40,53,121,.3)}
 .assetrow{margin-bottom:4px}
 .fgrp{font-size:11.5px;font-weight:600;color:var(--ink2);margin:6px 0 10px;padding-top:12px;border-top:1px solid var(--line)}
-.firmnote{display:flex;gap:8px;align-items:flex-start;background:var(--m-lite);border:1px solid var(--m-line);border-radius:9px;
-  padding:8px 12px;font-size:11.5px;line-height:1.5;color:var(--m-dark);min-height:42px}
-.firmnote svg{width:16px;height:16px;flex:none;color:var(--m);margin-top:1px}
+/* plain icon + text, centred in the 40px height of the inputs beside it */
+.firmnote{display:flex;gap:8px;align-items:center;min-height:40px;font-size:11.5px;line-height:1.4;color:var(--m-dark)}
+.firmnote svg{width:16px;height:16px;flex:none;color:var(--m)}
 .field label.sr{visibility:hidden}
 @media(max-width:900px){.field label.sr{display:none}}
 .plan{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
