@@ -161,7 +161,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 - **บริษัทประเมิน (Dashboard)** การ์ด Overview: แถบ % งานที่ยืนยันแล้ว (x / 10 jobs) แล้วตามด้วย
   3 แถว: *Jobs and declared value* (งานทั้งหมด, มูลค่าที่แจ้ง, มูลค่าที่ยืนยันแล้ว, ยังไม่ยืนยัน),
   *Jobs by status* (In progress, Awaiting acceptance, Confirmed) และ *Jobs by asset type* (Land,
-  Building, Car, Machine) แถบล่างบอกงานถัดไป ปุ่ม Open jobs ไปหน้า My Valuation Jobs
+  Building, Vehicle, Machine) แถบล่างบอกงานถัดไป ปุ่ม Open jobs ไปหน้า My Valuation Jobs
 - **Super Admin (System Overview)** เมนูย่อยใต้ Dashboard: Dashboard (Dashboard กลาง เห็นทุกแขวงทุกเมือง) และ
   **System health** (หน้าเดิมของผู้ดูแลระบบ) ซึ่งแยกจากงานติดตามทุน มาเน้นงานดูแล
   ระบบแทน ได้แก่
@@ -359,7 +359,7 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
     Ownership Transfer Document, Other
   - Asset - Building (`CAPITAL_BUILDING_DOCUMENT`): Ownership Transfer Document *, Valuation Report,
     Land Title Document for the Building Site, Permit to Construct, Other
-  - Asset - Car (`CAPITAL_VEHICLE_DOCUMENT`): Vehicle Registration Certificate *, Ownership Transfer Document from the
+  - Asset - Vehicle (`CAPITAL_VEHICLE_DOCUMENT`): Vehicle Registration Certificate *, Ownership Transfer Document from the
     Department of Transport *, Valuation Report, Certificate of No Encumbrance, Other
   - Asset - Machinery: ไม่มีใน sheet demo ใช้ Ownership Transfer Document *, Valuation Report, Other ไปก่อน
   - Labour capital (`CAPITAL_LABOUR_DOCUMENT`): Partnership Establishment Agreement *, Other
