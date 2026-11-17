@@ -366,6 +366,20 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .fseg button{border:0;background:transparent;font-family:inherit;font-size:12px;color:var(--ink2);padding:7px 14px;border-radius:7px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .fseg button:hover{color:var(--ink)}
 .fseg button.on{background:var(--m);color:#fff;font-weight:600;box-shadow:0 1px 3px rgba(40,53,121,.3)}
+.plan{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.plan button{display:flex;gap:10px;align-items:flex-start;text-align:left;font:inherit;color:var(--ink2);background:#fff;
+  border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
+.plan button:hover{border-color:var(--m-light)}
+.plan button.on{border-color:var(--m);background:var(--m-lite);box-shadow:inset 0 0 0 1px var(--m)}
+.plan button:disabled{opacity:.55;cursor:not-allowed}
+.plan .rd{width:16px;height:16px;border-radius:50%;border:2px solid #B9BFD6;flex:none;margin-top:2px;background:#fff}
+.plan .on .rd{border-color:var(--m);background:var(--m);box-shadow:inset 0 0 0 3px #fff}
+.plan b{display:block;color:var(--ink);font-size:13px;font-weight:600;margin-bottom:2px}
+.plan small{display:block;font-size:11.5px;color:var(--muted);line-height:1.55}
+.dlform{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--m);margin-left:4px}
+.dlform svg{width:14px;height:14px}
+.dlform:hover{text-decoration:underline}
+@media(max-width:640px){.plan{grid-template-columns:1fr}}
 .roinfo{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:10px 13px}
 .roinfo .k{font-size:11px;color:var(--muted);margin-bottom:4px}
 .roinfo .v{font-size:14px;font-weight:600;color:var(--ink)}
@@ -817,7 +831,9 @@ lo:{
  cdPenUnpaid:'ຄ່າປັບທີ່ຍັງບໍ່ຊຳລະ',cdRejReq:'ຄຳຂໍປະຕິເສດ',cdApprovedToday:'ອະນຸມັດມື້ນີ້',cdByProv:'ຕາມແຂວງ',cdByDist:'ຕາມເມືອງ',
  cdEnts:'ວິສາຫະກິດ',cdPaidPct:'ຢືນຢັນແລ້ວ',cdInReview:'ລໍພິຈາລະນາ',cdAttention:'ວິສາຫະກິດທີ່ຕ້ອງຕິດຕາມ',
  cdAttnSub:'ເກີນກຳນົດກ່ອນ ແລ້ວຮຽງຕາມວັນຄົບກຳນົດ',cdDrill:'ກົດແຖວເພື່ອເບິ່ງລະດັບຕໍ່ໄປ',cdNoEnt:'ບໍ່ມີວິສາຫະກິດໃນຂອບເຂດນີ້',
- cdClear:'ລ້າງຕົວກອງ',qScope:'ສະແດງສະເພາະວຽກພາຍໃນຂອບເຂດສິດຂອງທ່ານ',cdNotSub:'ຍັງບໍ່ໄດ້ຍື່ນ',cdHeroK:'ທຶນຈົດທະບຽນທີ່ຢືນຢັນແລ້ວ',cdComp:'ທຶນຈົດທະບຽນຕາມສະຖານະ',
+ cdClear:'ລ້າງຕົວກອງ',dcOnceD:'ຊຳລະເຕັມຈຳນວນ {a} LAK ໃນຄັ້ງດຽວ.',
+ dcSplitD:'ປ້ອນ {a} - {b} LAK ສຳລັບງວດທີ 1 (ຂັ້ນຕ່ຳ 30%). ສ່ວນທີ່ເຫຼືອຊຳລະໃນງວດທີ 2.',
+ dcAppSub:'ດາວໂຫຼດແບບຟອມ ຕື່ມຂໍ້ມູນ ລົງລາຍເຊັນ ແລ້ວແນບກັບຄືນ',dcAppFile:'ແບບຟອມຄຳຮ້ອງທີ່ລົງລາຍເຊັນແລ້ວ',dlForm:'ດາວໂຫຼດແບບຟອມ',qScope:'ສະແດງສະເພາະວຽກພາຍໃນຂອບເຂດສິດຂອງທ່ານ',cdNotSub:'ຍັງບໍ່ໄດ້ຍື່ນ',cdHeroK:'ທຶນຈົດທະບຽນທີ່ຢືນຢັນແລ້ວ',cdComp:'ທຶນຈົດທະບຽນຕາມສະຖານະ',
  cdTrend:'ທຶນທີ່ຢືນຢັນແລ້ວ ລາຍເດືອນ',cdTrendSub:'12 ເດືອນຫຼ້າສຸດ · ກີບ',cdStatusSub:'ຈຳນວນວິສາຫະກິດ',cdPipeSub:'ຈຳນວນໃບລາຍການ · ຍອດເງິນ',
  cdBackSub:'ກັບຄືນຫາຜູ້ຍື່ນ',cdAging:'ໄລຍະເວລາຮອດກຳນົດ',cdAgingSub:'ວິສາຫະກິດທີ່ຍັງຊຳລະບໍ່ຄົບ',
  cdTop8:'8 ອັນດັບທີ່ມີທຶນຄົງເຫຼືອສູງສຸດ · ທັງໝົດຢູ່ໃນຕາຕະລາງ',cdTable:'ຕາຕະລາງ',cdChart:'ກຣາຟ',cdMonth:'ເດືອນ',cdDays:'ວັນ',
@@ -1050,7 +1066,9 @@ en:{
  cdPenUnpaid:'Unpaid penalties',cdRejReq:'Reject requests',cdApprovedToday:'Approved today',cdByProv:'By province',cdByDist:'By district',
  cdEnts:'Enterprises',cdPaidPct:'Confirmed',cdInReview:'Under review',cdAttention:'Enterprises needing attention',
  cdAttnSub:'Overdue first, then by the nearest deadline',cdDrill:'Click a row to open the next level',cdNoEnt:'No enterprises in this scope',
- cdClear:'Clear filter',qScope:'Showing only work within your access scope',cdNotSub:'Not yet submitted',cdHeroK:'Registered capital confirmed',cdComp:'Registered capital by state',
+ cdClear:'Clear filter',dcOnceD:'Pay the full {a} LAK in one go.',
+ dcSplitD:'Enter {a} - {b} LAK for instalment 1 (minimum 30%). The rest is paid in instalment 2.',
+ dcAppSub:'Download the form, fill it in, sign it and attach it here',dcAppFile:'Signed application form',dlForm:'Download form',qScope:'Showing only work within your access scope',cdNotSub:'Not yet submitted',cdHeroK:'Registered capital confirmed',cdComp:'Registered capital by state',
  cdTrend:'Capital confirmed per month',cdTrendSub:'Last 12 months · LAK',cdStatusSub:'Number of enterprises',cdPipeSub:'Number of declarations · amount',
  cdBackSub:'Back with the submitter',cdAging:'Time to deadline',cdAgingSub:'Enterprises not fully paid',
  cdTop8:'Top 8 by outstanding capital · every row in the table view',cdTable:'Table',cdChart:'Chart',cdMonth:'Month',cdDays:'days',
@@ -3334,33 +3352,32 @@ function vDeclare(){
   var split=canPartial&&f.payMode==='partial';
   var minInst=split?Math.round(e.cap*0.3):remain;
   var n=f.pays.length;
-  var sec1='<div class="fsh"><span class="n">1. '+t('dcSec1')+'</span></div>'+
-   '<div class="fsub" style="margin-bottom:16px">'+t('dcSec1Sub')+'</div>'+
-   '<div class="field" style="margin-bottom:16px"><label>'+t('dcPlan')+'</label>'+
-   (canPartial
-     ?'<div class="fseg"><button type="button" class="'+(split?'':'on')+'" data-paymode="full">'+t('dcOnce')+'</button>'+
-      '<button type="button" class="'+(split?'on':'')+'" data-paymode="partial">'+t('dcSplit')+'</button></div>'
-     :'<div class="hint" style="margin-top:0">'+t('payFullOnly')+'</div>')+'</div>'+
-   '<div class="g3"><div class="field"><label>'+t('dcInst')+' *</label><select>'+
-     '<option'+(split?'':' selected')+'>'+t('dcInstSingle')+'</option>'+
-     '<option'+(split?' selected':'')+'>'+t('dcInst1')+'</option>'+
-     '<option>'+t('dcInst2')+'</option></select></div>'+
-   '<div class="roinfo"><div class="k">'+t('dcMinInst')+'</div><div class="v num">'+fmt(minInst)+' LAK</div></div>'+
-   '<div class="roinfo"><div class="k">'+t('dcOfficer')+'</div><div class="v">'+who().n+'</div></div></div>';
+  // 1. Registered Capital Contribution Notification Application: required on every declaration.
+  var app=docDefs('CAPITAL_DECLARATION_DOCUMENT')[0];
+  var sec1='<div class="fsh"><span class="n">1. '+app.lbl+' *</span>'+
+   '<button type="button" class="lnkbtn dlform" data-dlform="1">'+luSvg('download')+t('dlForm')+'</button></div>'+
+   '<div class="fsub">'+t('dcAppSub')+' · '+t('suFileRule')+'</div>'+
+   upList('decl|',[{k:app.k,lbl:t('dcAppFile'),req:true}],f);
+  // 2. Capital being paid: the instalment plan (pay once / split in two), then the payment blocks.
+  var min30=Math.round(e.cap*0.3);
+  var plan=function(mode,title,desc,dis){var on=(mode==='partial')===split;
+    return '<button type="button" role="radio" aria-checked="'+on+'" class="'+(on?'on':'')+'" data-paymode="'+mode+'"'+(dis?' disabled':'')+'>'+
+     '<span class="rd"></span><span><b>'+title+'</b><small>'+desc+'</small></span></button>'};
   var sec2='<div class="fsh"><span class="n">2. '+t('dcSec2')+'</span></div>'+
-   '<div class="fsub" style="margin:4px 0 16px">'+t('dcSec2Sub2')+'</div>'+
+   '<div class="fsub">'+t('dcSec2Sub2')+'</div>'+
+   '<div class="plan" role="radiogroup" aria-label="'+esc(t('dcPlan'))+'">'+
+    plan('full',t('dcOnce'),t('dcOnceD').replace('{a}','<span class="num">'+fmt(remain)+'</span>'))+
+    plan('partial',t('dcSplit'),t('dcSplitD').replace('{a}','<span class="num">'+fmt(Math.min(min30,remain))+'</span>').replace('{b}','<span class="num">'+fmt(remain)+'</span>'),!canPartial)+
+   '</div>'+(canPartial?'':'<div class="hint" style="margin:-8px 0 16px">'+t('payFullOnly')+'</div>')+
    f.pays.map(function(p,i){return payCardEdit(p,i,n)}).join('')+
    '<button type="button" class="btn ghost" data-addpay="1" style="margin:'+(n?'16px':'0')+' 0 16px">'+luSvg('plus')+t('payN')+'</button>'+
    paySummary(f.pays,remain)+
    (f.err?'<div class="hint err" style="margin-top:10px">'+f.err+'</div>':'');
-  var sec3='<div class="fsh"><span class="n">3. '+t('dcSec3')+'</span></div>'+
-   '<div class="fsub" style="margin:4px 0 16px">'+t('dcSec3Sub')+' · '+t('suFileRule')+'</div>'+
-   upList('decl|',docDefs('CAPITAL_DECLARATION_DOCUMENT'),f);
   var old=f.edit!=null?S.tasks[f.edit]:null,retN=old&&old.st==='RETURNED'?openNote(old):null;
   var inner='<div class="vstack">'+entBrief(e)+
    (retN?'<div class="sc-note bad" style="border-radius:10px;margin:0"><span class="ni">'+luSvg('triangleAlert')+'</span><div class="nt">'+retN.text+'</div></div>':'')+
-   '<div class="card"><div class="c" style="padding:16px">'+
-   '<div class="fsec">'+sec1+'</div><div class="fsec">'+sec2+'</div><div class="fsec">'+sec3+'</div>'+
+   '<div class="card"><div class="c" style="padding:16px"><div class="fsec">'+sec1+'</div></div></div>'+
+   '<div class="card"><div class="c" style="padding:16px"><div class="fsec">'+sec2+'</div>'+
    '<div class="pfoot"><button class="btn ghost" data-nav="'+(isOwner?'mycap':'detail')+'">'+t('cancel')+'</button>'+
    (old&&old.st==='RETURNED'?'':'<button class="btn ghost" data-savedraft="1">'+t('saveDraft')+'</button>')+
    '<button class="btn" id="submitDeclare">'+t('submitDeclare')+'</button></div></div></div></div>';
@@ -4085,6 +4102,22 @@ function valDone(j){
   x.trail.push({who:j.firm+' (Appraiser)',act:HIST_TXT.appraised,at:'04/08/2026 10:30'});
   x.ent.hist.push({d:'04/08/2026',a:HIST_TXT.appraised,m:'asset',v:0,u:j.firm,f:String((j.files||[]).length),ch:'',st:'complete'});
 }
+// Download a one-page placeholder PDF (the demo has no real form file).
+function dlMockPdf(name,title){
+  var txt=String(title).replace(/[()\\]/g,'');
+  var objs=['<< /Type /Catalog /Pages 2 0 R >>','<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>',
+    null,'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>'];
+  var stream='BT /F1 14 Tf 60 780 Td ('+txt+') Tj 0 -24 Td /F1 10 Tf (RCMS demo - placeholder form) Tj ET';
+  objs[3]='<< /Length '+stream.length+' >>\nstream\n'+stream+'\nendstream';
+  var out='%PDF-1.4\n',offs=[];
+  objs.forEach(function(o,i){offs.push(out.length);out+=(i+1)+' 0 obj\n'+o+'\nendobj\n'});
+  var x=out.length;
+  out+='xref\n0 '+(objs.length+1)+'\n0000000000 65535 f \n'+offs.map(function(o){return ('000000000'+o).slice(-10)+' 00000 n \n'}).join('')+
+    'trailer\n<< /Size '+(objs.length+1)+' /Root 1 0 R >>\nstartxref\n'+x+'\n%%EOF';
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([out],{type:'application/pdf'}));a.download=name;
+  document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},0);
+}
 // Declare form -> declaration fields (shared by Save draft and Submit).
 function declFromForm(x,e,f){
   var types=[];f.pays.forEach(function(p){if(types.indexOf(p.type)<0)types.push(p.type)});
@@ -4247,6 +4280,8 @@ function bind(){
   document.querySelectorAll('[data-uprm]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();var at=b.dataset.uprm.lastIndexOf('|');
     upRemove(b.dataset.uprm.slice(0,at),Number(b.dataset.uprm.slice(at+1)));render()}});
+  document.querySelectorAll('[data-dlform]').forEach(function(b){b.onclick=function(){dlMockPdf('capital-contribution-application-form.pdf',
+    'Registered Capital Contribution Notification Application (demo form)')}});
   document.querySelectorAll('[data-paymode]').forEach(function(b){b.onclick=function(){
     S.form.payMode=b.dataset.paymode;S.form.err='';render()}});
   document.querySelectorAll('[data-copy]').forEach(function(b){b.onclick=function(){S.certCopy=b.dataset.copy==='1';render()}});

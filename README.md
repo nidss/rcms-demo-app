@@ -208,11 +208,16 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 ผู้ประกอบการ (Declare capital payment online) และ Maker (Add payment) ใช้หน้าเดียวกัน เต็มความกว้าง:
 
 - **Enterprise Registration Details แบบย่อ** ด้านบน (ปุ่ม Show details / Hide details)
-- **1. Payment transaction details**: Capital payment plan (เลือก Single / แบ่ง 2 งวดได้เฉพาะ
-  ยังไม่เคยชำระ), Instalment, Minimum for this instalment, Recording officer
-- **2. Capital being paid**: เริ่มว่าง กดปุ่ม **+ Payment** เพื่อเพิ่มการ์ดการชำระ ใส่ได้หลายใบ
-  ในงวดเดียว แต่ละใบมีหัว (ไอคอน + ประเภท, ป้าย Payment N, Remove เมื่อมีมากกว่า 1 ใบ,
-  ยอดเงิน, Show / Hide details) และเลือก **Payment method** ได้ 3 แบบ
+- **1. Registered Capital Contribution Notification Application \*** (กล่องแรก): ลิงก์ **Download form**
+  ต่อท้ายชื่อ ดาวน์โหลดแบบฟอร์มเปล่าเป็น PDF (demo เป็นไฟล์ตัวอย่าง) แล้วแนบแบบฟอร์มที่ลงลายเซ็นแล้ว
+  ในช่อง Signed application form (ต้องแนบ ไม่งั้นกด Submit ไม่ได้)
+- **2. Capital being paid** (รวมการเลือกงวดกับการ์ดการชำระไว้กล่องเดียว): เลือกแผนการชำระก่อน 2 แบบ
+  - **Pay once 100%**: "Pay the full X LAK in one go." (X = ทุนคงเหลือ)
+  - **Split into 2 instalments**: "Enter A - X LAK for instalment 1 (minimum 30%). The rest is paid in
+    instalment 2." (A = 30% ของทุนจดทะเบียน) เลือกได้เฉพาะวิสาหกิจที่ยังไม่เคยชำระ ถ้าชำระไปแล้วบางส่วน
+    ตัวเลือกนี้กดไม่ได้และมีข้อความบอกว่างวดนี้ต้องชำระยอดคงเหลือทั้งหมด
+  - แล้วกดปุ่ม **+ Payment** เพื่อเพิ่มการ์ดการชำระ ใส่ได้หลายใบในงวดเดียว แต่ละใบมีหัว (ไอคอน + ประเภท,
+    ป้าย Payment N, Remove เมื่อมีมากกว่า 1 ใบ, ยอดเงิน, Show / Hide details) และเลือก **Payment method** ได้ 3 แบบ
   - **Cash**: Amount paid, Bank code, From Account No, From Account Name, Payment evidence
   - **Asset**: Asset category, Valuation firm (In-network / Out-of-network), Valuation firm name,
     ช่องตามประเภททรัพย์สิน (`ASSET_FIELDS`), Supporting documents + ไฟล์
@@ -336,7 +341,7 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
 - การอัปโหลดเอกสารแยกช่องละ 1 ประเภทเอกสาร (`upSlot()`) ตาม master `DOC_GROUPS` (จาก sheet Doc_Type)
   ไม่มี dropdown เลือกประเภทเอกสารแล้ว แต่ละช่องแนบได้สูงสุด 5 ไฟล์ ไฟล์ละไม่เกิน 15 MB (PDF / JPG / PNG)
   ช่องที่มี * ต้องมีอย่างน้อย 1 ไฟล์ก่อนกด Submit
-  - ทุกคำร้อง (ข้อ 3. Application documents): Registered Capital Contribution Notification Application *
+  - ทุกคำร้อง (กล่องที่ 1 ของหน้าแจ้งชำระ): Registered Capital Contribution Notification Application *
   - Cash (`CAPITAL_CASH_DOCUMENT`): Bank Statement *, Certificate of Capital Importation และ Letter from the Bank of the Lao PDR
     (จำเป็นเมื่อ Source of capital = Foreign capital เท่านั้น), Other
   - Asset - Land (`CAPITAL_LAND_DOCUMENT`): Land Title Deed *, Mortgage-Free Certificate *, Cadastral Map,
