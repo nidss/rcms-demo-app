@@ -371,7 +371,9 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
   border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
 .plan button:hover{border-color:var(--m-light)}
 .plan button.on{border-color:var(--m);background:var(--m-lite);box-shadow:inset 0 0 0 1px var(--m)}
-.plan button:disabled{opacity:.55;cursor:not-allowed}
+.plan button:disabled{cursor:not-allowed;background:var(--soft)}
+.plan button:disabled b{color:var(--muted)}
+.plan button:disabled .rd{border-color:#D5D9E6;background:var(--soft)}
 .plan .rd{width:16px;height:16px;border-radius:50%;border:2px solid #B9BFD6;flex:none;margin-top:2px;background:#fff}
 .plan .on .rd{border-color:var(--m);background:var(--m);box-shadow:inset 0 0 0 3px #fff}
 .plan b{display:block;color:var(--ink);font-size:13px;font-weight:600;margin-bottom:2px}
@@ -833,7 +835,7 @@ lo:{
  cdAttnSub:'ເກີນກຳນົດກ່ອນ ແລ້ວຮຽງຕາມວັນຄົບກຳນົດ',cdDrill:'ກົດແຖວເພື່ອເບິ່ງລະດັບຕໍ່ໄປ',cdNoEnt:'ບໍ່ມີວິສາຫະກິດໃນຂອບເຂດນີ້',
  cdClear:'ລ້າງຕົວກອງ',dcOnceD:'ຊຳລະເຕັມຈຳນວນ {a} LAK ໃນຄັ້ງດຽວ.',
  dcSplitD:'ປ້ອນ {a} - {b} LAK ສຳລັບງວດທີ 1 (ຂັ້ນຕ່ຳ 30%). ສ່ວນທີ່ເຫຼືອຊຳລະໃນງວດທີ 2.',
- dcAppSub:'ດາວໂຫຼດແບບຟອມ ຕື່ມຂໍ້ມູນ ລົງລາຍເຊັນ ແລ້ວແນບກັບຄືນ',dcAppFile:'ແບບຟອມຄຳຮ້ອງທີ່ລົງລາຍເຊັນແລ້ວ',dlForm:'ດາວໂຫຼດແບບຟອມ',qScope:'ສະແດງສະເພາະວຽກພາຍໃນຂອບເຂດສິດຂອງທ່ານ',cdNotSub:'ຍັງບໍ່ໄດ້ຍື່ນ',cdHeroK:'ທຶນຈົດທະບຽນທີ່ຢືນຢັນແລ້ວ',cdComp:'ທຶນຈົດທະບຽນຕາມສະຖານະ',
+ dcAppSub:'ດາວໂຫຼດແບບຟອມ ຕື່ມຂໍ້ມູນ ລົງລາຍເຊັນ ແລ້ວແນບກັບຄືນ',dcAppFile:'ແບບຟອມຄຳຮ້ອງທີ່ລົງລາຍເຊັນແລ້ວ',dlForm:'ດາວໂຫຼດແບບຟອມ',dcSplitNo:'ເລືອກບໍ່ໄດ້: ງວດທີ 1 ({a} LAK) ຊຳລະແລ້ວ ງວດນີ້ຈຶ່ງຕ້ອງຊຳລະຍອດທີ່ເຫຼືອ {b} LAK ທັງໝົດ.',qScope:'ສະແດງສະເພາະວຽກພາຍໃນຂອບເຂດສິດຂອງທ່ານ',cdNotSub:'ຍັງບໍ່ໄດ້ຍື່ນ',cdHeroK:'ທຶນຈົດທະບຽນທີ່ຢືນຢັນແລ້ວ',cdComp:'ທຶນຈົດທະບຽນຕາມສະຖານະ',
  cdTrend:'ທຶນທີ່ຢືນຢັນແລ້ວ ລາຍເດືອນ',cdTrendSub:'12 ເດືອນຫຼ້າສຸດ · ກີບ',cdStatusSub:'ຈຳນວນວິສາຫະກິດ',cdPipeSub:'ຈຳນວນໃບລາຍການ · ຍອດເງິນ',
  cdBackSub:'ກັບຄືນຫາຜູ້ຍື່ນ',cdAging:'ໄລຍະເວລາຮອດກຳນົດ',cdAgingSub:'ວິສາຫະກິດທີ່ຍັງຊຳລະບໍ່ຄົບ',
  cdTop8:'8 ອັນດັບທີ່ມີທຶນຄົງເຫຼືອສູງສຸດ · ທັງໝົດຢູ່ໃນຕາຕະລາງ',cdTable:'ຕາຕະລາງ',cdChart:'ກຣາຟ',cdMonth:'ເດືອນ',cdDays:'ວັນ',
@@ -1068,7 +1070,7 @@ en:{
  cdAttnSub:'Overdue first, then by the nearest deadline',cdDrill:'Click a row to open the next level',cdNoEnt:'No enterprises in this scope',
  cdClear:'Clear filter',dcOnceD:'Pay the full {a} LAK in one go.',
  dcSplitD:'Enter {a} - {b} LAK for instalment 1 (minimum 30%). The rest is paid in instalment 2.',
- dcAppSub:'Download the form, fill it in, sign it and attach it here',dcAppFile:'Signed application form',dlForm:'Download form',qScope:'Showing only work within your access scope',cdNotSub:'Not yet submitted',cdHeroK:'Registered capital confirmed',cdComp:'Registered capital by state',
+ dcAppSub:'Download the form, fill it in, sign it and attach it here',dcAppFile:'Signed application form',dlForm:'Download form',dcSplitNo:'Not available: instalment 1 ({a} LAK) is already paid, so this payment settles the remaining {b} LAK.',qScope:'Showing only work within your access scope',cdNotSub:'Not yet submitted',cdHeroK:'Registered capital confirmed',cdComp:'Registered capital by state',
  cdTrend:'Capital confirmed per month',cdTrendSub:'Last 12 months · LAK',cdStatusSub:'Number of enterprises',cdPipeSub:'Number of declarations · amount',
  cdBackSub:'Back with the submitter',cdAging:'Time to deadline',cdAgingSub:'Enterprises not fully paid',
  cdTop8:'Top 8 by outstanding capital · every row in the table view',cdTable:'Table',cdChart:'Chart',cdMonth:'Month',cdDays:'days',
@@ -1982,7 +1984,8 @@ function bizNotifs(){return S.notif.concat([
 function notifs(){return S.role==='owner'?bizNotifs():S.role==='newuser'?S.notif:STAFF_N}
 // The business-owner demo account holds several registered enterprises (one row each on
 // My Registered Capital); the selected one (S.sel) opens on Capital details.
-var OWNER_ENTS=['ELN-2025-1001','ELN-2024-1004','ELN-2025-1005','ELN-2025-1115','ELN-2025-1122'];
+// ELN-2025-1134 has paid nothing and has no open declaration, so the owner can try Split into 2 instalments on it.
+var OWNER_ENTS=['ELN-2025-1001','ELN-2024-1004','ELN-2025-1005','ELN-2025-1115','ELN-2025-1122','ELN-2025-1134'];
 function ownerEnts(){return S.role==='owner'?S.ents.filter(function(e){return OWNER_ENTS.indexOf(e.id)>=0}):[]}
 function ownerEnt(){var mine=ownerEnts();return mine.filter(function(e){return e.id===S.sel})[0]||mine[0]}
 // The enterprise's declaration under review (blocks a new one), and its draft or returned one (reopened instead).
@@ -3367,8 +3370,11 @@ function vDeclare(){
    '<div class="fsub">'+t('dcSec2Sub2')+'</div>'+
    '<div class="plan" role="radiogroup" aria-label="'+esc(t('dcPlan'))+'">'+
     plan('full',t('dcOnce'),t('dcOnceD').replace('{a}','<span class="num">'+fmt(remain)+'</span>'))+
-    plan('partial',t('dcSplit'),t('dcSplitD').replace('{a}','<span class="num">'+fmt(Math.min(min30,remain))+'</span>').replace('{b}','<span class="num">'+fmt(remain)+'</span>'),!canPartial)+
-   '</div>'+(canPartial?'':'<div class="hint" style="margin:-8px 0 16px">'+t('payFullOnly')+'</div>')+
+    // Split is only offered before anything is paid; afterwards the card says why it is off.
+    plan('partial',t('dcSplit'),canPartial
+      ?t('dcSplitD').replace('{a}','<span class="num">'+fmt(Math.min(min30,remain))+'</span>').replace('{b}','<span class="num">'+fmt(remain)+'</span>')
+      :t('dcSplitNo').replace('{a}','<span class="num">'+fmt(e.paid)+'</span>').replace('{b}','<span class="num">'+fmt(remain)+'</span>'),!canPartial)+
+   '</div>'+
    f.pays.map(function(p,i){return payCardEdit(p,i,n)}).join('')+
    '<button type="button" class="btn ghost" data-addpay="1" style="margin:'+(n?'16px':'0')+' 0 16px">'+luSvg('plus')+t('payN')+'</button>'+
    paySummary(f.pays,remain)+

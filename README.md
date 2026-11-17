@@ -99,8 +99,9 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 ทุก Dashboard เริ่มด้วย **การ์ดสรุป (Overview)** แบบเดียวกับหน้ารายละเอียดวิสาหกิจ:
 แถวตัวเลขแบ่งช่องเท่ากัน แล้วตามด้วยแถบแจ้งเตือนที่มีปุ่มทำงานอยู่ข้างข้อความ
 
-- **ผู้ประกอบการ (My Registered Capital)** บัญชี `lao.agri` ถือวิสาหกิจ 5 แห่ง (`OWNER_ENTS`:
-  ELN-2025-1001, ELN-2024-1004, ELN-2025-1005, ELN-2025-1115, ELN-2025-1122 สถานะคละกัน) หน้าแรกเป็น
+- **ผู้ประกอบการ (My Registered Capital)** บัญชี `lao.agri` ถือวิสาหกิจ 6 แห่ง (`OWNER_ENTS`:
+  ELN-2025-1001, ELN-2024-1004, ELN-2025-1005, ELN-2025-1115, ELN-2025-1122, ELN-2025-1134 สถานะคละกัน
+  ELN-2025-1134 ยังไม่เคยชำระและไม่มีคำร้องค้าง ใช้ลองแจ้งชำระแบบ Split into 2 instalments) หน้าแรกเป็น
   ภาพรวม (แถบ % ทุนที่ชำระรวม, จำนวนวิสาหกิจ, ชำระครบ, ยังต้องชำระ, เกินกำหนด) + การ์ดค้นหา
   (Enterprise, Registration no., Status) + ตารางวิสาหกิจ กดแถวเพื่อเข้า **Capital Details** ของ
   วิสาหกิจนั้น (ลิงก์ย้อนกลับไปหน้ารายการ; แจ้งชำระ, ใบรับรอง, รายละเอียดรายการ กลับมาที่หน้านี้)
@@ -214,8 +215,10 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 - **2. Capital being paid** (รวมการเลือกงวดกับการ์ดการชำระไว้กล่องเดียว): เลือกแผนการชำระก่อน 2 แบบ
   - **Pay once 100%**: "Pay the full X LAK in one go." (X = ทุนคงเหลือ)
   - **Split into 2 instalments**: "Enter A - X LAK for instalment 1 (minimum 30%). The rest is paid in
-    instalment 2." (A = 30% ของทุนจดทะเบียน) เลือกได้เฉพาะวิสาหกิจที่ยังไม่เคยชำระ ถ้าชำระไปแล้วบางส่วน
-    ตัวเลือกนี้กดไม่ได้และมีข้อความบอกว่างวดนี้ต้องชำระยอดคงเหลือทั้งหมด
+    instalment 2." (A = 30% ของทุนจดทะเบียน) เลือกได้เฉพาะวิสาหกิจที่ยังไม่เคยชำระ ถ้าชำระงวดที่ 1 ไปแล้ว
+    การ์ดนี้กดไม่ได้ และข้อความในการ์ดเปลี่ยนเป็น "Not available: instalment 1 (P LAK) is already paid,
+    so this payment settles the remaining X LAK."
+    ตัวอย่างที่เลือก Split ได้: ELN-2025-1134 (Owner `lao.agri` หรือ Maker ค้นจาก Search Enterprises)
   - แล้วกดปุ่ม **+ Payment** เพื่อเพิ่มการ์ดการชำระ ใส่ได้หลายใบในงวดเดียว แต่ละใบมีหัว (ไอคอน + ประเภท,
     ป้าย Payment N, Remove เมื่อมีมากกว่า 1 ใบ, ยอดเงิน, Show / Hide details) และเลือก **Payment method** ได้ 3 แบบ
   - **Cash**: Amount paid, Bank code, From Account No, From Account Name, Payment evidence

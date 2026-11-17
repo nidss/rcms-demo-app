@@ -113,7 +113,7 @@ The `<style>` block comes first (CSS tokens in `:root`, then `/* ---------- name
   - Enterprises: `seedEnts()` (6 hand-written demo enterprises ELN-2025-1001..1006, used by the Owner/Maker walkthroughs) plus `seedMockEnts()` from `MOCK_ENTS` (24 more, ELN-2025-1101..1124, so lists page) plus `seedExtraEnts()` (ELN-2025-1125..1138, Vientiane Capital, for the dashboard).
   - Declarations: `seedTasks()` plus `seedMockTasks()`, plus one `RETURNED` declaration on ELN-2025-1126 from `seedReturned()` and four more on Vientiane Capital enterprises from `seedExtraTasks()` (in the demo Checker / Approver scope).
   - Valuation jobs: `VALJOBS` plus `MOCK_VAL`, with `mockCollateral()` on the enterprise.
-  - The owner's enterprises: `OWNER_ENTS`.
+  - The owner's enterprises: `OWNER_ENTS` (ELN-2025-1134 is the unpaid one with no open declaration, for trying Split into 2 instalments).
   - "Today" is fixed at 04/08/2026 (`daysLeft()`).
   - Keep the six original enterprises' states intact; demo flows depend on them.
 - **Dead code**: no menu leads to `vStaffDash` or `vQueue` (views `inspect` / `approveQ`). They survive only as fallbacks: `vDash()` returns `vStaffDash()` for an unmatched role, and `vTask()` returns `vQueue()` when the task is missing.
