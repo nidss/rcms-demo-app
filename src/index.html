@@ -617,6 +617,10 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .cdx-tile .v small{font-size:11px;font-weight:500;color:var(--muted)}
 .cdx-tile .s{font-size:11px;color:var(--muted);margin-top:1px}
 .cdx-tile.bad .k{color:var(--bad)}
+/* configuration tiles on System Overview: one column, a rule between rows */
+.sys-cfg{grid-template-columns:1fr;border-top:0}
+.sys-cfg .cdx-tile{border-left:0;border-top:1px solid var(--line)}
+.sys-cfg .cdx-tile:first-child{border-top:0}
 .cdx-hb{display:flex;flex-direction:column;gap:10px}
 .cdx-hr{display:grid;grid-template-columns:minmax(110px,34%) minmax(0,1fr);gap:12px;align-items:center}
 .cdx-hr.drill{cursor:pointer;border-radius:8px;margin:-4px -6px;padding:4px 6px}
@@ -808,7 +812,8 @@ lo:{
  coop:'ໂມດູນການປະກອບທຶນຈົດທະບຽນ (Phase 1) - ຮ່ວມມືລະຫວ່າງ MOIC ແລະ ທະນາຄານສົ່ງເສີມກະສິກຳ (APB)',
  s1:'ວິສາຫະກິດຂຶ້ນທະບຽນ',s2:'ລ້ານລ້ານກີບ ທຶນຈົດທະບຽນ',s3:'ຂະບວນການທຸລະກຳ',
  pickAcct:'ເຂົ້າສູ່ລະບົບ',loginHint:'ພິມຊື່ຜູ້ໃຊ້ (ມີລາຍຊື່ demo ໃຫ້ autocomplete) ແລ້ວໃສ່ລະຫັດຜ່ານໃດກໍ່ໄດ້',
- nxCk:'ລາຍການລໍໃຫ້ທ່ານກວດສອບ',nxAp:'ລາຍການລໍໃຫ້ທ່ານອະນຸມັດ ແລະ E-Sign',nxNext:'ລາຍການຕໍ່ໄປ',nxStartCk:'ເລີ່ມກວດສອບ',nxStartAp:'ເປີດເພື່ອລົງນາມ',nxClear:'ບໍ່ມີວຽກຄ້າງ',nxClearS:'ບໍ່ມີລາຍການລໍຖ້າທ່ານໃນຕອນນີ້',nxValue:'ມູນຄ່າລວມ',pfTitle:'ພາບລວມພອດ',pfPaidCap:'ທຶນທີ່ຊຳລະແລ້ວ',advFilters:'ຕົວກອງເພີ່ມເຕີມ',kwPh:'ຄົ້ນຫາດ້ວຍຊື່ ຫຼື ເລກທະບຽນ',kwLbl:'ຄົ້ນຫາ',entList:'ລາຍຊື່ວິສາຫະກິດ',demoAccts:'ບັນຊີເດໂມ',unpaidInv:'ໃບແຈ້ງໜີ້ຄ້າງຊຳລະ',owRet:'ໃບແຈ້ງຖືກສົ່ງຄືນໃຫ້ແກ້ໄຂ',owDraft:'ໃບແຈ້ງສະບັບຮ່າງ',owOpenDraft:'ເປີດສະບັບຮ່າງ',owByEnt:'ທຶນຕາມວິສາຫະກິດ',owByEntSub:'ທຶນຈົດທະບຽນ · LAK · ກົດເພື່ອເປີດ',owDue:'ທຶນຄົງເຫຼືອຕາມກຳນົດເວລາ',owDueSub:'ກຳນົດໃກ້ສຸດກ່ອນ · LAK',owAllPaid:'ຊຳລະຄົບທຸກວິສາຫະກິດແລ້ວ',owDaysLeft:'ເຫຼືອ (ວັນ)',secIdentity:'ຂໍ້ມູນວິສາຫະກິດ',secRegistration:'ການຈົດທະບຽນ',secLocation:'ທີ່ຕັ້ງ',secTaxFin:'ອາກອນ ແລະ ການເງິນ',valAssetCard:'ຊັບສິນທີ່ປະເມີນ',menuLbl:'ເມນູ',wsOverview:'ພາບລວມ',sysHealth:'ສະຖານະລະບົບ',docsOnFile:'ເອກະສານທີ່ມີແລ້ວ',nxOpenAll:'ເບິ່ງທັງໝົດ',apiDegraded:'ເຊື່ອມຕໍ່ຊ້າ',lockedAcc:'ບັນຊີຖືກລັອກ',fullyPaidOf:'ຊຳລະຄົບ',
+ nxCk:'ລາຍການລໍໃຫ້ທ່ານກວດສອບ',nxAp:'ລາຍການລໍໃຫ້ທ່ານອະນຸມັດ ແລະ E-Sign',nxNext:'ລາຍການຕໍ່ໄປ',nxStartCk:'ເລີ່ມກວດສອບ',nxStartAp:'ເປີດເພື່ອລົງນາມ',nxClear:'ບໍ່ມີວຽກຄ້າງ',nxClearS:'ບໍ່ມີລາຍການລໍຖ້າທ່ານໃນຕອນນີ້',nxValue:'ມູນຄ່າລວມ',pfTitle:'ພາບລວມພອດ',pfPaidCap:'ທຶນທີ່ຊຳລະແລ້ວ',advFilters:'ຕົວກອງເພີ່ມເຕີມ',kwPh:'ຄົ້ນຫາດ້ວຍຊື່ ຫຼື ເລກທະບຽນ',kwLbl:'ຄົ້ນຫາ',entList:'ລາຍຊື່ວິສາຫະກິດ',demoAccts:'ບັນຊີເດໂມ',unpaidInv:'ໃບແຈ້ງໜີ້ຄ້າງຊຳລະ',sysUptime:'ອັດຕາສຳເລັດ API ສະເລ່ຍ',sysIntOnline:'ລະບົບເຊື່ອມຕໍ່ອອນລາຍ',sysUsersU:'ຜູ້ໃຊ້',sysUsersSt:'ຜູ້ໃຊ້ຕາມສະຖານະ',sysOffline:'ອອບລາຍ',sysSlowest:'ຕອບຊ້າສຸດ',
+ sysOrgSub:'ອອນລາຍ · ອອບລາຍ · ຖືກລັອກ',sysRoleSub:'ຈຳນວນຜູ້ໃຊ້',sysApiSub:'ເວລາຕອບສະໜອງ · ອັດຕາສຳເລັດ',sysCfgSub:'ຂໍ້ມູນທີ່ຈັດການໃນການຕັ້ງຄ່າລະບົບ',sysAudSub:'ການເຄື່ອນໄຫວລ່າສຸດ',owRet:'ໃບແຈ້ງຖືກສົ່ງຄືນໃຫ້ແກ້ໄຂ',owDraft:'ໃບແຈ້ງສະບັບຮ່າງ',owOpenDraft:'ເປີດສະບັບຮ່າງ',owByEnt:'ທຶນຕາມວິສາຫະກິດ',owByEntSub:'ທຶນຈົດທະບຽນ · LAK · ກົດເພື່ອເປີດ',owDue:'ທຶນຄົງເຫຼືອຕາມກຳນົດເວລາ',owDueSub:'ກຳນົດໃກ້ສຸດກ່ອນ · LAK',owAllPaid:'ຊຳລະຄົບທຸກວິສາຫະກິດແລ້ວ',owDaysLeft:'ເຫຼືອ (ວັນ)',secIdentity:'ຂໍ້ມູນວິສາຫະກິດ',secRegistration:'ການຈົດທະບຽນ',secLocation:'ທີ່ຕັ້ງ',secTaxFin:'ອາກອນ ແລະ ການເງິນ',valAssetCard:'ຊັບສິນທີ່ປະເມີນ',menuLbl:'ເມນູ',wsOverview:'ພາບລວມ',sysHealth:'ສະຖານະລະບົບ',docsOnFile:'ເອກະສານທີ່ມີແລ້ວ',nxOpenAll:'ເບິ່ງທັງໝົດ',apiDegraded:'ເຊື່ອມຕໍ່ຊ້າ',lockedAcc:'ບັນຊີຖືກລັອກ',fullyPaidOf:'ຊຳລະຄົບ',
  loginUser:'ຊື່ຜູ້ໃຊ້',loginPass:'ລະຫັດຜ່ານ',loginNext:'ຖັດໄປ',loginBack:'← ກັບຄືນ',
  otpTitle:'ຢືນຢັນຕົວຕົນ (MFA)',login:'ເຂົ້າສູ່ລະບົບ',
  forgotPw:'ລືມລະຫັດຜ່ານ?',noAcct:'ຍັງບໍ່ມີບັນຊີ?',signUp:'ສ້າງບັນຊີ',signupTitle:'ສ້າງບັນຊີ',
@@ -1045,7 +1050,8 @@ en:{
  coop:'Capital Contribution Module (Phase 1) - a joint effort of MOIC and the Agricultural Promotion Bank (APB)',
  s1:'Registered enterprises',s2:'Trillion LAK registered capital',s3:'Business processes',
  pickAcct:'Log in',loginHint:'Type a username (demo accounts autocomplete) and any password',
- nxCk:'items waiting for your verification',nxAp:'items waiting for your approval and E-Sign',nxNext:'Next up',nxStartCk:'Start review',nxStartAp:'Open to sign',nxClear:'All caught up',nxClearS:'Nothing is waiting on you right now',nxValue:'Total value',pfTitle:'Portfolio',pfPaidCap:'Capital paid up',advFilters:'More filters',kwPh:'Search by name or registration no.',kwLbl:'Search',entList:'Enterprises',demoAccts:'Demo accounts',unpaidInv:'unpaid invoice(s)',owRet:'declaration(s) returned for correction',owDraft:'draft declaration(s)',owOpenDraft:'Open draft',owByEnt:'Capital by enterprise',owByEntSub:'Registered capital · LAK · click to open',owDue:'Outstanding capital by deadline',owDueSub:'Nearest deadline first · LAK',owAllPaid:'Every enterprise is fully paid',owDaysLeft:'Days left',secIdentity:'Identity',secRegistration:'Registration',secLocation:'Location',secTaxFin:'Tax & finance',valAssetCard:'Asset under valuation',menuLbl:'Menu',wsOverview:'Overview',sysHealth:'System health',docsOnFile:'Documents on file',nxOpenAll:'View all',apiDegraded:'degraded',lockedAcc:'locked account(s)',fullyPaidOf:'Fully paid',
+ nxCk:'items waiting for your verification',nxAp:'items waiting for your approval and E-Sign',nxNext:'Next up',nxStartCk:'Start review',nxStartAp:'Open to sign',nxClear:'All caught up',nxClearS:'Nothing is waiting on you right now',nxValue:'Total value',pfTitle:'Portfolio',pfPaidCap:'Capital paid up',advFilters:'More filters',kwPh:'Search by name or registration no.',kwLbl:'Search',entList:'Enterprises',demoAccts:'Demo accounts',unpaidInv:'unpaid invoice(s)',sysUptime:'Average API success rate',sysIntOnline:'integrations online',sysUsersU:'users',sysUsersSt:'Users by status',sysOffline:'Offline',sysSlowest:'Slowest response',
+ sysOrgSub:'Online · offline · suspended',sysRoleSub:'Number of users',sysApiSub:'Response time · success rate',sysCfgSub:'Records managed in System Settings',sysAudSub:'Latest activity',owRet:'declaration(s) returned for correction',owDraft:'draft declaration(s)',owOpenDraft:'Open draft',owByEnt:'Capital by enterprise',owByEntSub:'Registered capital · LAK · click to open',owDue:'Outstanding capital by deadline',owDueSub:'Nearest deadline first · LAK',owAllPaid:'Every enterprise is fully paid',owDaysLeft:'Days left',secIdentity:'Identity',secRegistration:'Registration',secLocation:'Location',secTaxFin:'Tax & finance',valAssetCard:'Asset under valuation',menuLbl:'Menu',wsOverview:'Overview',sysHealth:'System health',docsOnFile:'Documents on file',nxOpenAll:'View all',apiDegraded:'degraded',lockedAcc:'locked account(s)',fullyPaidOf:'Fully paid',
  loginUser:'Username',loginPass:'Password',loginNext:'Next',loginBack:'← Back',
  otpTitle:'Verify identity (MFA)',login:'Log in',
  forgotPw:'Forgot password?',noAcct:"Don't have an account?",signUp:'Create Account',signupTitle:'Create Account',
@@ -2515,82 +2521,94 @@ function vStaffDash(){
 }
 
 function vAdminDash(){
-  var PAL=['#283579','#5B8DEF','#137A41','#E6B92C','#C8202E','#8B6FD6'];
-  var online=S.users.filter(function(u){return u.online}).length;
-  var lockedN=S.users.filter(function(u){return !u.active}).length;
-  var byOrg={};S.users.forEach(function(u){byOrg[u.org]=(byOrg[u.org]||0)+1});
-  var orgSegs=Object.keys(byOrg).map(function(k,i){return [byOrg[k],PAL[i%PAL.length],k]});
-  var byRole={};S.users.forEach(function(u){byRole[u.role]=(byRole[u.role]||0)+1});
-  var roleSegs=Object.keys(byRole).map(function(k,i){return [byRole[k],PAL[i%PAL.length],k]});
-  var orgPg=paginate('admOrg',Object.keys(byOrg)),orgRows=orgPg.items.map(function(k){
-    var us=S.users.filter(function(u){return u.org===k});
-    var onl=us.filter(function(u){return u.online}).length,lck=us.filter(function(u){return !u.active}).length;
-    return '<tr><td style="padding-left:16px">'+k+'</td><td class="r num">'+us.length+'</td>'+
-    '<td class="r num" style="color:var(--ok)">'+onl+'</td>'+
-    '<td class="r num" style="padding-right:16px;color:'+(lck?'var(--bad)':'var(--muted)')+'">'+lck+'</td></tr>'}).join('');
+  var K=cdxKit(),tipA=K.tipA,tile=K.tile,LO=lang==='lo';
+  var users=S.users,n=users.length;
+  var onl=function(l){return l.filter(function(u){return u.active&&u.online})},
+      off=function(l){return l.filter(function(u){return u.active&&!u.online})},
+      lck=function(l){return l.filter(function(u){return !u.active})};
+  var online=onl(users).length,offline=off(users).length,lockedN=lck(users).length;
+  var apiSt={up:[{lo:'ອອນລາຍ',en:'Online'},'p-ok',K.C1],slow:[{lo:'ຕອບຊ້າ',en:'Degraded'},'p-warn',K.C2],down:[{lo:'ຫຼຸດການເຊື່ອມ',en:'Offline'},'p-bad',K.CRIT]};
+  var apiUpN=API_ENDPOINTS.filter(function(a){return a.st==='up'}).length,apiFails=6;
+  var rateN=function(a){return parseFloat(a.rate)},latN=function(a){return parseFloat(a.lat)};
+  var apiAvg=API_ENDPOINTS.length?Math.round(API_ENDPOINTS.reduce(function(x,a){return x+rateN(a)},0)/API_ENDPOINTS.length*10)/10:0;
+  var slowest=API_ENDPOINTS.slice().sort(function(x,y){return latN(y)-latN(x)})[0];
 
-  // integration health
-  var apiUpN=API_ENDPOINTS.filter(function(a){return a.st==='up'}).length;
-  var apiFails=6;
-  var apiSt={up:[{lo:'ອອນລາຍ',en:'Online'},'p-ok'],slow:[{lo:'ຕອບຊ້າ',en:'Degraded'},'p-warn'],down:[{lo:'ຫຼຸດການເຊື່ອມ',en:'Offline'},'p-bad']};
-  var apiPg=paginate('admApi',API_ENDPOINTS),apiRows=apiPg.items.map(function(a){var s=apiSt[a.st];
-    return '<tr><td style="padding-left:16px"><span class="co">'+a.nm+'<small>'+L(a.desc)+'</small></span></td>'+
-    '<td><span class="pill '+s[1]+'">'+L(s[0])+'</span></td>'+
-    '<td class="r num">'+a.rate+'</td><td class="r num">'+a.lat+'</td>'+
-    '<td class="r num" style="padding-right:16px">'+a.last+'</td></tr>'}).join('');
+  // 1. Hero: average API success rate, users split by status, stat tiles, then what needs attention.
+  var parts=[[t('onlineNow'),online,K.C1,'#fff'],[t('sysOffline'),offline,K.REST,'var(--ink2)'],[t('uLocked'),lockedN,K.CRIT,'#fff']];
+  var seg='<div class="cdx-seg">'+parts.filter(function(p){return p[1]>0}).map(function(p){
+     return '<div style="flex:'+p[1]+' 1 0;background:'+p[2]+';color:'+p[3]+'"'+tipA(fmt(p[1])+' · '+Math.round(p[1]/n*100)+'%',p[0])+'>'+p[1]+'</div>'}).join('')+'</div>';
+  var segLeg='<div class="cdx-leg">'+parts.map(function(p){return '<span><i style="background:'+p[2]+'"></i>'+p[0]+' <b class="num">'+fmt(p[1])+'</b></span>'}).join('')+'</div>';
+  var tiles=tile(t('totalUsers'),fmt(n),LO?'ຜູ້ໃຊ້ທັງໝົດໃນລະບົບ':'All system users')+
+    tile(t('onlineNow'),fmt(online),Math.round(online/n*100)+'% '+(LO?'ຂອງຜູ້ໃຊ້':'of users'))+
+    tile(t('uLocked'),fmt(lockedN),LO?'ບັນຊີຖືກລັອກ':'Locked accounts','',lockedN?'bad':'')+
+    tile(t('apiUp'),fmt(apiUpN)+' <small>/ '+API_ENDPOINTS.length+'</small>',LO?'ປາຍທາງເຊື່ອມຕໍ່':'Endpoints connected','',apiUpN<API_ENDPOINTS.length?'bad':'')+
+    tile(t('apiFail'),fmt(apiFails),LO?'24 ຊົ່ວໂມງຜ່ານມາ':'In the last 24 hours','',apiFails?'bad':'')+
+    tile(t('sysSlowest'),slowest?slowest.lat:'-',slowest?slowest.nm:'');
+  var notes=API_ENDPOINTS.filter(function(ep){return ep.st!=='up'}).map(function(ep){
+      return {tone:'warn',text:'<b>'+ep.nm+'</b> '+L(apiSt[ep.st][0])+' · '+L(ep.desc)+' · '+t('apiRate')+' <span class="num">'+ep.rate+'</span>',
+        act:'<button class="btn ghost sm" data-subtab="set:api">'+t('setApi')+'</button>'}}).concat(
+      lockedN?[{tone:'warn',text:'<b class="num">'+lockedN+'</b> '+t('lockedAcc'),act:'<button class="btn ghost sm" data-subtab="set:user">'+t('setUser')+'</button>'}]:[]);
+  var heroCard='<div class="card cdx cdx-hero"><div class="c"><div class="cdx-hh">'+
+    '<div class="cdx-hfig"><div class="cdx-hk">'+t('sysUptime')+'</div><div class="cdx-hv">'+apiAvg+'<span>%</span></div>'+
+     '<div class="cdx-hs"><span class="num">'+apiUpN+'</span> / <span class="num">'+API_ENDPOINTS.length+'</span> '+t('sysIntOnline')+' · '+fmt(n)+' '+t('sysUsersU')+'</div></div>'+
+    '<div class="cdx-segw"><div class="cdx-segt">'+t('sysUsersSt')+'</div>'+seg+segLeg+'</div></div>'+
+    '<div class="cdx-tiles">'+tiles+'</div></div>'+
+    notes.map(function(x){return '<div class="sc-note '+x.tone+'"><span class="ni">'+luSvg(NOTE_ICON[x.tone])+'</span><div class="nt">'+x.text+'</div>'+
+      (x.act?'<div class="acts">'+x.act+'</div>':'')+'</div>'}).join('')+'</div>';
 
-  // audit / security trail
-  var catMap={auth:[{lo:'ເຂົ້າສູ່ລະບົບ',en:'Login'},'p-idle'],rbac:[{lo:'ສິດ RBAC',en:'RBAC'},'p-rev'],
-    security:[{lo:'ຄວາມປອດໄພ',en:'Security'},'p-bad'],system:[{lo:'ລະບົບ',en:'System'},'p-warn'],config:[{lo:'ຕັ້ງຄ່າ',en:'Config'},'p-ok']};
-  var audPg=paginate('admAud',AUDIT_LOG),audRows=audPg.items.map(function(l){var cc=catMap[l.cat];
-    var tt=typeof l.t==='string'?l.t:L(l.t),uu=typeof l.u==='string'?l.u:L(l.u);
-    return '<tr><td style="padding-left:16px" class="num">'+tt+'</td><td>'+uu+'</td><td>'+L(l.a)+'</td>'+
-    '<td class="r" style="padding-right:16px"><span class="pill '+cc[1]+'">'+L(cc[0])+'</span></td></tr>'}).join('');
+  // 2. Users by organisation (online / offline / suspended) and by role (one colour: counts, not categories).
+  var orgs=[];users.forEach(function(u){if(orgs.indexOf(u.org)<0)orgs.push(u.org)});
+  var omx=K.maxOf(orgs.map(function(o){return users.filter(function(u){return u.org===o}).length}));
+  var orgBody='<div class="cdx-leg">'+parts.map(function(p){return '<span><i style="background:'+p[2]+'"></i>'+p[0]+'</span>'}).join('')+'</div>'+
+    '<div class="cdx-hb">'+orgs.map(function(o){var us=users.filter(function(u){return u.org===o});
+      var segs=[[parts[0][0],onl(us).length,K.C1],[parts[1][0],off(us).length,K.REST],[parts[2][0],lck(us).length,K.CRIT]].filter(function(x){return x[1]>0});
+      return '<div class="cdx-hr"><div class="cdx-hl">'+o+'</div><div class="cdx-ht"><div class="cdx-sb" style="width:'+Math.max(2,us.length/omx*76)+'%">'+
+       segs.map(function(x){return '<i style="flex:'+x[1]+' 1 0;background:'+x[2]+'"'+tipA(fmt(x[1]),o+' · '+x[0])+'></i>'}).join('')+'</div>'+
+       '<b class="num">'+fmt(us.length)+'</b></div></div>'}).join('')+'</div>';
+  var orgCard=K.card('sysorg',t('orgBreakdown'),t('sysOrgSub'),orgBody,
+    K.tbl([t('uOrg'),t('totalUsers'),t('onlineNow'),t('uLocked')],orgs.map(function(o){var us=users.filter(function(u){return u.org===o});
+      return [o,fmt(us.length),fmt(onl(us).length),fmt(lck(us).length)]})));
+  var roles=[];users.forEach(function(u){if(roles.indexOf(u.role)<0)roles.push(u.role)});
+  var rRows=roles.map(function(r){var c=users.filter(function(u){return u.role===r}).length;
+    return {lbl:r,v:c,val:fmt(c),sub:Math.round(c/n*100)+'%',tv:fmt(c)+' · '+Math.round(c/n*100)+'%',tl:r}}).sort(function(x,y){return y.v-x.v});
+  var roleCard=K.card('sysrole',t('usersByRole'),t('sysRoleSub'),K.hbars(rRows,K.maxOf(rRows.map(function(r){return r.v}))),
+    K.tbl([t('uRole'),t('totalUsers'),'%'],rRows.map(function(r){return [r.lbl,fmt(r.v),r.sub]})));
 
-  // system-config status
+  // 3. Integrations: response time per endpoint, coloured by status; the table keeps every column.
+  var stLeg='<div class="cdx-leg">'+['up','slow','down'].map(function(k){return '<span><i style="background:'+apiSt[k][2]+'"></i>'+L(apiSt[k][0])+'</span>'}).join('')+'</div>';
+  var aRows=API_ENDPOINTS.map(function(a){var st=apiSt[a.st];
+    return {lbl:a.st==='up'?a.nm:'<span class="cdx-crit" style="color:'+(a.st==='down'?'var(--bad)':'var(--warn)')+'">'+luSvg('triangleAlert')+a.nm+'</span>',
+      sub:L(a.desc)+' · '+a.rate,v:latN(a),val:a.lat,c:st[2],tv:a.lat+' · '+t('apiRate')+' '+a.rate+' · '+t('apiLast')+' '+a.last,tl:a.nm+' · '+L(st[0])}});
+  var apiCard=K.card('sysapi',t('secIntegration'),t('sysApiSub'),stLeg+K.hbars(aRows,K.maxOf(aRows.map(function(r){return r.v}))),
+    '<table class="cdx-t"><thead><tr><th>'+t('apiEndpoint')+'</th><th>'+t('cStatus')+'</th><th class="r">'+t('apiRate')+'</th><th class="r">'+t('apiDur')+'</th><th class="r">'+t('apiLast')+'</th></tr></thead><tbody>'+
+     API_ENDPOINTS.map(function(a){var st=apiSt[a.st];return '<tr><td>'+a.nm+'</td><td><span class="pill '+st[1]+'">'+L(st[0])+'</span></td>'+
+      '<td class="r num">'+a.rate+'</td><td class="r num">'+a.lat+'</td><td class="r num">'+a.last+'</td></tr>'}).join('')+'</tbody></table>',
+    '<div class="cdx-foot"><span class="more" data-subtab="set:api" style="cursor:pointer">'+t('setApi')+' →</span></div>');
+
+  // 4. Configuration records, then the audit trail.
   var glCount=0;S.ents.forEach(function(e){e.hist.forEach(function(h){if((h.m==='cash'||h.m==='asset')&&h.v)glCount++})});
   var feeCount=FEES.byType.length+FEES.byCapital.length;
   var masterRecs=MASTER.isic.length+MASTER.prov.length+MASTER.etype.length+docMaster().length+MASTER.valfirms.length;
-
-  var inner=
-   sumCard({title:t('sysHealth'),
-    metrics:metric('',t('totalUsers'),S.users.length,lang==='lo'?'ຜູ້ໃຊ້ທັງໝົດໃນລະບົບ':'All system users')+
-     metric('ok',t('onlineNow'),online,lang==='lo'?'ກຳລັງໃຊ້ງານ':'Active now')+
-     metric('warn',t('uLocked'),lockedN,lang==='lo'?'ບັນຊີຖືກລັອກ':'Locked accounts')+
-     metric(apiUpN<API_ENDPOINTS.length?'warn':'ok',t('apiUp'),apiUpN+'/'+API_ENDPOINTS.length,lang==='lo'?'ປາຍທາງເຊື່ອມຕໍ່':'Endpoints connected')+
-     metric(apiFails?'bad':'ok',t('apiFail'),apiFails,lang==='lo'?'24 ຊົ່ວໂມງຜ່ານມາ':'In the last 24 hours'),
-    notes:API_ENDPOINTS.filter(function(ep){return ep.st!=='up'}).map(function(ep){
-      return {tone:'warn',text:'<b>'+ep.nm+'</b> '+L(apiSt[ep.st][0])+' · '+L(ep.desc)+' · '+t('apiRate')+' <span class="num">'+ep.rate+'</span>',
-        act:'<button class="btn ghost sm" data-subtab="set:api">'+t('setApi')+'</button>'}}).concat(
-      lockedN?[{tone:'warn',text:'<b class="num">'+lockedN+'</b> '+t('lockedAcc'),act:'<button class="btn ghost sm" data-subtab="set:user">'+t('setUser')+'</button>'}]:[])})+
-
-   '<div class="grid3" style="grid-template-columns:1fr 1fr">'+
-   '<div class="card"><div class="h"><h3>'+t('adminUsers')+'</h3></div><div class="c">'+
-   '<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">'+donutSegs(orgSegs,t('totalUsers'))+donutLegend(orgSegs)+
-   '</div></div></div>'+
-   '<div class="card"><div class="h"><h3>'+t('usersByRole')+'</h3></div><div class="c">'+
-   '<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">'+donutSegs(roleSegs,t('totalUsers'))+donutLegend(roleSegs)+
-   '</div></div></div></div>'+
-   '<div class="card" style="margin-top:14px"><div class="h"><h3>'+t('orgBreakdown')+'</h3></div><div class="c" style="padding:10px 0 0">'+
-   '<table><thead><tr><th style="padding-left:16px">'+t('uOrg')+'</th><th class="r">'+t('totalUsers')+'</th>'+
-   '<th class="r">'+t('onlineNow')+'</th><th class="r" style="padding-right:16px">'+t('uLocked')+'</th></tr></thead>'+
-   '<tbody>'+orgRows+'</tbody></table>'+orgPg.bar+'</div></div>'+
-
-   '<div style="height:16px"></div><div class="card"><div class="h"><h3>'+t('secIntegration')+'</h3><span class="more" data-subtab="set:api">'+t('setApi')+' →</span></div>'+
-   '<div class="c" style="padding:10px 0 0">'+
-   '<table><thead><tr><th style="padding-left:16px">'+t('apiEndpoint')+'</th><th>'+t('cStatus')+'</th>'+
-   '<th class="r">'+t('apiRate')+'</th><th class="r">'+t('apiDur')+'</th><th class="r" style="padding-right:16px">'+t('apiLast')+'</th></tr></thead>'+
-   '<tbody>'+apiRows+'</tbody></table>'+apiPg.bar+'</div></div>'+
-
-   '<div style="height:16px"></div>'+
-   sumCard({title:t('secConfig'),acts:'<button class="btn ghost sm" data-nav="set">'+t('setTitle')+' →</button>',
-    metrics:metric('',t('cfgFee'),feeCount,lang==='lo'?'ລາຍການ · ອັບເດດ 17/06/2021':'tiers · updated 17/06/2021')+
-     metric('',t('cfgMaster'),masterRecs,lang==='lo'?'ລາຍການ · 5 ຊຸດຂໍ້ມູນ':'records · 5 datasets')+
-     metric('',t('glTitle'),glCount,lang==='lo'?'ລາຍການ · ລົງບັນຊີ 04/08/2026':'entries · last posting 04/08/2026')})+
-   '<div class="card"><div class="h"><h3>'+t('secAudit')+'</h3></div><div class="c" style="padding:10px 0 0">'+
+  var cfgCard='<div class="card cdx"><div class="h"><div class="cdx-ttl"><h3>'+t('secConfig')+'</h3><span class="hs">'+t('sysCfgSub')+'</span></div>'+
+    '<button class="btn ghost sm cdx-tg" data-nav="set">'+luSvg('settings')+t('setTitle')+'</button></div>'+
+    '<div class="c" style="padding:0"><div class="cdx-tiles sys-cfg">'+
+     tile(t('cfgFee'),fmt(feeCount),LO?'ລາຍການ · ອັບເດດ 17/06/2021':'tiers · updated 17/06/2021')+
+     tile(t('cfgMaster'),fmt(masterRecs),LO?'ລາຍການ · 5 ຊຸດຂໍ້ມູນ':'records · 5 datasets')+
+     tile(t('glTitle'),fmt(glCount),LO?'ລາຍການ · ລົງບັນຊີ 04/08/2026':'entries · last posting 04/08/2026')+'</div></div></div>';
+  var catMap={auth:[{lo:'ເຂົ້າສູ່ລະບົບ',en:'Login'},'p-idle'],rbac:[{lo:'ສິດ RBAC',en:'RBAC'},'p-rev'],
+    security:[{lo:'ຄວາມປອດໄພ',en:'Security'},'p-bad'],system:[{lo:'ລະບົບ',en:'System'},'p-warn'],config:[{lo:'ຕັ້ງຄ່າ',en:'Config'},'p-ok']};
+  var audPg=paginate('admAud',AUDIT_LOG,'',5),audRows=audPg.items.map(function(l){var cc=catMap[l.cat];
+    var tt=typeof l.t==='string'?l.t:L(l.t),uu=typeof l.u==='string'?l.u:L(l.u);
+    return '<tr><td style="padding-left:16px" class="num">'+tt+'</td><td>'+uu+'</td><td>'+L(l.a)+'</td>'+
+    '<td class="r" style="padding-right:16px"><span class="pill '+cc[1]+'">'+L(cc[0])+'</span></td></tr>'}).join('');
+  var audCard='<div class="card cdx"><div class="h"><div class="cdx-ttl"><h3>'+t('secAudit')+'</h3><span class="hs">'+t('sysAudSub')+'</span></div>'+
+   '<span class="cnt" style="margin-left:auto">'+AUDIT_LOG.length+'</span></div><div class="c" style="padding:12px 0 0">'+
    '<table><thead><tr><th style="padding-left:16px">'+t('cTime')+'</th><th>'+t('audUser')+'</th>'+
    '<th>'+t('audAction')+'</th><th class="r" style="padding-right:16px">'+t('audCat')+'</th></tr></thead>'+
    '<tbody>'+audRows+'</tbody></table>'+audPg.bar+'</div></div>';
+
+  var inner=heroCard+'<div class="cdx-grid">'+orgCard+roleCard+'</div>'+
+    '<div class="cdx-grid">'+apiCard+'<div>'+cfgCard+'</div></div>'+audCard;
   return shell(t('adminDashTitle'),'',inner);
 }
 
