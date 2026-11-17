@@ -3380,7 +3380,8 @@ function vDeclare(){
    paySummary(f.pays,remain)+
    (f.err?'<div class="hint err" style="margin-top:10px">'+f.err+'</div>':'');
   var old=f.edit!=null?S.tasks[f.edit]:null,retN=old&&old.st==='RETURNED'?openNote(old):null;
-  var inner='<div class="vstack">'+entBrief(e)+
+  // Capital Details: the same summary card as the enterprise page, without its actions.
+  var inner='<div class="vstack">'+entBrief(e)+capSummary(e,'',[])+
    (retN?'<div class="sc-note bad" style="border-radius:10px;margin:0"><span class="ni">'+luSvg('triangleAlert')+'</span><div class="nt">'+retN.text+'</div></div>':'')+
    '<div class="card"><div class="c" style="padding:16px"><div class="fsec">'+sec1+'</div></div></div>'+
    '<div class="card"><div class="c" style="padding:16px"><div class="fsec">'+sec2+'</div>'+
