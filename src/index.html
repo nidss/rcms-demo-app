@@ -3183,7 +3183,9 @@ function payDocGroup(p){
 function firmLbl(ft){return ft==='moic'?t('firmMoic'):ft==='out'?t('outNetShort'):t('inNet')}
 function needsAppraisal(p){return p.type==='asset'&&p.firmType!=='moic'}
 // An asset valued by MOIC needs no valuation report, so that slot is left out.
+// Cash from a domestic source shows only the required slots; foreign cash shows them all.
 function payDocOpts(p){var d=docDefs(payDocGroup(p),p.src==='foreign');
+  if(p.type==='cash'&&p.src!=='foreign')return d.filter(function(o){return o.req});
   return p.type==='asset'&&p.firmType==='moic'?d.filter(function(o){return o.k!=='VALUATION_REPORT'}):d}
 function payDocLbl(p,f){
   var o=payDocOpts(p).filter(function(x){return x.k===f.k})[0];
@@ -4275,6 +4277,8 @@ function bind(){
     var parts=el.dataset.pf.split('|'),p=S.form&&S.form.pays[Number(parts[0])],path=parts[1];if(!p)return;
     if(el.tagName==='SELECT'){el.onchange=function(){
       if(path==='cat'){var price=payAmt(p);p.vals={};p.vals[ASSET_PRICE_KEY[el.value]]=price?fmt(price):''}
+      if(path==='src'&&el.value!=='foreign'){var keep=payDocOpts({type:p.type,src:el.value}).map(function(o){return o.k});
+        p.files=(p.files||[]).filter(function(f){return keep.indexOf(f.k)>=0})}
       if(path==='firmType'){p.firmName=el.value==='in'?MASTER.valfirms.filter(function(vf){return vf.net==='in'})[0].nm:'';
         if(el.value==='moic')p.files=(p.files||[]).filter(function(f){return f.k!=='VALUATION_REPORT'})}
       // Each asset category has its own document list, so a new category starts with no files.
