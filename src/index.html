@@ -3538,8 +3538,10 @@ function vValDash(){
   var tot=sum(mine),acc=of('accepted'),accV=sum(acc),pct=mine.length?Math.round(acc.length/mine.length*100):0;
   var vp=tot?Math.round(accV/tot*100):0,doing=of('doing');
   var st=function(tone,k,l){return metric(tone,t(k),fmt(l.length),fmt(sum(l))+' '+t('vdDeclared'))};
-  var byType=['land','building','car','machine'].map(function(ty){
-    var l=mine.filter(function(p){return p[0].type===ty});return metric('',t(ty+'Type'),fmt(l.length),fmt(sum(l))+' '+t('vdDeclared'))}).join('');
+  // Labour capital gets its own tile once the firm has a labour job.
+  var types=['land','building','car','machine'].concat(mine.some(function(p){return p[0].type==='labour'})?['labour']:[]);
+  var byType=types.map(function(ty){
+    var l=mine.filter(function(p){return p[0].type===ty});return metric('',t(ty==='labour'?'modeLabour':ty+'Type'),fmt(l.length),fmt(sum(l))+' '+t('vdDeclared'))}).join('');
   var first=doing[0],ent=first?S.ents.filter(function(e){return e.id===first[0].ent})[0]:null;
   var card=sumCard({title:t('wsOverview'),
    prog:{pct:pct,html:t('vdConfirmed')+' · <b class="num">'+acc.length+'</b> / <span class="num">'+mine.length+'</span> '+t('vdJobs')},
@@ -3580,8 +3582,14 @@ function vValJobDetail(){
        [t('colDetail'),L(col.detail)],[t('colVal'),num(fmt(col.value)+' LAK')]])+'</section>'+
      (col.fields?'<section class="rsec"><h4>'+t('submittedFields')+'</h4>'+sl((ASSET_FIELDS[col.type]||[]).filter(function(af){return col.fields[af[0]]})
        .map(function(af){return [L(af[1]),num(col.fields[af[0]])]}))+'</section>':'')+'</div>'+
-     '<section class="rsec"><h4>'+t('declDocs')+'</h4><div class="pv" style="grid-template-columns:1fr;margin-top:8px"><div><span class="v">'+L(MASTER.doctype[3])+'</span></div></div>'+
-     docList([{k:'valReport',lbl:declDoc,name:fileSizeMock(declDoc)}],{ok:1})+'</section>'
+     '<section class="rsec"><h4>'+t('declDocs')+'</h4>'+(j.declFiles
+       // Jobs from a declaration list the block's files under their document type.
+       ?(j.declFiles.length?docList(j.declFiles.map(function(f){
+           var d=(DOC_GROUPS[j.declGroup]||[]).filter(function(x){return x.k===f.k})[0];
+           return {lbl:d?L(d):docLabel(f.name),name:esc(f.name)+' - '+(f.size||fileSizeMock(f.name))}}),{ok:1}):'<div class="hint">'+t('noFiles')+'</div>')
+       // Seeded asset jobs only carry the valuation report sent with the declaration.
+       :'<div class="pv" style="grid-template-columns:1fr;margin-top:8px"><div><span class="v">'+L(MASTER.doctype[3])+'</span></div></div>'+
+        docList([{k:'valReport',lbl:declDoc,name:fileSizeMock(declDoc)}],{ok:1}))+'</section>'
    :'<div class="empty"><b>-</b></div>')+'</div></div>';
   // 3. act - the valuation result form (or what the firm already sent)
   var hasFiles=j.files&&j.files.length;
@@ -4455,7 +4463,9 @@ function bind(){
         var key=lab?(p.lb||{}).name||'':(p.vals||{})[ASSET_REQ[p.cat]]||'';
         S.valjobs.push({id:'VAL-2026-0'+(S.valSeq++),ent:e.id,type:ty,decl:x.ref,part:assets.length>1?[k+1,assets.length]:null,
           asset:{lo:D.lo[tk]+(key?' · '+key:''),en:D.en[tk]+(key?' · '+key:'')},
-          firm:p.firmName||MASTER.valfirms[0].nm,net:p.firmType||'in',amt:payAmt(p),status:'doing',fields:lab?labourFields(p.lb||{}):p.vals||{}})});
+          firm:p.firmName||MASTER.valfirms[0].nm,net:p.firmType||'in',amt:payAmt(p),status:'doing',fields:lab?labourFields(p.lb||{}):p.vals||{},
+          // The block's own documents travel with the job, so the firm sees what was really submitted.
+          declGroup:payDocGroup(p),declFiles:(p.files||[]).map(function(f){return {k:f.k,name:f.name,size:f.size}})})});
     }
     if(e.insts[1]&&e.insts[1].state!=='paid'){e.insts[1].state='review';
       e.insts[1].meta=st==='APPRAISED_PENDING'?{lo:'ສົ່ງປະເມີນມູນຄ່າແລ້ວ 04/08/2026 09:47',en:'Sent for appraisal on 04/08/2026 09:47'}
