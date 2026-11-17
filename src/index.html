@@ -480,6 +480,30 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 
 /* ---------- modal / toast / tooltip ---------- */
 .veil{position:fixed;inset:0;background:rgba(14,18,48,.6);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;z-index:300;padding:20px}
+.modal.certmodal{max-width:760px;padding:22px 24px}
+.certmodal .cm-h{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.certmodal .cm-h h3{margin:0 0 4px}
+.certmodal .cm-h .lnkbtn{font-size:16px;color:var(--muted)}
+.certmodal .cm-body{background:#E9ECF3;border-radius:10px;padding:18px;margin-bottom:16px}
+.certmodal .acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+/* the certificate page itself: A4 proportions, black on white, like the paper form */
+.certdoc{position:relative;overflow:hidden;background:#fff;color:#111;max-width:620px;margin:0 auto;padding:34px 44px 40px;
+  box-shadow:0 2px 10px rgba(16,24,64,.12);font-size:12.5px;line-height:1.75;min-height:820px}
+.certwm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;
+  font-size:84px;font-weight:700;color:rgba(176,49,39,.08);transform:rotate(-28deg)}
+.cd-head{text-align:center;font-weight:700;font-size:12.5px;line-height:1.6}
+.cd-head img{width:74px;height:auto;display:block;margin:0 auto 8px}
+.cd-meta{display:flex;justify-content:space-between;gap:16px;margin:14px 0 18px;font-size:12px}
+.cd-meta .r{text-align:right;align-self:flex-end}
+.cd-title{text-align:center;font-weight:700;font-size:14px;margin-bottom:12px}
+.cd-title div:first-child{font-size:16px}
+.cd-list{list-style:none;padding:0 0 0 12px;margin:0}
+.cd-list li{position:relative;padding-left:14px}
+.cd-list li:before{content:'-';position:absolute;left:0}
+.certdoc p.cd-p{margin:2px 0 2px 26px;color:#111;font-size:inherit}
+.cd-ind{padding-left:40px}
+.cd-sign{text-align:right;font-weight:700;margin-top:10px}
+@media(max-width:640px){.certdoc{padding:20px 18px;font-size:11px;min-height:0}.certmodal .cm-body{padding:8px}.cd-meta{flex-direction:column;gap:6px}.cd-meta .r{text-align:left}}
 .modal{background:var(--white);border-radius:16px;width:100%;max-width:440px;padding:26px 28px;box-shadow:var(--sh-lg);max-height:90vh;overflow-y:auto}
 /* Modal footer buttons: secondary on the left, primary on the right, group right-aligned.
    row-reverse keeps the DOM's primary-first order rendering as [secondary][primary]. */
@@ -806,6 +830,7 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import LOGO from './moic-logo.png';
+import EMBLEM from './lao-emblem.png';
 var D={
 lo:{
  sysName:'ລະບົບຂຶ້ນທະບຽນ ແລະ ຕິດຕາມການປະກອບທຶນ',sysSub:'Registration and Capital Monitoring System',
@@ -931,7 +956,8 @@ forgotTitle:'ກູ້ຄືນລະຫັດຜ່ານ',forgotIdLbl:'ອີ�
  mapCaption:'ແຜນທີ່ສະແດງຂອບເຂດພື້ນທີ່ຂອງວິສາຫະກິດ',mapSyncedAt:'ຂໍ້ມູນລ້າສຸດ',
  capStatus:'ສະຖານະການປະກອບທຶນ',capDetails:'ລາຍລະອຽດທຶນ',capPaidUp:'ທຶນທີ່ຊຳລະແລ້ວ',capUnpaid:'ທຶນທີ່ຍັງບໍ່ຊຳລະ',capCallDue:'ວັນຄົບກຳນົດຮຽກຊຳລະທຶນ',capBreak:'ຊຳລະແລ້ວ ທຽບກັບ ຄົງເຫຼືອ',outstanding:'ຍອດຄ້າງຊຳລະ',penaltyAmt:'ຄ່າປັບສະສົມ',
  daysLeft:'ວັນທີ່ເຫຼືອກ່ອນຄົບກຳນົດ',
- stPaid:'ຢືນຢັນແລ້ວ',stDue:'ລໍຊຳລະ',stWaived:'ຍົກເວັ້ນແລ້ວ',invWaive:'ຍົກເວັ້ນ',waiveTitle:'ຍົກເວັ້ນໃບແຈ້ງໜີ້',
+ stPaid:'ຢືນຢັນແລ້ວ',stDue:'ລໍຊຳລະ',certPreview:'ເບິ່ງຕົວຢ່າງ',certPrevTitle:'ຕົວຢ່າງໜັງສືຢັ້ງຢືນຮັບຮູ້ການປະກອບທຶນ',
+ certPrevNote:'ຕົວຢ່າງນີ້ດຶງຂໍ້ມູນຈາກວິສາຫະກິດນີ້ - ຍັງບໍ່ແມ່ນເອກະສານທີ່ອອກຢ່າງເປັນທາງການ.',certWm:'ຕົວຢ່າງ',stWaived:'ຍົກເວັ້ນແລ້ວ',invWaive:'ຍົກເວັ້ນ',waiveTitle:'ຍົກເວັ້ນໃບແຈ້ງໜີ້',
  waiveNote:'ໃບແຈ້ງໜີ້ຈະຖືກປິດໂດຍບໍ່ຕ້ອງຊຳລະ ເຈົ້າຂອງວິສາຫະກິດຈະເຫັນສະຖານະຍົກເວັ້ນ ແລະ ເຫດຜົນ.',waiveReason:'ເຫດຜົນການຍົກເວັ້ນ',waiveDone:'ຍົກເວັ້ນໃບແຈ້ງໜີ້ແລ້ວ',
  entInvoices:'ໃບແຈ້ງໜີ້',waivedBy:'ຍົກເວັ້ນໂດຍ',waiveHint:'Checker ແລະ Approver ຍົກເວັ້ນໃບແຈ້ງໜີ້ທີ່ລໍຊຳລະໄດ້',
  collateral:'ລາຍການຫຼັກປະກັນ',colDetail:'ລາຍລະອຽດ',colVal:'ມູນຄ່າທີ່ຕີລາຄາ',viewReport:'ເບິ່ງບົດລາຍງານ',
@@ -1171,7 +1197,8 @@ forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
  mapCaption:'Map showing the enterprise location',mapSyncedAt:'Last synced',
  capStatus:'Capital contribution status',capDetails:'Capital Details',capPaidUp:'Paid-Up Capital',capUnpaid:'Unpaid Capital',capCallDue:'Capital Call Due Date',capBreak:'Paid vs outstanding',outstanding:'Outstanding balance',penaltyAmt:'Accrued penalty',
  daysLeft:'Days left before the deadline',
- stPaid:'Confirmed',stDue:'Awaiting payment',stWaived:'Waived',invWaive:'Waive',waiveTitle:'Waive invoice',
+ stPaid:'Confirmed',stDue:'Awaiting payment',certPreview:'Preview',certPrevTitle:'Capital contribution certificate - preview',
+ certPrevNote:'Filled from this enterprise\'s data - not an issued document. The certificate itself is in Lao.',certWm:'PREVIEW',stWaived:'Waived',invWaive:'Waive',waiveTitle:'Waive invoice',
  waiveNote:'The invoice is closed without payment. The owner sees it as waived, with the reason.',waiveReason:'Reason for waiving',waiveDone:'Invoice waived',
  entInvoices:'Invoices',waivedBy:'Waived by',waiveHint:'The Checker and the Approver can waive an invoice that is awaiting payment',
  collateral:'Collateral Items',colDetail:'Details',colVal:'Appraised value',viewReport:'View report',
@@ -2919,7 +2946,7 @@ function vOwnerDash(){
     openNote(open),
     unpaid.length?{tone:'bad',text:unpaid.length+' '+t('unpaidInv')+' · <b class="num">'+fmt(unpaidAmt)+' LAK</b>',
       act:'<button class="btn sm" data-payinv="'+unpaid[0].id+'">'+t('bizPayQR')+'</button>'}:null];
-  var inner=capSummary(e,pend?'':payBtn,notes)+
+  var inner=capSummary(e,certPrevBtn(e)+(pend?'':payBtn),notes)+
    regDetailCard(e).replace('<div class="card" style="margin-bottom:14px">','<div class="card" style="margin-bottom:16px">')+
    historySection(e)+
    '<div class="card" style="margin:16px 0"><div class="h"><h3>'+t('myInvoices')+'</h3></div><div class="c" style="padding:12px 0 0">'+
@@ -3030,6 +3057,49 @@ function openNote(x){
   return {tone:'bad',text:'<b>'+dstName('RETURNED')+'</b> - <span class="num">'+x.ref+'</span> · '+L(HIST_TXT['ret_'+(r.by||'checker')])+
     (isStaff()?retNotes(r.reason,r.internal):' · '+retReason(x))};
 }
+/* ===== capital contribution certificate (preview) ===== */
+// The acknowledgement certificate of registered capital contribution, as issued by the enterprise
+// registration officer (always in Lao, like the paper form). Filled from the enterprise; the paid capital
+// is split by contribution type from the confirmed history rows. Shares use a mock par value of 1,000,000 LAK.
+var LO_MONTHS=['ມັງກອນ','ກຸມພາ','ມີນາ','ເມສາ','ພຶດສະພາ','ມິຖຸນາ','ກໍລະກົດ','ສິງຫາ','ກັນຍາ','ຕຸລາ','ພະຈິກ','ທັນວາ'];
+function certSplit(e){
+  var by={cash:0,asset:0,labour:0};
+  e.hist.forEach(function(h){if(h.st!=='complete'||!h.v)return;var m=String(h.m||'');
+    by[m.indexOf('asset')>=0?'asset':m.indexOf('labour')>=0?'labour':'cash']+=h.v});
+  var tot=by.cash+by.asset+by.labour;
+  if(tot>e.paid){var k=e.paid/tot;by.cash=Math.round(by.cash*k);by.asset=Math.round(by.asset*k);by.labour=e.paid-by.cash-by.asset}
+  else by.cash+=e.paid-tot;
+  return by;
+}
+function certDoc(e){
+  var by=certSplit(e),PAR=1000000,shares=Math.max(1,Math.round(e.cap/PAR));
+  var last=S.tasks.filter(function(x){return x.ent.id===e.id&&x.ref}).slice(-1)[0];
+  var b=function(v){return '<b>'+v+'</b>'},dots='..................';
+  var li=function(h){return '<li>'+h+'</li>'};
+  var paidParts=b(fmt(e.cap))+' ກີບ, ໃນນີ້: ເປັນເງິນ '+b(fmt(by.cash))+' ກີບ, ເປັນວັດຖຸ: '+b(fmt(by.asset))+' ກີບ'+
+    (by.labour?', ເປັນແຮງງານ: '+b(fmt(by.labour))+' ກີບ':'');
+  return '<div class="certdoc"><div class="certwm">'+t('certWm')+'</div>'+
+   '<div class="cd-head"><img src="'+EMBLEM+'" alt=""><div>ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</div>'+
+    '<div>ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນະຖາວອນ</div></div>'+
+   '<div class="cd-meta"><div>ກະຊວງອຸດສາຫະກຳ ແລະ ການຄ້າ<br>ກົມຄຸ້ມຄອງວິສາຫະກິດ<br>ເຈົ້າໜ້າທີ່ທະບຽນວິສາຫະກິດ</div>'+
+    '<div class="r">ເລກທີ'+dots+'/ຈທວ<br>ນະຄອນຫຼວງ, ວັນທີ.........'+LO_MONTHS[7]+' 2026</div></div>'+
+   '<div class="cd-title"><div>ໜັງສືຢັ້ງຢືນຮັບຮູ້</div><div>ການປະກອບທຶນຈົດທະບຽນວິສາຫະກິດຂອງ '+esc(e.type?e.type.lo:'')+'</div></div>'+
+   '<ul class="cd-list">'+
+    li('ອີງຕາມ ຂໍ້ຕົກລົງ ວ່າດ້ວຍການປະກອບທຶນຈົດທະບຽນວິສາຫະກິດ ສະບັບເລກທີ 2025/ອຄ, ລົງວັນທີ 09 ກັນຍາ 2025;')+
+    li('ອີງຕາມ ຄຳຮ້ອງແຈ້ງກ່ຽວກັບການປະກອບທຶນຈົດທະບຽນວິສາຫະກິດ ສະບັບເລກທີ '+(last?'<span class="num">'+last.ref+'</span>':dots))+'</ul>'+
+   '<p class="cd-p">ເຈົ້າໜ້າທີ່ທະບຽນວິສາຫະກິດ ກົມຄຸ້ມຄອງວິສາຫະກິດ ອອກໜັງສືຢັ້ງຢືນຮັບຮູ້ການປະກອບທຶນຈົດທະບຽນວິສາຫະກິດ ໂດຍການກວດກາ ຢ່າງຖືກຕ້ອງ ແລະ ຄົບຖ້ວນ ດັ່ງນີ້:</p>'+
+   '<ul class="cd-list">'+
+    li('ຊື່ວິສາຫະກິດເປັນພາສາລາວ: '+b(esc(e.name)))+
+    li('ຊື່ວິສາຫະກິດເປັນພາສາອັງກິດ: '+b(esc((e.nameEn||'-').toUpperCase())))+
+    li('ໃບທະບຽນວິສາຫະກິດ ສະບັບເລກທີ: '+b(e.id)+', ລົງວັນທີ '+e.reg)+
+    li('ເລກລະຫັດວິສາຫະກິດ, ເລກປະຈຳຕົວຜູ້ເສຍອາກອນ: '+b(e.taxris||'-'))+
+    li('ທຶນຈົດທະບຽນ: '+paidParts)+
+    li('ຮຸ້ນທັງໝົດ: '+b(fmt(shares))+' ຮຸ້ນ, ແຕ່ລະຮຸ້ນມີມູນຄ່າ: '+b(fmt(PAR))+' ກີບ')+
+    li('ຜູ້ຖືຮຸ້ນ: '+b('ທ່ານ '+esc(String(e.rep||dots).replace(/^ທ່ານ\s*/,'')))+', ສັນຊາດ '+b('ລາວ')+', ນຳໃຊ້ແຫຼ່ງທຶນ: '+b('ພາຍໃນ'))+'</ul>'+
+   '<p class="cd-p cd-ind">ດັ່ງນັ້ນ, ຈຶ່ງໄດ້ອອກໜັງສືຢັ້ງຢືນຮັບຮູ້ສະບັບນີ້ໄວ້ເປັນຫຼັກຖານ.</p>'+
+   '<div class="cd-sign">ເຈົ້າໜ້າທີ່ທະບຽນວິສາຫະກິດ</div></div>';
+}
+function certPrevBtn(e){return '<button class="btn ghost" data-certprev="'+e.id+'">'+luSvg('fileText')+t('certPreview')+'</button>'}
 function capSummary(e,acts,notes){
   var remain=e.cap-e.paid,pct=Math.round(e.paid/e.cap*100),days=daysLeft(e.due),over=days<0&&remain>0;
   var pen=S.invs.filter(function(x){return x.ent===e.id&&x.kind==='penalty'&&x.status==='PENDING'}).reduce(function(a,x){return a+x.amt},0);
@@ -3272,7 +3342,7 @@ function vDetail(){
     pend?{tone:'info',text:'<b>'+t('hasPending')+'</b> - <span class="num">'+pend.ref+'</span> · <span class="num">'+fmt(pend.amt)+'</span> LAK · '+dstPill(pend.st)+' · '+t('waitingOn')+' '+stageLbl(pend)}:null,
     S.role==='maker'?openNote(open):null,
     blocked?{tone:'bad',text:t('paymentBlocked')+' · <b class="num">'+fmt(penAmt)+' LAK</b>'}:null];
-  var inner=capSummary(e,'<button class="btn ghost" data-soon="'+t('printData')+'">'+luSvg('printer')+t('printData')+'</button>'+payBtn,notes)+
+  var inner=capSummary(e,certPrevBtn(e)+'<button class="btn ghost" data-soon="'+t('printData')+'">'+luSvg('printer')+t('printData')+'</button>'+payBtn,notes)+
     regDetailCard(e).replace('<div class="card" style="margin-bottom:14px">','<div class="card" style="margin-bottom:16px">')+staffInvCard(e)+historySection(e);
   return shell(e.name,[t('ent'),'ent'],inner,'',e.nameEn?e.nameEn+' · <span class="num">'+e.id+'</span>':'<span class="num">'+e.id+'</span>');
 }
@@ -4173,6 +4243,15 @@ function vModal(){
     '<div class="acts"><button class="btn" style="flex:1" data-doapprove="1">'+t('apConfirm')+'</button>'+
     '<button class="btn ghost" data-close>'+t('cancel')+'</button></div></div></div>';
   }
+  if(m.type==='certprev'){
+    var ce=S.ents.filter(function(x){return x.id===m.ent})[0];if(!ce)return '';
+    return '<div class="veil" id="veil"><div class="modal certmodal"><div class="cm-h"><div><h3>'+t('certPrevTitle')+'</h3>'+
+     '<div class="hint">'+t('certPrevNote')+'</div></div><button class="lnkbtn" data-close aria-label="'+t('close')+'">✕</button></div>'+
+     '<div class="cm-body">'+certDoc(ce)+'</div>'+
+     '<div class="acts"><button class="btn" data-soon="'+t('dlPdf')+'">'+luSvg('download')+t('dlPdf')+'</button>'+
+     '<button class="btn ghost" data-soon="'+t('print')+'">'+luSvg('printer')+t('print')+'</button>'+
+     '<button class="btn ghost" data-close>'+t('close')+'</button></div></div></div>';
+  }
   if(m.type==='waive'){
     var wi=S.invs.filter(function(x){return x.id===m.inv})[0];if(!wi)return '';
     return '<div class="veil" id="veil"><div class="modal" style="max-width:460px"><h3>'+t('waiveTitle')+'</h3>'+
@@ -4670,6 +4749,8 @@ function bind(){
   document.querySelectorAll('[data-openreject]').forEach(function(b){b.onclick=function(){
     S.modal={type:'reject',txt:'',err:''};render()}});
   var rjt=$('#rejTxt');if(rjt)rjt.oninput=function(){S.modal.txt=rjt.value};
+  document.querySelectorAll('[data-certprev]').forEach(function(b){b.onclick=function(ev){
+    ev.stopPropagation();S.modal={type:'certprev',ent:b.dataset.certprev};render()}});
   // Waive an invoice (Checker / Approver): a reason is required; the invoice closes without payment.
   document.querySelectorAll('[data-waiveinv]').forEach(function(b){b.onclick=function(ev){
     ev.stopPropagation();S.modal={type:'waive',inv:b.dataset.waiveinv,txt:'',err:''};render()}});
