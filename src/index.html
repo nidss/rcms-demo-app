@@ -1984,7 +1984,8 @@ function bizNotifs(){return S.notif.concat([
 function notifs(){return S.role==='owner'?bizNotifs():S.role==='newuser'?S.notif:STAFF_N}
 // The business-owner demo account holds several registered enterprises (one row each on
 // My Registered Capital); the selected one (S.sel) opens on Capital details.
-var OWNER_ENTS=['ELN-2025-1001','ELN-2024-1004','ELN-2025-1005','ELN-2025-1115','ELN-2025-1122'];
+// ELN-2025-1134 has paid nothing and has no open declaration, so the owner can try Split into 2 instalments on it.
+var OWNER_ENTS=['ELN-2025-1001','ELN-2024-1004','ELN-2025-1005','ELN-2025-1115','ELN-2025-1122','ELN-2025-1134'];
 function ownerEnts(){return S.role==='owner'?S.ents.filter(function(e){return OWNER_ENTS.indexOf(e.id)>=0}):[]}
 function ownerEnt(){var mine=ownerEnts();return mine.filter(function(e){return e.id===S.sel})[0]||mine[0]}
 // The enterprise's declaration under review (blocks a new one), and its draft or returned one (reopened instead).
