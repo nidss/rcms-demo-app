@@ -214,8 +214,9 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 - **2. Capital being paid** (รวมการเลือกงวดกับการ์ดการชำระไว้กล่องเดียว): เลือกแผนการชำระก่อน 2 แบบ
   - **Pay once 100%**: "Pay the full X LAK in one go." (X = ทุนคงเหลือ)
   - **Split into 2 instalments**: "Enter A - X LAK for instalment 1 (minimum 30%). The rest is paid in
-    instalment 2." (A = 30% ของทุนจดทะเบียน) เลือกได้เฉพาะวิสาหกิจที่ยังไม่เคยชำระ ถ้าชำระไปแล้วบางส่วน
-    ตัวเลือกนี้กดไม่ได้และมีข้อความบอกว่างวดนี้ต้องชำระยอดคงเหลือทั้งหมด
+    instalment 2." (A = 30% ของทุนจดทะเบียน) เลือกได้เฉพาะวิสาหกิจที่ยังไม่เคยชำระ ถ้าชำระงวดที่ 1 ไปแล้ว
+    การ์ดนี้กดไม่ได้ และข้อความในการ์ดเปลี่ยนเป็น "Not available: instalment 1 (P LAK) is already paid,
+    so this payment settles the remaining X LAK."
   - แล้วกดปุ่ม **+ Payment** เพื่อเพิ่มการ์ดการชำระ ใส่ได้หลายใบในงวดเดียว แต่ละใบมีหัว (ไอคอน + ประเภท,
     ป้าย Payment N, Remove เมื่อมีมากกว่า 1 ใบ, ยอดเงิน, Show / Hide details) และเลือก **Payment method** ได้ 3 แบบ
   - **Cash**: Amount paid, Bank code, From Account No, From Account Name, Payment evidence
