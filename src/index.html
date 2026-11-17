@@ -948,7 +948,8 @@ forgotTitle:'ກູ້ຄືນລະຫັດຜ່ານ',forgotIdLbl:'ອີ�
  ovCapEnt:'ທຶນ ແລະ ວິສາຫະກິດ',ovByStatus:'ວິສາຫະກິດຕາມສະຖານະການຊຳລະ',ovApproval:'ສະຖານະການອະນຸມັດ',ovPaidCap:'ທຶນທີ່ຊຳລະແລ້ວ',ovOutCap:'ທຶນຄົງເຫຼືອ',
  ovEntPaid:'ວິສາຫະກິດທີ່ຊຳລະແລ້ວ',ovEntNot:'ວິສາຫະກິດທີ່ຍັງບໍ່ຊຳລະ',ovOfReg:'ຂອງທຶນຈົດທະບຽນ',ovMadeOne:'ຊຳລະແລ້ວຢ່າງໜ້ອຍ 1 ຄັ້ງ',ovNoPay:'ຍັງບໍ່ມີການຊຳລະ',
  ovOutstanding:'LAK ຄ້າງຊຳລະ',ovPaidLbl:'LAK ຊຳລະແລ້ວ',ovWithChecker:'ຢູ່ຂັ້ນ Checker',ovDigSigned:'ລົງນາມດິຈິຕອນ',ovRiskS:'ເກີນກຳນົດ ຫຼື ມີຄ່າປັບຄ້າງ',
- vdConfirmed:'ວຽກທີ່ຢືນຢັນແລ້ວ',vdJobs:'ວຽກ',vdJobsVal:'ວຽກ ແລະ ມູນຄ່າທີ່ແຈ້ງ',vdByStatus:'ວຽກຕາມສະຖານະ',vdByType:'ວຽກຕາມປະເພດຊັບສິນ',
+ vdConfirmed:'ວຽກທີ່ຢືນຢັນແລ້ວ',vdOldest:'ວຽກທີ່ເປີດດົນສຸດ',vdNoOpen:'ບໍ່ມີວຽກທີ່ຍັງເປີດ',vdStart:'ເລີ່ມປະເມີນ',vdOpenN:'ຍັງເປີດ',vdJobsN:'ວຽກ',vdOpenCol:'ຍັງເປີດ',
+ vdTypeSub:'ຈຳນວນວຽກ · ມູນຄ່າທີ່ແຈ້ງ',vdAge:'ວຽກທີ່ຍັງເປີດ ຕາມຈຳນວນວັນ',vdAgeSub:'ນັບແຕ່ໄດ້ຮັບມອບໝາຍ · ກຳລັງປະເມີນ ແລະ ລໍຖ້າ',vdQueue:'ວຽກຕໍ່ໄປ',vdQueueSub:'ວຽກທີ່ຍັງເປີດ ລຽງຈາກລໍຖ້າດົນສຸດ',vdDaysOpen:'ເປີດມາແລ້ວ (ວັນ)',vdJobs:'ວຽກ',vdJobsVal:'ວຽກ ແລະ ມູນຄ່າທີ່ແຈ້ງ',vdByStatus:'ວຽກຕາມສະຖານະ',vdByType:'ວຽກຕາມປະເພດຊັບສິນ',
  vdAssigned:'ມອບໝາຍໃຫ້ບໍລິສັດນີ້',vdAllJobs:'ວຽກທັງໝົດ',vdConfVal:'ມູນຄ່າທີ່ຢືນຢັນແລ້ວ',vdNotConf:'ຍັງບໍ່ຢືນຢັນ',vdOfDecl:'ຂອງມູນຄ່າທີ່ແຈ້ງ',
  vdDeclared:'LAK ທີ່ແຈ້ງ',vdInProg:'ວຽກກຳລັງດຳເນີນ',vdOpen:'ເປີດວຽກ',
  valPrice:'ລາຄາປະເມີນ (ກີບ)',valRemark:'ໝາຍເຫດ',valRemarkPh:'ປ້ອນເຫດຜົນຂອງລາຄາປະເມີນນີ້',declDocs:'ເອກະສານທີ່ຍື່ນຕອນແຈ້ງຊຳລະທຶນ',
@@ -1184,7 +1185,8 @@ forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
  ovCapEnt:'Capital and enterprises',ovByStatus:'Enterprises by payment status',ovApproval:'Approval status',ovPaidCap:'Paid capital',ovOutCap:'Outstanding capital',
  ovEntPaid:'Enterprises paid',ovEntNot:'Enterprises not yet paid',ovOfReg:'of registered capital',ovMadeOne:'Made at least one payment',ovNoPay:'No payment yet',
  ovOutstanding:'LAK outstanding',ovPaidLbl:'LAK paid',ovWithChecker:'with the Checker',ovDigSigned:'digitally signed',ovRiskS:'Past deadline or unpaid penalty',
- vdConfirmed:'Jobs confirmed',vdJobs:'jobs',vdJobsVal:'Jobs and declared value',vdByStatus:'Jobs by status',vdByType:'Jobs by asset type',
+ vdConfirmed:'Jobs confirmed',vdOldest:'Oldest open job',vdNoOpen:'No open jobs',vdStart:'Start valuation',vdOpenN:'open',vdJobsN:'Jobs',vdOpenCol:'Open',
+ vdTypeSub:'Number of jobs · declared value',vdAge:'Open jobs by age',vdAgeSub:'Days since assigned · in progress and waiting',vdQueue:'Next jobs',vdQueueSub:'Open jobs, longest waiting first',vdDaysOpen:'Days open',vdJobs:'jobs',vdJobsVal:'Jobs and declared value',vdByStatus:'Jobs by status',vdByType:'Jobs by asset type',
  vdAssigned:'Assigned to this firm',vdAllJobs:'all assigned jobs',vdConfVal:'Confirmed value',vdNotConf:'Not yet confirmed',vdOfDecl:'of declared value',
  vdDeclared:'LAK declared',vdInProg:'jobs in progress',vdOpen:'Open jobs',
  valPrice:'Valuation price (LAK)',valRemark:'Remark',valRemarkPh:'Enter the reason for this valuation price',declDocs:'Documents submitted at capital declaration',
@@ -2595,6 +2597,32 @@ function vAdminDash(){
 // Central dashboard (Super Admin, Checker, Approver): KPIs at province and district level, limited to
 // the viewer's access scope (ACCESS_SCOPE). Super Admin picks any province; the others are fixed to
 // their province and pick among their districts. S.cd = {prov, dist} holds the filter.
+/* ===== dashboard chart kit (central dashboard and valuation firm dashboard) ===== */
+// Plain HTML/CSS chart parts shared by vCentralDash() and vValDash(). Chart / Table state lives in S.cdTbl.
+function cdxKit(){
+  S.cdTbl=S.cdTbl||{};
+  // Chart colours: categorical slots 1-2 and an ordinal blue ramp, validated against the white card
+  // (dataviz validator); critical is the status colour for overdue. REST is the unfilled remainder.
+  var C1='#2a78d6',C2='#eb6834',CRIT='#d03b3b',REST='#dfe2ec',RAMP=['#104281','#256abf','#5598e7','#86b6ef'];
+  // data-cdtip, not data-tip: the older SVG charts' dark tooltip (#tip) listens on every [data-tip].
+  var tipA=function(v,l){return ' data-cdtip="'+esc(v)+'" data-cdtipl="'+esc(l)+'" tabindex="0"'};
+  // A chart card: title, subtitle, and a Chart / Table switch (the table is the chart's accessible twin).
+  var card=function(id,title,sub,body,table,extra){var asT=!!S.cdTbl[id];
+    return '<div class="card cdx"><div class="h"><div class="cdx-ttl"><h3>'+title+'</h3>'+(sub?'<span class="hs">'+sub+'</span>':'')+'</div>'+
+     (table?'<button class="btn ghost sm cdx-tg" data-cdview="'+id+'">'+luSvg(asT?'chartColumn':'table')+t(asT?'cdChart':'cdTable')+'</button>':'')+'</div>'+
+     '<div class="c">'+(asT?table:body)+(extra||'')+'</div></div>'};
+  var tbl=function(heads,rows){return '<table class="cdx-t"><thead><tr>'+heads.map(function(h,i){return '<th'+(i?' class="r"':'')+'>'+h+'</th>'}).join('')+
+    '</tr></thead><tbody>'+rows.map(function(r){return '<tr>'+r.map(function(c,i){return '<td'+(i?' class="r num"':'')+'>'+c+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table>'};
+  // Horizontal bars: label (+ sub) on the left, bar from one baseline, value at the tip.
+  var hbars=function(rows,mx){
+    return '<div class="cdx-hb">'+rows.map(function(r){var w=r.v&&mx?Math.max(1.5,r.v/mx*82):0;
+      return '<div class="cdx-hr"><div class="cdx-hl">'+r.lbl+(r.sub?'<small>'+r.sub+'</small>':'')+'</div>'+
+       '<div class="cdx-ht"'+tipA(r.tv,r.tl)+'>'+(w?'<i style="width:'+w+'%;background:'+(r.c||C1)+'"></i>':'')+'<b class="num">'+r.val+'</b></div></div>'}).join('')+'</div>'};
+  var maxOf=function(l){return Math.max.apply(null,l.concat([0]))};
+  var tile=function(k,v,sub,full,tone){return '<div class="cdx-tile'+(tone?' '+tone:'')+'"'+(full?' title="'+esc(full)+'"':'')+'><div class="k">'+
+    (tone==='bad'?luSvg('triangleAlert'):'')+k+'</div><div class="v">'+v+'</div><div class="s">'+sub+'</div></div>'};
+  return {C1:C1,C2:C2,CRIT:CRIT,REST:REST,RAMP:RAMP,tipA:tipA,card:card,tbl:tbl,hbars:hbars,maxOf:maxOf,tile:tile};
+}
 function vCentralDash(){
   var sc=myScope()||{all:true},f=S.cd,TODAY='04/08/2026',LO=lang==='lo';
   var prov=sc.all?f.prov:sc.prov,dist=f.dist;
@@ -2633,26 +2661,8 @@ function vCentralDash(){
    '</div></div></div>';
 
   var role=S.role;
-  S.cdTbl=S.cdTbl||{};
-  // Chart colours: categorical slots 1-2 and an ordinal blue ramp, validated against the white card
-  // (dataviz validator); critical is the status colour for overdue. REST is the unfilled remainder.
-  var C1='#2a78d6',C2='#eb6834',CRIT='#d03b3b',REST='#dfe2ec',RAMP=['#104281','#256abf','#5598e7','#86b6ef'];
-  // data-cdtip, not data-tip: the older SVG charts' dark tooltip (#tip) listens on every [data-tip].
-  var tipA=function(v,l){return ' data-cdtip="'+esc(v)+'" data-cdtipl="'+esc(l)+'" tabindex="0"'};
+  var K=cdxKit(),C1=K.C1,C2=K.C2,CRIT=K.CRIT,REST=K.REST,RAMP=K.RAMP,tipA=K.tipA,card=K.card,tbl=K.tbl,hbars=K.hbars,maxOf=K.maxOf,tile=K.tile;
   var nLive=decl.filter(function(x){return LIVE_ST.indexOf(x.st)>=0}).length;
-  // A chart card: title, subtitle, and a Chart / Table switch (the table is the chart's accessible twin).
-  var card=function(id,title,sub,body,table,extra){var asT=!!S.cdTbl[id];
-    return '<div class="card cdx"><div class="h"><div class="cdx-ttl"><h3>'+title+'</h3>'+(sub?'<span class="hs">'+sub+'</span>':'')+'</div>'+
-     (table?'<button class="btn ghost sm cdx-tg" data-cdview="'+id+'">'+luSvg(asT?'chartColumn':'table')+t(asT?'cdChart':'cdTable')+'</button>':'')+'</div>'+
-     '<div class="c">'+(asT?table:body)+(extra||'')+'</div></div>'};
-  var tbl=function(heads,rows){return '<table class="cdx-t"><thead><tr>'+heads.map(function(h,i){return '<th'+(i?' class="r"':'')+'>'+h+'</th>'}).join('')+
-    '</tr></thead><tbody>'+rows.map(function(r){return '<tr>'+r.map(function(c,i){return '<td'+(i?' class="r num"':'')+'>'+c+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table>'};
-  // Horizontal bars: label (+ sub) on the left, bar from one baseline, value at the tip.
-  var hbars=function(rows,mx){
-    return '<div class="cdx-hb">'+rows.map(function(r){var w=r.v&&mx?Math.max(1.5,r.v/mx*82):0;
-      return '<div class="cdx-hr"><div class="cdx-hl">'+r.lbl+(r.sub?'<small>'+r.sub+'</small>':'')+'</div>'+
-       '<div class="cdx-ht"'+tipA(r.tv,r.tl)+'>'+(w?'<i style="width:'+w+'%;background:'+(r.c||C1)+'"></i>':'')+'<b class="num">'+r.val+'</b></div></div>'}).join('')+'</div>'};
-  var maxOf=function(l){return Math.max.apply(null,l.concat([0]))};
 
   // 1. Hero: share of registered capital confirmed, the capital split as one segmented bar, stat tiles.
   var notSub=Math.max(0,cap-paid-review);
@@ -2660,8 +2670,6 @@ function vCentralDash(){
   var seg='<div class="cdx-seg">'+parts.filter(function(p){return p[1]>0}).map(function(p){var sh=cap?p[1]/cap*100:0;
      return '<div style="flex:'+p[1]+' 1 0;background:'+p[2]+';color:'+p[3]+'"'+tipA(fmt(p[1])+' LAK · '+Math.round(sh)+'%',p[0])+'>'+(sh>=9?Math.round(sh)+'%':'')+'</div>'}).join('')+'</div>';
   var segLeg='<div class="cdx-leg">'+parts.map(function(p){return '<span><i style="background:'+p[2]+'"></i>'+p[0]+' <b class="num">'+fmtC(p[1])+'</b></span>'}).join('')+'</div>';
-  var tile=function(k,v,sub,full,tone){return '<div class="cdx-tile'+(tone?' '+tone:'')+'"'+(full?' title="'+esc(full)+'"':'')+'><div class="k">'+
-    (tone==='bad'?luSvg('triangleAlert'):'')+k+'</div><div class="v">'+v+'</div><div class="s">'+sub+'</div></div>'};
   var tiles=tile(t('csTotal'),fmtC(cap)+' <small>LAK</small>',unit(ents.length,'cdEntUnit'),fmt(cap)+' LAK')+
     tile(t('csConfirmed'),fmtC(paid)+' <small>LAK</small>',pct+'% '+t('ovOfReg'),fmt(paid)+' LAK')+
     tile(t('csReview'),fmtC(review)+' <small>LAK</small>',unit(nLive,'cdDeclUnit'),fmt(review)+' LAK')+
@@ -3531,29 +3539,78 @@ function valPartLbl(j,short){
     :'Asset '+j.part[0]+' of '+j.part[1]+(short?'':' in this declaration');
 }
 // Valuation firm dashboard: confirmed share, then value, status and asset-type rows.
+// Days since a job was assigned to the firm. Seeded jobs get a stable mock age from their id;
+// jobs created from a declaration start at 0 (j.days).
+function valDays(j){return j.days!=null?j.days:(parseInt(String(j.id).slice(-3),10)*7)%38}
+var VAL_OPEN=['doing','wait','outapprove'];
 function vValDash(){
   var me=who().n,mine=[];S.valjobs.forEach(function(j,i){if(j.firm===me)mine.push([j,i])});
+  var K=cdxKit(),tile=K.tile,tipA=K.tipA;
   var sum=function(l){return l.reduce(function(a,p){return a+p[0].amt},0)};
   var of=function(st){return mine.filter(function(p){return p[0].status===st})};
   var tot=sum(mine),acc=of('accepted'),accV=sum(acc),pct=mine.length?Math.round(acc.length/mine.length*100):0;
-  var vp=tot?Math.round(accV/tot*100):0,doing=of('doing');
-  var st=function(tone,k,l){return metric(tone,t(k),fmt(l.length),fmt(sum(l))+' '+t('vdDeclared'))};
-  // Labour capital gets its own tile once the firm has a labour job.
+  var vp=tot?Math.round(accV/tot*100):0,doing=of('doing'),wait=of('wait'),outap=of('outapprove');
+  var open=mine.filter(function(p){return VAL_OPEN.indexOf(p[0].status)>=0}).sort(function(a,b){return valDays(b[0])-valDays(a[0])});
+  var oldest=open[0],jobsU=function(n){return fmt(n)+' '+t('vdJobs')};
+  var tyLbl=function(ty){return t(ty==='labour'?'modeLabour':ty+'Type')};
+
+  // 1. Hero: share of jobs confirmed, the jobs split by status as one segmented bar, stat tiles.
+  var parts=[[t('stPaid'),acc,K.C1,'#fff'],[t('valDoing'),doing,K.C2,'#fff'],[t('valWait'),wait,K.RAMP[3],'var(--ink)'],[t('valOut'),outap,K.REST,'var(--ink2)']]
+    .filter(function(p,i){return i<3||p[1].length});
+  var n=mine.length;
+  var seg='<div class="cdx-seg">'+parts.filter(function(p){return p[1].length}).map(function(p){var sh=n?p[1].length/n*100:0;
+     return '<div style="flex:'+p[1].length+' 1 0;background:'+p[2]+';color:'+p[3]+'"'+tipA(jobsU(p[1].length)+' · '+fmt(sum(p[1]))+' LAK',p[0])+'>'+(sh>=9?p[1].length:'')+'</div>'}).join('')+'</div>';
+  var segLeg='<div class="cdx-leg">'+parts.map(function(p){return '<span><i style="background:'+p[2]+'"></i>'+p[0]+' <b class="num">'+fmt(p[1].length)+'</b></span>'}).join('')+'</div>';
+  var od=oldest?valDays(oldest[0]):0;
+  var tiles=tile(t('valAll'),fmt(n),t('vdAssigned'))+
+    tile(t('valDeclared'),fmtC(tot)+' <small>LAK</small>',t('vdAllJobs'),fmt(tot)+' LAK')+
+    tile(t('vdConfVal'),fmtC(accV)+' <small>LAK</small>',vp+'% '+t('vdOfDecl'),fmt(accV)+' LAK')+
+    tile(t('valDoing'),fmt(doing.length),fmtC(sum(doing))+' LAK',fmt(sum(doing))+' LAK')+
+    tile(t('valWait'),fmt(wait.length),fmtC(sum(wait))+' LAK',fmt(sum(wait))+' LAK')+
+    tile(t('vdOldest'),oldest?fmt(od)+' <small>'+t('cdDays')+'</small>':'-',oldest?oldest[0].id:t('vdNoOpen'),'',od>30?'bad':'');
+  var first=doing.slice().sort(function(a,b){return valDays(b[0])-valDays(a[0])})[0];
+  var ent=first?S.ents.filter(function(e){return e.id===first[0].ent})[0]:null;
+  var note=first?'<div class="sc-note info"><span class="ni">'+luSvg(NOTE_ICON.info)+'</span><div class="nt"><b>'+doing.length+' '+t('vdInProg')+'</b> · '+
+    t('nxNext')+': <span class="num">'+first[0].id+'</span> · '+(ent?ent.name:first[0].ent)+'</div>'+
+    '<div class="acts"><button class="btn sm" data-valjobfirm="'+first[1]+'">'+luSvg('clipboardList')+t('vdStart')+'</button></div></div>':'';
+  var heroCard='<div class="card cdx cdx-hero"><div class="c"><div class="cdx-hh">'+
+    '<div class="cdx-hfig"><div class="cdx-hk">'+t('vdConfirmed')+'</div><div class="cdx-hv">'+pct+'<span>%</span></div>'+
+     '<div class="cdx-hs"><span class="num">'+fmt(acc.length)+'</span> / '+jobsU(n)+' · <span class="num">'+fmtC(accV)+'</span> / <span class="num">'+fmtC(tot)+'</span> LAK</div></div>'+
+    '<div class="cdx-segw"><div class="cdx-segt">'+t('vdByStatus')+'</div>'+seg+segLeg+'</div></div>'+
+    '<div class="cdx-tiles">'+tiles+'</div></div>'+note+'</div>';
+
+  // 2. Jobs by asset type (labour capital once the firm has a labour job).
   var types=['land','building','car','machine'].concat(mine.some(function(p){return p[0].type==='labour'})?['labour']:[]);
-  var byType=types.map(function(ty){
-    var l=mine.filter(function(p){return p[0].type===ty});return metric('',t(ty==='labour'?'modeLabour':ty+'Type'),fmt(l.length),fmt(sum(l))+' '+t('vdDeclared'))}).join('');
-  var first=doing[0],ent=first?S.ents.filter(function(e){return e.id===first[0].ent})[0]:null;
-  var card=sumCard({title:t('wsOverview'),
-   prog:{pct:pct,html:t('vdConfirmed')+' · <b class="num">'+acc.length+'</b> / <span class="num">'+mine.length+'</span> '+t('vdJobs')},
-   groups:[
-    {title:t('vdJobsVal'),metrics:metric('',t('valAll'),fmt(mine.length),t('vdAssigned'))+metric('',t('valDeclared'),fmt(tot),'LAK · '+t('vdAllJobs'))+
-      metric('ok',t('vdConfVal'),fmt(accV),'LAK · '+vp+'% '+t('vdOfDecl'))+metric('warn',t('vdNotConf'),fmt(tot-accV),'LAK · '+(100-vp)+'% '+t('vdOfDecl'))},
-    {title:t('vdByStatus'),metrics:st('warn','valDoing',doing)+st('','valWait',of('wait'))+
-      (of('outapprove').length?st('bad','valOut',of('outapprove')):'')+st('ok','stPaid',acc)},
-    {title:t('vdByType'),metrics:byType}],
-   notes:first?[{tone:'info',text:'<b>'+doing.length+' '+t('vdInProg')+'</b> · '+t('nxNext')+': <span class="num">'+first[0].id+'</span> · '+(ent?ent.name:first[0].ent),
-     act:'<button class="btn sm" data-nav="valfirm">'+luSvg('clipboardList')+t('vdOpen')+'</button>'}]:[]});
-  return shell(t('dash'),'',card);
+  var tyRows=types.map(function(ty){var l=mine.filter(function(p){return p[0].type===ty}),o=l.filter(function(p){return VAL_OPEN.indexOf(p[0].status)>=0});
+    return {lbl:tyLbl(ty),v:l.length,val:fmt(l.length),amt:sum(l),open:o.length,sub:fmtC(sum(l))+' LAK · '+fmt(o.length)+' '+t('vdOpenN'),
+      tv:jobsU(l.length)+' · '+fmt(sum(l))+' LAK',tl:tyLbl(ty)}});
+  var typeCard=K.card('vtype',t('vdByType'),t('vdTypeSub'),K.hbars(tyRows,K.maxOf(tyRows.map(function(r){return r.v}))),
+    K.tbl(['',t('vdJobsN'),t('vdOpenCol'),t('valDeclared')+' (LAK)'],tyRows.map(function(r){return [r.lbl,fmt(r.v),fmt(r.open),fmt(r.amt)]})));
+
+  // 3. Open jobs by days since assigned: older = darker, over 30 days is critical.
+  var bk=[['0 - 7',0,7,K.RAMP[3]],['8 - 14',8,14,K.RAMP[2]],['15 - 30',15,30,K.RAMP[1]],['> 30',31,1e9,K.CRIT]];
+  var agRows=bk.map(function(b,i){var l=open.filter(function(p){var d=valDays(p[0]);return d>=b[1]&&d<=b[2]});
+    var crit=i===bk.length-1;
+    return {lbl:crit?'<span class="cdx-crit">'+luSvg('triangleAlert')+b[0]+' '+t('cdDays')+'</span>':b[0]+' '+t('cdDays'),v:l.length,val:fmt(l.length),c:b[3],
+      sub:fmtC(sum(l))+' LAK',amt:sum(l),tv:jobsU(l.length)+' · '+fmt(sum(l))+' LAK',tl:b[0]+' '+t('cdDays')}});
+  var ageCard=K.card('vage',t('vdAge'),t('vdAgeSub'),K.hbars(agRows,K.maxOf(agRows.map(function(r){return r.v}))),
+    K.tbl(['',t('vdJobsN'),t('valDeclared')+' (LAK)'],agRows.map(function(r){return [r.tl,fmt(r.v),fmt(r.amt)]})));
+
+  // 4. Next jobs: open jobs, longest waiting first.
+  var qp=paginate('vdQueue',open,'',5);
+  var queueCard='<div class="card cdx"><div class="h"><div class="cdx-ttl"><h3>'+t('vdQueue')+'</h3><span class="hs">'+t('vdQueueSub')+'</span></div>'+
+   '<button class="btn ghost sm" style="margin-left:auto" data-nav="valfirm">'+luSvg('clipboardList')+t('vdOpen')+'</button></div>'+
+   '<div class="c" style="padding:12px 0 0">'+(open.length?'<table><thead><tr><th style="padding-left:16px">'+t('cRef')+'</th><th>'+t('cEnt')+' / '+t('valAsset')+'</th>'+
+   '<th>'+t('cType')+'</th><th class="r">'+t('valDeclared')+' (LAK)</th><th class="r">'+t('vdDaysOpen')+'</th><th class="r" style="padding-right:16px">'+t('cStatus')+'</th></tr></thead><tbody>'+
+   qp.items.map(function(p){var j=p[0],d=valDays(j),e=S.ents.filter(function(y){return y.id===j.ent})[0],lbl=VAL_LBL[j.status];
+     return '<tr data-valjobfirm="'+p[1]+'"><td style="padding-left:16px" class="num">'+j.id+'</td>'+
+      '<td><span class="co">'+(e?e.name:j.ent)+'<small>'+L(j.asset)+(j.part?' · '+valPartLbl(j,1):'')+'</small></span></td>'+
+      '<td>'+tyLbl(j.type)+'</td><td class="r num">'+fmt(j.amt)+'</td>'+
+      '<td class="r num" style="color:'+(d>30?'var(--bad)':'var(--ink2)')+'">'+fmt(d)+'</td>'+
+      '<td class="r" style="padding-right:16px"><span class="pill '+lbl[1]+'">'+t(lbl[0])+'</span></td></tr>'}).join('')+'</tbody></table>'+qp.bar
+   :'<div class="empty"><b>'+t('vdNoOpen')+'</b></div>')+'</div></div>';
+
+  return shell(t('dash'),'',heroCard+'<div class="cdx-grid">'+typeCard+ageCard+'</div>'+queueCard,'',t('mkGreeting')+' <b>'+me+'</b>');
 }
 
 function vValJobDetail(){
@@ -4463,7 +4520,7 @@ function bind(){
         var key=lab?(p.lb||{}).name||'':(p.vals||{})[ASSET_REQ[p.cat]]||'';
         S.valjobs.push({id:'VAL-2026-0'+(S.valSeq++),ent:e.id,type:ty,decl:x.ref,part:assets.length>1?[k+1,assets.length]:null,
           asset:{lo:D.lo[tk]+(key?' · '+key:''),en:D.en[tk]+(key?' · '+key:'')},
-          firm:p.firmName||MASTER.valfirms[0].nm,net:p.firmType||'in',amt:payAmt(p),status:'doing',fields:lab?labourFields(p.lb||{}):p.vals||{},
+          firm:p.firmName||MASTER.valfirms[0].nm,net:p.firmType||'in',amt:payAmt(p),status:'doing',days:0,fields:lab?labourFields(p.lb||{}):p.vals||{},
           // The block's own documents travel with the job, so the firm sees what was really submitted.
           declGroup:payDocGroup(p),declFiles:(p.files||[]).map(function(f){return {k:f.k,name:f.name,size:f.size}})})});
     }

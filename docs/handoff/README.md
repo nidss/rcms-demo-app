@@ -175,6 +175,7 @@ interface ValuationJob {
   firm: string; net: 'in' | 'out';
   amt: number;
   status: 'doing' | 'wait' | 'outapprove' | 'accepted';
+  days?: number;             // วันนับแต่ได้รับมอบหมาย (mock) ใช้ใน chart อายุงานของ Dashboard บริษัทประเมิน
   files?: string[];
 }
 

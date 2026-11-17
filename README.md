@@ -158,10 +158,17 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   - **Awaiting approval** (ค้นหา Reference, Enterprise, Channel, Verified by), **Overdue / penalties**
     (Enterprise, Status) และ **Recently signed (E-Sign)** (Enterprise, Registration no.) แสดงเฉพาะ
     ตาราง มีปุ่ม Search / Clear และ pagination
-- **บริษัทประเมิน (Dashboard)** การ์ด Overview: แถบ % งานที่ยืนยันแล้ว (x / 10 jobs) แล้วตามด้วย
-  3 แถว: *Jobs and declared value* (งานทั้งหมด, มูลค่าที่แจ้ง, มูลค่าที่ยืนยันแล้ว, ยังไม่ยืนยัน),
-  *Jobs by status* (In progress, Awaiting acceptance, Confirmed) และ *Jobs by asset type* (Land,
-  Building, Vehicle, Machine) แถบล่างบอกงานถัดไป ปุ่ม Open jobs ไปหน้า My Valuation Jobs
+- **บริษัทประเมิน (Dashboard)** หน้าตาแบบเดียวกับ Dashboard กลาง (chart HTML/CSS ใช้ `cdxKit()` ร่วมกัน
+  ทุก chart สลับเป็นตารางได้ และมี tooltip ตอน hover)
+  - **Hero**: % งานที่ยืนยันแล้ว (x / 10 jobs · มูลค่ายืนยัน / มูลค่าที่แจ้ง) แถบแบ่งงานตามสถานะ
+    (Confirmed / In progress / Awaiting acceptance / Awaiting firm approval) และ tile: Total jobs, Declared value,
+    Confirmed value, In progress, Awaiting acceptance, Oldest open job (เกิน 30 วันเป็นสีแดง)
+    แถบล่างบอกงานถัดไป (งาน In progress ที่ค้างนานสุด) ปุ่ม Start valuation เปิดงานนั้น
+  - **Jobs by asset type**: จำนวนงานต่อประเภท (Land, Building, Vehicle, Machine และ Labour capital เมื่อมีงานแรงงาน)
+    พร้อมมูลค่าที่แจ้งและจำนวนที่ยังเปิด
+  - **Open jobs by age**: งานที่ยังเปิดตามจำนวนวันนับแต่ได้รับมอบหมาย 0-7 / 8-14 / 15-30 / เกิน 30 วัน
+    (อายุงานเป็น mock: งาน seed คิดจากเลขงาน งานใหม่เริ่มที่ 0 วัน `valDays()`)
+  - **Next jobs**: ตารางงานที่ยังเปิด เรียงจากค้างนานสุด 5 แถวต่อหน้า กดแถวเปิดงาน ปุ่ม Open jobs ไปหน้า My Valuation Jobs
 - **Super Admin (System Overview)** เมนูย่อยใต้ Dashboard: Dashboard (Dashboard กลาง เห็นทุกแขวงทุกเมือง) และ
   **System health** (หน้าเดิมของผู้ดูแลระบบ) ซึ่งแยกจากงานติดตามทุน มาเน้นงานดูแล
   ระบบแทน ได้แก่
