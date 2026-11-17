@@ -183,7 +183,8 @@ interface Invoice {
   id: string; ent: string;
   kind: 'fee' | 'penalty';
   title: I18nText; amt: number; due: string;
-  status: 'PENDING' | 'PAID' | 'WAIVED';   // WAIVED: role ที่ยกเว้นได้ยังรอ CF (demo ยังไม่มีปุ่ม)
+  status: 'PENDING' | 'PAID' | 'WAIVED' | 'REFUNDED';   // WAIVED: Checker / Approver ยกเว้นใบที่ PENDING (ต้องมีเหตุผล)
+  waive?: { u: string; role: 'checker' | 'approver'; d: string; reason: string };
   paidAt: string | null; receipt: string | null; channel: string;
 }
 
