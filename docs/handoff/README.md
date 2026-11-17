@@ -148,7 +148,7 @@ interface DocFile { k: string; name: string; size?: string }
 
 // master เอกสาร (จาก sheet Doc_Type): group_code -> รายการเอกสาร
 // req: 1 = จำเป็น, 0 = ไม่บังคับ, 'foreign' = จำเป็นเฉพาะทุนต่างประเทศ
-// Cash ที่ src = domestic แสดงเฉพาะช่องที่จำเป็น (ซ่อนช่องที่ไม่บังคับ) ส่วน foreign แสดงทุกช่อง
+// Cash ที่ src = domestic ซ่อนช่องที่ req = 'foreign' (เหลือ Bank Statement กับ Other) ส่วน foreign แสดงทุกช่อง
 // กลุ่ม: DOCUMENT_TYPE (ขอ user), CAPITAL_DECLARATION_DOCUMENT (placeholder - sheet ยังเว้น code ไว้),
 // CAPITAL_CASH_DOCUMENT, CAPITAL_VEHICLE_DOCUMENT, CAPITAL_BUILDING_DOCUMENT, CAPITAL_LAND_DOCUMENT,
 // CAPITAL_LABOUR_DOCUMENT, CAPITAL_MACHINE_DOCUMENT (ไม่มีใน sheet demo เพิ่มเอง)
