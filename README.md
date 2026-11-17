@@ -230,8 +230,12 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
       needed." ไม่ต้องผ่านบริษัทประเมิน (ยื่นแล้วเป็น `PENDING` เข้าคิว Checker เลย) และไม่มีช่อง Valuation Report
     - In-network: เลือกชื่อบริษัทจาก dropdown, Out-of-network: พิมพ์ชื่อบริษัทเอง ทั้งสองแบบต้องผ่าน Appraiser ก่อน
     - ถัดมาเป็นหัวข้อ **Asset details** (ช่องตามประเภททรัพย์สิน `ASSET_FIELDS`) แล้วตามด้วย Supporting documents
-  - **Labour capital**: Contributor name, ID / Passport No., Skill type, Role / position,
-    Contribution period (months), Agreed value, Supporting documents (Labour contribution agreement ฯลฯ)
+  - **Labour capital**: แถวแรก Payment method / Valuation firm (dropdown MOIC (Checker) / In-network / Out-of-network
+    ค่าเริ่มต้น MOIC) / ชื่อบริษัทประเมิน หรือข้อความ MOIC แล้วตามด้วย Contributor details: Contributor name,
+    ID / Passport No., Skill type, Role / position, Contribution period (months), Agreed value,
+    Additional information (textarea ไม่บังคับ), Supporting documents
+    ถ้าเลือก In-network / Out-of-network จะส่งไปบริษัทประเมินเหมือนทรัพย์สิน (งานประเมินประเภท Labour capital
+    หน้างานของบริษัทแสดงข้อมูลผู้ปะกอบแรงงาน) ถ้าเลือก MOIC ไปที่ Checker เลย
   - การ์ดใหม่เติมยอดที่ยังค้างให้อัตโนมัติ ยอดของการ์ด = Amount paid / Estimated price / Agreed value
   - เปลี่ยน Payment method ของการ์ดที่กรอกข้อมูลแล้ว จะถามยืนยันก่อน (Change payment method?
     ข้อมูลที่กรอกจะหาย)
@@ -254,8 +258,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 ### ตรวจทาน → อนุมัติ → ใบรับรอง
 ตาม flow (User Journey - Role lanes) และ tab Status ของ sheet Status workflow
 
-- **สถานะใบรายการชำระทุน** (`DST`, `setSt()`): `DRAFT` → `PENDING` (Cash / Labour) หรือ `APPRAISED_PENDING`
-  (มีทรัพย์สิน) → `APPRAISED_COMPLETED` → `APPROVED` (Checker ผ่าน) → `COMPLETED` (Approver อนุมัติ)
+- **สถานะใบรายการชำระทุน** (`DST`, `setSt()`): `DRAFT` → `PENDING` (Cash / ทรัพย์สินหรือแรงงานที่ประเมินโดย MOIC) หรือ `APPRAISED_PENDING`
+  (มีทรัพย์สินหรือแรงงานที่ส่งบริษัทประเมิน) → `APPRAISED_COMPLETED` → `APPROVED` (Checker ผ่าน) → `COMPLETED` (Approver อนุมัติ)
   และ `RETURNED` / `REJECTED`
 - **Reference ID** `CAP-YYYYMM-{running 6 หลัก}` เช่น CAP-202608-000921 ฉบับร่างยังไม่มีเลข
 - **ฉบับร่าง**: ฟอร์มแจ้งชำระมีปุ่ม Save draft (แก้ / ลบได้) กลับมาแก้ต่อจากหน้าวิสาหกิจ

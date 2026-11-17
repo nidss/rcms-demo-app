@@ -938,7 +938,7 @@ forgotTitle:'ກູ້ຄືນລະຫັດຜ່ານ',forgotIdLbl:'ອີ�
  entNameLbl:'ຊື່ວິສາຫະກິດ',modeLabour:'ທຶນແຮງງານ',ptAsset:'ຊັບສິນ',payN:'ການຊຳລະ',addCapital:'ເພີ່ມລາຍການທຶນ',payRemove:'ລຶບອອກ',showDetails:'ສະແດງລາຍລະອຽດ',hideDetails:'ເຊື່ອງລາຍລະອຽດ',
  payMethod:'ວິທີການຊຳລະ',dcSec2Sub2:'ເລືອກວິທີຊຳລະສຳລັບງວດນີ້.',bankCode:'ລະຫັດທະນາຄານ',fromAcctNo:'ຈາກເລກບັນຊີ',fromAcctName:'ຈາກຊື່ບັນຊີ',
  fromAcctNoPh:'ປ້ອນເລກບັນຊີຕົ້ນທາງ',fromAcctNamePh:'ປ້ອນຊື່ບັນຊີ',firmNamePh:'ປ້ອນຊື່ບໍລິສັດປະເມີນ',
- lbName:'ຊື່ຜູ້ປະກອບແຮງງານ',lbId:'ເລກບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',lbSkill:'ປະເພດທັກສະ',lbRole:'ໜ້າທີ່ / ຕຳແໜ່ງ',lbMonths:'ໄລຍະເວລາປະກອບ (ເດືອນ)',lbValue:'ມູນຄ່າທີ່ຕົກລົງ (ກີບ)',
+ lbName:'ຊື່ຜູ້ປະກອບແຮງງານ',lbId:'ເລກບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',lbSkill:'ປະເພດທັກສະ',lbRole:'ໜ້າທີ່ / ຕຳແໜ່ງ',lbMonths:'ໄລຍະເວລາປະກອບ (ເດືອນ)',lbValue:'ມູນຄ່າທີ່ຕົກລົງ (ກີບ)',lbInfo:'ຂໍ້ມູນເພີ່ມເຕີມ',lbDetails:'ລາຍລະອຽດຜູ້ປະກອບແຮງງານ',lbInfoPh:'ລາຍລະອຽດອື່ນໆ ກ່ຽວກັບການປະກອບແຮງງານ',
  skTech:'ຄວາມຊ່ຽວຊານດ້ານເຕັກນິກ',skMgmt:'ການບໍລິຫານ',skProf:'ບໍລິການວິຊາຊີບ',skLabour:'ແຮງງານມີຝີມື',
  docLabourAgree:'ສັນຍາປະກອບທຶນດ້ວຍແຮງງານ',docLabourId:'ສຳເນົາບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',docLabourCv:'ຊີວະປະຫວັດ / ໃບຢັ້ງຢືນວຸດທິ',
  sumAssetEst:'ຊັບສິນ (ປະເມີນ)',sumTotal:'ລວມງວດນີ້',sumAfter:'ຍັງເຫຼືອຫຼັງຊຳລະ',
@@ -1174,7 +1174,7 @@ forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
  entNameLbl:'Enterprise name',modeLabour:'Labour capital',ptAsset:'Asset',payN:'Payment',addCapital:'Add capital',payRemove:'Remove',showDetails:'Show details',hideDetails:'Hide details',
  payMethod:'Payment method',dcSec2Sub2:'Choose how this instalment is paid.',bankCode:'Bank code',fromAcctNo:'From Account No',fromAcctName:'From Account Name',
  fromAcctNoPh:'Enter source account no.',fromAcctNamePh:'Enter account name',firmNamePh:'Enter valuation firm name',
- lbName:'Contributor name',lbId:'ID / Passport No.',lbSkill:'Skill type',lbRole:'Role / position',lbMonths:'Contribution period (months)',lbValue:'Agreed value (LAK)',
+ lbName:'Contributor name',lbId:'ID / Passport No.',lbSkill:'Skill type',lbRole:'Role / position',lbMonths:'Contribution period (months)',lbValue:'Agreed value (LAK)',lbInfo:'Additional information',lbDetails:'Contributor details',lbInfoPh:'Anything else about this labour contribution',
  skTech:'Technical expertise',skMgmt:'Management',skProf:'Professional services',skLabour:'Skilled labour',
  docLabourAgree:'Labour contribution agreement',docLabourId:'ID / Passport copy',docLabourCv:'CV / qualification certificate',
  sumAssetEst:'Asset (estimated)',sumTotal:'Total this instalment',sumAfter:'Outstanding after',
@@ -1830,6 +1830,14 @@ var AUDIT_LOG=[
  {t:{lo:'ມື້ວານ 08:55',en:'Yesterday 08:55'},u:'ຫົວໜ້າພະແນກ',a:{lo:'ເຂົ້າສູ່ລະບົບ (ຢືນຢັນ MFA)',en:'Logged in (MFA verified)'},cat:'auth'}
 ];
 var ASSET_FIELDS={
+ // Labour blocks sent to a valuation firm: the contributor details, shown on the firm's job page.
+ labour:[
+  ['name',{lo:'ຊື່ຜູ້ປະກອບແຮງງານ',en:'Contributor name'},'text'],
+  ['idNo',{lo:'ເລກບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',en:'ID / Passport No.'},'text'],
+  ['skill',{lo:'ປະເພດທັກສະ',en:'Skill type'},'text'],
+  ['role',{lo:'ໜ້າທີ່ / ຕຳແໜ່ງ',en:'Role / position'},'text'],
+  ['months',{lo:'ໄລຍະເວລາປະກອບ (ເດືອນ)',en:'Contribution period (months)'},'number'],
+  ['info',{lo:'ຂໍ້ມູນເພີ່ມເຕີມ',en:'Additional information'},'text']],
  land:[
   ['deedNo',{lo:'ເລກທີ່ໂຉນດ *',en:'Deed No. *'},'text'],
   ['landParcelNo',{lo:'ເລກແປງທີ່ດິນ',en:'Land parcel No.'},'text'],
@@ -3096,7 +3104,7 @@ function vTxDetail(){
   var e=S.ents.filter(function(x){return x.id===tx.ent})[0];if(!e)return vList();
   var h=e.hist[tx.idx];if(!h)return vList();
   var col=e.collateral||[];
-  var typeLbl={land:'landType',building:'buildingType',car:'carType',machine:'machineType'};
+  var typeLbl={land:'landType',building:'buildingType',car:'carType',machine:'machineType',labour:'modeLabour'};
   var cItem=h.m==='asset'?(col.filter(function(c){return c.value===h.v})[0]||col[0]):null;
   var pbar=stepCircles([['done',h.ch?t(h.ch):t('channelOnline').split(' (')[0]],['done',t('stageChecker')],['done',t('stageApprover')]]);
   var txCard='<div class="card" style="margin-bottom:14px"><div class="h"><h3>'+t('reqDetail')+'</h3></div><div class="c"><div class="kv">'+
@@ -3178,10 +3186,13 @@ function payDocGroup(p){
   if(p.type==='labour')return 'CAPITAL_LABOUR_DOCUMENT';
   return {land:'CAPITAL_LAND_DOCUMENT',building:'CAPITAL_BUILDING_DOCUMENT',car:'CAPITAL_VEHICLE_DOCUMENT'}[p.cat]||'CAPITAL_MACHINE_DOCUMENT';
 }
-// Valuation of an asset block: 'moic' (the MOIC Checker reviews the declared value, no appraiser),
+// Valuation of an asset or labour block: 'moic' (the MOIC Checker reviews the declared value, no appraiser),
 // 'in' (in-network firm) or 'out' (out-of-network firm, keyed in by the Maker).
+// Labour blocks from before this field have no firmType and count as MOIC.
 function firmLbl(ft){return ft==='moic'?t('firmMoic'):ft==='out'?t('outNetShort'):t('inNet')}
-function needsAppraisal(p){return p.type==='asset'&&p.firmType!=='moic'}
+// Contributor details copied onto a labour valuation job (skill as its label in the current language).
+function labourFields(lb){return {name:lb.name||'',idNo:lb.idNo||'',skill:lb.skill?t(lb.skill):'',role:lb.role||'',months:lb.months||'',info:lb.info||''}}
+function needsAppraisal(p){return p.type==='asset'?p.firmType!=='moic':p.type==='labour'&&(p.firmType==='in'||p.firmType==='out')}
 // An asset valued by MOIC needs no valuation report, so that slot is left out.
 // Cash from a domestic source hides the slots that only foreign capital needs
 // (req 'foreign' in the master); foreign cash shows them all.
@@ -3212,7 +3223,7 @@ function payTotal(pays){return pays.reduce(function(a,p){return a+payAmt(p)},0)}
 function payNew(type,left){
   var v=left>0?fmt(left):'',p={type:type,open:true,touched:false,err:'',files:[]};
   if(type==='cash'){p.amt=v;p.src='domestic';p.bank='APB';p.acctNo='';p.acctName=''}
-  else if(type==='labour'){p.lb={name:'',idNo:'',skill:'skTech',role:'',months:'',value:v}}
+  else if(type==='labour'){p.lb={name:'',idNo:'',skill:'skTech',role:'',months:'',value:v,info:''};p.firmType='moic';p.firmName=''}
   else{p.cat='land';p.firmType='in';p.firmName=MASTER.valfirms.filter(function(vf){return vf.net==='in'})[0].nm;
     p.vals={};p.vals[ASSET_PRICE_KEY.land]=v}
   return p;
@@ -3275,6 +3286,13 @@ function payCardEdit(p,i,n){
     upList('pay|'+i+'|',payDocOpts(p),p)+'</div>'};
   var methodSel='<div class="field"><label for="pm-'+i+'">'+t('payMethod')+' *</label><select id="pm-'+i+'" data-pmethod="'+i+'">'+
     ['cash','asset','labour'].map(function(k){return '<option value="'+k+'"'+(p.type===k?' selected':'')+'>'+ptLabel(k)+'</option>'}).join('')+'</select></div>';
+  // Valuation dropdown, then the firm name or, for MOIC, the note in its place.
+  var firmFields=function(){var ft=p.firmType||'moic';
+    return sel('firmType',t('firmNet'),[['moic',t('firmMoic')],['in',t('inNet')],['out',t('outNetShort')]],ft)+
+      (ft==='moic'
+        ?'<div class="field"><label class="sr">'+t('firmNameLbl')+'</label><div class="firmnote">'+luSvg('circleCheck')+'<span>'+t('moicNote')+'</span></div></div>'
+        :ft==='in'?sel('firmName',t('firmNameLbl'),MASTER.valfirms.filter(function(vf){return vf.net==='in'}).map(function(vf){return [vf.nm,vf.nm]}),p.firmName)
+        :inp('firmName',t('firmNameLbl'),p.firmName,{ph:t('firmNamePh')}))};
   var body='';
   if(p.type==='cash'){
     body='<div class="g4">'+inp('amt',t('dcAmtPaid')+' (LAK) *',p.amt,{num:1})+
@@ -3283,23 +3301,24 @@ function payCardEdit(p,i,n){
       inp('acctNo',t('fromAcctNo')+' *',p.acctNo,{ph:t('fromAcctNoPh')})+inp('acctName',t('fromAcctName')+' *',p.acctName,{ph:t('fromAcctNamePh')})+'</div>'+docSel();
   }else if(p.type==='labour'){
     var lb=p.lb||{};
-    body='<div class="g4">'+inp('lb.name',t('lbName')+' *',lb.name)+inp('lb.idNo',t('lbId')+' *',lb.idNo)+
+    // Row 1: method / valuation / firm name or MOIC note, then the contributor details.
+    body='<div class="g4 assetrow">'+methodSel+firmFields()+'</div>'+
+      '<div class="fgrp">'+t('lbDetails')+'</div>'+
+      '<div class="g4">'+inp('lb.name',t('lbName')+' *',lb.name)+inp('lb.idNo',t('lbId')+' *',lb.idNo)+
       sel('lb.skill',t('lbSkill')+' *',PAY_SKILLS.map(function(k){return [k,t(k)]}),lb.skill)+inp('lb.role',t('lbRole'),lb.role)+
-      inp('lb.months',t('lbMonths'),lb.months,{num:1})+inp('lb.value',t('lbValue')+' *',lb.value,{num:1})+'</div>'+docSel();
+      inp('lb.months',t('lbMonths'),lb.months,{num:1})+inp('lb.value',t('lbValue')+' *',lb.value,{num:1})+'</div>'+
+      '<div class="field"><label for="'+id('lb.info')+'">'+t('lbInfo')+'</label><textarea id="'+id('lb.info')+'" data-pf="'+i+'|lb.info" rows="3" placeholder="'+
+        esc(t('lbInfoPh'))+'">'+esc(lb.info||'')+'</textarea></div>'+docSel();
   }else{
-    var ft=p.firmType||'in';
-    var third=ft==='moic'
-      ?'<div class="field"><label class="sr">'+t('firmNameLbl')+'</label><div class="firmnote">'+luSvg('circleCheck')+'<span>'+t('moicNote')+'</span></div></div>'
-      :ft==='in'?sel('firmName',t('firmNameLbl'),MASTER.valfirms.filter(function(vf){return vf.net==='in'}).map(function(vf){return [vf.nm,vf.nm]}),p.firmName)
-      :inp('firmName',t('firmNameLbl'),p.firmName,{ph:t('firmNamePh')});
+    if(!p.firmType)p.firmType='in';
     body='<div class="g4 assetrow">'+methodSel+sel('cat',t('assetCategory'),['land','building','car','machine'].map(function(k){return [k,t(k+'Type')]}),p.cat)+
-      sel('firmType',t('firmNet'),[['moic',t('firmMoic')],['in',t('inNet')],['out',t('outNetShort')]],ft)+third+'</div>'+
+      firmFields()+'</div>'+
       '<div class="fgrp">'+t('assetDetails')+'</div>'+
       '<div class="g4">'+ASSET_FIELDS[p.cat].map(function(af){return inp('vals.'+af[0],L(af[1]),(p.vals||{})[af[0]],{num:af[2]==='number'})}).join('')+'</div>'+docSel();
   }
   return '<div class="pblk">'+payHead(p,i,n,true)+(p.open!==false?
-    // Assets put the method in their own first row (method / category / valuation / firm); others keep it alone.
-    (p.type==='asset'?'':'<div class="g4">'+methodSel+'</div>')+
+    // Assets and labour put the method in their own first row with the valuation fields; cash keeps it alone.
+    (p.type==='cash'?'<div class="g4">'+methodSel+'</div>':'')+
     body:'')+
     (p.err?'<div class="hint err">'+p.err+'</div>':'')+'</div>';
 }
@@ -3316,8 +3335,10 @@ function payCardView(p,i){
       cell(t('fromAcctNo'),p.acctNo)+cell(t('fromAcctName'),p.acctName)+'</div>'+docs();
   }else if(p.type==='labour'){
     var lb=p.lb||{};
-    body='<div class="pv">'+cell(t('lbName'),lb.name)+cell(t('lbId'),lb.idNo)+cell(t('lbSkill'),lb.skill?t(lb.skill):'')+cell(t('lbRole'),lb.role)+
+    body='<div class="pv">'+cell(t('firmNet'),firmLbl(p.firmType||'moic'))+(needsAppraisal(p)?cell(t('firmNameLbl'),p.firmName):'')+
+      cell(t('lbName'),lb.name)+cell(t('lbId'),lb.idNo)+cell(t('lbSkill'),lb.skill?t(lb.skill):'')+cell(t('lbRole'),lb.role)+
       cell(t('lbMonths'),lb.months)+cell(t('lbValue'),fmt(payAmt(p)))+'</div>'+
+      (lb.info?'<div class="pv" style="grid-template-columns:1fr">'+cell(t('lbInfo'),lb.info)+'</div>':'')+
       docs();
   }else{
     body='<div class="pv">'+cell(t('assetCategory'),t(p.cat+'Type'))+cell(t('firmNet'),firmLbl(p.firmType))+
@@ -3537,7 +3558,7 @@ function vValJobDetail(){
   var j=S.valjobs[S.valI];if(!j)return vValFirm();
   var e=S.ents.filter(function(x){return x.id===j.ent})[0],F=S.valForm;
   var lbl=VAL_LBL[j.status],canSubmit=j.status==='doing';
-  var typeLbl={land:'landType',building:'buildingType',car:'carType',machine:'machineType'};
+  var typeLbl={land:'landType',building:'buildingType',car:'carType',machine:'machineType',labour:'modeLabour'};
   var col=e&&e.collateral?e.collateral.filter(function(c){return L(c.label)===L(j.asset)})[0]:null;
   // Jobs created from a declaration carry the fields the owner / maker entered instead of seeded collateral.
   if(!col&&j.fields)col={type:j.type,label:j.asset,detail:j.asset,value:j.amt,fields:j.fields};
@@ -4429,10 +4450,12 @@ function bind(){
     if(st==='APPRAISED_PENDING'){
       var assets=x.pays.filter(needsAppraisal);
       assets.forEach(function(p,k){
-        var key=(p.vals||{})[ASSET_REQ[p.cat]]||'';
-        S.valjobs.push({id:'VAL-2026-0'+(S.valSeq++),ent:e.id,type:p.cat,decl:x.ref,part:assets.length>1?[k+1,assets.length]:null,
-          asset:{lo:D.lo[p.cat+'Type']+(key?' · '+key:''),en:D.en[p.cat+'Type']+(key?' · '+key:'')},
-          firm:p.firmName||MASTER.valfirms[0].nm,net:p.firmType||'in',amt:payAmt(p),status:'doing',fields:p.vals||{}})});
+        // A labour block is valued as 'labour' with the contributor's name as its key.
+        var lab=p.type==='labour',ty=lab?'labour':p.cat,tk=lab?'modeLabour':p.cat+'Type';
+        var key=lab?(p.lb||{}).name||'':(p.vals||{})[ASSET_REQ[p.cat]]||'';
+        S.valjobs.push({id:'VAL-2026-0'+(S.valSeq++),ent:e.id,type:ty,decl:x.ref,part:assets.length>1?[k+1,assets.length]:null,
+          asset:{lo:D.lo[tk]+(key?' · '+key:''),en:D.en[tk]+(key?' · '+key:'')},
+          firm:p.firmName||MASTER.valfirms[0].nm,net:p.firmType||'in',amt:payAmt(p),status:'doing',fields:lab?labourFields(p.lb||{}):p.vals||{}})});
     }
     if(e.insts[1]&&e.insts[1].state!=='paid'){e.insts[1].state='review';
       e.insts[1].meta=st==='APPRAISED_PENDING'?{lo:'ສົ່ງປະເມີນມູນຄ່າແລ້ວ 04/08/2026 09:47',en:'Sent for appraisal on 04/08/2026 09:47'}

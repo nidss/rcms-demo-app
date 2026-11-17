@@ -160,7 +160,8 @@ type Payment =
   | { type: 'asset'; cat: 'land' | 'building' | 'car' | 'machine'; firmType: 'moic' | 'in' | 'out'; firmName: string;   // moic = MOIC Checker ประเมินเอง ไม่ผ่าน appraiser
       vals: Record<string, string>;   // key ตาม ASSET_FIELDS[cat], ยอด = vals[ASSET_PRICE_KEY[cat]]
       files: DocFile[] }
-  | { type: 'labour'; lb: { name: string; idNo: string; skill: string; role: string; months: string; value: string };
+  | { type: 'labour'; firmType: 'moic' | 'in' | 'out'; firmName: string;   // ไม่มี firmType (ข้อมูลเก่า) = moic
+      lb: { name: string; idNo: string; skill: string; role: string; months: string; value: string; info: string };   // info = Additional information
       files: DocFile[] };
 
 interface ValuationJob {
