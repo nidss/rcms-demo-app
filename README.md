@@ -221,7 +221,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
     การ์ดนี้กดไม่ได้ และข้อความในการ์ดเปลี่ยนเป็น "Not available: instalment 1 (P LAK) is already paid,
     so this payment settles the remaining X LAK."
     ตัวอย่างที่เลือก Split ได้: ELN-2025-1134 (Owner `lao.agri` หรือ Maker ค้นจาก Search Enterprises)
-  - แล้วกดปุ่ม **+ Payment** เพื่อเพิ่มการ์ดการชำระ ใส่ได้หลายใบในงวดเดียว แต่ละใบมีหัว (ไอคอน + ประเภท,
+  - แล้วกดปุ่ม **+ Add capital** เพื่อเพิ่มการ์ดการชำระ ใส่ได้หลายใบในงวดเดียว แต่ละใบมีหัว (ไอคอน + ประเภท,
     ป้าย Payment N, Remove เมื่อมีมากกว่า 1 ใบ, ยอดเงิน, Show / Hide details) และเลือก **Payment method** ได้ 3 แบบ
   - **Cash**: Amount paid, Bank code, From Account No, From Account Name, Payment evidence
   - **Asset**: Asset category, Valuation firm (In-network / Out-of-network), Valuation firm name,

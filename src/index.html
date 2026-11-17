@@ -925,7 +925,7 @@ forgotTitle:'ກູ້ຄືນລະຫັດຜ່ານ',forgotIdLbl:'ອີ�
  dlPdf:'ດາວໂຫຼດ PDF',issueCert:'ອອກໃບຢັ້ງຢືນ',notifyBiz:'ແຈ້ງເຕືອນຜູ້ປະກອບການ',sendVal:'ສົ່ງເລື່ອງປະເມີນຊັບສິນ',
 
  declareTitle:'ແຈ້ງຊຳລະທຶນຈົດທະບຽນ',channelOnline:'ຍື່ນອອນລາຍ (Owner)',channelCounter:'ຍື່ນທີ່ເຄົາເຕີ (Maker)',
- entNameLbl:'ຊື່ວິສາຫະກິດ',modeLabour:'ທຶນແຮງງານ',ptAsset:'ຊັບສິນ',payN:'ການຊຳລະ',payRemove:'ລຶບອອກ',showDetails:'ສະແດງລາຍລະອຽດ',hideDetails:'ເຊື່ອງລາຍລະອຽດ',
+ entNameLbl:'ຊື່ວິສາຫະກິດ',modeLabour:'ທຶນແຮງງານ',ptAsset:'ຊັບສິນ',payN:'ການຊຳລະ',addCapital:'ເພີ່ມລາຍການທຶນ',payRemove:'ລຶບອອກ',showDetails:'ສະແດງລາຍລະອຽດ',hideDetails:'ເຊື່ອງລາຍລະອຽດ',
  payMethod:'ວິທີການຊຳລະ',dcSec2Sub2:'ເລືອກວິທີຊຳລະສຳລັບງວດນີ້.',bankCode:'ລະຫັດທະນາຄານ',fromAcctNo:'ຈາກເລກບັນຊີ',fromAcctName:'ຈາກຊື່ບັນຊີ',
  fromAcctNoPh:'ປ້ອນເລກບັນຊີຕົ້ນທາງ',fromAcctNamePh:'ປ້ອນຊື່ບັນຊີ',firmNamePh:'ປ້ອນຊື່ບໍລິສັດປະເມີນ',
  lbName:'ຊື່ຜູ້ປະກອບແຮງງານ',lbId:'ເລກບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',lbSkill:'ປະເພດທັກສະ',lbRole:'ໜ້າທີ່ / ຕຳແໜ່ງ',lbMonths:'ໄລຍະເວລາປະກອບ (ເດືອນ)',lbValue:'ມູນຄ່າທີ່ຕົກລົງ (ກີບ)',
@@ -1160,7 +1160,7 @@ forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
  dlPdf:'Download PDF',issueCert:'Issue certificate',notifyBiz:'Notify business owner',sendVal:'Send for asset valuation',
 
  declareTitle:'Declare Capital Payment',channelOnline:'Submit online (Owner)',channelCounter:'Submit at counter (Maker)',
- entNameLbl:'Enterprise name',modeLabour:'Labour capital',ptAsset:'Asset',payN:'Payment',payRemove:'Remove',showDetails:'Show details',hideDetails:'Hide details',
+ entNameLbl:'Enterprise name',modeLabour:'Labour capital',ptAsset:'Asset',payN:'Payment',addCapital:'Add capital',payRemove:'Remove',showDetails:'Show details',hideDetails:'Hide details',
  payMethod:'Payment method',dcSec2Sub2:'Choose how this instalment is paid.',bankCode:'Bank code',fromAcctNo:'From Account No',fromAcctName:'From Account Name',
  fromAcctNoPh:'Enter source account no.',fromAcctNamePh:'Enter account name',firmNamePh:'Enter valuation firm name',
  lbName:'Contributor name',lbId:'ID / Passport No.',lbSkill:'Skill type',lbRole:'Role / position',lbMonths:'Contribution period (months)',lbValue:'Agreed value (LAK)',
@@ -3376,7 +3376,7 @@ function vDeclare(){
       :t('dcSplitNo').replace('{a}','<span class="num">'+fmt(e.paid)+'</span>').replace('{b}','<span class="num">'+fmt(remain)+'</span>'),!canPartial)+
    '</div>'+
    f.pays.map(function(p,i){return payCardEdit(p,i,n)}).join('')+
-   '<button type="button" class="btn ghost" data-addpay="1" style="margin:'+(n?'16px':'0')+' 0 16px">'+luSvg('plus')+t('payN')+'</button>'+
+   '<button type="button" class="btn ghost" data-addpay="1" style="margin:'+(n?'16px':'0')+' 0 16px">'+luSvg('plus')+t('addCapital')+'</button>'+
    paySummary(f.pays,remain)+
    (f.err?'<div class="hint err" style="margin-top:10px">'+f.err+'</div>':'');
   var old=f.edit!=null?S.tasks[f.edit]:null,retN=old&&old.st==='RETURNED'?openNote(old):null;
