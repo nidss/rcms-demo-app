@@ -366,6 +366,13 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .fseg button{border:0;background:transparent;font-family:inherit;font-size:12px;color:var(--ink2);padding:7px 14px;border-radius:7px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .fseg button:hover{color:var(--ink)}
 .fseg button.on{background:var(--m);color:#fff;font-weight:600;box-shadow:0 1px 3px rgba(40,53,121,.3)}
+.assetrow{margin-bottom:4px}
+.fgrp{font-size:11.5px;font-weight:600;color:var(--ink2);margin:6px 0 10px;padding-top:12px;border-top:1px solid var(--line)}
+.firmnote{display:flex;gap:8px;align-items:flex-start;background:var(--m-lite);border:1px solid var(--m-line);border-radius:9px;
+  padding:8px 12px;font-size:11.5px;line-height:1.5;color:var(--m-dark);min-height:42px}
+.firmnote svg{width:16px;height:16px;flex:none;color:var(--m);margin-top:1px}
+.field label.sr{visibility:hidden}
+@media(max-width:900px){.field label.sr{display:none}}
 .plan{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
 .plan button{display:flex;gap:10px;align-items:flex-start;text-align:left;font:inherit;color:var(--ink2);background:#fff;
   border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
@@ -925,7 +932,7 @@ forgotTitle:'ກູ້ຄືນລະຫັດຜ່ານ',forgotIdLbl:'ອີ�
  dlPdf:'ດາວໂຫຼດ PDF',issueCert:'ອອກໃບຢັ້ງຢືນ',notifyBiz:'ແຈ້ງເຕືອນຜູ້ປະກອບການ',sendVal:'ສົ່ງເລື່ອງປະເມີນຊັບສິນ',
 
  declareTitle:'ແຈ້ງຊຳລະທຶນຈົດທະບຽນ',channelOnline:'ຍື່ນອອນລາຍ (Owner)',channelCounter:'ຍື່ນທີ່ເຄົາເຕີ (Maker)',
- entNameLbl:'ຊື່ວິສາຫະກິດ',modeLabour:'ທຶນແຮງງານ',ptAsset:'ຊັບສິນ',payN:'ການຊຳລະ',payRemove:'ລຶບອອກ',showDetails:'ສະແດງລາຍລະອຽດ',hideDetails:'ເຊື່ອງລາຍລະອຽດ',
+ entNameLbl:'ຊື່ວິສາຫະກິດ',modeLabour:'ທຶນແຮງງານ',ptAsset:'ຊັບສິນ',payN:'ການຊຳລະ',addCapital:'ເພີ່ມລາຍການທຶນ',payRemove:'ລຶບອອກ',showDetails:'ສະແດງລາຍລະອຽດ',hideDetails:'ເຊື່ອງລາຍລະອຽດ',
  payMethod:'ວິທີການຊຳລະ',dcSec2Sub2:'ເລືອກວິທີຊຳລະສຳລັບງວດນີ້.',bankCode:'ລະຫັດທະນາຄານ',fromAcctNo:'ຈາກເລກບັນຊີ',fromAcctName:'ຈາກຊື່ບັນຊີ',
  fromAcctNoPh:'ປ້ອນເລກບັນຊີຕົ້ນທາງ',fromAcctNamePh:'ປ້ອນຊື່ບັນຊີ',firmNamePh:'ປ້ອນຊື່ບໍລິສັດປະເມີນ',
  lbName:'ຊື່ຜູ້ປະກອບແຮງງານ',lbId:'ເລກບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',lbSkill:'ປະເພດທັກສະ',lbRole:'ໜ້າທີ່ / ຕຳແໜ່ງ',lbMonths:'ໄລຍະເວລາປະກອບ (ເດືອນ)',lbValue:'ມູນຄ່າທີ່ຕົກລົງ (ກີບ)',
@@ -948,7 +955,8 @@ forgotTitle:'ກູ້ຄືນລະຫັດຜ່ານ',forgotIdLbl:'ອີ�
  payMode:'ຮູບແບບການຊຳລະ',payFull:'ຊຳລະເຕັມຈຳນວນ',payPartial:'ຊຳລະບາງສ່ວນ',
  payFullOnly:'ມີການຊຳລະບາງສ່ວນມາກ່ອນແລ້ວ - ງວດຕໍ່ໄປຕ້ອງຊຳລະຍອດຄົງເຫຼືອທັງໝົດ',
  firmNet:'ບໍລິສັດປະເມີນ',inNet:'In-network',outNet:'Out-of-network (ບໍ່ມີ login - Maker ຄີຍ໌ແທນ)',
- outNetShort:'Out-of-network',firmNameLbl:'ຊື່ບໍລິສັດປະເມີນ',
+ outNetShort:'Out-of-network',firmNameLbl:'ຊື່ບໍລິສັດປະເມີນ',firmMoic:'MOIC (ຜູ້ກວດສອບ)',assetDetails:'ລາຍລະອຽດຊັບສິນ',
+ moicNote:'ຜູ້ກວດສອບ MOIC ກວດມູນຄ່າທີ່ແຈ້ງ - ບໍ່ຕ້ອງມີເອກະສານປະເມີນລາຄາ.',
  fAmt:'ຈຳນວນເງິນ',fDate:'ວັນທີຊຳລະ',fAcct:'ບັນຊີຮັບເງິນ',fRef:'ເລກທີ່ອ້າງອີງ',fDocs:'ເອກະສານຫຼັກຖານ',
  dcSec1:'ຂໍ້ມູນລາຍການຊຳລະທຶນ',dcSec1Sub:'ເລືອກຮູບແບບງວດໃນຄັ້ງທຳອິດ ລະບົບຈະລັອກຄ່າເມື່ອມີລາຍການທີ່ອະນຸມັດແລ້ວ',
  dcPlan:'ຮູບແບບການຊຳລະທຶນ',dcOnce:'ຊຳລະຄັ້ງດຽວ 100%',dcSplit:'ແບ່ງຊຳລະ 2 ງວດ',
@@ -1160,7 +1168,7 @@ forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
  dlPdf:'Download PDF',issueCert:'Issue certificate',notifyBiz:'Notify business owner',sendVal:'Send for asset valuation',
 
  declareTitle:'Declare Capital Payment',channelOnline:'Submit online (Owner)',channelCounter:'Submit at counter (Maker)',
- entNameLbl:'Enterprise name',modeLabour:'Labour capital',ptAsset:'Asset',payN:'Payment',payRemove:'Remove',showDetails:'Show details',hideDetails:'Hide details',
+ entNameLbl:'Enterprise name',modeLabour:'Labour capital',ptAsset:'Asset',payN:'Payment',addCapital:'Add capital',payRemove:'Remove',showDetails:'Show details',hideDetails:'Hide details',
  payMethod:'Payment method',dcSec2Sub2:'Choose how this instalment is paid.',bankCode:'Bank code',fromAcctNo:'From Account No',fromAcctName:'From Account Name',
  fromAcctNoPh:'Enter source account no.',fromAcctNamePh:'Enter account name',firmNamePh:'Enter valuation firm name',
  lbName:'Contributor name',lbId:'ID / Passport No.',lbSkill:'Skill type',lbRole:'Role / position',lbMonths:'Contribution period (months)',lbValue:'Agreed value (LAK)',
@@ -1183,7 +1191,8 @@ forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
  payMode:'Payment type',payFull:'Pay in full',payPartial:'Pay partially',
  payFullOnly:'A partial payment was already made - the next instalment must settle the full outstanding balance',
  firmNet:'Valuation firm',inNet:'In-network',outNet:'Out-of-network (no login - Maker keys it in)',
- outNetShort:'Out-of-network',firmNameLbl:'Valuation firm name',
+ outNetShort:'Out-of-network',firmNameLbl:'Valuation firm name',firmMoic:'MOIC (Checker)',assetDetails:'Asset details',
+ moicNote:'MOIC Checker reviews the declared value - no appraisal document needed.',
  fAmt:'Amount',fDate:'Payment date',fAcct:'Receiving account',fRef:'Transaction reference',fDocs:'Supporting documents',
  dcSec1:'Payment transaction details',dcSec1Sub:'Choose the instalment plan on the first entry; the system locks it once a transaction is approved',
  dcPlan:'Capital payment plan',dcOnce:'Pay once 100%',dcSplit:'Split into 2 instalments',
@@ -1895,7 +1904,8 @@ function entDistrict(e){
 var ACCESS_SCOPE={
   admin:{all:true},
   maker:{prov:'ນະຄອນຫຼວງວຽງຈັນ',districts:['ຈັນທະບູລີ','ສີສັດຕະນາກ','ໄຊເສດຖາ','ສີໂຄດຕະບອງ']},
-  checker:{prov:'ນະຄອນຫຼວງວຽງຈັນ',districts:['ຈັນທະບູລີ','ສີສັດຕະນາກ','ໄຊເສດຖາ','ສີໂຄດຕະບອງ']},
+  // Naxaithong is in so the owner's unpaid example (ELN-2025-1134) reaches this Checker.
+  checker:{prov:'ນະຄອນຫຼວງວຽງຈັນ',districts:['ຈັນທະບູລີ','ສີສັດຕະນາກ','ໄຊເສດຖາ','ສີໂຄດຕະບອງ','ນາຊາຍທອງ']},
   approver:{prov:'ນະຄອນຫຼວງວຽງຈັນ',districts:['ຈັນທະບູລີ','ສີສັດຕະນາກ','ໄຊເສດຖາ','ສີໂຄດຕະບອງ','ນາຊາຍທອງ','ໄຊທານີ','ຫາດຊາຍຟອງ']}
 };
 function myScope(){return ACCESS_SCOPE[S.role]||null}
@@ -3165,7 +3175,13 @@ function payDocGroup(p){
   if(p.type==='labour')return 'CAPITAL_LABOUR_DOCUMENT';
   return {land:'CAPITAL_LAND_DOCUMENT',building:'CAPITAL_BUILDING_DOCUMENT',car:'CAPITAL_VEHICLE_DOCUMENT'}[p.cat]||'CAPITAL_MACHINE_DOCUMENT';
 }
-function payDocOpts(p){return docDefs(payDocGroup(p),p.src==='foreign')}
+// Valuation of an asset block: 'moic' (the MOIC Checker reviews the declared value, no appraiser),
+// 'in' (in-network firm) or 'out' (out-of-network firm, keyed in by the Maker).
+function firmLbl(ft){return ft==='moic'?t('firmMoic'):ft==='out'?t('outNetShort'):t('inNet')}
+function needsAppraisal(p){return p.type==='asset'&&p.firmType!=='moic'}
+// An asset valued by MOIC needs no valuation report, so that slot is left out.
+function payDocOpts(p){var d=docDefs(payDocGroup(p),p.src==='foreign');
+  return p.type==='asset'&&p.firmType==='moic'?d.filter(function(o){return o.k!=='VALUATION_REPORT'}):d}
 function payDocLbl(p,f){
   var o=payDocOpts(p).filter(function(x){return x.k===f.k})[0];
   return o?o.lbl:docLabel(f.name);
@@ -3250,6 +3266,8 @@ function payCardEdit(p,i,n){
   // One upload slot per document of the block's group (payDocGroup()), instead of a type dropdown.
   var docSel=function(){return '<div class="field" style="margin:0"><label>'+t('fDocs')+'</label><div class="hint uprule">'+t('suFileRule')+'</div>'+
     upList('pay|'+i+'|',payDocOpts(p),p)+'</div>'};
+  var methodSel='<div class="field"><label for="pm-'+i+'">'+t('payMethod')+' *</label><select id="pm-'+i+'" data-pmethod="'+i+'">'+
+    ['cash','asset','labour'].map(function(k){return '<option value="'+k+'"'+(p.type===k?' selected':'')+'>'+ptLabel(k)+'</option>'}).join('')+'</select></div>';
   var body='';
   if(p.type==='cash'){
     body='<div class="g4">'+inp('amt',t('dcAmtPaid')+' (LAK) *',p.amt,{num:1})+
@@ -3262,18 +3280,19 @@ function payCardEdit(p,i,n){
       sel('lb.skill',t('lbSkill')+' *',PAY_SKILLS.map(function(k){return [k,t(k)]}),lb.skill)+inp('lb.role',t('lbRole'),lb.role)+
       inp('lb.months',t('lbMonths'),lb.months,{num:1})+inp('lb.value',t('lbValue')+' *',lb.value,{num:1})+'</div>'+docSel();
   }else{
-    var inNet=p.firmType!=='out';
-    body='<div class="g4">'+sel('cat',t('assetCategory'),['land','building','car','machine'].map(function(k){return [k,t(k+'Type')]}),p.cat)+
-      '<div class="field"><label>'+t('firmNet')+'</label><div class="radrow">'+
-       '<label><input type="radio" name="firm'+i+'" data-pfirm="'+i+'|in"'+(inNet?' checked':'')+'>'+t('inNet')+'</label>'+
-       '<label><input type="radio" name="firm'+i+'" data-pfirm="'+i+'|out"'+(inNet?'':' checked')+'>'+t('outNetShort')+'</label></div></div>'+
-      (inNet?sel('firmName',t('firmNameLbl'),MASTER.valfirms.filter(function(vf){return vf.net==='in'}).map(function(vf){return [vf.nm,vf.nm]}),p.firmName)
-        :inp('firmName',t('firmNameLbl'),p.firmName,{ph:t('firmNamePh')}))+
-      ASSET_FIELDS[p.cat].map(function(af){return inp('vals.'+af[0],L(af[1]),(p.vals||{})[af[0]],{num:af[2]==='number'})}).join('')+'</div>'+docSel();
+    var ft=p.firmType||'in';
+    var third=ft==='moic'
+      ?'<div class="field"><label class="sr">'+t('firmNameLbl')+'</label><div class="firmnote">'+luSvg('circleCheck')+'<span>'+t('moicNote')+'</span></div></div>'
+      :ft==='in'?sel('firmName',t('firmNameLbl'),MASTER.valfirms.filter(function(vf){return vf.net==='in'}).map(function(vf){return [vf.nm,vf.nm]}),p.firmName)
+      :inp('firmName',t('firmNameLbl'),p.firmName,{ph:t('firmNamePh')});
+    body='<div class="g4 assetrow">'+methodSel+sel('cat',t('assetCategory'),['land','building','car','machine'].map(function(k){return [k,t(k+'Type')]}),p.cat)+
+      sel('firmType',t('firmNet'),[['moic',t('firmMoic')],['in',t('inNet')],['out',t('outNetShort')]],ft)+third+'</div>'+
+      '<div class="fgrp">'+t('assetDetails')+'</div>'+
+      '<div class="g4">'+ASSET_FIELDS[p.cat].map(function(af){return inp('vals.'+af[0],L(af[1]),(p.vals||{})[af[0]],{num:af[2]==='number'})}).join('')+'</div>'+docSel();
   }
   return '<div class="pblk">'+payHead(p,i,n,true)+(p.open!==false?
-    '<div class="g4"><div class="field"><label for="pm-'+i+'">'+t('payMethod')+' *</label><select id="pm-'+i+'" data-pmethod="'+i+'">'+
-      ['cash','asset','labour'].map(function(k){return '<option value="'+k+'"'+(p.type===k?' selected':'')+'>'+ptLabel(k)+'</option>'}).join('')+'</select></div></div>'+
+    // Assets put the method in their own first row (method / category / valuation / firm); others keep it alone.
+    (p.type==='asset'?'':'<div class="g4">'+methodSel+'</div>')+
     body:'')+
     (p.err?'<div class="hint err">'+p.err+'</div>':'')+'</div>';
 }
@@ -3294,8 +3313,8 @@ function payCardView(p,i){
       cell(t('lbMonths'),lb.months)+cell(t('lbValue'),fmt(payAmt(p)))+'</div>'+
       docs();
   }else{
-    body='<div class="pv">'+cell(t('assetCategory'),t(p.cat+'Type'))+cell(t('firmNet'),p.firmType==='out'?t('outNetShort'):t('inNet'))+
-      cell(t('firmNameLbl'),p.firmName)+
+    body='<div class="pv">'+cell(t('assetCategory'),t(p.cat+'Type'))+cell(t('firmNet'),firmLbl(p.firmType))+
+      (p.firmType==='moic'?'':cell(t('firmNameLbl'),p.firmName))+
       ASSET_FIELDS[p.cat].filter(function(af){return (p.vals||{})[af[0]]}).map(function(af){
         return cell(L(af[1]).replace(/ \*$/,''),p.vals[af[0]])}).join('')+'</div>'+
       docs();
@@ -3376,7 +3395,7 @@ function vDeclare(){
       :t('dcSplitNo').replace('{a}','<span class="num">'+fmt(e.paid)+'</span>').replace('{b}','<span class="num">'+fmt(remain)+'</span>'),!canPartial)+
    '</div>'+
    f.pays.map(function(p,i){return payCardEdit(p,i,n)}).join('')+
-   '<button type="button" class="btn ghost" data-addpay="1" style="margin:'+(n?'16px':'0')+' 0 16px">'+luSvg('plus')+t('payN')+'</button>'+
+   '<button type="button" class="btn ghost" data-addpay="1" style="margin:'+(n?'16px':'0')+' 0 16px">'+luSvg('plus')+t('addCapital')+'</button>'+
    paySummary(f.pays,remain)+
    (f.err?'<div class="hint err" style="margin-top:10px">'+f.err+'</div>':'');
   var old=f.edit!=null?S.tasks[f.edit]:null,retN=old&&old.st==='RETURNED'?openNote(old):null;
@@ -3415,7 +3434,7 @@ function vTask(){
   var counter=x.ch?x.ch==='counter':/Maker/.test(((x.trail||[])[0]||{}).who||'');
   // Steps: channel, the appraiser when the declaration has assets, then Checker and Approver.
   var steps=[counter?t('channelCounter').split(' (')[0]:t('channelOnline').split(' (')[0]];
-  if(x.appraised||String(x.mode).indexOf('asset')>=0)steps.push(t('stageAppraiser'));
+  if(x.appraised||pays.some(needsAppraisal))steps.push(t('stageAppraiser'));
   steps.push(t('stageChecker'));steps.push(t('stageApprover'));
   var cur=isC?steps.length-2:steps.length-1,full=e.paid+x.amt>=e.cap,rq=x.rejReq,asChecker=S.role==='checker';
   var types=[];pays.forEach(function(p){if(types.indexOf(p.type)<0)types.push(p.type)});
@@ -4253,6 +4272,8 @@ function bind(){
     var parts=el.dataset.pf.split('|'),p=S.form&&S.form.pays[Number(parts[0])],path=parts[1];if(!p)return;
     if(el.tagName==='SELECT'){el.onchange=function(){
       if(path==='cat'){var price=payAmt(p);p.vals={};p.vals[ASSET_PRICE_KEY[el.value]]=price?fmt(price):''}
+      if(path==='firmType'){p.firmName=el.value==='in'?MASTER.valfirms.filter(function(vf){return vf.net==='in'})[0].nm:'';
+        if(el.value==='moic')p.files=(p.files||[]).filter(function(f){return f.k!=='VALUATION_REPORT'})}
       // Each asset category has its own document list, so a new category starts with no files.
       if(path==='cat'){p.files=[];p.upErr={}}
       payGetSet(p,path,el.value);p.touched=true;p.err='';render()};return}
@@ -4265,9 +4286,6 @@ function bind(){
     // Money fields show thousands separators once the user leaves the field.
     if(el.classList.contains('num')&&!/months/.test(path))el.onchange=function(){
       var v=numOf(el.value);el.value=v?fmt(v):'';payGetSet(p,path,el.value)}});
-  document.querySelectorAll('[data-pfirm]').forEach(function(r){r.onchange=function(){
-    var parts=r.dataset.pfirm.split('|'),p=S.form.pays[Number(parts[0])];
-    p.firmType=parts[1];p.firmName=parts[1]==='in'?MASTER.valfirms.filter(function(vf){return vf.net==='in'})[0].nm:'';p.touched=true;render()}});
   // Upload slots (upSlot()): signup opens the real file picker; the other forms attach a mock file
   // on click so the demo runs without files at hand. Dropped files are always the real ones.
   document.querySelectorAll('[data-upzone]').forEach(function(el){
@@ -4392,7 +4410,7 @@ function bind(){
     var x=declFromForm(old||{},e,f);
     if(!x.ref)x.ref=capRef(S.capSeq++);
     // Items with assets wait for the appraiser first; a resubmission keeps an appraisal already done.
-    var hasAsset=x.pays.some(function(p){return p.type==='asset'});
+    var hasAsset=x.pays.some(needsAppraisal);
     var st=x.appraised?'APPRAISED_COMPLETED':(hasAsset?'APPRAISED_PENDING':'PENDING');
     var act=v>=remain?HIST_TXT.full:(e.paid===0?HIST_TXT.inst1:HIST_TXT.inst2);
     x.trail.push({who:x.by+' ('+(isOwner?t('channelOnline').split(' (')[0]:t('channelCounter').split(' (')[0])+')',
@@ -4400,7 +4418,7 @@ function bind(){
     setSt(x,st);if(x.ret)x.lastRet=x.ret;delete x.ret;
     if(!old)S.tasks.push(x);
     if(st==='APPRAISED_PENDING'){
-      var assets=x.pays.filter(function(p){return p.type==='asset'});
+      var assets=x.pays.filter(needsAppraisal);
       assets.forEach(function(p,k){
         var key=(p.vals||{})[ASSET_REQ[p.cat]]||'';
         S.valjobs.push({id:'VAL-2026-0'+(S.valSeq++),ent:e.id,type:p.cat,decl:x.ref,part:assets.length>1?[k+1,assets.length]:null,
