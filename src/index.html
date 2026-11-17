@@ -3183,9 +3183,11 @@ function payDocGroup(p){
 function firmLbl(ft){return ft==='moic'?t('firmMoic'):ft==='out'?t('outNetShort'):t('inNet')}
 function needsAppraisal(p){return p.type==='asset'&&p.firmType!=='moic'}
 // An asset valued by MOIC needs no valuation report, so that slot is left out.
-// Cash from a domestic source shows only the required slots; foreign cash shows them all.
-function payDocOpts(p){var d=docDefs(payDocGroup(p),p.src==='foreign');
-  if(p.type==='cash'&&p.src!=='foreign')return d.filter(function(o){return o.req});
+// Cash from a domestic source hides the slots that only foreign capital needs
+// (req 'foreign' in the master); foreign cash shows them all.
+function payDocOpts(p){var g=payDocGroup(p),d=docDefs(g,p.src==='foreign');
+  if(p.type==='cash'&&p.src!=='foreign'){var fx=DOC_GROUPS[g].filter(function(x){return x.req==='foreign'}).map(function(x){return x.k});
+    return d.filter(function(o){return fx.indexOf(o.k)<0})}
   return p.type==='asset'&&p.firmType==='moic'?d.filter(function(o){return o.k!=='VALUATION_REPORT'}):d}
 function payDocLbl(p,f){
   var o=payDocOpts(p).filter(function(x){return x.k===f.k})[0];
