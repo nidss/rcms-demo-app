@@ -353,6 +353,8 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
   - ทุกคำร้อง (กล่องที่ 1 ของหน้าแจ้งชำระ): Registered Capital Contribution Notification Application *
   - Cash (`CAPITAL_CASH_DOCUMENT`): Bank Statement *, Certificate of Capital Importation และ Letter from the Bank of the Lao PDR
     (จำเป็นเมื่อ Source of capital = Foreign capital เท่านั้น), Other
+    ถ้า Source of capital = Domestic แสดงเฉพาะช่องที่จำเป็น (Bank Statement) ซ่อนช่องที่ไม่บังคับ
+    และเปลี่ยนจาก Foreign เป็น Domestic จะลบไฟล์ในช่องที่ซ่อน ถ้า Foreign แสดงครบทุกช่องเหมือนเดิม
   - Asset - Land (`CAPITAL_LAND_DOCUMENT`): Land Title Deed *, Mortgage-Free Certificate *, Cadastral Map,
     Ownership Transfer Document, Other
   - Asset - Building (`CAPITAL_BUILDING_DOCUMENT`): Ownership Transfer Document *, Valuation Report,
