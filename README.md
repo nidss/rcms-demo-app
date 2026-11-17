@@ -209,6 +209,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 ผู้ประกอบการ (Declare capital payment online) และ Maker (Add payment) ใช้หน้าเดียวกัน เต็มความกว้าง:
 
 - **Enterprise Registration Details แบบย่อ** ด้านบน (ปุ่ม Show details / Hide details)
+- **Capital Details** การ์ดสรุปทุนแบบเดียวกับหน้ารายละเอียดวิสาหกิจ (สถานะ, % ที่ชำระ, Total Registered Capital,
+  Confirmed Capital, Capital Under Review, Outstanding Capital, ค่าปรับ, วันครบกำหนด) แต่ไม่มีปุ่ม
 - **1. Registered Capital Contribution Notification Application \*** (กล่องแรก): ลิงก์ **Download form**
   ต่อท้ายชื่อ ดาวน์โหลดแบบฟอร์มเปล่าเป็น PDF (demo เป็นไฟล์ตัวอย่าง) แล้วแนบแบบฟอร์มที่ลงลายเซ็นแล้ว
   ในช่อง Signed application form (ต้องแนบ ไม่งั้นกด Submit ไม่ได้)
