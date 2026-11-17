@@ -236,6 +236,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
     Additional information (textarea ไม่บังคับ), Supporting documents
     ถ้าเลือก In-network / Out-of-network จะส่งไปบริษัทประเมินเหมือนทรัพย์สิน (งานประเมินประเภท Labour capital
     หน้างานของบริษัทแสดงข้อมูลผู้ปะกอบแรงงาน) ถ้าเลือก MOIC ไปที่ Checker เลย
+    งานประเมินที่เกิดจากการแจ้ง แสดงเอกสารที่แนบใน block นั้นจริงตามประเภทเอกสาร (เช่น Partnership Establishment Agreement)
+    ใต้หัวข้อ Documents submitted at capital declaration งาน seed เดิมยังแสดง valuation report ตัวอย่าง
   - การ์ดใหม่เติมยอดที่ยังค้างให้อัตโนมัติ ยอดของการ์ด = Amount paid / Estimated price / Agreed value
   - เปลี่ยน Payment method ของการ์ดที่กรอกข้อมูลแล้ว จะถามยืนยันก่อน (Change payment method?
     ข้อมูลที่กรอกจะหาย)

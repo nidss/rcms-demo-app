@@ -167,7 +167,9 @@ type Payment =
 interface ValuationJob {
   id: string;                // VAL-2026-0341
   ent: string; asset: I18nText;
-  type: 'land' | 'building' | 'car' | 'machine';   // ใช้แบ่งกลุ่มใน Dashboard ของบริษัทประเมิน
+  type: 'land' | 'building' | 'car' | 'machine' | 'labour';   // ใช้แบ่งกลุ่มใน Dashboard ของบริษัทประเมิน
+  fields?: Record<string, string>;   // ข้อมูลที่กรอกตอนแจ้ง (key ตาม ASSET_FIELDS[type])
+  declGroup?: string; declFiles?: DocFile[];   // เอกสารของ block ที่แนบตอนแจ้ง ไม่มี = งาน seed แสดง valuation report ตัวอย่าง
   part?: [number, number];   // เช่น [2, 2] = ทรัพย์สินชิ้นที่ 2 จาก 2 ในการแจ้งเดียวกัน
   remark?: string;           // หมายเหตุที่บริษัทประเมินใส่ตอนส่งผล
   firm: string; net: 'in' | 'out';
