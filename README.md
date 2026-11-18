@@ -162,6 +162,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 - **Approver (Approval Workspace)** เมนูหลักชื่อ Approval Workspace มีเมนูย่อย 4 รายการ (เปิดที่
   Dashboard ก่อน):
   - **Dashboard** คือ Dashboard กลาง (ดูด้านบน) แถบแจ้งงานถัดไปมีปุ่ม Open to sign พาไปเมนูย่อย Awaiting approval
+  - **Awaiting waiver**: คำขอยกเว้นใบแจ้งหนี้จาก Checker (ค้นหา Enterprise, Registration no., Requested by) แต่ละแถวมี
+    ใบแจ้งหนี้, วิสาหกิจ, ยอด, ผู้ขอ + วันที่, เหตุผล และปุ่ม Approve / Decline ตัวอย่าง: INV-2026-1211 (ELN-2025-1135)
   - **Awaiting approval** (ค้นหา Reference, Enterprise, Channel, Verified by), **Overdue / penalties**
     (Enterprise, Status) และ **Recently signed (E-Sign)** (Enterprise, Registration no.) แสดงเฉพาะ
     ตาราง มีปุ่ม Search / Clear และ pagination
@@ -230,8 +232,12 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   (จากประวัติที่ยืนยันแล้ว `certSplit()`), จำนวนหุ้น (mock มูลค่าหุ้นละ 1,000,000 กีบ), ผู้ถือหุ้น และเลขคำร้องล่าสุด
   ปุ่ม Download PDF / Print ยังเป็น demo (`data-soon`)
 - **Invoices** (เจ้าหน้าที่ทุกบทบาท ก่อนตารางประวัติ): ใบแจ้งหนี้ของวิสาหกิจ สถานะ Awaiting payment / Confirmed /
-  Waived / Refunded **Checker และ Approver** มีปุ่ม **Waive** ที่ใบแจ้งหนี้ที่รอชำระ ต้องกรอกเหตุผล
-  ใบแจ้งหนี้จะเป็น `WAIVED` (ปิดโดยไม่ต้องชำระ) แสดงว่าใครยกเว้น วันที่ และเหตุผลใต้ชื่อรายการ
+  Waived / Refunded ปุ่ม **Waive** อยู่ที่ใบแจ้งหนี้ที่รอชำระ ต้องกรอกเหตุผล
+  - **Checker** กด Waive = ส่งคำขอยกเว้น (Send for approval) ใบแจ้งหนี้ยังรอชำระ ขึ้นป้าย Waiver awaiting approval
+    พร้อมผู้ขอ / วันที่ / เหตุผล (เห็นเฉพาะเจ้าหน้าที่) Checker กด Cancel request ยกเลิกคำขอได้
+  - **Approver** อนุมัติ (Approve) หรือปฏิเสธ (Decline) คำขอได้ทั้งในเมนูย่อย **Awaiting waiver** และที่แถวของใบแจ้งหนี้
+    Approver กด Waive เองได้ทันที (ไม่ต้องรออนุมัติ)
+  - อนุมัติแล้วใบแจ้งหนี้จะเป็น `WAIVED` (ปิดโดยไม่ต้องชำระ) แสดงว่าใครยกเว้น ใครขอ วันที่ และเหตุผลใต้ชื่อรายการ
   และบันทึกลงประวัติของวิสาหกิจ ผู้ประกอบการเห็นสถานะ Waived พร้อมเหตุผลในใบแจ้งหนี้ของตัวเอง
   ใบแจ้งหนี้ที่ยกเว้นแล้วไม่นับเป็นค่าปรับค้าง (ไม่บล็อกการแจ้งชำระอีก)
 - **Enterprise Registration Details** แบ่งเป็นกลุ่มมีหัวข้อ: Identity / Registration /
@@ -400,7 +406,8 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
 
 ## Business rule ที่ฝังไว้จริง (ลองกดให้ error ดูได้)
 
-- ยกเว้นใบแจ้งหนี้ (Waive) ได้เฉพาะ Checker และ Approver เฉพาะใบที่สถานะรอชำระ และต้องมีเหตุผล
+- ยกเว้นใบแจ้งหนี้ (Waive) ได้เฉพาะใบที่สถานะรอชำระ และต้องมีเหตุผล: Checker ส่งคำขอ ต้องให้ Approver อนุมัติก่อน
+  ส่วน Approver ยกเว้นได้ทันที
 - งวดแรกต้องไม่ต่ำกว่า 30% ของทุนจดทะเบียน (ยอดรวมทุกการ์ดต้องไม่ต่ำกว่า Minimum for this instalment)
 - ยอดรวมทุกการ์ดต้องไม่เกินยอดคงเหลือ
 - ยอดรวมที่ชำระต้องมากกว่า 0 และการ์ดที่มียอดต้องกรอกช่องที่มี * ครบ ยอดของการ์ดต้องไม่เกินยอดคงเหลือของรายการทุนนั้น

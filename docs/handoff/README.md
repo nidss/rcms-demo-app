@@ -188,8 +188,9 @@ interface Invoice {
   id: string; ent: string;
   kind: 'fee' | 'penalty';
   title: I18nText; amt: number; due: string;
-  status: 'PENDING' | 'PAID' | 'WAIVED' | 'REFUNDED';   // WAIVED: Checker / Approver ยกเว้นใบที่ PENDING (ต้องมีเหตุผล)
-  waive?: { u: string; role: 'checker' | 'approver'; d: string; reason: string };
+  status: 'PENDING' | 'PAID' | 'WAIVED' | 'REFUNDED';   // WAIVED: Approver ยกเว้นเอง หรืออนุมัติคำขอของ Checker (ต้องมีเหตุผล)
+  waiveReq?: { u: string; d: string; reason: string };   // คำขอยกเว้นจาก Checker รอ Approver อนุมัติ (status ยังเป็น PENDING)
+  waive?: { u: string; role: 'approver'; d: string; reason: string; reqBy: string };   // reqBy = Checker ที่ขอ (ว่าง = Approver ยกเว้นเอง)
   paidAt: string | null; receipt: string | null; channel: string;
 }
 
