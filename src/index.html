@@ -639,17 +639,23 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .cdx-sw button:hover{color:var(--ink)}
 .cdx-sw button.on{background:#fff;color:var(--m);box-shadow:0 1px 2px rgba(16,24,64,.12)}
 @media(max-width:640px){.cdx-sw button span{display:none}.cdx-sw button{padding:6px 8px}}
-/* pie view: the pie, then a legend that carries every figure */
-.cdx-pie{display:flex;align-items:center;gap:24px;flex-wrap:wrap;padding:4px 0}
-.cdx-pie svg{flex:none}
-.cdx-pie path,.cdx-pie circle{stroke:#fff;stroke-width:2;stroke-linejoin:round;outline:none;cursor:default}
-.cdx-pie path:hover,.cdx-pie path:focus,.cdx-pie circle:hover{opacity:.85}
-.cdx-pleg{list-style:none;margin:0;padding:0;flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:8px}
-.cdx-pleg li{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink2);min-width:0}
-.cdx-pleg i{width:10px;height:10px;border-radius:3px;flex:none}
+/* pie view: a donut with the total in the hole, then a legend that carries every figure */
+.cdx-pie{display:flex;align-items:center;gap:28px;flex-wrap:wrap;padding:6px 0 2px}
+.cdx-donut{position:relative;width:184px;height:184px;flex:none}
+.cdx-donut svg{width:100%;height:100%;display:block}
+.cdx-donut .seg{fill:none;stroke-width:26;transition:stroke-width .15s;outline:none;cursor:default}
+.cdx-donut .seg:hover,.cdx-donut .seg:focus{stroke-width:32}
+.cdx-dc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;text-align:center}
+.cdx-dc b{font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.1}
+.cdx-dc span{font-size:11px;color:var(--muted);margin-top:3px}
+.cdx-pleg{list-style:none;margin:0;padding:0;flex:1 1 220px;min-width:0;display:flex;flex-direction:column}
+.cdx-pleg li{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--ink2);min-width:0;padding:8px 0;border-top:1px solid var(--line)}
+.cdx-pleg li:first-child{border-top:0}
+.cdx-pleg i{width:10px;height:10px;border-radius:50%;flex:none}
 .cdx-pleg .pl{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cdx-pleg b{color:var(--ink);font-weight:600}
-.cdx-pleg .pp{color:var(--muted);min-width:44px;text-align:right}
+.cdx-pleg b{color:var(--ink);font-weight:600;font-size:12.5px}
+.cdx-pleg .pp{color:var(--m);background:var(--m-lite);border-radius:20px;padding:1px 8px;font-size:11px;font-weight:600;min-width:48px;text-align:center}
+@media(max-width:640px){.cdx-pie{justify-content:center}.cdx-pleg{flex-basis:100%}}
 .cdx-tg svg{width:14px;height:14px}
 .cdx-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px}
 .cdx-grid>.cdx{margin:0}
@@ -913,7 +919,7 @@ lo:{
  dcAppSub:'ດາວໂຫຼດແບບຟອມ ຕື່ມຂໍ້ມູນ ລົງລາຍເຊັນ ແລ້ວແນບກັບຄືນ',dcAppFile:'ແບບຟອມຄຳຮ້ອງທີ່ລົງລາຍເຊັນແລ້ວ',dlForm:'ດາວໂຫຼດແບບຟອມ',dcSplitNo:'ເລືອກບໍ່ໄດ້: ງວດທີ 1 ({a} LAK) ຊຳລະແລ້ວ ງວດນີ້ຈຶ່ງຕ້ອງຊຳລະຍອດທີ່ເຫຼືອ {b} LAK ທັງໝົດ.',qScope:'ສະແດງສະເພາະວຽກພາຍໃນຂອບເຂດສິດຂອງທ່ານ',cdNotSub:'ຍັງບໍ່ໄດ້ຍື່ນ',cdHeroK:'ທຶນຈົດທະບຽນທີ່ຢືນຢັນແລ້ວ',cdComp:'ທຶນຈົດທະບຽນຕາມສະຖານະ',
  cdTrend:'ທຶນທີ່ຢືນຢັນແລ້ວ ລາຍເດືອນ',cdTrendSub:'12 ເດືອນຫຼ້າສຸດ · ກີບ',cdStatusSub:'ຈຳນວນວິສາຫະກິດ',cdPipeSub:'ຈຳນວນໃບລາຍການ · ຍອດເງິນ',
  cdBackSub:'ກັບຄືນຫາຜູ້ຍື່ນ',cdAging:'ໄລຍະເວລາຮອດກຳນົດ',cdAgingSub:'ວິສາຫະກິດທີ່ຍັງຊຳລະບໍ່ຄົບ',
- cdTop8:'8 ອັນດັບທີ່ມີທຶນຄົງເຫຼືອສູງສຸດ · ທັງໝົດຢູ່ໃນຕາຕະລາງ',cdTable:'ຕາຕະລາງ',cdChart:'ແທ່ງ',cdPie:'ວົງມົນ',cdView:'ຮູບແບບກຣາຟ',cdOther:'ອື່ນໆ',cdNoData:'ບໍ່ມີຂໍ້ມູນ',cdMonth:'ເດືອນ',cdDays:'ວັນ',
+ cdTop8:'8 ອັນດັບທີ່ມີທຶນຄົງເຫຼືອສູງສຸດ · ທັງໝົດຢູ່ໃນຕາຕະລາງ',cdTable:'ຕາຕະລາງ',cdChart:'ແທ່ງ',cdPie:'ວົງມົນ',cdView:'ຮູບແບບກຣາຟ',cdOther:'ອື່ນໆ',cdNoData:'ບໍ່ມີຂໍ້ມູນ',cdTotal:'ທັງໝົດ',cdMonth:'ເດືອນ',cdDays:'ວັນ',
  cdAmt:'ຍອດເງິນ (ກີບ)',cdCount:'ຈຳນວນ',cdShare:'ສັດສ່ວນ',cdEntUnit:'ວິສາຫະກິດ',cdDeclUnit:'ໃບລາຍການ',cdSys:'ສະຖານະລະບົບ',superAdmin:'Super Admin',hstRejReq:'ຂໍປະຕິເສດ',
  noteInt:'ຄວາມເຫັນພາຍໃນ',noteExt:'ຄວາມເຫັນພາຍນອກ',prevReturn:'ເຄີຍຖືກຕີກັບ',
  rejReq:'ຂໍປະຕິເສດ - ລໍຜູ້ອະນຸມັດ',rejectNoteC:'ການປະຕິເສດຂອງຜູ້ກວດສອບ ຕ້ອງໄດ້ຮັບການອະນຸມັດຈາກຫົວໜ້າກົມ (Approver) ກ່ອນ ຈຶ່ງຈະປິດໃບລາຍການ',
@@ -1157,7 +1163,7 @@ en:{
  dcAppSub:'Download the form, fill it in, sign it and attach it here',dcAppFile:'Signed application form',dlForm:'Download form',dcSplitNo:'Not available: instalment 1 ({a} LAK) is already paid, so this payment settles the remaining {b} LAK.',qScope:'Showing only work within your access scope',cdNotSub:'Not yet submitted',cdHeroK:'Registered capital confirmed',cdComp:'Registered capital by state',
  cdTrend:'Capital confirmed per month',cdTrendSub:'Last 12 months · LAK',cdStatusSub:'Number of enterprises',cdPipeSub:'Number of declarations · amount',
  cdBackSub:'Back with the submitter',cdAging:'Time to deadline',cdAgingSub:'Enterprises not fully paid',
- cdTop8:'Top 8 by outstanding capital · every row in the table view',cdTable:'Table',cdChart:'Bar',cdPie:'Pie',cdView:'Chart view',cdOther:'Other',cdNoData:'No data',cdMonth:'Month',cdDays:'days',
+ cdTop8:'Top 8 by outstanding capital · every row in the table view',cdTable:'Table',cdChart:'Bar',cdPie:'Pie',cdView:'Chart view',cdOther:'Other',cdNoData:'No data',cdTotal:'total',cdMonth:'Month',cdDays:'days',
  cdAmt:'Amount (LAK)',cdCount:'Count',cdShare:'Share',cdEntUnit:'enterprises',cdDeclUnit:'declarations',cdSys:'System health',superAdmin:'Super Admin',hstRejReq:'Reject requested',
  noteInt:'Internal note',noteExt:'External note',prevReturn:'Previously returned',
  rejReq:'Reject requested - awaiting Approver',rejectNoteC:'A rejection by the Checker needs the approval of the department head (Approver) before the declaration is closed.',
@@ -2712,25 +2718,33 @@ function cdxKit(){
     return '<div class="card cdx"><div class="h"><div class="cdx-ttl"><h3>'+title+'</h3>'+(sub?'<span class="hs">'+sub+'</span>':'')+'</div>'+
      (table?sw(id,!!pieHtml):'')+'</div>'+
      '<div class="c">'+(v==='table'?table:v==='pie'?pieHtml:body)+(extra||'')+'</div></div>'};
-  // Pie (an optional view of part-to-whole data): categorical slots in fixed order, at most 6 slices,
-  // the tail folded into "Other", a 2px surface gap between slices, and a legend with every figure.
-  // rows: [{lbl (plain text), v, val (formatted)}], in the order the bar chart uses.
-  var CAT=['#2a78d6','#eb6834','#1baf7a','#eda100','#e87ba4','#008300','#6250d6','#e34948'],OTHER='#9aa1b9';
+  // Pie view (optional, part-to-whole data only), drawn as a donut that matches the site: the slices are
+  // ranked largest first in one blue ramp (dark = largest), a 2px gap between them, the total in the hole,
+  // and a legend carrying every name, figure and share. Rows whose bar already has a meaning colour
+  // (overdue red, age bands) keep it and keep their order. At most 6 slices; the tail folds into "Other".
+  // rows: [{lbl (plain text), v, val (formatted), c?}]
+  var DRAMP=['#1c4f9c','#2a6fca','#4a8be0','#76a9ec','#a3c6f3','#c9ddf8'],OTHER='#c3c8d6';
   var pie=function(rows,unit){
+    var keep=rows.some(function(r){return r.c});
     var l=rows.filter(function(r){return r.v>0});
-    if(l.length>6){var rest=l.slice(5);l=l.slice(0,5).concat([{lbl:t('cdOther'),v:rest.reduce(function(a,r){return a+r.v},0),other:1}]);
-      l[5].val=unit?fmt(l[5].v)+' '+unit:fmt(l[5].v)}
+    if(!keep)l=l.slice().sort(function(x,y){return y.v-x.v});
+    if(l.length>6){var rest=l.slice(5),rv=rest.reduce(function(a,r){return a+r.v},0);
+      l=l.slice(0,5).concat([{lbl:t('cdOther'),v:rv,val:(unit==='LAK'?fmtC(rv)+' LAK':fmt(rv)),other:1}])}
     var tot=l.reduce(function(a,r){return a+r.v},0);if(!tot)return '<div class="empty"><b>'+t('cdNoData')+'</b></div>';
-    var R=80,cx=90,cy=90,a0=-Math.PI/2,pct=function(v){return Math.round(v/tot*1000)/10};
-    // A row that already has a colour in the bar chart (ordinal age bands, overdue) keeps it in the pie.
-    var col=function(r,i){return r.other?OTHER:r.c||CAT[i]};
-    var slices=l.map(function(r,i){var a1=a0+r.v/tot*Math.PI*2,tip=tipA(r.val+' · '+pct(r.v)+'%',r.lbl),out;
-      if(l.length===1)out='<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="'+col(r,i)+'"'+tip+'></circle>';
-      else{var big=a1-a0>Math.PI?1:0,x0=cx+R*Math.cos(a0),y0=cy+R*Math.sin(a0),x1=cx+R*Math.cos(a1),y1=cy+R*Math.sin(a1);
-        out='<path d="M'+cx+' '+cy+'L'+x0.toFixed(2)+' '+y0.toFixed(2)+'A'+R+' '+R+' 0 '+big+' 1 '+x1.toFixed(2)+' '+y1.toFixed(2)+'Z" fill="'+col(r,i)+'"'+tip+'></path>'}
-      a0=a1;return out}).join('');
-    return '<div class="cdx-pie"><svg viewBox="0 0 180 180" width="180" height="180" role="img" aria-label="'+esc(t('cdPie'))+'">'+slices+'</svg>'+
-     '<ul class="cdx-pleg">'+l.map(function(r,i){return '<li><i style="background:'+col(r,i)+'"></i><span class="pl">'+esc(r.lbl)+'</span>'+
+    var pct=function(v){return Math.round(v/tot*1000)/10};
+    var col=function(r,i){return r.other?OTHER:keep&&r.c?r.c:DRAMP[i]};
+    // Ring: one stroked circle per slice (dash = its share), starting at 12 o'clock, 2px gap between slices.
+    var R=70,C=2*Math.PI*R,GAP=l.length>1?3:0,acc=0;
+    var segs=l.map(function(r,i){var len=r.v/tot*C,dash=Math.max(0.01,len-GAP);
+      var out='<circle class="seg" cx="100" cy="100" r="'+R+'" stroke="'+col(r,i)+'" stroke-dasharray="'+dash.toFixed(2)+' '+(C-dash).toFixed(2)+'"'+
+        ' stroke-dashoffset="'+(-acc).toFixed(2)+'"'+tipA(r.val+' · '+pct(r.v)+'%',r.lbl)+'></circle>';
+      acc+=len;return out}).join('');
+    var totTxt=unit==='LAK'?fmtC(tot):fmt(tot);
+    return '<div class="cdx-pie"><div class="cdx-donut"><svg viewBox="0 0 200 200" role="img" aria-label="'+esc(t('cdPie'))+'">'+
+      '<circle cx="100" cy="100" r="'+R+'" fill="none" stroke="var(--soft)" stroke-width="26"></circle>'+
+      '<g transform="rotate(-90 100 100)">'+segs+'</g></svg>'+
+      '<div class="cdx-dc"><b class="num">'+totTxt+'</b><span>'+(unit==='LAK'?'LAK · ':'')+t('cdTotal')+'</span></div></div>'+
+     '<ul class="cdx-pleg">'+l.map(function(r,i){return '<li><i style="background:'+col(r,i)+'"></i><span class="pl" title="'+esc(r.lbl)+'">'+esc(r.lbl)+'</span>'+
        '<b class="num">'+r.val+'</b><span class="pp num">'+pct(r.v)+'%</span></li>'}).join('')+'</ul></div>'};
   var tbl=function(heads,rows){return '<table class="cdx-t"><thead><tr>'+heads.map(function(h,i){return '<th'+(i?' class="r"':'')+'>'+h+'</th>'}).join('')+
     '</tr></thead><tbody>'+rows.map(function(r){return '<tr>'+r.map(function(c,i){return '<td'+(i?' class="r num"':'')+'>'+c+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table>'};
@@ -2898,7 +2912,7 @@ function vCentralDash(){
   var grpBody=rowsAll.length?stackLeg+'<div class="cdx-hb">'+stack+'</div>'+
     '<div class="cdx-note">'+(rowsAll.length>8?t('cdTop8')+' · ':'')+(dist?'':t('cdDrill'))+'</div>':'<div class="empty"><b>'+t('cdNoEnt')+'</b></div>';
   // Pie: share of registered capital by province / district, largest first.
-  var grpPie=pie(rowsAll.map(function(g){var c=sum(g.l,function(e){return e.cap});return {lbl:g.lbl,v:c,val:fmtC(c)}}).sort(function(a,b){return b.v-a.v}),'');
+  var grpPie=pie(rowsAll.map(function(g){var c=sum(g.l,function(e){return e.cap});return {lbl:g.lbl,v:c,val:fmtC(c)+' LAK'}}),'LAK');
   var grpCard=K.view('grp',true)==='table'?'<div class="card cdx"><div class="h"><h3>'+t(byProv?'cdByProv':'cdByDist')+'</h3>'+
      K.sw('grp',true)+'</div><div class="c" style="padding:12px 0 0">'+grpTable+'</div></div>'
     :card('grp',t(byProv?'cdByProv':'cdByDist'),t('csTotal')+' · LAK',grpBody,grpRows?'x':'','',grpPie);
@@ -2973,7 +2987,7 @@ function vOwnerList(){
   var capCard=K.card('owcap',t('owByEnt'),t('owByEntSub'),stack,
     K.tbl([t('cEnt'),t('csTotal'),t('csConfirmed'),t('csReview'),t('csOutstanding')],byCap.map(function(e){
       return [e.name,fmt(e.cap),fmt(e.paid),fmt(revOf(e)),fmt(e.cap-e.paid)]})),'',
-    K.pie(byCap.map(function(e){return {lbl:e.name,v:e.cap,val:fmtC(e.cap)+' LAK'}})));
+    K.pie(byCap.map(function(e){return {lbl:e.name,v:e.cap,val:fmtC(e.cap)+' LAK'}}),'LAK'));
 
   // 3. Outstanding capital by deadline: nearest first, coloured by how close the deadline is.
   var due=mine.filter(function(e){return e.status!=='COMPLETED'}).sort(function(a,b){return daysLeft(a.due)-daysLeft(b.due)});
@@ -2986,7 +3000,7 @@ function vOwnerList(){
     .map(function(x){return '<span><i style="background:'+x[1]+'"></i>'+x[0]+'</span>'}).join('')+'</div>';
   var dueCard=K.card('owdue',t('owDue'),t('owDueSub'),due.length?dLeg+K.hbars(dRows,K.maxOf(dRows.map(function(r){return r.v}))):'<div class="empty"><b>'+t('owAllPaid')+'</b></div>',
     due.length?K.tbl([t('cEnt'),t('cDue'),t('owDaysLeft'),t('csOutstanding')],dRows.map(function(r){return [r.e.name,r.e.due,r.d<0?'-'+fmt(-r.d):fmt(r.d),fmt(r.v)]})):'','',
-    due.length?K.pie(dRows.map(function(r){return {lbl:r.e.name,v:r.v,val:fmtC(r.v)+' LAK',c:r.c}})):'');
+    due.length?K.pie(dRows.map(function(r){return {lbl:r.e.name,v:r.v,val:fmtC(r.v)+' LAK',c:r.c}}),'LAK'):'');
 
   var kpis=heroCard+'<div class="cdx-grid">'+capCard+dueCard+'</div>';
   var card=listCard({key:'ownList',title:t('entList'),empty:t('nuEmpty'),all:mine,
