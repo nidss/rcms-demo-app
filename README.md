@@ -113,7 +113,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   ตามด้วยการ์ดค้นหา (Enterprise, Registration no., Status) + ตารางวิสาหกิจ กดแถวเพื่อเข้า **Capital Details** ของ
   วิสาหกิจนั้น (ลิงก์ย้อนกลับไปหน้ารายการ; แจ้งชำระ, ใบรับรอง, รายละเอียดรายการ กลับมาที่หน้านี้)
   ถ้าผู้ประกอบการมีวิสาหกิจเดียวจะเปิด Capital Details ทันที
-- **Maker (Counter Workspace)** เมนูย่อยใต้ Dashboard (เปิดที่ Dashboard กลางก่อน): **Dashboard**, **Returned** ใบรายการสถานะ `RETURNED` (ค้นหา Enterprise, Registration no., Returned by; ปุ่ม Fix
+- **Maker (Counter Workspace)** เมนูหลักชื่อ **Maker Workspace** (ลาว ໜ້າວຽກ Maker) มีเมนูย่อย (เปิดที่ Dashboard กลางก่อน): **Dashboard**, **Returned** ใบรายการสถานะ `RETURNED` (ค้นหา Enterprise, Registration no., Returned by; ปุ่ม Fix
   เข้าหน้าวิสาหกิจ แล้วกด Edit and resubmit), **Awaiting result** ใบรายการที่อยู่ระหว่างพิจารณา
   (Reference, Enterprise, Status แบบ dropdown, Submit by)
   และ **Due / Overdue** วิสาหกิจใกล้ครบ/เกินกำหนด (Enterprise, Status) ทุกรายการมีปุ่ม Search /
@@ -153,7 +153,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
     (demo: ใบรายการที่ Maker ยื่นให้วิสาหกิจนอกนครหลวงเวียงจันทน์ จะไปอยู่ในคิวของ Checker แขวงนั้น ซึ่ง demo ไม่มีบัญชี)
   - ข้อมูล demo ในขอบเขต: ใบรายการที่ถูกตีกลับรอแก้อยู่ที่ ELN-2025-1126 (จันทะบูลี) และมีใบรายการรอตรวจ
     ที่ ELN-2025-1128, 1130 และรออนุมัติที่ ELN-2025-1129 (งวดแรก ไม่ต้อง E-Sign), 1133 (ครบ 100% ต้อง E-Sign)
-- **Checker (Verification Workspace)** เมนูย่อยใต้ Dashboard: Dashboard (Dashboard กลาง), Verification
+- **Checker (Verification Workspace)** เมนูหลักชื่อ **Checker Workspace** (ลาว ໜ້າວຽກກວດສອບ) มีเมนูย่อย: Dashboard (Dashboard กลาง), Verification
   queue, Awaiting approval, Returned by me, Overdue / penalties (รายการเดียวกับของ Approver) หน้าแสดงการ์ดค้นหาแบบเดียวกับหน้า Finance &
   Penalties (Reference, Enterprise, Channel แบบ dropdown, Submit by; Returned by me มีแค่
   Enterprise ค้นได้ทั้งชื่อลาว/อังกฤษ/เลขทะเบียน) กรอกแล้วกดปุ่ม Search หรือ Enter เพื่อค้นหา
@@ -162,6 +162,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 - **Approver (Approval Workspace)** เมนูหลักชื่อ Approval Workspace มีเมนูย่อย 4 รายการ (เปิดที่
   Dashboard ก่อน):
   - **Dashboard** คือ Dashboard กลาง (ดูด้านบน) แถบแจ้งงานถัดไปมีปุ่ม Open to sign พาไปเมนูย่อย Awaiting approval
+  - **Awaiting waiver**: คำขอยกเว้นใบแจ้งหนี้จาก Checker (ค้นหา Enterprise, Registration no., Requested by) แต่ละแถวมี
+    ใบแจ้งหนี้, วิสาหกิจ, ยอด, ผู้ขอ + วันที่, เหตุผล และปุ่ม Approve / Decline ตัวอย่าง: INV-2026-1211 (ELN-2025-1135)
   - **Awaiting approval** (ค้นหา Reference, Enterprise, Channel, Verified by), **Overdue / penalties**
     (Enterprise, Status) และ **Recently signed (E-Sign)** (Enterprise, Registration no.) แสดงเฉพาะ
     ตาราง มีปุ่ม Search / Clear และ pagination
@@ -230,8 +232,12 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   (จากประวัติที่ยืนยันแล้ว `certSplit()`), จำนวนหุ้น (mock มูลค่าหุ้นละ 1,000,000 กีบ), ผู้ถือหุ้น และเลขคำร้องล่าสุด
   ปุ่ม Download PDF / Print ยังเป็น demo (`data-soon`)
 - **Invoices** (เจ้าหน้าที่ทุกบทบาท ก่อนตารางประวัติ): ใบแจ้งหนี้ของวิสาหกิจ สถานะ Awaiting payment / Confirmed /
-  Waived / Refunded **Checker และ Approver** มีปุ่ม **Waive** ที่ใบแจ้งหนี้ที่รอชำระ ต้องกรอกเหตุผล
-  ใบแจ้งหนี้จะเป็น `WAIVED` (ปิดโดยไม่ต้องชำระ) แสดงว่าใครยกเว้น วันที่ และเหตุผลใต้ชื่อรายการ
+  Waived / Refunded ปุ่ม **Waive** อยู่ที่ใบแจ้งหนี้ที่รอชำระ ต้องกรอกเหตุผล
+  - **Checker** กด Waive = ส่งคำขอยกเว้น (Send for approval) ใบแจ้งหนี้ยังรอชำระ ขึ้นป้าย Waiver awaiting approval
+    พร้อมผู้ขอ / วันที่ / เหตุผล (เห็นเฉพาะเจ้าหน้าที่) Checker กด Cancel request ยกเลิกคำขอได้
+  - **Approver** อนุมัติ (Approve) หรือปฏิเสธ (Decline) คำขอได้ทั้งในเมนูย่อย **Awaiting waiver** และที่แถวของใบแจ้งหนี้
+    Approver กด Waive เองได้ทันที (ไม่ต้องรออนุมัติ)
+  - อนุมัติแล้วใบแจ้งหนี้จะเป็น `WAIVED` (ปิดโดยไม่ต้องชำระ) แสดงว่าใครยกเว้น ใครขอ วันที่ และเหตุผลใต้ชื่อรายการ
   และบันทึกลงประวัติของวิสาหกิจ ผู้ประกอบการเห็นสถานะ Waived พร้อมเหตุผลในใบแจ้งหนี้ของตัวเอง
   ใบแจ้งหนี้ที่ยกเว้นแล้วไม่นับเป็นค่าปรับค้าง (ไม่บล็อกการแจ้งชำระอีก)
 - **Enterprise Registration Details** แบ่งเป็นกลุ่มมีหัวข้อ: Identity / Registration /
@@ -400,7 +406,8 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
 
 ## Business rule ที่ฝังไว้จริง (ลองกดให้ error ดูได้)
 
-- ยกเว้นใบแจ้งหนี้ (Waive) ได้เฉพาะ Checker และ Approver เฉพาะใบที่สถานะรอชำระ และต้องมีเหตุผล
+- ยกเว้นใบแจ้งหนี้ (Waive) ได้เฉพาะใบที่สถานะรอชำระ และต้องมีเหตุผล: Checker ส่งคำขอ ต้องให้ Approver อนุมัติก่อน
+  ส่วน Approver ยกเว้นได้ทันที
 - งวดแรกต้องไม่ต่ำกว่า 30% ของทุนจดทะเบียน (ยอดรวมทุกการ์ดต้องไม่ต่ำกว่า Minimum for this instalment)
 - ยอดรวมทุกการ์ดต้องไม่เกินยอดคงเหลือ
 - ยอดรวมที่ชำระต้องมากกว่า 0 และการ์ดที่มียอดต้องกรอกช่องที่มี * ครบ ยอดของการ์ดต้องไม่เกินยอดคงเหลือของรายการทุนนั้น
