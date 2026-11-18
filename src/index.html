@@ -1023,7 +1023,7 @@ forgotTitle:'ກູ້ຄືນລະຫັດຜ່ານ',forgotIdLbl:'ອີ�
  sumAssetEst:'ຊັບສິນ (ປະເມີນ)',sumTotal:'ລວມງວດນີ້',sumAfter:'ຍັງເຫຼືອຫຼັງຊຳລະ',
  chgTitle:'ປ່ຽນວິທີການຊຳລະ?',chgMsg:'ຂໍ້ມູນທີ່ປ້ອນໄວ້ຈະຫາຍໄປ ແລະ ບໍ່ສາມາດກູ້ຄືນໄດ້.',chgKeep:'ໃຊ້ວິທີເດີມ',chgDo:'ປ່ຽນວິທີ',
  errNoPay:'ກະລຸນາເພີ່ມການຊຳລະຢ່າງໜ້ອຍ 1 ລາຍການ',errMinInst:'ຍອດລວມຕ່ຳກວ່າຂັ້ນຕ່ຳຂອງງວດນີ້',errPayFields:'ກະລຸນາປ້ອນຂໍ້ມູນທີ່ຈຳເປັນ (ມີເຄື່ອງໝາຍ *)',
- mapLbl:'ແຜນທີ່',chOnlineShort:'ອອນລາຍ',apMenu:'ໜ້າວຽກອະນຸມັດ',
+ mapLbl:'ແຜນທີ່',chOnlineShort:'ອອນລາຍ',apMenu:'ໜ້າວຽກອະນຸມັດ',mkMenu:'ໜ້າວຽກ Maker',ckMenu:'ໜ້າວຽກກວດສອບ',
  ovCapEnt:'ທຶນ ແລະ ວິສາຫະກິດ',ovByStatus:'ວິສາຫະກິດຕາມສະຖານະການຊຳລະ',ovApproval:'ສະຖານະການອະນຸມັດ',ovPaidCap:'ທຶນທີ່ຊຳລະແລ້ວ',ovOutCap:'ທຶນຄົງເຫຼືອ',
  ovEntPaid:'ວິສາຫະກິດທີ່ຊຳລະແລ້ວ',ovEntNot:'ວິສາຫະກິດທີ່ຍັງບໍ່ຊຳລະ',ovOfReg:'ຂອງທຶນຈົດທະບຽນ',ovMadeOne:'ຊຳລະແລ້ວຢ່າງໜ້ອຍ 1 ຄັ້ງ',ovNoPay:'ຍັງບໍ່ມີການຊຳລະ',
  ovOutstanding:'LAK ຄ້າງຊຳລະ',ovPaidLbl:'LAK ຊຳລະແລ້ວ',ovWithChecker:'ຢູ່ຂັ້ນ Checker',ovDigSigned:'ລົງນາມດິຈິຕອນ',ovRiskS:'ເກີນກຳນົດ ຫຼື ມີຄ່າປັບຄ້າງ',
@@ -1269,7 +1269,7 @@ forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
  sumAssetEst:'Asset (estimated)',sumTotal:'Total this instalment',sumAfter:'Outstanding after',
  chgTitle:'Change payment method?',chgMsg:'The information you entered will be lost. This cannot be undone.',chgKeep:'Keep current method',chgDo:'Change method',
  errNoPay:'Add at least one payment',errMinInst:'The total is below the minimum for this instalment',errPayFields:'Please fill in the required fields (marked with *)',
- mapLbl:'Map',chOnlineShort:'Online',apMenu:'Approval Workspace',
+ mapLbl:'Map',chOnlineShort:'Online',apMenu:'Approval Workspace',mkMenu:'Maker Workspace',ckMenu:'Checker Workspace',
  ovCapEnt:'Capital and enterprises',ovByStatus:'Enterprises by payment status',ovApproval:'Approval status',ovPaidCap:'Paid capital',ovOutCap:'Outstanding capital',
  ovEntPaid:'Enterprises paid',ovEntNot:'Enterprises not yet paid',ovOfReg:'of registered capital',ovMadeOne:'Made at least one payment',ovNoPay:'No payment yet',
  ovOutstanding:'LAK outstanding',ovPaidLbl:'LAK paid',ovWithChecker:'with the Checker',ovDigSigned:'digitally signed',ovRiskS:'Past deadline or unpaid penalty',
@@ -2138,13 +2138,13 @@ function menus(){
   var Ta=S.tasks.filter(function(x){return x.stage==='approve'&&queueOk(x.ent)}).length;
   var I=luSvg;
   if(S.role==='owner'||S.role==='newuser')return [['mMonitor'],['dash',I('wallet'),'myCap']];
-  if(S.role==='maker')return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',
+  if(S.role==='maker')return [['mMonitor'],['dash',I('layoutDashboard'),'mkMenu','',
     [['overview','dash'],['ret','mkMRet',makerReturned().length],['queue','mkMWait',liveTasks().length,1],['due','mkMDue',makerDue().length,1]]],['ent',I('search'),'ent']];
   if(S.role==='valfirm')return [['mMonitor'],['valdash',I('layoutDashboard'),'dash'],['valfirm',I('clipboardList'),'valPortal']];
   if(S.role==='external')return [['mMonitor'],['portal',I('globe'),'portal']];
   if(S.role==='checker'){
     var Tr=checkerReturned().length;
-    return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',[['overview','dash'],['queue','ckMQueue',Tc],['atAp','ckMAtAp',Ta,1],['ret','ckMRet',Tr,1],['risk','apRisk',approverRisk().length,1]]],
+    return [['mMonitor'],['dash',I('layoutDashboard'),'ckMenu','',[['overview','dash'],['queue','ckMQueue',Tc],['atAp','ckMAtAp',Ta,1],['ret','ckMRet',Tr,1],['risk','apRisk',approverRisk().length,1]]],
     ['ent',I('search'),'ent'],['valQueue',I('clipboardCheck'),'valQueue'],['mOther'],['fin',I('banknote'),'fin'],['rep',I('chartColumn'),'rep']];
   }
   if(S.role==='approver')return [['mMonitor'],['dash',I('layoutDashboard'),'apMenu','',

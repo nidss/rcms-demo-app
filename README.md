@@ -113,7 +113,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   ตามด้วยการ์ดค้นหา (Enterprise, Registration no., Status) + ตารางวิสาหกิจ กดแถวเพื่อเข้า **Capital Details** ของ
   วิสาหกิจนั้น (ลิงก์ย้อนกลับไปหน้ารายการ; แจ้งชำระ, ใบรับรอง, รายละเอียดรายการ กลับมาที่หน้านี้)
   ถ้าผู้ประกอบการมีวิสาหกิจเดียวจะเปิด Capital Details ทันที
-- **Maker (Counter Workspace)** เมนูย่อยใต้ Dashboard (เปิดที่ Dashboard กลางก่อน): **Dashboard**, **Returned** ใบรายการสถานะ `RETURNED` (ค้นหา Enterprise, Registration no., Returned by; ปุ่ม Fix
+- **Maker (Counter Workspace)** เมนูหลักชื่อ **Maker Workspace** (ลาว ໜ້າວຽກ Maker) มีเมนูย่อย (เปิดที่ Dashboard กลางก่อน): **Dashboard**, **Returned** ใบรายการสถานะ `RETURNED` (ค้นหา Enterprise, Registration no., Returned by; ปุ่ม Fix
   เข้าหน้าวิสาหกิจ แล้วกด Edit and resubmit), **Awaiting result** ใบรายการที่อยู่ระหว่างพิจารณา
   (Reference, Enterprise, Status แบบ dropdown, Submit by)
   และ **Due / Overdue** วิสาหกิจใกล้ครบ/เกินกำหนด (Enterprise, Status) ทุกรายการมีปุ่ม Search /
@@ -153,7 +153,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
     (demo: ใบรายการที่ Maker ยื่นให้วิสาหกิจนอกนครหลวงเวียงจันทน์ จะไปอยู่ในคิวของ Checker แขวงนั้น ซึ่ง demo ไม่มีบัญชี)
   - ข้อมูล demo ในขอบเขต: ใบรายการที่ถูกตีกลับรอแก้อยู่ที่ ELN-2025-1126 (จันทะบูลี) และมีใบรายการรอตรวจ
     ที่ ELN-2025-1128, 1130 และรออนุมัติที่ ELN-2025-1129 (งวดแรก ไม่ต้อง E-Sign), 1133 (ครบ 100% ต้อง E-Sign)
-- **Checker (Verification Workspace)** เมนูย่อยใต้ Dashboard: Dashboard (Dashboard กลาง), Verification
+- **Checker (Verification Workspace)** เมนูหลักชื่อ **Checker Workspace** (ลาว ໜ້າວຽກກວດສອບ) มีเมนูย่อย: Dashboard (Dashboard กลาง), Verification
   queue, Awaiting approval, Returned by me, Overdue / penalties (รายการเดียวกับของ Approver) หน้าแสดงการ์ดค้นหาแบบเดียวกับหน้า Finance &
   Penalties (Reference, Enterprise, Channel แบบ dropdown, Submit by; Returned by me มีแค่
   Enterprise ค้นได้ทั้งชื่อลาว/อังกฤษ/เลขทะเบียน) กรอกแล้วกดปุ่ม Search หรือ Enter เพื่อค้นหา
