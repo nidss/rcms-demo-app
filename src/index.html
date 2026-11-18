@@ -2138,7 +2138,7 @@ function menus(){
   if(S.role==='external')return [['mMonitor'],['portal',I('globe'),'portal']];
   if(S.role==='checker'){
     var Tr=checkerReturned().length;
-    return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',[['overview','dash'],['queue','ckMQueue',Tc],['atAp','ckMAtAp',Ta,1],['ret','ckMRet',Tr,1]]],
+    return [['mMonitor'],['dash',I('layoutDashboard'),'dash','',[['overview','dash'],['queue','ckMQueue',Tc],['atAp','ckMAtAp',Ta,1],['ret','ckMRet',Tr,1],['risk','apRisk',approverRisk().length,1]]],
     ['ent',I('search'),'ent'],['valQueue',I('clipboardCheck'),'valQueue'],['mOther'],['fin',I('banknote'),'fin'],['rep',I('chartColumn'),'rep']];
   }
   if(S.role==='approver')return [['mMonitor'],['dash',I('layoutDashboard'),'apMenu','',
@@ -2496,6 +2496,8 @@ function vCheckerDash(){
          '<td><span class="co">'+x.ent.name+'</span></td><td class="num">'+x.ent.id+'</td>'+
          '<td>'+modeLbl(x.mode)+'</td><td class="r num">'+fmt(x.amt)+'</td><td>'+x.by+'</td>'+
          '<td style="padding-right:16px">'+(x.rejReq?xPill(x):'<span class="pill p-rev">'+t('stageApprover')+'</span>')+'</td></tr>'}});
+  }else if(tab==='risk'){
+    card=riskCard();
   }else if(tab==='ret'){
     card=listCard({key:'ckRet',title:t('ckReturned'),empty:t('ckNoReturned'),all:retMine.slice().reverse(),
       fields:[['ent',t('cEnt')],['reg',t('regNo')]],
@@ -2531,27 +2533,33 @@ function approverRisk(){
     return queueOk(e)&&overdue.indexOf(e)<0&&S.invs.some(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='PENDING'})}));
 }
 
+// Overdue / penalties list, shared by the Checker and the Approver. Each unpaid penalty invoice gets a
+// Waive button (same modal as the Invoices card on the enterprise page); the row opens the enterprise.
+function riskCard(){
+  var pens=function(e){return S.invs.filter(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='PENDING'})};
+  return listCard({key:'apRisk',title:t('apRisk'),empty:t('apNoRisk'),all:approverRisk(),
+    fields:[['ent',t('cEnt')],['reg',t('regNo')],['st',t('cStatus'),['PENDING','PARTIAL','COMPLETED','OVERDUE'].map(function(s){return [s,stName(s)]})]],
+    vals:function(e){return {ent:e.name+' '+(e.nameEn||''),reg:e.id,st:e.status}},
+    heads:[[t('cEnt')],[t('regNo')],[t('cDue')],[t('penaltyAmt'),1],[t('cStatus'),1],['']],
+    row:function(e){var l=pens(e),pen=l.reduce(function(a,iv){return a+iv.amt},0);
+      return '<tr data-open="'+e.id+'"><td style="padding-left:16px"><span class="co">'+e.name+'</span></td><td class="num">'+e.id+'</td>'+
+       '<td class="num" style="color:'+(daysLeft(e.due)<0?'var(--bad)':'var(--ink2)')+'">'+e.due+'</td>'+
+       '<td class="r num" style="color:'+(pen?'var(--bad)':'var(--muted)')+'">'+(pen?fmt(pen):'-')+'</td>'+
+       '<td class="r">'+pill(e.status)+'</td>'+
+       '<td class="r" style="padding-right:16px;white-space:nowrap">'+(canWaive()?l.map(function(iv){
+         return '<button class="btn ghost sm" data-waiveinv="'+iv.id+'" title="'+esc(iv.id+' · '+fmt(iv.amt)+' LAK')+'">'+t('invWaive')+(l.length>1?' <span class="num">'+iv.id.slice(-4)+'</span>':'')+'</button>'}).join(' '):'')+'</td></tr>'}});
+}
 function vApproverDash(){
   var me=who().n;
   var myQ=[];
   S.tasks.forEach(function(x,i){if(x.stage==='approve'&&queueOk(x.ent))myQ.push([x,i])});
   var signedAll=approverSigned();
-  var riskList=approverRisk();
 
   function verifier(x){var chk=(x.trail||[]).filter(function(t2){return /Checker/.test(t2.who)}).slice(-1)[0];return chk?chk.who.replace(/ \(.*/,''):x.by}
-  function penOf(e){return S.invs.filter(function(iv){return iv.ent===e.id&&iv.kind==='penalty'&&iv.status==='PENDING'}).reduce(function(a,iv){return a+iv.amt},0)}
   // One list per sub-menu: Awaiting approval / Overdue - penalties / Recently signed.
   var tab=S.dashTab,card;
   if(tab==='risk'){
-    card=listCard({key:'apRisk',title:t('apRisk'),empty:t('apNoRisk'),all:riskList,
-      fields:[['ent',t('cEnt')],['reg',t('regNo')],['st',t('cStatus'),['PENDING','PARTIAL','COMPLETED','OVERDUE'].map(function(s){return [s,stName(s)]})]],
-      vals:function(e){return {ent:e.name+' '+(e.nameEn||''),reg:e.id,st:e.status}},
-      heads:[[t('cEnt')],[t('regNo')],[t('cDue')],[t('penaltyAmt'),1],[t('cStatus'),1]],
-      row:function(e){var pen=penOf(e);
-        return '<tr data-open="'+e.id+'"><td style="padding-left:16px"><span class="co">'+e.name+'</span></td><td class="num">'+e.id+'</td>'+
-         '<td class="num" style="color:'+(daysLeft(e.due)<0?'var(--bad)':'var(--ink2)')+'">'+e.due+'</td>'+
-         '<td class="r num" style="color:'+(pen?'var(--bad)':'var(--muted)')+'">'+(pen?fmt(pen):'-')+'</td>'+
-         '<td class="r" style="padding-right:16px">'+pill(e.status)+'</td></tr>'}});
+    card=riskCard();
   }else if(tab==='signed'){
     card=listCard({key:'apSigned',title:t('apRecent'),empty:t('apNoRecent'),all:signedAll.slice().reverse(),
       fields:[['ent',t('cEnt')],['reg',t('regNo')]],

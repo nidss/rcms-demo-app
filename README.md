@@ -154,7 +154,7 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   - ข้อมูล demo ในขอบเขต: ใบรายการที่ถูกตีกลับรอแก้อยู่ที่ ELN-2025-1126 (จันทะบูลี) และมีใบรายการรอตรวจ
     ที่ ELN-2025-1128, 1130 และรออนุมัติที่ ELN-2025-1129 (งวดแรก ไม่ต้อง E-Sign), 1133 (ครบ 100% ต้อง E-Sign)
 - **Checker (Verification Workspace)** เมนูย่อยใต้ Dashboard: Dashboard (Dashboard กลาง), Verification
-  queue, Awaiting approval, Returned by me หน้าแสดงการ์ดค้นหาแบบเดียวกับหน้า Finance &
+  queue, Awaiting approval, Returned by me, Overdue / penalties (รายการเดียวกับของ Approver) หน้าแสดงการ์ดค้นหาแบบเดียวกับหน้า Finance &
   Penalties (Reference, Enterprise, Channel แบบ dropdown, Submit by; Returned by me มีแค่
   Enterprise ค้นได้ทั้งชื่อลาว/อังกฤษ/เลขทะเบียน) กรอกแล้วกดปุ่ม Search หรือ Enter เพื่อค้นหา
   ปุ่ม Clear ล้างเงื่อนไข แล้วตามด้วยตาราง
@@ -165,6 +165,9 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
   - **Awaiting approval** (ค้นหา Reference, Enterprise, Channel, Verified by), **Overdue / penalties**
     (Enterprise, Status) และ **Recently signed (E-Sign)** (Enterprise, Registration no.) แสดงเฉพาะ
     ตาราง มีปุ่ม Search / Clear และ pagination
+  - **Overdue / penalties** (ทั้ง Checker และ Approver, `riskCard()`): วิสาหกิจที่เกินกำหนดหรือมีค่าปรับค้าง ในขอบเขตสิทธิ์
+    แถวที่มีใบแจ้งหนี้ค่าปรับรอชำระมีปุ่ม **Waive** ท้ายแถว (หนึ่งปุ่มต่อใบ) เปิด modal เดียวกับการ์ด Invoices
+    ต้องใส่เหตุผล กดที่แถวส่วนอื่นเปิดหน้าวิสาหกิจ
 - **บริษัทประเมิน (Dashboard)** หน้าตาแบบเดียวกับ Dashboard กลาง (chart HTML/CSS ใช้ `cdxKit()` ร่วมกัน
   ทุก chart สลับ Bar / Pie / Table ได้ และมี tooltip ตอน hover)
   - **Hero**: % งานที่ยืนยันแล้ว (x / 10 jobs · มูลค่ายืนยัน / มูลค่าที่แจ้ง) แถบแบ่งงานตามสถานะ
