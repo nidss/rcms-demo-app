@@ -425,6 +425,15 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .pblk-h .pt{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink)}
 .pblk-h .pt svg{width:16px;height:16px;flex:0 0 16px}
 .pblk-h .pn{background:var(--m-lite);color:var(--m);border-radius:20px;padding:4px 8px;font-size:11px;font-weight:600;line-height:16px}
+.pblk-h .pn{display:inline-flex;align-items:center;gap:5px}
+.pblk-h .pn svg{width:12px;height:12px}
+/* read-only values in the Declare form: the investor, and amounts locked when paying once */
+.ro-val{display:flex;align-items:center;gap:7px;min-height:40px;padding:0 12px;border:1px solid var(--line);border-radius:9px;background:var(--soft);
+  font-size:13px;color:var(--ink);min-width:0}
+.ro-val svg{width:14px;height:14px;flex:none;color:var(--muted)}
+.ro-val span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.field input.ro{background:var(--soft);color:var(--ink2)}
+.field label .ctmax{font-weight:500;color:var(--muted);font-size:11px}
 .pblk-h .pamt{font-size:13px;font-weight:600;color:var(--ink)}
 .lnkbtn{background:none;border:0;padding:0;font-family:inherit;cursor:pointer}
 .prm{font-size:12px;font-weight:600;color:var(--bad)}
@@ -458,6 +467,13 @@ table.tight th,table.tight td{padding-left:8px;padding-right:8px}
 .vstack>.card,.vstack>.sumcard{margin:0}
 .sc-gh{padding:8px 20px;background:var(--soft);border-top:1px solid var(--line);font-size:11.5px;font-weight:600;color:var(--ink2)}
 .sc-gh+.sc-metrics{margin-top:0}
+/* capital composition tiles (investor, type, amount, paid share) */
+.sc-metrics .ct-inv{display:flex;align-items:center;gap:5px;color:var(--ink2);font-weight:600}
+.sc-metrics .ct-inv svg,.sc-metrics .ct-type svg{width:13px;height:13px;flex:none}
+.sc-metrics .ct-type{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);margin:-2px 0 4px}
+.sc-metrics .ct-bar{height:4px;border-radius:2px;background:var(--soft);margin-top:7px;overflow:hidden}
+.sc-metrics .ct-bar i{display:block;height:100%;background:var(--ok)}
+.sc-metrics .ct-tot{background:var(--soft)}
 @media(max-width:900px){.g4,.pv,.pv.c6{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:1fr}}
 @media(max-width:560px){.g4,.pv,.pv.c6{grid-template-columns:1fr}}
 .files{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
@@ -969,7 +985,9 @@ forgotTitle:'ກູ້ຄືນລະຫັດຜ່ານ',forgotIdLbl:'ອີ�
 
  declareTitle:'ແຈ້ງຊຳລະທຶນຈົດທະບຽນ',channelOnline:'ຍື່ນອອນລາຍ (Owner)',channelCounter:'ຍື່ນທີ່ເຄົາເຕີ (Maker)',
  entNameLbl:'ຊື່ວິສາຫະກິດ',modeLabour:'ທຶນແຮງງານ',ptAsset:'ຊັບສິນ',payN:'ການຊຳລະ',addCapital:'ເພີ່ມລາຍການທຶນ',payRemove:'ລຶບອອກ',showDetails:'ສະແດງລາຍລະອຽດ',hideDetails:'ເຊື່ອງລາຍລະອຽດ',
- payMethod:'ວິທີການຊຳລະ',dcSec2Sub2:'ເລືອກວິທີຊຳລະສຳລັບງວດນີ້.',bankCode:'ລະຫັດທະນາຄານ',fromAcctNo:'ຈາກເລກບັນຊີ',fromAcctName:'ຈາກຊື່ບັນຊີ',
+ payMethod:'ວິທີການຊຳລະ',dcSec2Sub2:'ທຶນແຍກຕາມການລົງທຶນທີ່ຂຶ້ນທະບຽນໄວ້ໃນລະບົບທະບຽນວິສາຫະກິດ - ເລືອກວ່າງວດນີ້ຈະຊຳລະເຕັມ ຫຼື ແບ່ງຊຳລະ.',
+ investor:'ຜູ້ລົງທຶນ',ctItems:'ລາຍການ',capComp:'ໂຄງສ້າງທຶນ (ຈາກລະບົບທະບຽນວິສາຫະກິດ)',capStatusGrp:'ສະຖານະການຊຳລະ',ctPaid:'ຊຳລະແລ້ວ',ctLeft:'ຄົງເຫຼືອ',
+ dcSplitHint:'ປ້ອນຈຳນວນທີ່ແຕ່ລະລາຍການຈະຊຳລະໃນງວດນີ້ (0 = ເກັບໄວ້ຊຳລະໃນງວດທີ 2).',errContribMax:'ເກີນຍອດຄົງເຫຼືອຂອງລາຍການນີ້',ctMax:'ສູງສຸດ',ctLater:'ຊຳລະໃນງວດທີ 2',bankCode:'ລະຫັດທະນາຄານ',fromAcctNo:'ຈາກເລກບັນຊີ',fromAcctName:'ຈາກຊື່ບັນຊີ',
  fromAcctNoPh:'ປ້ອນເລກບັນຊີຕົ້ນທາງ',fromAcctNamePh:'ປ້ອນຊື່ບັນຊີ',firmNamePh:'ປ້ອນຊື່ບໍລິສັດປະເມີນ',
  lbName:'ຊື່ຜູ້ປະກອບແຮງງານ',lbId:'ເລກບັດປະຈຳຕົວ / ໜັງສືຜ່ານແດນ',lbSkill:'ປະເພດທັກສະ',lbRole:'ໜ້າທີ່ / ຕຳແໜ່ງ',lbMonths:'ໄລຍະເວລາປະກອບ (ເດືອນ)',lbValue:'ມູນຄ່າທີ່ຕົກລົງ (ກີບ)',lbInfo:'ຂໍ້ມູນເພີ່ມເຕີມ',lbDetails:'ລາຍລະອຽດຜູ້ປະກອບແຮງງານ',lbInfoPh:'ລາຍລະອຽດອື່ນໆ ກ່ຽວກັບການປະກອບແຮງງານ',
  skTech:'ຄວາມຊ່ຽວຊານດ້ານເຕັກນິກ',skMgmt:'ການບໍລິຫານ',skProf:'ບໍລິການວິຊາຊີບ',skLabour:'ແຮງງານມີຝີມື',
@@ -1210,7 +1228,9 @@ forgotTitle:'Password recovery',forgotIdLbl:'Email or phone number',
 
  declareTitle:'Declare Capital Payment',channelOnline:'Submit online (Owner)',channelCounter:'Submit at counter (Maker)',
  entNameLbl:'Enterprise name',modeLabour:'Labour capital',ptAsset:'Asset',payN:'Payment',addCapital:'Add capital',payRemove:'Remove',showDetails:'Show details',hideDetails:'Hide details',
- payMethod:'Payment method',dcSec2Sub2:'Choose how this instalment is paid.',bankCode:'Bank code',fromAcctNo:'From Account No',fromAcctName:'From Account Name',
+ payMethod:'Payment method',dcSec2Sub2:'The capital is split by contribution, as registered in the enterprise registry - choose whether this instalment pays it in full or in part.',
+ investor:'Investor',ctItems:'contributions',capComp:'Capital composition (from the enterprise registry)',capStatusGrp:'Payment status',ctPaid:'paid',ctLeft:'left',
+ dcSplitHint:'Enter what each contribution pays in this instalment (0 leaves it for instalment 2).',errContribMax:'More than this contribution still owes',ctMax:'max',ctLater:'Paid in instalment 2',bankCode:'Bank code',fromAcctNo:'From Account No',fromAcctName:'From Account Name',
  fromAcctNoPh:'Enter source account no.',fromAcctNamePh:'Enter account name',firmNamePh:'Enter valuation firm name',
  lbName:'Contributor name',lbId:'ID / Passport No.',lbSkill:'Skill type',lbRole:'Role / position',lbMonths:'Contribution period (months)',lbValue:'Agreed value (LAK)',lbInfo:'Additional information',lbDetails:'Contributor details',lbInfoPh:'Anything else about this labour contribution',
  skTech:'Technical expertise',skMgmt:'Management',skProf:'Professional services',skLabour:'Skilled labour',
@@ -3053,12 +3073,46 @@ function openNote(x){
   return {tone:'bad',text:'<b>'+dstName('RETURNED')+'</b> - <span class="num">'+x.ref+'</span> · '+L(HIST_TXT['ret_'+(r.by||'checker')])+
     (isStaff()?retNotes(r.reason,r.internal):' · '+retReason(x))};
 }
+/* ===== capital contributions (sent by the enterprise registry) ===== */
+// The registered capital arrives from the enterprise registry already split into contributions: each one is
+// a type (cash / asset / labour), an amount and the investor who brings it (one investor can bring several).
+// The owner no longer picks the payment type: the Declare form pays these contributions.
+// Mock: a pattern picked from the registration number; the first investor is the enterprise's representative.
+var MOCK_INVESTORS=['ທ່ານ ສົມພອນ ວົງສະຫວັນ','ນາງ ມະນີວັນ ແກ້ວພະຈັນ','ທ່ານ ບຸນເຫຼືອ ສີສຸວັນ','ນາງ ຄຳແພງ ພົມມະຈັນ','ທ່ານ ວິໄລ ໄຊຍະວົງ'];
+var CONTRIB_PATTERNS=[
+ [['cash',.4,0],['cash',.3,1],['asset',.3,1]],
+ [['cash',.7,0],['asset',.3,0]],
+ [['cash',.5,0],['asset',.3,1],['labour',.2,2]],
+ [['cash',1,0]]];
+function contribsOf(e){
+  if(e.contribs&&e.contribsCap===e.cap)return e.contribs;
+  var n=parseInt(String(e.id).slice(-4),10)||0,pat=CONTRIB_PATTERNS[n%CONTRIB_PATTERNS.length];
+  var names=[e.rep&&e.rep!=='-'?e.rep:MOCK_INVESTORS[n%5],MOCK_INVESTORS[(n+1)%5],MOCK_INVESTORS[(n+2)%5]];
+  var left=e.cap;
+  var cs=pat.map(function(p,i){var amt=i===pat.length-1?left:Math.round(e.cap*p[1]/1000000)*1000000;left-=amt;
+    return {id:'C'+(i+1),type:p[0],inv:names[p[2]],amt:amt,paid:0}});
+  // What is already paid, by type from the confirmed history, then any rest in order.
+  var by=histSplit(e),rest=e.paid;
+  ['cash','asset','labour'].forEach(function(ty){cs.forEach(function(c){if(c.type!==ty)return;
+    var x=Math.min(by[ty],c.amt-c.paid,rest);c.paid+=x;by[ty]-=x;rest-=x})});
+  cs.forEach(function(c){var x=Math.min(c.amt-c.paid,rest);c.paid+=x;rest-=x});
+  e.contribs=cs;e.contribsCap=e.cap;return cs;
+}
+function contribById(e,id){return contribsOf(e).filter(function(c){return c.id===id})[0]}
+// An approved declaration pays its contributions: blocks name theirs (p.cid); seeded ones are spread in order.
+function contribPay(e,pays,total){
+  var cs=contribsOf(e),rest=total;
+  (pays||[]).forEach(function(p){var c=p.cid&&contribById(e,p.cid);if(!c)return;
+    var x=Math.min(payAmt(p),c.amt-c.paid,rest);c.paid+=x;rest-=x});
+  cs.forEach(function(c){var x=Math.min(c.amt-c.paid,rest);c.paid+=x;rest-=x});
+}
+function ctLabel(c){return ptLabel(c.type)}
 /* ===== capital contribution certificate (preview) ===== */
 // The acknowledgement certificate of registered capital contribution, as issued by the enterprise
 // registration officer (always in Lao, like the paper form). Filled from the enterprise; the paid capital
 // is split by contribution type from the confirmed history rows. Shares use a mock par value of 1,000,000 LAK.
 var LO_MONTHS=['ມັງກອນ','ກຸມພາ','ມີນາ','ເມສາ','ພຶດສະພາ','ມິຖຸນາ','ກໍລະກົດ','ສິງຫາ','ກັນຍາ','ຕຸລາ','ພະຈິກ','ທັນວາ'];
-function certSplit(e){
+function histSplit(e){
   var by={cash:0,asset:0,labour:0};
   e.hist.forEach(function(h){if(h.st!=='complete'||!h.v)return;var m=String(h.m||'');
     by[m.indexOf('asset')>=0?'asset':m.indexOf('labour')>=0?'labour':'cash']+=h.v});
@@ -3066,6 +3120,10 @@ function certSplit(e){
   if(tot>e.paid){var k=e.paid/tot;by.cash=Math.round(by.cash*k);by.asset=Math.round(by.asset*k);by.labour=e.paid-by.cash-by.asset}
   else by.cash+=e.paid-tot;
   return by;
+}
+// Paid capital by contribution type, for the certificate.
+function certSplit(e){
+  var by={cash:0,asset:0,labour:0};contribsOf(e).forEach(function(c){by[c.type]+=c.paid});return by;
 }
 function certDoc(e){
   var by=certSplit(e),PAR=1000000,shares=Math.max(1,Math.round(e.cap/PAR));
@@ -3091,10 +3149,11 @@ function certDoc(e){
     li('ເລກລະຫັດວິສາຫະກິດ, ເລກປະຈຳຕົວຜູ້ເສຍອາກອນ: '+b(e.taxris||'-'))+
     li('ທຶນຈົດທະບຽນ: '+paidParts)+
     li('ຮຸ້ນທັງໝົດ: '+b(fmt(shares))+' ຮຸ້ນ, ແຕ່ລະຮຸ້ນມີມູນຄ່າ: '+b(fmt(PAR))+' ກີບ')+
-    li('ຜູ້ຖືຮຸ້ນ: '+b('ທ່ານ '+esc(String(e.rep||dots).replace(/^ທ່ານ\s*/,'')))+', ສັນຊາດ '+b('ລາວ')+', ນຳໃຊ້ແຫຼ່ງທຶນ: '+b('ພາຍໃນ'))+'</ul>'+
+    li('ຜູ້ຖືຮຸ້ນ: '+invList(e).map(function(v){return b(esc(v))}).join(', ')+', ສັນຊາດ '+b('ລາວ')+', ນຳໃຊ້ແຫຼ່ງທຶນ: '+b('ພາຍໃນ'))+'</ul>'+
    '<p class="cd-p cd-ind">ດັ່ງນັ້ນ, ຈຶ່ງໄດ້ອອກໜັງສືຢັ້ງຢືນຮັບຮູ້ສະບັບນີ້ໄວ້ເປັນຫຼັກຖານ.</p>'+
    '<div class="cd-sign">ເຈົ້າໜ້າທີ່ທະບຽນວິສາຫະກິດ</div></div>';
 }
+function invList(e){var out=[];contribsOf(e).forEach(function(c){if(out.indexOf(c.inv)<0)out.push(c.inv)});return out}
 function certPrevBtn(e){return '<button class="btn ghost" data-certprev="'+e.id+'">'+luSvg('fileText')+t('certPreview')+'</button>'}
 function capSummary(e,acts,notes){
   var remain=e.cap-e.paid,pct=Math.round(e.paid/e.cap*100),days=daysLeft(e.due),over=days<0&&remain>0;
@@ -3103,11 +3162,21 @@ function capSummary(e,acts,notes){
   var dayTxt=remain>0?(over?(lang==='lo'?'ກາຍກຳນົດ '+Math.abs(days)+' ວັນ':Math.abs(days)+' days overdue'):(lang==='lo'?'ເຫຼືອ '+days+' ວັນ':days+' days left')):'';
   return sumCard({title:t('capDetails'),badge:pill(e.status),acts:acts,
    prog:{pct:pct,over:over,html:t('cPaid')+' <b class="num">'+fmt(e.paid)+'</b> / <span class="num">'+fmt(e.cap)+'</span> LAK'},
-   metrics:metric('',t('csTotal'),fmt(e.cap))+metric('ok',t('csConfirmed'),fmt(e.paid))+
-    metric(review?'warn':'',t('csReview'),fmt(review))+
-    metric(remain>0?'warn':'ok',t('csOutstanding'),fmt(remain))+
-    (pen?metric('bad',t('penaltyAmt'),fmt(pen)):'')+
-    '<div class="sm'+(over?' bad':'')+'"><div class="k">'+t('capCallDue')+'</div><div class="v"><span class="num">'+e.due+'</span></div>'+(dayTxt?'<div class="s">'+dayTxt+'</div>':'')+'</div>',
+   groups:[
+    {title:t('capStatusGrp'),metrics:metric('',t('csTotal'),fmt(e.cap))+metric('ok',t('csConfirmed'),fmt(e.paid))+
+     metric(review?'warn':'',t('csReview'),fmt(review))+
+     metric(remain>0?'warn':'ok',t('csOutstanding'),fmt(remain))+
+     (pen?metric('bad',t('penaltyAmt'),fmt(pen)):'')+
+     '<div class="sm'+(over?' bad':'')+'"><div class="k">'+t('capCallDue')+'</div><div class="v"><span class="num">'+e.due+'</span></div>'+(dayTxt?'<div class="s">'+dayTxt+'</div>':'')+'</div>'},
+    // Composition from the registry: total, then one tile per contribution (investor, type, amount, paid).
+    {title:t('capComp'),metrics:'<div class="sm ct-tot"><div class="k">'+t('csTotal')+'</div><div class="v"><span class="num">'+fmt(e.cap)+'</span></div>'+
+      '<div class="s">'+contribsOf(e).length+' '+t('ctItems')+'</div></div>'+
+     contribsOf(e).map(function(c){var pc=c.amt?Math.round(c.paid/c.amt*100):0;
+      return '<div class="sm ct"><div class="k ct-inv">'+luSvg('user')+esc(c.inv)+'</div>'+
+       '<div class="ct-type">'+luSvg(PAY_ICON[c.type])+ctLabel(c)+'</div>'+
+       '<div class="v"><span class="num">'+fmt(c.amt)+'</span></div>'+
+       '<div class="s">'+t('ctPaid')+' <span class="num">'+fmt(c.paid)+'</span> · '+pc+'%</div>'+
+       '<div class="ct-bar"><i style="width:'+pc+'%"></i></div></div>'}).join('')}],
    notes:notes});
 }
 // One document row everywhere: same height, same icon, two lines (document type + file name).
@@ -3406,6 +3475,9 @@ function payNew(type,left){
   return p;
 }
 function payErr(p){
+  var e=S.ents.filter(function(x){return x.id===S.sel})[0],c=e&&p.cid?contribById(e,p.cid):null;
+  if(c&&payAmt(p)>c.amt-c.paid)return t('errContribMax')+' - '+fmt(c.amt-c.paid)+' LAK';
+  if(c&&!payAmt(p)&&S.form&&S.form.payMode==='partial')return '';
   var blank=function(v){return !String(v==null?'':v).trim()};
   if(p.type==='cash'){
     if(!payAmt(p))return t('errAmt');
@@ -3437,8 +3509,7 @@ function tglBtn(attr,open){
 }
 function payHead(p,i,n,editable){
   return '<div class="pblk-h"><div class="pl"><span class="pt">'+luSvg(PAY_ICON[p.type])+ptLabel(p.type)+'</span>'+
-    '<span class="pn">'+t('payN')+' '+(i+1)+'</span>'+
-    (editable&&n>1?'<button type="button" class="lnkbtn prm" data-rmpay="'+i+'">'+t('payRemove')+'</button>':'')+'</div>'+
+    '<span class="pn">'+(p.inv?luSvg('user')+esc(p.inv):t('payN')+' '+(i+1))+'</span></div>'+
     '<div class="pr"><span class="pamt">'+fmt(payAmt(p))+' LAK</span>'+tglBtn('data-tglpay="'+i+'"',p.open!==false)+'</div></div>';
 }
 // Read-only file rows of a block: document type on top, file name and size under it.
@@ -3452,16 +3523,22 @@ function upList(prefix,defs,o){
 // One editable payment block on Declare / Add payment.
 function payCardEdit(p,i,n){
   var id=function(path){return 'pf-'+i+'-'+path.replace('.','-')};
-  var inp=function(path,lbl,val,o){o=o||{};
+  // The block's contribution: paying once locks its amount; splitting caps it at what the contribution still owes.
+  var e0=S.ents.filter(function(x){return x.id===S.sel})[0],ct=e0&&p.cid?contribById(e0,p.cid):null;
+  var split0=S.form&&S.form.payMode==='partial',amtKey=payAmtKey(p),ctLeft=ct?ct.amt-ct.paid:0;
+  var inp=function(path,lbl,val,o){o=o||{};var lock=path===amtKey&&ct&&!split0;
+    if(path===amtKey&&ct&&split0)lbl+=' <small class="ctmax">'+t('ctMax')+' '+fmt(ctLeft)+'</small>';
     return '<div class="field"><label for="'+id(path)+'">'+lbl+'</label><input id="'+id(path)+'" data-pf="'+i+'|'+path+'"'+
-      (o.num?' class="num" inputmode="numeric"':'')+(o.ph?' placeholder="'+esc(o.ph)+'"':'')+' value="'+esc(val||'')+'"></div>'};
+      (o.num?' class="num'+(lock?' ro':'')+'" inputmode="numeric"':'')+(lock?' readonly':'')+(o.ph?' placeholder="'+esc(o.ph)+'"':'')+' value="'+esc(val||'')+'"></div>'};
   var sel=function(path,lbl,opts,cur){
     return '<div class="field"><label for="'+id(path)+'">'+lbl+'</label><select id="'+id(path)+'" data-pf="'+i+'|'+path+'">'+
       opts.map(function(o){return '<option value="'+esc(o[0])+'"'+(o[0]===cur?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select></div>'};
   // One upload slot per document of the block's group (payDocGroup()), instead of a type dropdown.
   var docSel=function(){return '<div class="field" style="margin:0"><label>'+t('fDocs')+'</label><div class="hint uprule">'+t('suFileRule')+'</div>'+
     upList('pay|'+i+'|',payDocOpts(p),p)+'</div>'};
-  var methodSel='<div class="field"><label for="pm-'+i+'">'+t('payMethod')+' *</label><select id="pm-'+i+'" data-pmethod="'+i+'">'+
+  // The type and the investor come from the registry, so they are shown, not chosen.
+  var methodSel=ct?'<div class="field"><label>'+t('investor')+'</label><div class="ro-val">'+luSvg('user')+'<span>'+esc(ct.inv)+'</span></div></div>'
+    :'<div class="field"><label for="pm-'+i+'">'+t('payMethod')+' *</label><select id="pm-'+i+'" data-pmethod="'+i+'">'+
     ['cash','asset','labour'].map(function(k){return '<option value="'+k+'"'+(p.type===k?' selected':'')+'>'+ptLabel(k)+'</option>'}).join('')+'</select></div>';
   // Valuation dropdown, then the firm name or, for MOIC, the note in its place.
   var firmFields=function(){var ft=p.firmType||'moic';
@@ -3472,7 +3549,7 @@ function payCardEdit(p,i,n){
         :inp('firmName',t('firmNameLbl'),p.firmName,{ph:t('firmNamePh')}))};
   var body='';
   if(p.type==='cash'){
-    body='<div class="g4">'+inp('amt',t('dcAmtPaid')+' (LAK) *',p.amt,{num:1})+
+    body='<div class="g4">'+(ct?methodSel:'')+inp('amt',t('dcAmtPaid')+' (LAK) *',p.amt,{num:1})+
       sel('src',t('capSrc')+' *',[['domestic',t('capDomestic')],['foreign',t('capForeign')]],p.src||'domestic')+
       sel('bank',t('bankCode')+' *',PAY_BANKS.map(function(b){return [b[0],b[1]?t(b[1]):b[0]]}),p.bank)+
       inp('acctNo',t('fromAcctNo')+' *',p.acctNo,{ph:t('fromAcctNoPh')})+inp('acctName',t('fromAcctName')+' *',p.acctName,{ph:t('fromAcctNamePh')})+'</div>'+docSel();
@@ -3495,7 +3572,7 @@ function payCardEdit(p,i,n){
   }
   return '<div class="pblk">'+payHead(p,i,n,true)+(p.open!==false?
     // Assets and labour put the method in their own first row with the valuation fields; cash keeps it alone.
-    (p.type==='cash'?'<div class="g4">'+methodSel+'</div>':'')+
+    (p.type==='cash'&&!ct?'<div class="g4">'+methodSel+'</div>':'')+
     body:'')+
     (p.err?'<div class="hint err">'+p.err+'</div>':'')+'</div>';
 }
@@ -3567,6 +3644,22 @@ function entBrief(e){
 }
 
 // Swap block i to another payment type, pre-filled with what the other blocks leave outstanding.
+// One payment block per contribution still owing. A reopened draft / returned declaration keeps its
+// details: blocks match by contribution id, else by type.
+function declBlocks(e,prev){
+  var used=[],out=[];prev=prev||[];
+  contribsOf(e).forEach(function(c){var left=c.amt-c.paid;if(left<=0)return;
+    var p=prev.filter(function(q,i){return used.indexOf(i)<0&&q.cid===c.id})[0]||
+      prev.filter(function(q,i){return used.indexOf(i)<0&&!q.cid&&q.type===c.type})[0];
+    if(p)used.push(prev.indexOf(p));else p=payNew(c.type,left);
+    p.cid=c.id;p.inv=c.inv;out.push(p)});
+  return out;
+}
+// The amount field of a block, whatever its type.
+function paySetAmt(p,v){var s=v?fmt(v):'0';
+  if(p.type==='cash')p.amt=s;else if(p.type==='labour'){p.lb=p.lb||{};p.lb.value=s}
+  else{p.vals=p.vals||{};p.vals[ASSET_PRICE_KEY[p.cat]]=s}}
+function payAmtKey(p){return p.type==='cash'?'amt':p.type==='labour'?'lb.value':'vals.'+ASSET_PRICE_KEY[p.cat]}
 function payReplace(i,to){
   var e=S.ents.filter(function(x){return x.id===S.sel})[0],pays=S.form.pays;
   pays[i]=payNew(to,e.cap-e.paid-payTotal(pays.filter(function(x,k){return k!==i})));
@@ -3578,6 +3671,9 @@ function vDeclare(){
   if(!canPartial&&f.payMode!=='full')f.payMode='full';
   var split=canPartial&&f.payMode==='partial';
   var minInst=split?Math.round(e.cap*0.3):remain;
+  if(!f.built){f.pays=declBlocks(e,f.pays);f.built=1}
+  // Pay once: every contribution pays what it still owes, and the amounts are locked.
+  if(!split)f.pays.forEach(function(p){var c=contribById(e,p.cid);if(c)paySetAmt(p,c.amt-c.paid)});
   var n=f.pays.length;
   // 1. Registered Capital Contribution Notification Application: required on every declaration.
   var app=docDefs('CAPITAL_DECLARATION_DOCUMENT')[0];
@@ -3599,9 +3695,9 @@ function vDeclare(){
       ?t('dcSplitD').replace('{a}','<span class="num">'+fmt(Math.min(min30,remain))+'</span>').replace('{b}','<span class="num">'+fmt(remain)+'</span>')
       :t('dcSplitNo').replace('{a}','<span class="num">'+fmt(e.paid)+'</span>').replace('{b}','<span class="num">'+fmt(remain)+'</span>'),!canPartial)+
    '</div>'+
+   (split?'<div class="hint" style="margin:0 0 10px">'+t('dcSplitHint')+'</div>':'')+
    f.pays.map(function(p,i){return payCardEdit(p,i,n)}).join('')+
-   '<button type="button" class="btn ghost" data-addpay="1" style="margin:'+(n?'16px':'0')+' 0 16px">'+luSvg('plus')+t('addCapital')+'</button>'+
-   paySummary(f.pays,remain)+
+   '<div style="height:14px"></div>'+paySummary(f.pays,remain)+
    (f.err?'<div class="hint err" style="margin-top:10px">'+f.err+'</div>':'');
   var old=f.edit!=null?S.tasks[f.edit]:null,retN=old&&old.st==='RETURNED'?openNote(old):null;
   // Capital Details: the same summary card as the enterprise page, without its actions.
@@ -4365,6 +4461,7 @@ function otpWire(box,cb){
 function approve(i){
   var x=S.tasks[i];if(!x)return;
   var e=x.ent;
+  contribPay(e,x.pays,x.amt);
   e.paid+=x.amt;
   var full=e.paid>=e.cap;
   e.status=full?'COMPLETED':'PARTIAL';
@@ -4428,8 +4525,10 @@ function dlMockPdf(name,title){
 }
 // Declare form -> declaration fields (shared by Save draft and Submit).
 function declFromForm(x,e,f){
-  var types=[];f.pays.forEach(function(p){if(types.indexOf(p.type)<0)types.push(p.type)});
-  var pays=JSON.parse(JSON.stringify(f.pays)).map(function(p){delete p.err;delete p.touched;delete p.upErr;p.open=true;return p});
+  // A contribution left at 0 (split, paid in instalment 2) is not part of this declaration.
+  var sent=f.pays.filter(function(p){return payAmt(p)>0});
+  var types=[];sent.forEach(function(p){if(types.indexOf(p.type)<0)types.push(p.type)});
+  var pays=JSON.parse(JSON.stringify(sent)).map(function(p){delete p.err;delete p.touched;delete p.upErr;p.open=true;return p});
   var docs=JSON.parse(JSON.stringify(f.files||[])),files=docs.slice();pays.forEach(function(p){p.files.forEach(function(y){files.push(y)})});
   var isOwner=S.role==='owner';
   x.ent=e;x.amt=payTotal(pays);x.mode=types.join(',')||'cash';x.pays=pays;x.payMode=f.payMode;x.docs=docs;x.files=files;
@@ -4682,7 +4781,7 @@ function bind(){
     var e=S.ents.filter(function(x){return x.id===S.sel})[0],f=S.form,old=f.edit!=null?S.tasks[f.edit]:null;
     if(f.sending)return;
     if(pendingOf(e.id)){toast(t('hasPending'),t('hasPendingS'));return go(S.role==='owner'?'mycap':'detail')}
-    if(!f.pays.length){f.err=t('errNoPay');return render()}
+    if(!f.pays.length||!payTotal(f.pays)){f.err=t('errNoPay');return render()}
     var bad=false;f.pays.forEach(function(p){p.err=payErr(p);if(p.err){bad=true;p.open=true}});
     docDefs('CAPITAL_DECLARATION_DOCUMENT').forEach(function(d){
       if(d.req&&!filesOf(f,d.k).length){f.upErr[d.k]=t('upErrReq');bad=true}});

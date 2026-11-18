@@ -203,6 +203,10 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 ### รายละเอียดวิสาหกิจ / Case detail
 อ่านจากบนลงล่างตามลำดับที่ใช้งานจริง: ตัวเลขทุน → สิ่งที่ต้องทำ → ข้อมูลอ้างอิง → ประวัติ
 
+- **Capital composition** (แถวที่ 2 ของการ์ด Capital Details ทุกหน้า): ทุนจดทะเบียนแยกเป็นรายการตามที่ระบบทะเบียนวิสาหกิจ
+  ส่งมา (`contribsOf(e)`) ช่องแรก Total Registered Capital แล้วหนึ่งช่องต่อรายการ: ชื่อนายทุน, ประเภท (Cash / Asset /
+  Labour capital), ยอดเงิน, ยอดที่ชำระแล้ว + % และแถบความคืบหน้า นายทุนคนเดียวกันมีหลายรายการได้ (ชื่อซ้ำกัน)
+  demo สุ่มรูปแบบจากเลขทะเบียน (`CONTRIB_PATTERNS`) นายทุนคนแรกคือผู้แทนวิสาหกิจ ELN-2025-1134 มี 3 รายการ 3 นายทุน
 - **Capital Details (summary card)** แทน action bar + การ์ดโดนัทเดิมที่แสดงตัวเลขซ้ำกัน:
   สถานะ, แถบ % ที่ชำระ, ตัวเลขตามหัวข้อ Capital Summary ใน sheet Status: Total Registered Capital /
   Confirmed Capital / Capital Under Review (ยอดของใบรายการสถานะ PENDING, APPRAISED_PENDING,
@@ -237,8 +241,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 ผู้ประกอบการ (Declare capital payment online) และ Maker (Add payment) ใช้หน้าเดียวกัน เต็มความกว้าง:
 
 - **Enterprise Registration Details แบบย่อ** ด้านบน (ปุ่ม Show details / Hide details)
-- **Capital Details** การ์ดสรุปทุนแบบเดียวกับหน้ารายละเอียดวิสาหกิจ (สถานะ, % ที่ชำระ, Total Registered Capital,
-  Confirmed Capital, Capital Under Review, Outstanding Capital, ค่าปรับ, วันครบกำหนด) แต่ไม่มีปุ่ม
+- **Capital Details** การ์ดสรุปทุนแบบเดียวกับหน้ารายละเอียดวิสาหกิจ (สถานะ, % ที่ชำระ, แถว Payment status และแถว
+  Capital composition) แต่ไม่มีปุ่ม
 - **1. Registered Capital Contribution Notification Application \*** (กล่องแรก): ลิงก์ **Download form**
   ต่อท้ายชื่อ ดาวน์โหลดแบบฟอร์มเปล่าเป็น PDF (demo เป็นไฟล์ตัวอย่าง) แล้วแนบแบบฟอร์มที่ลงลายเซ็นแล้ว
   ในช่อง Signed application form (ต้องแนบ ไม่งั้นกด Submit ไม่ได้)
@@ -249,16 +253,22 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
     การ์ดนี้กดไม่ได้ และข้อความในการ์ดเปลี่ยนเป็น "Not available: instalment 1 (P LAK) is already paid,
     so this payment settles the remaining X LAK."
     ตัวอย่างที่เลือก Split ได้: ELN-2025-1134 (Owner `lao.agri` หรือ Maker ค้นจาก Search Enterprises)
-  - แล้วกดปุ่ม **+ Add capital** เพื่อเพิ่มการ์ดการชำระ ใส่ได้หลายใบในงวดเดียว แต่ละใบมีหัว (ไอคอน + ประเภท,
-    ป้าย Payment N, Remove เมื่อมีมากกว่า 1 ใบ, ยอดเงิน, Show / Hide details) และเลือก **Payment method** ได้ 3 แบบ
-  - **Cash**: Amount paid, Bank code, From Account No, From Account Name, Payment evidence
-  - **Asset**: แถวแรก 4 ช่องเรียงกัน: Payment method, Asset category, **Valuation firm** (dropdown: MOIC (Checker) /
+  - **การ์ดการชำระมาจากโครงสร้างทุน** (ระบบทะเบียนวิสาหกิจส่งมา) ผู้ใช้ไม่ต้องเลือกประเภทการชำระหรือกดเพิ่มการ์ดแล้ว:
+    หนึ่งการ์ดต่อหนึ่งรายการทุนที่ยังค้าง (เช่น Cash ของนายทุน A, Asset ของนายทุน B, Labour ของนายทุน C) หัวการ์ดมี
+    ไอคอน + ประเภท, ป้ายชื่อนายทุน, ยอดเงิน, Show / Hide details และช่องแรกของการ์ดเป็น **Investor** (อ่านอย่างเดียว)
+    - Pay once 100%: ยอดของแต่ละการ์ด = ยอดคงเหลือของรายการนั้น ล็อกแก้ไม่ได้
+    - Split into 2 instalments: กรอกยอดของแต่ละการ์ดเองได้ (ป้าย max = ยอดคงเหลือของรายการ) ใส่ 0 = เก็บไว้ชำระงวดที่ 2
+      (การ์ดที่เป็น 0 ไม่ต้องกรอกรายละเอียดและไม่ถูกส่งไปกับคำร้อง) ยอดรวมต้องไม่ต่ำกว่า 30% ของทุนจดทะเบียน
+    - ยอดเกินยอดคงเหลือของรายการ: "More than this contribution still owes"
+    - เปิดฉบับร่าง / ใบที่ถูกส่งคืนแก้ไข: ข้อมูลเดิมของการ์ดยังอยู่ (จับคู่ตามรายการทุน หรือตามประเภท)
+  - **Cash**: Investor, Amount paid, Source of capital, Bank code, From Account No, From Account Name, Payment evidence
+  - **Asset**: แถวแรก 4 ช่องเรียงกัน: Investor, Asset category, **Valuation firm** (dropdown: MOIC (Checker) /
     In-network / Out-of-network) และช่องที่ 4 เปลี่ยนตามที่เลือก
     - MOIC (Checker): ไม่มีชื่อบริษัท ขึ้นข้อความ "MOIC Checker reviews the declared value - no appraisal document
       needed." ไม่ต้องผ่านบริษัทประเมิน (ยื่นแล้วเป็น `PENDING` เข้าคิว Checker เลย) และไม่มีช่อง Valuation Report
     - In-network: เลือกชื่อบริษัทจาก dropdown, Out-of-network: พิมพ์ชื่อบริษัทเอง ทั้งสองแบบต้องผ่าน Appraiser ก่อน
     - ถัดมาเป็นหัวข้อ **Asset details** (ช่องตามประเภททรัพย์สิน `ASSET_FIELDS`) แล้วตามด้วย Supporting documents
-  - **Labour capital**: แถวแรก Payment method / Valuation firm (dropdown MOIC (Checker) / In-network / Out-of-network
+  - **Labour capital**: แถวแรก Investor / Valuation firm (dropdown MOIC (Checker) / In-network / Out-of-network
     ค่าเริ่มต้น MOIC) / ชื่อบริษัทประเมิน หรือข้อความ MOIC แล้วตามด้วย Contributor details: Contributor name,
     ID / Passport No., Skill type, Role / position, Contribution period (months), Agreed value,
     Additional information (textarea ไม่บังคับ), Supporting documents
@@ -266,9 +276,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
     หน้างานของบริษัทแสดงข้อมูลผู้ปะกอบแรงงาน) ถ้าเลือก MOIC ไปที่ Checker เลย
     งานประเมินที่เกิดจากการแจ้ง แสดงเอกสารที่แนบใน block นั้นจริงตามประเภทเอกสาร (เช่น Partnership Establishment Agreement)
     ใต้หัวข้อ Documents submitted at capital declaration งาน seed เดิมยังแสดง valuation report ตัวอย่าง
-  - การ์ดใหม่เติมยอดที่ยังค้างให้อัตโนมัติ ยอดของการ์ด = Amount paid / Estimated price / Agreed value
-  - เปลี่ยน Payment method ของการ์ดที่กรอกข้อมูลแล้ว จะถามยืนยันก่อน (Change payment method?
-    ข้อมูลที่กรอกจะหาย)
+  - ยอดของการ์ด = Amount paid / Estimated price / Agreed value
+  - เมื่อ Approver อนุมัติ ยอดของแต่ละการ์ดไปลงยอดชำระของรายการทุนนั้น (`contribPay()`)
 - **แถบยอดรวม**: ยอดแยกตามประเภทที่ใช้ (Cash / Asset (estimated) / Labour capital),
   Total this instalment, Outstanding after
 - ปุ่ม Cancel / Submit for verification ชิดขวา คำร้องที่ส่งเก็บการ์ดทั้งหมดไว้ใน `task.pays`
@@ -381,7 +390,7 @@ External Portal และกล่อง "ตรวจสอบสถานะ�
 - ยกเว้นใบแจ้งหนี้ (Waive) ได้เฉพาะ Checker และ Approver เฉพาะใบที่สถานะรอชำระ และต้องมีเหตุผล
 - งวดแรกต้องไม่ต่ำกว่า 30% ของทุนจดทะเบียน (ยอดรวมทุกการ์ดต้องไม่ต่ำกว่า Minimum for this instalment)
 - ยอดรวมทุกการ์ดต้องไม่เกินยอดคงเหลือ
-- ต้องมีการ์ดการชำระอย่างน้อย 1 ใบ และแต่ละใบต้องกรอกช่องที่มี * ครบ
+- ยอดรวมที่ชำระต้องมากกว่า 0 และการ์ดที่มียอดต้องกรอกช่องที่มี * ครบ ยอดของการ์ดต้องไม่เกินยอดคงเหลือของรายการทุนนั้น
 - การอัปโหลดเอกสารแยกช่องละ 1 ประเภทเอกสาร (`upSlot()`) ตาม master `DOC_GROUPS` (จาก sheet Doc_Type)
   ไม่มี dropdown เลือกประเภทเอกสารแล้ว แต่ละช่องแนบได้สูงสุด 5 ไฟล์ ไฟล์ละไม่เกิน 15 MB (PDF / JPG / PNG)
   ช่องที่มี * ต้องมีอย่างน้อย 1 ไฟล์ก่อนกด Submit
