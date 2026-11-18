@@ -2851,9 +2851,6 @@ function vOwnerList(){
   var review=sum(mine,revOf),left=cap-paid,notSub=Math.max(0,left-review);
   var pct=cap?Math.round(paid/cap*100):0;
   var cnt=function(st){return mine.filter(function(e){return e.status===st}).length};
-  var ids=mine.map(function(e){return e.id});
-  var unpaidInv=S.invs.filter(function(x){return ids.indexOf(x.ent)>=0&&x.status==='PENDING'});
-  var invAmt=sum(unpaidInv,function(x){return x.amt});
   var over=mine.filter(function(e){return e.status==='OVERDUE'});
   var openL=mine.map(function(e){return openOf(e.id)}).filter(function(x){return x});
   var ret=openL.filter(function(x){return x.st==='RETURNED'}),drafts=openL.filter(function(x){return x.st==='DRAFT'});
@@ -2870,10 +2867,9 @@ function vOwnerList(){
     tile(t('csOutstanding'),fmtC(left)+' <small>LAK</small>',(100-pct)+'% '+t('ovOfReg'),fmt(left)+' LAK')+
     tile(t('fullyPaidOf'),fmt(cnt('COMPLETED'))+' <small>/ '+fmt(mine.length)+'</small>',t('cdEntUnit'))+
     tile(stName('OVERDUE'),fmt(over.length),fmtC(sum(over,function(e){return e.cap-e.paid}))+' LAK',over.length?'':'',over.length?'bad':'');
-  // Things the owner has to do, most urgent first.
+  // Things the owner has to do: declarations returned for correction, then drafts.
+  // Unpaid invoices are not flagged here; they show on each enterprise's Capital Details.
   var notes=[];
-  if(unpaidInv.length)notes.push({tone:'bad',text:'<b>'+unpaidInv.length+' '+t('unpaidInv')+'</b> · <span class="num">'+fmt(invAmt)+'</span> LAK',
-    act:'<button class="btn sm" data-payinv="'+unpaidInv[0].id+'">'+t('bizPayQR')+'</button>'});
   if(ret.length)notes.push({tone:'bad',text:'<b>'+fmt(ret.length)+' '+t('owRet')+'</b> · '+ret.map(function(x){return x.ent.name}).join(', '),
     act:'<button class="btn sm" data-owncap="'+ret[0].ent.id+'">'+t('mkFix')+'</button>'});
   if(drafts.length)notes.push({tone:'info',text:'<b>'+fmt(drafts.length)+' '+t('owDraft')+'</b> · '+drafts.map(function(x){return x.ent.name}).join(', '),
