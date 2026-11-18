@@ -203,15 +203,14 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 ### รายละเอียดวิสาหกิจ / Case detail
 อ่านจากบนลงล่างตามลำดับที่ใช้งานจริง: ตัวเลขทุน → สิ่งที่ต้องทำ → ข้อมูลอ้างอิง → ประวัติ
 
-- **Capital composition** (แถวที่ 2 ของการ์ด Capital Details ทุกหน้า): ทุนจดทะเบียนแยกเป็นรายการตามที่ระบบทะเบียนวิสาหกิจ
+- **Capital composition** (แถวตัวเลขของการ์ด Capital Details ทุกหน้า แทนแถวตัวเลขสถานะเดิม): ทุนจดทะเบียนแยกเป็นรายการตามที่ระบบทะเบียนวิสาหกิจ
   ส่งมา (`contribsOf(e)`) ช่องแรก Total Registered Capital แล้วหนึ่งช่องต่อรายการ: ชื่อนายทุน, ประเภท (Cash / Asset /
   Labour capital), ยอดเงิน, ยอดที่ชำระแล้ว + % และแถบความคืบหน้า นายทุนคนเดียวกันมีหลายรายการได้ (ชื่อซ้ำกัน)
+  ช่องสุดท้าย Capital Call Due Date (วันครบกำหนด + จำนวนวันที่เหลือ / เกินกำหนด)
   demo สุ่มรูปแบบจากเลขทะเบียน (`CONTRIB_PATTERNS`) นายทุนคนแรกคือผู้แทนวิสาหกิจ ELN-2025-1134 มี 3 รายการ 3 นายทุน
 - **Capital Details (summary card)** แทน action bar + การ์ดโดนัทเดิมที่แสดงตัวเลขซ้ำกัน:
-  สถานะ, แถบ % ที่ชำระ, ตัวเลขตามหัวข้อ Capital Summary ใน sheet Status: Total Registered Capital /
-  Confirmed Capital / Capital Under Review (ยอดของใบรายการสถานะ PENDING, APPRAISED_PENDING,
-  APPRAISED_COMPLETED, APPROVED) / Outstanding Capital (ทุนทั้งหมด - ทุนที่ยืนยันแล้ว) + ค่าปรับ +
-  วันครบกำหนด, ปุ่มหลักมุมขวาบน และแถบแจ้งเตือนท้ายการ์ดที่มีปุ่มแก้ไขอยู่ข้างข้อความ
+  สถานะ, แถบ % ที่ชำระ (ชำระแล้ว / ทุนจดทะเบียน), แถว Capital composition (ด้านบน) ซึ่งจบด้วยวันครบกำหนด,
+  ปุ่มหลักมุมขวาบน และแถบแจ้งเตือนท้ายการ์ดที่มีปุ่มแก้ไขอยู่ข้างข้อความ
   (เช่น ใบแจ้งหนี้ค้าง + Pay by QR, งานที่รออนุมัติอยู่, ฉบับร่าง + Delete draft, ใบรายการที่ถูกตีกลับ + เหตุผล)
   ถ้ามีฉบับร่างหรือใบรายการที่ถูกตีกลับ ปุ่มหลักจะเป็น Continue draft / Edit and resubmit แทนการแจ้งชำระใหม่
 - **Preview** (ปุ่มบนการ์ด Capital Details ทั้งหน้าเจ้าหน้าที่และหน้าผู้ประกอบการ): เปิด modal ตัวอย่าง
@@ -241,8 +240,8 @@ npm run preview  # เสิร์ฟตัว build ไว้เช็คก่
 ผู้ประกอบการ (Declare capital payment online) และ Maker (Add payment) ใช้หน้าเดียวกัน เต็มความกว้าง:
 
 - **Enterprise Registration Details แบบย่อ** ด้านบน (ปุ่ม Show details / Hide details)
-- **Capital Details** การ์ดสรุปทุนแบบเดียวกับหน้ารายละเอียดวิสาหกิจ (สถานะ, % ที่ชำระ, แถว Payment status และแถว
-  Capital composition) แต่ไม่มีปุ่ม
+- **Capital Details** การ์ดสรุปทุนแบบเดียวกับหน้ารายละเอียดวิสาหกิจ (สถานะ, % ที่ชำระ และแถว
+  Capital composition + วันครบกำหนด) แต่ไม่มีปุ่ม
 - **1. Registered Capital Contribution Notification Application \*** (กล่องแรก): ลิงก์ **Download form**
   ต่อท้ายชื่อ ดาวน์โหลดแบบฟอร์มเปล่าเป็น PDF (demo เป็นไฟล์ตัวอย่าง) แล้วแนบแบบฟอร์มที่ลงลายเซ็นแล้ว
   ในช่อง Signed application form (ต้องแนบ ไม่งั้นกด Submit ไม่ได้)
