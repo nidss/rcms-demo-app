@@ -154,7 +154,12 @@ interface DocFile { k: string; name: string; size?: string }
 // CAPITAL_LABOUR_DOCUMENT, CAPITAL_MACHINE_DOCUMENT (ไม่มีใน sheet demo เพิ่มเอง)
 type DocGroups = Record<string, { k: string; req: 0 | 1 | 'foreign'; lo: string; en: string }[]>;
 
-// หนึ่งรายการใน "Capital being paid" (การ์ดหนึ่งใบ)
+// โครงสร้างทุนที่ระบบทะเบียนวิสาหกิจส่งมา: หนึ่งรายการต่อ (ประเภท, นายทุน, ยอด) นายทุนคนเดียวมีได้หลายรายการ
+interface Contribution { id: string; type: 'cash' | 'asset' | 'labour'; inv: string; amt: number; paid: number }
+// Enterprise.contribs: Contribution[] (ผลรวม amt = cap) - API: GET /enterprises/:id/contributions
+
+// หนึ่งรายการใน "Capital being paid" (การ์ดหนึ่งใบ = หนึ่ง Contribution ที่ยังค้าง)
+// ทุก type มี cid (Contribution.id) และ inv (ชื่อนายทุน) ผู้ใช้ไม่เลือก type เองแล้ว
 type Payment =
   | { type: 'cash'; src: 'domestic' | 'foreign'; amt: string; bank: string; acctNo: string; acctName: string; files: DocFile[] }
   | { type: 'asset'; cat: 'land' | 'building' | 'car' | 'machine'; firmType: 'moic' | 'in' | 'out'; firmName: string;   // moic = MOIC Checker ประเมินเอง ไม่ผ่าน appraiser
